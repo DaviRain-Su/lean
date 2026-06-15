@@ -27,6 +27,7 @@ fp-lean-zh/
     ├── ProgramsProofs.lean    # 第 8 章英文原文备份
     ├── ProgramsProofs/        # 第 8 章各节英文原文备份
     ├── NextSteps.lean         # 下一步英文原文备份
+    ├── TacticsInductionProofs.lean  # 插章英文原文备份
     └── zh-CN/                 # 中文翻译内容
         ├── INDEX.md           # 中文翻译目录
         ├── README.md          # 原书 README 的中文翻译
@@ -103,7 +104,8 @@ fp-lean-zh/
         │   ├── InsertionSort.md     # 插入排序
         │   ├── SpecialTypes.md      # 特殊类型
         │   └── Summary.md           # 小结
-        └── NextSteps.md         # 下一步
+        ├── NextSteps.md         # 下一步
+        └── TacticsInductionProofs.md  # 插章：策略、归纳与证明
 ```
 
 ## 关于克隆原书

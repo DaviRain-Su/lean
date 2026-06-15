@@ -1,6 +1,6 @@
 # Lean 函数式编程（中文版）目录
 
-本目录包含 *Functional Programming in Lean* 的中文翻译。全书正文章节已全部译完（Meta 章在原书中为空）。
+本目录包含 *Functional Programming in Lean* 的中文翻译。全书内容已全部译完（Meta 章在原书中为空）。
 
 ## 已翻译章节
 
@@ -34,6 +34,10 @@
 ### 插章：命题、证明与索引
 
 - [命题、证明与索引](PropsProofsIndexing.md)
+
+### 插章：策略、归纳与证明
+
+- [策略、归纳与证明](TacticsInductionProofs.md)
 
 ### 第 3 章：单子
 
