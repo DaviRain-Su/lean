@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–6 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–7 章。
 
 ## 已翻译章节
 
@@ -55,8 +55,14 @@
 - [计数论证](C06_Discrete_Mathematics/CountingArguments.md)
 - [归纳定义的类型](C06_Discrete_Mathematics/InductiveStructures.md)
 
+### 第 7 章：结构体
+
+- [结构体（本章概述）](C07_Structures.md)
+- [定义结构体](C07_Structures/Structures.md)
+- [代数结构](C07_Structures/AlgebraicStructures.md)
+- [构造高斯整数](C07_Structures/BuildingTheGaussianIntegers.md)
+
 ## 待翻译
-- 第 7 章：结构体
 - 第 8 章：层次结构
 - 第 9 章：群与环
 - 第 10 章：线性代数
