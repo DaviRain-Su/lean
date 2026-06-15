@@ -24,6 +24,9 @@ fp-lean-zh/
     ├── TypeClasses/           # 第 6 章各节英文原文备份
     ├── DependentTypes.lean    # 第 7 章英文原文备份
     ├── DependentTypes/        # 第 7 章各节英文原文备份
+    ├── ProgramsProofs.lean    # 第 8 章英文原文备份
+    ├── ProgramsProofs/        # 第 8 章各节英文原文备份
+    ├── NextSteps.lean         # 下一步英文原文备份
     └── zh-CN/                 # 中文翻译内容
         ├── INDEX.md           # 中文翻译目录
         ├── README.md          # 原书 README 的中文翻译
@@ -90,6 +93,17 @@ fp-lean-zh/
             ├── IndicesParametersUniverses.md  # 索引、参数与宇宙
             ├── Pitfalls.md              # 常见陷阱
             └── Summary.md               # 小结
+        ├── ProgramsProofs.md    # 第 8 章：编程、证明与性能（概述）
+        ├── ProgramsProofs/      # 第 8 章各节
+        │   ├── TailRecursion.md       # 尾递归
+        │   ├── TailRecursionProofs.md # 尾递归证明
+        │   ├── ArraysTermination.md   # 数组与终止性
+        │   ├── Inequalities.md      # 不等式
+        │   ├── Fin.md               # Fin
+        │   ├── InsertionSort.md     # 插入排序
+        │   ├── SpecialTypes.md      # 特殊类型
+        │   └── Summary.md           # 小结
+        └── NextSteps.md         # 下一步
 ```
 
 ## 关于克隆原书

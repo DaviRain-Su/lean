@@ -88,12 +88,27 @@
 - [常见陷阱](DependentTypes/Pitfalls.md)
 - [小结](DependentTypes/Summary.md)
 
-## 待翻译章节（原书结构）
+### 第 8 章：编程、证明与性能
 
-### 后续章节
-- 元编程（Meta）
-- 程序与证明（Programs and Proofs）
-- 下一步（Next Steps）
+- [编程、证明与性能（本章概述）](ProgramsProofs.md)
+- [尾递归](ProgramsProofs/TailRecursion.md)
+- [尾递归证明](ProgramsProofs/TailRecursionProofs.md)
+- [数组与终止性](ProgramsProofs/ArraysTermination.md)
+- [不等式](ProgramsProofs/Inequalities.md)
+- [Fin](ProgramsProofs/Fin.md)
+- [插入排序](ProgramsProofs/InsertionSort.md)
+- [特殊类型](ProgramsProofs/SpecialTypes.md)
+- [小结](ProgramsProofs/Summary.md)
+
+### 下一步
+
+- [下一步](NextSteps.md)
+
+## 翻译说明
+
+### 原书未收录章节
+
+- **元编程（Meta）**：原书仓库中 `FPLean/Meta/` 目前为空文件，暂无内容可译。
 
 ## 翻译说明
 
