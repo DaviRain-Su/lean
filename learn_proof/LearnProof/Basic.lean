@@ -155,3 +155,44 @@ example (a b c : Nat) : a + (b + 0) + (c + 0) = a + b + c := by
   trace_state                    -- ⊢ a + (b + 0) + c = a + b + c
   rw [Nat.add_zero]              -- 省略：Lean 从 b + 0 推断 add_zero b
   trace_state                    -- ⊢ a + b + c = a + b + c，随后自动完成
+
+-- 示例 9：证明 succ n = n + 1
+--
+-- 浏览器 NNG 证法（你的思路，逻辑正确）：
+--   rw [one_eq_succ_zero]  -- succ n = n + 1       →  succ n = n + succ 0
+--   rw [Nat.add_succ]      -- succ n = n + succ 0   →  succ n = succ (n + 0)
+--   rw [Nat.add_zero]      -- succ n = succ (n + 0) →  succ n = succ n
+--   rfl
+--
+-- 本地 Lean 4 为何报错「No goals to be solved」？
+-- 执行完第一步 rw [one_eq_succ_zero] 后，Lean 会把 n + succ 0 立刻化简为 succ n，
+-- 目标已经证完，后面的 rw [Nat.add_succ] 就没有目标可改了。
+-- 这不是你思路错了，而是本地环境自动化简比浏览器更激进。
+--
+-- 引理方向提醒：
+--   one_eq_succ_zero : 1 = succ 0        →  rw 会把 1 换成 succ 0
+--   Nat.add_succ n m : n + succ m = succ (n + m)
+--   Nat.add_zero n   : n + 0 = n
+
+-- 9a：浏览器风格 rw 证法（在 NNG 里逐步执行；本地勿直接跑，第一步后目标已自动关闭）
+-- theorem succ_eq_add_one (n : Nat) : Nat.succ n = n + 1 := by
+--   rw [one_eq_succ_zero]
+--   rw [Nat.add_succ]
+--   rw [Nat.add_zero]
+--   rfl
+
+-- 9b：本地可逐步看到过程的 calc 证法（symm 后从 n + 1 一侧推到 succ n）
+theorem succ_eq_add_one (n : Nat) : Nat.succ n = n + 1 := by
+  symm
+  calc n + 1 = n + Nat.succ 0 := by
+         trace_state
+         rw [one_eq_succ_zero]    -- 1 → succ 0
+         trace_state
+       _ = Nat.succ (n + 0) := by
+         trace_state
+         rw [Nat.add_succ]        -- n + succ 0 → succ (n + 0)
+         trace_state
+       _ = Nat.succ n := by
+         trace_state
+         rw [Nat.add_zero]        -- n + 0 → n
+         trace_state
