@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–2 章试跑。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–3 章。
 
 ## 已翻译章节
 
@@ -23,9 +23,18 @@
 - [apply 和 rw 的更多例子](C02_Basics/MoreOnOrderAndDivisibility.md)
 - [证明关于代数结构的命题](C02_Basics/ProvingFactsAboutAlgebraicStructures.md)
 
+### 第 3 章：逻辑
+
+- [逻辑（本章概述）](C03_Logic.md)
+- [蕴含与全称量词](C03_Logic/ImplicationAndUniversalQuantifier.md)
+- [存在量词](C03_Logic/ExistentialQuantifier.md)
+- [否定](C03_Logic/Negation.md)
+- [合取与双向蕴含](C03_Logic/ConjunctionAndIff.md)
+- [析取](C03_Logic/Disjunction.md)
+- [序列与收敛](C03_Logic/SequencesAndConvergence.md)
+
 ## 待翻译
 
-- 第 3 章：逻辑
 - 第 4 章：集合与函数
 - 第 5 章：初等数论
 - 第 6 章：离散数学
