@@ -215,4 +215,4 @@ example : (↑s : Type) = {x : ℕ // x ∈ s} := rfl
 example : Fintype.card ↑s = s.card := by simp
 ```
 
-Lean 与 Mathlib 用 **类型类推断**（type class inference）追踪 fintypes 的额外结构，即包含所有元素的 universal finset。可将 fintype 视为配备该额外数据的代数结构；第 7 章《结构体》将说明其机制。
+Lean 与 Mathlib 用 **类型类推断**（type class inference）追踪 fintypes 的额外结构，即包含所有元素的 universal finset。可将 fintype 视为配备该额外数据的代数结构；[第 7 章《结构体》](../C07_Structures/Structures.md)与[第 8 章《层次结构》](../C08_Hierarchies/Basics.md)将说明其机制。

@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–7 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–8 章。
 
 ## 已翻译章节
 
@@ -62,8 +62,14 @@
 - [代数结构](C07_Structures/AlgebraicStructures.md)
 - [构造高斯整数](C07_Structures/BuildingTheGaussianIntegers.md)
 
+### 第 8 章：层次结构
+
+- [层次结构（本章概述）](C08_Hierarchies.md)
+- [基础](C08_Hierarchies/Basics.md)
+- [态射](C08_Hierarchies/Morphisms.md)
+- [子对象](C08_Hierarchies/Subobjects.md)
+
 ## 待翻译
-- 第 8 章：层次结构
 - 第 9 章：群与环
 - 第 10 章：线性代数
 - 第 11 章：拓扑学

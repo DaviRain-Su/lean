@@ -29,7 +29,9 @@ mil-zh/
         ├── C06_Discrete_Mathematics.md
         ├── C06_Discrete_Mathematics/
         ├── C07_Structures.md
-        └── C07_Structures/
+        ├── C07_Structures/
+        ├── C08_Hierarchies.md
+        └── C08_Hierarchies/
 ```
 
 ## 关于获取原书
@@ -80,4 +82,5 @@ git clone https://github.com/avigad/mathematics_in_lean_source.git mil-source
 - [x] 第 5 章：初等数论（4 节）
 - [x] 第 6 章：离散数学（3 节）
 - [x] 第 7 章：结构体（3 节）
-- [ ] 第 8–13 章：待译
+- [x] 第 8 章：层次结构（3 节）
+- [ ] 第 9–13 章：待译

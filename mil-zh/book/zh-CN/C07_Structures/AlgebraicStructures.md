@@ -262,7 +262,7 @@ end
 
 关键在于 Lean 进行 **递归搜索**：据已声明实例，找 `Mul (Equiv.Perm α)` 需找 `Group₂ (Equiv.Perm α)`，而我们已提供。
 
-此例有隐患：Lean 库亦有 `Group (Equiv.Perm α)`，任何群上均定义乘法，故实例有歧义。Lean 除非指定优先级否则倾向较新声明。还可用 `extends` 告诉 Lean 一结构是另一结构的实例（Mathlib 中每个交换环是环）。详见第 8 章《层次结构》与 [*Theorem Proving in Lean* 的类型类推断章节](https://leanprover.github.io/theorem_proving_in_lean4/Type-Classes/#managing-type-class-inference)。
+此例有隐患：Lean 库亦有 `Group (Equiv.Perm α)`，任何群上均定义乘法，故实例有歧义。Lean 除非指定优先级否则倾向较新声明。还可用 `extends` 告诉 Lean 一结构是另一结构的实例（Mathlib 中每个交换环是环）。详见[第 8 章《层次结构》](../C08_Hierarchies/Basics.md)与 [*Theorem Proving in Lean* 的类型类推断章节](https://leanprover.github.io/theorem_proving_in_lean4/Type-Classes/#managing-type-class-inference)。
 
 一般不宜为已有记号的代数结构实例再指定 `*` 的值。在 Lean 中重定义 `Group` 是人为例子；此例两种群记号解释均展开为 `Equiv.trans`、`Equiv.refl`、`Equiv.symm`，方式相同。
 
