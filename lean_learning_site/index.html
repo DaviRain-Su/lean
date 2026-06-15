@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lean 4 学习工作台：安装、代码运行、证明练习和 Cloudflare Pages 部署说明。">
+  <title>Lean 4 学习工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="Lean 学习工作台首页">
+        <span class="brand-mark">∀</span>
+        <span>Lean 4 学习工作台</span>
+      </a>
+      <div class="nav-links">
+        <a href="#install">安装</a>
+        <a href="#code">写代码</a>
+        <a href="#proofs">证明</a>
+        <a href="#deploy">部署</a>
+      </div>
+    </nav>
+
+    <section id="top" class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Functional programming · theorem proving · formal verification</p>
+        <h1>把 Lean 学习内容整理成一个可持续更新的网站。</h1>
+        <p class="lead">这里集中放安装状态、可运行代码、证明笔记、练习路线和 Cloudflare Pages 部署入口。后面每学一个 theorem，就补到这个站里。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#code">开始写 Lean</a>
+          <a class="button secondary" href="#proofs">查看证明笔记</a>
+        </div>
+      </div>
+
+      <aside class="status-card" aria-label="本机 Lean 环境状态">
+        <div class="status-header">
+          <span class="pulse"></span>
+          <span>本机已验证</span>
+        </div>
+        <dl>
+          <div><dt>Lean</dt><dd>4.30.0</dd></div>
+          <div><dt>Lake</dt><dd>5.0.0</dd></div>
+          <div><dt>项目</dt><dd>lean_playground</dd></div>
+          <div><dt>示例</dt><dd>42 / Hello, world!</dd></div>
+        </dl>
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section class="section" id="install">
+      <div class="section-heading">
+        <p class="eyebrow">01 · Setup</p>
+        <h2>安装和项目结构</h2>
+        <p>官网推荐 VS Code/Cursor + Lean 4 扩展。命令行由 <code>elan</code> 管理 Lean 版本，<code>lake</code> 管理项目。</p>
+      </div>
+
+      <div class="cards three">
+        <article class="card">
+          <h3>安装工具链</h3>
+          <p>macOS 上安装 Lean 版本管理器 elan，然后加载环境变量。</p>
+          <pre><code>curl https://elan.lean-lang.org/elan-init.sh -sSf | sh
+source ~/.elan/env</code></pre>
+        </article>
+        <article class="card">
+          <h3>安装编辑器扩展</h3>
+          <p>Lean 的交互体验主要靠 InfoView：目标、假设、错误都会实时显示。</p>
+          <pre><code>code --install-extension leanprover.lean4</code></pre>
+        </article>
+        <article class="card">
+          <h3>创建项目</h3>
+          <p>所有正式 Lean 代码都建议放进 Lake 项目。</p>
+          <pre><code>lake new MyLeanProject
+cd MyLeanProject
+lake build
+code .</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="code">
+      <div class="section-heading sticky">
+        <p class="eyebrow">02 · Code</p>
+        <h2>先把 Lean 当成一门语言写</h2>
+        <p><code>#eval</code> 用来直接运行表达式；<code>def</code> 定义函数；<code>theorem</code> 写可被 Lean 检查的证明。</p>
+      </div>
+
+      <div class="lesson-stack">
+        <article class="lesson-card active" data-topic="eval">
+          <div class="lesson-number">A</div>
+          <div>
+            <h3>运行一个函数</h3>
+            <pre><code>def addTwo (n : Nat) : Nat :=
+  n + 2
+
+#eval addTwo 40</code></pre>
+            <p class="result">结果：<strong>42</strong></p>
+          </div>
+        </article>
+
+        <article class="lesson-card" data-topic="project">
+          <div class="lesson-number">B</div>
+          <div>
+            <h3>当前练习文件</h3>
+            <pre><code>lean_playground/LeanPlayground/Basic.lean</code></pre>
+            <p>把新的函数和定理先放这里。每次保存后，编辑器右侧 InfoView 会显示当前目标。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="proofs">
+      <div class="section-heading">
+        <p class="eyebrow">03 · Proof notes</p>
+        <h2>证明笔记：从计算到归纳</h2>
+        <p>Natural Number Game 的重点不是“Lean 会算”，而是把每一步改写暴露出来。</p>
+      </div>
+
+      <div class="proof-grid">
+        <article class="proof-card wide">
+          <div class="proof-title">
+            <span>2 + 2 = 4</span>
+            <button class="copy" data-copy="two-plus-two">复制</button>
+          </div>
+          <pre id="two-plus-two"><code>theorem two_add_two : 2 + 2 = 4 := by
+  rfl</code></pre>
+          <p>标准 Lean 里 <code>rfl</code> 可以直接通过。游戏里会要求你用 <code>rw</code> 展开 <code>succ</code>，训练“等式改写”的手感。</p>
+        </article>
+
+        <article class="proof-card">
+          <div class="proof-title">
+            <span>归纳假设 hd</span>
+          </div>
+          <p>证明 <code>zero_add</code> 时，归纳步骤里有：</p>
+          <pre><code>hd : 0 + d = d</code></pre>
+          <p>当目标里出现 <code>0 + d</code>，就可以：</p>
+          <pre><code>rw [hd]</code></pre>
+          <p>它只是把当前目标里的 <code>0 + d</code> 替换成 <code>d</code>。</p>
+        </article>
+
+        <article class="proof-card">
+          <div class="proof-title">
+            <span>succ_add 关键点</span>
+            <button class="copy" data-copy="succ-add">复制</button>
+          </div>
+          <pre id="succ-add"><code>theorem succ_add (a b : ℕ) : succ a + b = succ (a + b) := by
+  induction b with d hd
+  rw [add_zero]
+  rfl
+  rw [add_succ]
+  rw [add_succ]
+  rw [hd]
+  rfl</code></pre>
+          <p>卡点通常是少了第二个 <code>rw [add_succ]</code>：左边和右边都要把加法展开到能看见归纳假设的位置。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section resources">
+      <div class="section-heading">
+        <p class="eyebrow">04 · Learning path</p>
+        <h2>后续学习路线</h2>
+      </div>
+      <div class="resource-list">
+        <a href="https://adam.math.hhu.de/#/g/leanprover-community/NNG4" target="_blank" rel="noreferrer">
+          <strong>Natural Number Game</strong>
+          <span>先练 tactic、rw、induction。</span>
+        </a>
+        <a href="https://lean-lang.org/theorem_proving_in_lean4/" target="_blank" rel="noreferrer">
+          <strong>Theorem Proving in Lean 4</strong>
+          <span>系统学习命题、类型、证明。</span>
+        </a>
+        <a href="https://lean-lang.org/functional_programming_in_lean/" target="_blank" rel="noreferrer">
+          <strong>Functional Programming in Lean</strong>
+          <span>把 Lean 当函数式语言学习。</span>
+        </a>
+        <a href="https://leanprover-community.github.io/mathematics_in_lean/" target="_blank" rel="noreferrer">
+          <strong>Mathematics in Lean</strong>
+          <span>进入 Mathlib 和正式数学证明。</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section deploy" id="deploy">
+      <div class="section-heading">
+        <p class="eyebrow">05 · Cloudflare Pages</p>
+        <h2>部署到 Cloudflare</h2>
+        <p>这个站是纯静态网站，最适合 Cloudflare Pages。后面登录 Cloudflare 后，用 Wrangler 一条命令即可发布。</p>
+      </div>
+
+      <div class="deploy-panel">
+        <ol>
+          <li>确认已登录：<code>npx wrangler whoami</code></li>
+          <li>如果没登录：<code>npx wrangler login</code></li>
+          <li>部署当前目录：<code>npx wrangler pages deploy . --project-name lean-learning-site</code></li>
+        </ol>
+        <pre><code># 本地预览
+python3 -m http.server 8787
+
+# Cloudflare Pages 部署
+npx wrangler pages deploy . --project-name lean-learning-site</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Lean 4 学习工作台 · 每次学到新 theorem，就把证明过程补成一张卡片。</p>
+    <a href="#top">回到顶部</a>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

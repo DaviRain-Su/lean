@@ -1,0 +1,10 @@
+name = "learn_proof"
+version = "0.1.0"
+defaultTargets = ["learn_proof"]
+
+[[lean_lib]]
+name = "LearnProof"
+
+[[lean_exe]]
+name = "learn_proof"
+root = "Main"
