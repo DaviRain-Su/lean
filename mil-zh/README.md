@@ -23,7 +23,9 @@ mil-zh/
         ├── C03_Logic.md
         ├── C03_Logic/
         ├── C04_Sets_and_Functions.md
-        └── C04_Sets_and_Functions/
+        ├── C04_Sets_and_Functions/
+        ├── C05_Elementary_Number_Theory.md
+        └── C05_Elementary_Number_Theory/
 ```
 
 ## 关于获取原书
@@ -71,4 +73,5 @@ git clone https://github.com/avigad/mathematics_in_lean_source.git mil-source
 - [x] 第 2 章：基础（5 节）
 - [x] 第 3 章：逻辑（6 节）
 - [x] 第 4 章：集合与函数（3 节）
-- [ ] 第 5–13 章：待译
+- [x] 第 5 章：初等数论（4 节）
+- [ ] 第 6–13 章：待译

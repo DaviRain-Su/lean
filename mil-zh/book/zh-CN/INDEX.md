@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–4 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–5 章。
 
 ## 已翻译章节
 
@@ -40,9 +40,15 @@
 - [函数](C04_Sets_and_Functions/Functions.md)
 - [施罗德-伯恩斯坦定理](C04_Sets_and_Functions/SchroederBernsteinTheorem.md)
 
-## 待翻译
+### 第 5 章：初等数论
 
-- 第 5 章：初等数论
+- [初等数论（本章概述）](C05_Elementary_Number_Theory.md)
+- [无理根](C05_Elementary_Number_Theory/IrrationalRoots.md)
+- [归纳与递归](C05_Elementary_Number_Theory/InductionAndRecursion.md)
+- [无穷多素数](C05_Elementary_Number_Theory/InfinitelyManyPrimes.md)
+- [更多归纳](C05_Elementary_Number_Theory/MoreInduction.md)
+
+## 待翻译
 - 第 6 章：离散数学
 - 第 7 章：结构体
 - 第 8 章：层次结构
