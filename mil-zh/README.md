@@ -31,7 +31,9 @@ mil-zh/
         ├── C07_Structures.md
         ├── C07_Structures/
         ├── C08_Hierarchies.md
-        └── C08_Hierarchies/
+        ├── C08_Hierarchies/
+        ├── C09_Groups_and_Rings.md
+        └── C09_Groups_and_Rings/
 ```
 
 ## 关于获取原书
@@ -83,4 +85,5 @@ git clone https://github.com/avigad/mathematics_in_lean_source.git mil-source
 - [x] 第 6 章：离散数学（3 节）
 - [x] 第 7 章：结构体（3 节）
 - [x] 第 8 章：层次结构（3 节）
-- [ ] 第 9–13 章：待译
+- [x] 第 9 章：群与环（2 节）
+- [ ] 第 10–13 章：待译

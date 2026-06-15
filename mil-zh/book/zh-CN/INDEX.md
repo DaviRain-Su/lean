@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–8 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–9 章。
 
 ## 已翻译章节
 
@@ -69,8 +69,13 @@
 - [态射](C08_Hierarchies/Morphisms.md)
 - [子对象](C08_Hierarchies/Subobjects.md)
 
+### 第 9 章：群与环
+
+- [群与环（本章概述）](C09_Groups_and_Rings.md)
+- [幺半群与群](C09_Groups_and_Rings/Groups.md)
+- [环](C09_Groups_and_Rings/Rings.md)
+
 ## 待翻译
-- 第 9 章：群与环
 - 第 10 章：线性代数
 - 第 11 章：拓扑学
 - 第 12 章：微分学
