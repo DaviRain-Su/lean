@@ -21,7 +21,9 @@ mil-zh/
         ├── C02_Basics.md
         ├── C02_Basics/
         ├── C03_Logic.md
-        └── C03_Logic/
+        ├── C03_Logic/
+        ├── C04_Sets_and_Functions.md
+        └── C04_Sets_and_Functions/
 ```
 
 ## 关于获取原书
@@ -68,4 +70,5 @@ git clone https://github.com/avigad/mathematics_in_lean_source.git mil-source
 - [x] 第 1 章：引言（2 节）
 - [x] 第 2 章：基础（5 节）
 - [x] 第 3 章：逻辑（6 节）
-- [ ] 第 4–13 章：待译
+- [x] 第 4 章：集合与函数（3 节）
+- [ ] 第 5–13 章：待译

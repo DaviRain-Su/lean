@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–3 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–4 章。
 
 ## 已翻译章节
 
@@ -33,9 +33,15 @@
 - [析取](C03_Logic/Disjunction.md)
 - [序列与收敛](C03_Logic/SequencesAndConvergence.md)
 
+### 第 4 章：集合与函数
+
+- [集合与函数（本章概述）](C04_Sets_and_Functions.md)
+- [集合](C04_Sets_and_Functions/Sets.md)
+- [函数](C04_Sets_and_Functions/Functions.md)
+- [施罗德-伯恩斯坦定理](C04_Sets_and_Functions/SchroederBernsteinTheorem.md)
+
 ## 待翻译
 
-- 第 4 章：集合与函数
 - 第 5 章：初等数论
 - 第 6 章：离散数学
 - 第 7 章：结构体
