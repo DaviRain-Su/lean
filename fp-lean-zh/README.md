@@ -22,6 +22,8 @@ fp-lean-zh/
     ├── MonadTransformers/       # 第 5 章各节英文原文备份
     ├── TypeClasses.lean       # 第 6 章英文原文备份
     ├── TypeClasses/           # 第 6 章各节英文原文备份
+    ├── DependentTypes.lean    # 第 7 章英文原文备份
+    ├── DependentTypes/        # 第 7 章各节英文原文备份
     └── zh-CN/                 # 中文翻译内容
         ├── INDEX.md           # 中文翻译目录
         ├── README.md          # 原书 README 的中文翻译
@@ -80,6 +82,14 @@ fp-lean-zh/
             ├── Coercions.md         # 强制转换
             ├── Conveniences.md      # 更多便利特性
             └── Summary.md           # 小结
+        ├── DependentTypes.md    # 第 7 章：依赖类型（概述）
+        └── DependentTypes/      # 第 7 章各节
+            ├── IndexedFamilies.md       # 索引族
+            ├── UniversePattern.md       # 宇宙模式
+            ├── TypedQueries.md          # 类型化查询
+            ├── IndicesParametersUniverses.md  # 索引、参数与宇宙
+            ├── Pitfalls.md              # 常见陷阱
+            └── Summary.md               # 小结
 ```
 
 ## 关于克隆原书

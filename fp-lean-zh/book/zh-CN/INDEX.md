@@ -78,10 +78,19 @@
 - [更多便利特性](TypeClasses/Conveniences.md)
 - [小结](TypeClasses/Summary.md)
 
+### 第 7 章：依赖类型
+
+- [用依赖类型编程（本章概述）](DependentTypes.md)
+- [索引族](DependentTypes/IndexedFamilies.md)
+- [宇宙模式](DependentTypes/UniversePattern.md)
+- [类型化查询](DependentTypes/TypedQueries.md)
+- [索引、参数与宇宙](DependentTypes/IndicesParametersUniverses.md)
+- [常见陷阱](DependentTypes/Pitfalls.md)
+- [小结](DependentTypes/Summary.md)
+
 ## 待翻译章节（原书结构）
 
 ### 后续章节
-- 依赖类型（Dependent Types）
 - 元编程（Meta）
 - 程序与证明（Programs and Proofs）
 - 下一步（Next Steps）
