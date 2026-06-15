@@ -109,9 +109,49 @@ example : 2 = Nat.succ (Nat.succ 0) := by
 --   rw [two_eq_succ_one]
 --   sorry   -- 停在这里：浏览器中此时目标为 ⊢ succ 1 = succ (succ 0)
 
+-- 示例 8：add_zero —— 依赖类型的引理（定理是「函数」）
+--
+-- 引理签名：Nat.add_zero (a : Nat) : a + 0 = a
+-- add_zero a 是「a + 0 = a」的一个证明。
+--
+-- 摘要：
+-- add_zero 实际上是一个函数：接收一个自然数 a，返回关于 a 的定理证明。
+-- 例如 Nat.add_zero 37 是 37 + 0 = 37 的证明。
+--
+-- rw 与省略参数：
+-- rw [Nat.add_zero] 时不必手写 a，Lean 会根据目标里出现的 a + 0 自动推断该填哪个数。
+--
+-- 详细理解（数学家视角）：
+-- add_zero 也可以看作「一件事」——∀ n ∈ ℕ, n + 0 = n 的证明。
+-- 等价地说：对任意 n，都能拿出一个 n + 0 = n 的证明；所以它是一个
+-- Nat → Prop 的函数（依赖类型：输入 n，输出类型为 n + 0 = n 这个命题的证明）。
+#check Nat.add_zero              -- Nat.add_zero (n : Nat) : n + 0 = n
+#check Nat.add_zero 37           -- Nat.add_zero 37 : 37 + 0 = 37
+#check @Nat.add_zero             -- ∀ (n : Nat), n + 0 = n
+
+-- 同一目标的两种证法（结论相同，写法侧重不同）：
+-- ┌────────┬────────────────────────────────────────────────────────────────┐
+-- │ 证法   │ 说明                                                           │
+-- ├────────┼────────────────────────────────────────────────────────────────┤
+-- │ 8a     │ 两次都省略参数，Lean 自动推断先改 b + 0、再改 c + 0            │
+-- ├────────┼────────────────────────────────────────────────────────────────┤
+-- │ 8b     │ 先显式写 Nat.add_zero c，再省略参数改 b + 0                    │
+-- │        │ 适合理解「定理是函数」：先看清函数调用，再练习自动推断         │
+-- └────────┴────────────────────────────────────────────────────────────────┘
+-- 改写顺序可以互换（先 b 后 c，或先 c 后 b），因为两个 + 0 互不依赖。
+
+-- 示例 8a：两次省略参数（Lean 自动推断）
 example (a b c : Nat) : a + (b + 0) + (c + 0) = a + b + c := by
-  trace_state
-  rw [Nat.add_zero]
-  trace_state
-  rw [Nat.add_zero]
-  trace_state
+  trace_state                    -- ⊢ a + (b + 0) + (c + 0) = a + b + c
+  rw [Nat.add_zero]              -- 推断 add_zero b：b + 0 → b
+  trace_state                    -- ⊢ a + b + (c + 0) = a + b + c
+  rw [Nat.add_zero]              -- 推断 add_zero c：c + 0 → c
+  trace_state                    -- ⊢ a + b + c = a + b + c，随后自动完成
+
+-- 示例 8b：显式传参 + 省略参数（先 c 后 b）
+example (a b c : Nat) : a + (b + 0) + (c + 0) = a + b + c := by
+  trace_state                    -- ⊢ a + (b + 0) + (c + 0) = a + b + c
+  rw [Nat.add_zero c]            -- 显式：Nat.add_zero c 即 c + 0 = c 的证明
+  trace_state                    -- ⊢ a + (b + 0) + c = a + b + c
+  rw [Nat.add_zero]              -- 省略：Lean 从 b + 0 推断 add_zero b
+  trace_state                    -- ⊢ a + b + c = a + b + c，随后自动完成
