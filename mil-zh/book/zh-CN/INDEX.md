@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–9 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–10 章。
 
 ## 已翻译章节
 
@@ -75,8 +75,15 @@
 - [幺半群与群](C09_Groups_and_Rings/Groups.md)
 - [环](C09_Groups_and_Rings/Rings.md)
 
+### 第 10 章：线性代数
+
+- [线性代数（本章概述）](C10_Linear_Algebra.md)
+- [向量空间与线性映射](C10_Linear_Algebra/VectorSpaces.md)
+- [子空间与商空间](C10_Linear_Algebra/Subspaces.md)
+- [自同态](C10_Linear_Algebra/Endomorphisms.md)
+- [矩阵、基与维数](C10_Linear_Algebra/Bases.md)
+
 ## 待翻译
-- 第 10 章：线性代数
 - 第 11 章：拓扑学
 - 第 12 章：微分学
 - 第 13 章：积分与测度论
