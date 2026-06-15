@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–5 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–6 章。
 
 ## 已翻译章节
 
@@ -48,8 +48,14 @@
 - [无穷多素数](C05_Elementary_Number_Theory/InfinitelyManyPrimes.md)
 - [更多归纳](C05_Elementary_Number_Theory/MoreInduction.md)
 
+### 第 6 章：离散数学
+
+- [离散数学（本章概述）](C06_Discrete_Mathematics.md)
+- [Finsets 与 Fintypes](C06_Discrete_Mathematics/FinsetsAndFintypes.md)
+- [计数论证](C06_Discrete_Mathematics/CountingArguments.md)
+- [归纳定义的类型](C06_Discrete_Mathematics/InductiveStructures.md)
+
 ## 待翻译
-- 第 6 章：离散数学
 - 第 7 章：结构体
 - 第 8 章：层次结构
 - 第 9 章：群与环
