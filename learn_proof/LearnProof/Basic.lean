@@ -383,3 +383,25 @@ theorem add_right_comm (a b c : Nat) : a + b + c = a + c + b := by
   trace_state
   rw [← add_assoc]            -- ③ 右边结合律反向：⊢ a + (c + b) = a + (c + b)
   trace_state                 -- 随后自动完成
+
+-- 示例 16：mul_one —— m * 1 = m
+--
+-- 思路：先把 1 展开成 succ 0，再用乘法引理化成加法，最后用 zero_add。
+--
+-- 目标变化：
+--   m * 1 = m
+--   → m * succ 0 = m          （one_eq_succ_zero）
+--   → m * 0 + m = m           （mul_succ）
+--   → 0 + m = m               （mul_zero）
+--   → m = m                     （zero_add）
+
+theorem mul_one (m : Nat) : m * 1 = m := by
+  trace_state                 -- ⊢ m * 1 = m
+  rw [one_eq_succ_zero]       -- 1 → succ 0
+  trace_state                 -- ⊢ m * succ 0 = m
+  rw [Nat.mul_succ]           -- m * succ 0 → m * 0 + m
+  trace_state                 -- ⊢ m * 0 + m = m
+  rw [Nat.mul_zero]           -- m * 0 → 0
+  trace_state                 -- ⊢ 0 + m = m
+  rw [zero_add]               -- 用已证的 zero_add
+  trace_state                 -- ⊢ m = m，随后自动完成
