@@ -27,11 +27,15 @@
 
 - [Lean 中的命题逻辑](propositional_logic_in_lean.md) — 命题与证明的表达式、更多命令、构建自然演绎证明、策略模式、前向推理、定义与定理、额外语法、练习
 
-## 待翻译章节
-
 ### 第 5 章：经典推理
 
 - [经典推理](classical_reasoning.md) — 反证法、若干经典原则、`contradiction` 策略、练习
+
+## 待翻译章节
+
+### 第 6 章：命题逻辑的语义
+
+- [命题逻辑的语义](semantics_of_propositional_logic.md) — 真值与赋值、真值表、可靠性与完全性、练习
 
 ### 第 5 章：经典推理
 
