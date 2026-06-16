@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–12 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。全书第 1–13 章均已完成。
 
 ## 已翻译章节
 
@@ -96,8 +96,12 @@
 - [初等微分学](C12_Differential_Calculus/ElementaryDifferentialCalculus.md)
 - [赋范空间上的微分学](C12_Differential_Calculus/CalculusInNormedSpaces.md)
 
-## 待翻译
-- 第 13 章：积分与测度论
+### 第 13 章：积分与测度论
+
+- [积分与测度论（本章概述）](C13_Integration_and_Measure_Theory.md)
+- [初等积分](C13_Integration_and_Measure_Theory/ElementaryIntegration.md)
+- [测度论](C13_Integration_and_Measure_Theory/MeasureTheory.md)
+- [积分](C13_Integration_and_Measure_Theory/Integration.md)
 
 ## 对应英文源文件
 

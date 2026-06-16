@@ -39,7 +39,9 @@ mil-zh/
         ├── C11_Topology.md
         ├── C11_Topology/
         ├── C12_Differential_Calculus.md
-        └── C12_Differential_Calculus/
+        ├── C12_Differential_Calculus/
+        ├── C13_Integration_and_Measure_Theory.md
+        └── C13_Integration_and_Measure_Theory/
 ```
 
 ## 关于获取原书
@@ -95,4 +97,4 @@ git clone https://github.com/avigad/mathematics_in_lean_source.git mil-source
 - [x] 第 10 章：线性代数（4 节）
 - [x] 第 11 章：拓扑学（3 节）
 - [x] 第 12 章：微分学（2 节）
-- [ ] 第 13 章：待译
+- [x] 第 13 章：积分与测度论（3 节）
