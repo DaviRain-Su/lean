@@ -59,11 +59,40 @@ const BOOKS = [
     id: 'love',
     title: "The Hitchhiker's Guide to Logical Verification",
     titleZh: '逻辑验证漫游指南',
-    subtitle: '研究生级逻辑验证 · PDF 中文 + 练习',
+    subtitle: '逻辑验证研究生课程 · 第 1–8 章 PDF 提取',
     source: join(repoRoot, 'love-zh', 'book', 'zh-CN'),
     originalUrl: 'https://github.com/lean-forward/logical_verification_2025',
-    status: '导读已完成 · 正文见 PDF',
+    status: '第 1–8 章已提取 · 9–14 待 PDF',
     externalPdfUrl: 'https://github.com/Lean-zh/LoVe-zh',
+    preSync: join(repoRoot, 'love-zh', 'scripts', 'extract-from-pdf.mjs'),
+    preSyncOptional: true,
+  },
+  {
+    id: 'type-checking',
+    title: 'Type Checking in Lean',
+    titleZh: 'Lean 4 类型检查',
+    subtitle: '内核、表达式、声明与类型推断',
+    source: join(repoRoot, 'type-checking-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://leanprover.cn/type-checking-in-lean-zh/',
+    status: '全书已完成',
+  },
+  {
+    id: 'glimpse',
+    title: 'GlimpseOfLean',
+    titleZh: 'Lean 初探（GlimpseOfLean）',
+    subtitle: '数小时速览 Lean 证明与练习',
+    source: join(repoRoot, 'glimpse-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://leanprover.cn/GlimpseOfLean/',
+    status: '练习与解答已完成',
+  },
+  {
+    id: 'math2001',
+    title: 'The Mechanics of Proof',
+    titleZh: '证明的机制（Math 2001）',
+    subtitle: '本科严谨证明 + Lean',
+    source: join(repoRoot, 'math2001-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://hrmacbeth.github.io/math2001/',
+    status: '目录已建 · 正文待译',
   },
   {
     id: 'mp-lean',
@@ -84,13 +113,6 @@ const EXTERNAL_LINKS = [
     description: '交互式入门：tactic、rw、induction。',
     url: 'https://nng4.leanprover.cn',
     originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
-  },
-  {
-    title: 'The Mechanics of Proof',
-    titleZh: '证明的机制（Math2001）',
-    description: '本科数学推理 + Lean。英文在线书。',
-    url: 'https://hrmacbeth.github.io/math2001/',
-    originalUrl: 'https://hrmacbeth.github.io/math2001/',
   },
   {
     title: 'The Lean Language Reference',
@@ -160,7 +182,7 @@ function parseIndex(indexText) {
 function syncBook(book) {
   if (book.preSync && existsSync(book.preSync)) {
     const result = spawnSync(process.execPath, [book.preSync], { stdio: 'inherit' });
-    if (result.status !== 0) {
+    if (result.status !== 0 && !book.preSyncOptional) {
       throw new Error(`preSync failed for ${book.id}: ${book.preSync}`);
     }
   }

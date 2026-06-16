@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:29:40.923Z",
+  "generatedAt": "2026-06-16T04:35:33.907Z",
   "books": [
     {
       "id": "tpil",
@@ -1015,20 +1015,479 @@
       "id": "love",
       "title": "The Hitchhiker's Guide to Logical Verification",
       "titleZh": "逻辑验证漫游指南",
-      "subtitle": "研究生级逻辑验证 · PDF 中文 + 练习",
+      "subtitle": "逻辑验证研究生课程 · 第 1–8 章 PDF 提取",
       "originalUrl": "https://github.com/lean-forward/logical_verification_2025",
       "externalPdfUrl": "https://github.com/Lean-zh/LoVe-zh",
-      "status": "导读已完成 · 正文见 PDF",
+      "status": "第 1–8 章已提取 · 9–14 待 PDF",
       "indexPath": "love/INDEX.md",
-      "chapterCount": 1,
+      "chapterCount": 16,
       "sections": [
         {
-          "title": "导读",
+          "title": "前言",
           "chapters": [
             {
-              "title": "关于本书与学习路径",
-              "path": "love/README.md",
-              "summary": "适用对象、与 TPIL/MIL 的关系、如何获取 PDF 与练习"
+              "title": "前言",
+              "path": "love/Foreword.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第一部分 基础",
+          "chapters": [
+            {
+              "title": "第 1 章 类型与项",
+              "path": "love/ch01_TypesAndTerms.md",
+              "summary": ""
+            },
+            {
+              "title": "第 2 章 程序与定理",
+              "path": "love/ch02_ProgramsAndTheorems.md",
+              "summary": ""
+            },
+            {
+              "title": "第 3 章 逆向证明",
+              "path": "love/ch03_BackwardProofs.md",
+              "summary": ""
+            },
+            {
+              "title": "第 4 章 正向证明",
+              "path": "love/ch04_ForwardProofs.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第二部分 函数式与逻辑编程",
+          "chapters": [
+            {
+              "title": "第 5 章 函数式编程",
+              "path": "love/ch05_FunctionalProgramming.md",
+              "summary": ""
+            },
+            {
+              "title": "第 6 章 归纳谓词",
+              "path": "love/ch06_InductivePredicates.md",
+              "summary": ""
+            },
+            {
+              "title": "第 7 章 带作用的编程",
+              "path": "love/ch07_EffectfulProgramming.md",
+              "summary": ""
+            },
+            {
+              "title": "第 8 章 元编程",
+              "path": "love/ch08_Metaprogramming.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第三部分 程序语义（待 PDF）",
+          "chapters": [
+            {
+              "title": "第 9 章 操作语义",
+              "path": "love/ch09_OperationalSemantics.md",
+              "summary": "占位"
+            },
+            {
+              "title": "第 10 章 Hoare 逻辑",
+              "path": "love/ch10_HoareLogic.md",
+              "summary": "占位"
+            }
+          ]
+        },
+        {
+          "title": "第四部分 数学（待 PDF）",
+          "chapters": [
+            {
+              "title": "第 11 章 指称语义",
+              "path": "love/ch11_DenotationalSemantics.md",
+              "summary": "占位"
+            },
+            {
+              "title": "第 12 章 数学的逻辑基础",
+              "path": "love/ch12_LogicalFoundations.md",
+              "summary": "占位"
+            },
+            {
+              "title": "第 13 章 基本数学结构",
+              "path": "love/ch13_BasicStructures.md",
+              "summary": "占位"
+            },
+            {
+              "title": "第 14 章 有理数与实数",
+              "path": "love/ch14_RealNumbers.md",
+              "summary": "占位"
+            }
+          ]
+        },
+        {
+          "title": "附录",
+          "chapters": [
+            {
+              "title": "参考文献",
+              "path": "love/References.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "type-checking",
+      "title": "Type Checking in Lean",
+      "titleZh": "Lean 4 类型检查",
+      "subtitle": "内核、表达式、声明与类型推断",
+      "originalUrl": "https://leanprover.cn/type-checking-in-lean-zh/",
+      "externalPdfUrl": null,
+      "status": "全书已完成",
+      "indexPath": "type-checking/INDEX.md",
+      "chapterCount": 15,
+      "sections": [
+        {
+          "title": "前言",
+          "chapters": [
+            {
+              "title": "标题页",
+              "path": "type-checking/title_page.md",
+              "summary": ""
+            },
+            {
+              "title": "前言",
+              "path": "type-checking/foreword.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "内核与信任",
+          "chapters": [
+            {
+              "title": "什么是内核",
+              "path": "type-checking/whats_a_kernel.md",
+              "summary": ""
+            },
+            {
+              "title": "信任",
+              "path": "type-checking/trust/trust.md",
+              "summary": "[非安全声明](trust/unsafe_declarations.md)、[对抗性输入](trust/adversarial_inputs.md)"
+            },
+            {
+              "title": "导出格式",
+              "path": "type-checking/export_format.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "基本概念",
+          "chapters": [
+            {
+              "title": "内核的基本概念",
+              "path": "type-checking/kernel_concepts/kernel_concepts.md",
+              "summary": "[概览](kernel_concepts/the_big_picture.md)、[术语](kernel_concepts/clarifying_language.md)、[实例化与抽象化](kernel_concepts/instantiation_and_abstraction.md)、[弱归约与强归约](kernel_concepts/weak_and_strong_reduction.md)"
+            },
+            {
+              "title": "名称",
+              "path": "type-checking/names.md",
+              "summary": ""
+            },
+            {
+              "title": "宇宙层级",
+              "path": "type-checking/levels.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "表达式与声明",
+          "chapters": [
+            {
+              "title": "表达式",
+              "path": "type-checking/expressions/expressions.md",
+              "summary": "[实现注意事项](expressions/implementing_expressions.md)"
+            },
+            {
+              "title": "声明",
+              "path": "type-checking/declarations/declarations.md",
+              "summary": "[归纳类型](declarations/inductive.md)"
+            }
+          ]
+        },
+        {
+          "title": "类型检查",
+          "chapters": [
+            {
+              "title": "类型推断",
+              "path": "type-checking/type_checking/type_inference.md",
+              "summary": ""
+            },
+            {
+              "title": "定义等价",
+              "path": "type-checking/type_checking/definitional_equality.md",
+              "summary": ""
+            },
+            {
+              "title": "归约",
+              "path": "type-checking/type_checking/reduction.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "附录",
+          "chapters": [
+            {
+              "title": "未来工作",
+              "path": "type-checking/future_work.md",
+              "summary": ""
+            },
+            {
+              "title": "延伸阅读",
+              "path": "type-checking/further_reading.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glimpse",
+      "title": "GlimpseOfLean",
+      "titleZh": "Lean 初探（GlimpseOfLean）",
+      "subtitle": "数小时速览 Lean 证明与练习",
+      "originalUrl": "https://leanprover.cn/GlimpseOfLean/",
+      "externalPdfUrl": null,
+      "status": "练习与解答已完成",
+      "indexPath": "glimpse/INDEX.md",
+      "chapterCount": 22,
+      "sections": [
+        {
+          "title": "入门",
+          "chapters": [
+            {
+              "title": "首页",
+              "path": "glimpse/index.md",
+              "summary": ""
+            },
+            {
+              "title": "介绍",
+              "path": "glimpse/Introduction.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "练习",
+          "chapters": [
+            {
+              "title": "快速入门",
+              "path": "glimpse/Exercises/Shorter.md",
+              "summary": ""
+            },
+            {
+              "title": "重写",
+              "path": "glimpse/Exercises/01Rewriting.md",
+              "summary": ""
+            },
+            {
+              "title": "当且仅当",
+              "path": "glimpse/Exercises/02Iff.md",
+              "summary": ""
+            },
+            {
+              "title": "全称量词",
+              "path": "glimpse/Exercises/03Forall.md",
+              "summary": ""
+            },
+            {
+              "title": "存在量词",
+              "path": "glimpse/Exercises/04Exists.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "主题练习",
+          "chapters": [
+            {
+              "title": "经典命题逻辑",
+              "path": "glimpse/Exercises/Topics/ClassicalPropositionalLogic.md",
+              "summary": ""
+            },
+            {
+              "title": "直觉主义命题逻辑",
+              "path": "glimpse/Exercises/Topics/IntuitionisticPropositionalLogic.md",
+              "summary": ""
+            },
+            {
+              "title": "伽罗瓦伴随",
+              "path": "glimpse/Exercises/Topics/GaloisAdjunctions.md",
+              "summary": ""
+            },
+            {
+              "title": "概率论",
+              "path": "glimpse/Exercises/Topics/Probability.md",
+              "summary": ""
+            },
+            {
+              "title": "环论",
+              "path": "glimpse/Exercises/Topics/RingTheory.md",
+              "summary": ""
+            },
+            {
+              "title": "序列极限",
+              "path": "glimpse/Exercises/Topics/SequenceLimits.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "解答",
+          "chapters": [
+            {
+              "title": "快速入门（解答）",
+              "path": "glimpse/Solutions/Shorter.md",
+              "summary": ""
+            },
+            {
+              "title": "重写（解答）",
+              "path": "glimpse/Solutions/01Rewriting.md",
+              "summary": ""
+            },
+            {
+              "title": "当且仅当（解答）",
+              "path": "glimpse/Solutions/02Iff.md",
+              "summary": ""
+            },
+            {
+              "title": "全称量词（解答）",
+              "path": "glimpse/Solutions/03Forall.md",
+              "summary": ""
+            },
+            {
+              "title": "存在量词（解答）",
+              "path": "glimpse/Solutions/04Exists.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "库（英文原文）",
+          "chapters": [
+            {
+              "title": "Basic",
+              "path": "glimpse/Library/Basic.md",
+              "summary": ""
+            },
+            {
+              "title": "Short",
+              "path": "glimpse/Library/Short.md",
+              "summary": ""
+            },
+            {
+              "title": "Ring",
+              "path": "glimpse/Library/Ring.md",
+              "summary": ""
+            },
+            {
+              "title": "Probability",
+              "path": "glimpse/Library/Probability.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "math2001",
+      "title": "The Mechanics of Proof",
+      "titleZh": "证明的机制（Math 2001）",
+      "subtitle": "本科严谨证明 + Lean",
+      "originalUrl": "https://hrmacbeth.github.io/math2001/",
+      "externalPdfUrl": null,
+      "status": "目录已建 · 正文待译",
+      "indexPath": "math2001/INDEX.md",
+      "chapterCount": 13,
+      "sections": [
+        {
+          "title": "前言",
+          "chapters": [
+            {
+              "title": "前言与说明",
+              "path": "math2001/00_Introduction.md",
+              "summary": "待翻译"
+            }
+          ]
+        },
+        {
+          "title": "正文",
+          "chapters": [
+            {
+              "title": "第 1 章 计算式证明",
+              "path": "math2001/01_Proofs_by_Calculation.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 2 章 结构化证明",
+              "path": "math2001/02_Proofs_with_Structure.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 3 章 奇偶与整除",
+              "path": "math2001/03_Parity_and_Divisibility.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 4 章 结构化证明 II",
+              "path": "math2001/04_Proofs_with_Structure_II.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 5 章 逻辑",
+              "path": "math2001/05_Logic.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 6 章 归纳法",
+              "path": "math2001/06_Induction.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 7 章 数论",
+              "path": "math2001/07_Number_Theory.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 8 章 函数",
+              "path": "math2001/08_Functions.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 9 章 集合",
+              "path": "math2001/09_Sets.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "第 10 章 关系",
+              "path": "math2001/10_Relations.md",
+              "summary": "待翻译"
+            }
+          ]
+        },
+        {
+          "title": "附录",
+          "chapters": [
+            {
+              "title": "Lean 策略索引",
+              "path": "math2001/Index_of_Tactics.md",
+              "summary": "待翻译"
+            },
+            {
+              "title": "过渡到主流 Lean",
+              "path": "math2001/Mainstream_Lean.md",
+              "summary": "待翻译"
             }
           ]
         }
@@ -1155,13 +1614,6 @@
       "description": "交互式入门：tactic、rw、induction。",
       "url": "https://nng4.leanprover.cn",
       "originalUrl": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4"
-    },
-    {
-      "title": "The Mechanics of Proof",
-      "titleZh": "证明的机制（Math2001）",
-      "description": "本科数学推理 + Lean。英文在线书。",
-      "url": "https://hrmacbeth.github.io/math2001/",
-      "originalUrl": "https://hrmacbeth.github.io/math2001/"
     },
     {
       "title": "The Lean Language Reference",

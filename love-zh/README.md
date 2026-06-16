@@ -1,9 +1,28 @@
-# 逻辑验证漫游指南（LoVe 2025）中文版
+# 逻辑验证漫游指南（LoVe 2026）中文版
 
-原书：[The Hitchhiker's Guide to Logical Verification (2025)](https://github.com/lean-forward/logical_verification_2025)
+同步自 [Lean-zh/LoVe-zh](https://github.com/Lean-zh/LoVe-zh)，对应 [The Hitchhiker's Guide to Logical Verification (2025/2026)](https://github.com/lean-forward/logical_verification_2025)。
 
-Lean-zh 社区已发布 [PDF 中文版](https://github.com/Lean-zh/LoVe-zh)（桌面版与 Pad 版）。本仓库收录学习导引与练习说明，后续可逐步将正文转为 Markdown 接入学习工作台。
+## 内容来源
+
+| 部分 | 来源 |
+|------|------|
+| 第 1–8 章 Markdown | `pdf/逻辑验证漫游指南-2026-桌面版.pdf` → `scripts/extract-from-pdf.mjs` |
+| 第 9–14 章 | PDF 尚未发布，占位 + `lean/` 练习 |
+| Lean 练习 | `lean/` 目录（与 Lean-zh 同步） |
+
+## 重新生成章节 Markdown
+
+```bash
+# 将 PDF 放在 pdf/ 目录
+node scripts/extract-from-pdf.mjs
+```
 
 ## 练习
 
-将 `lean/` 目录作为 Lean 4 项目打开，参见 [leanprover-community 安装说明](https://leanprover-community.github.io/install/project.html#working-on-an-existing-project)。
+```bash
+# 在 VS Code 中打开 lean/ 作为 Lean 4 项目
+```
+
+## 校对说明
+
+PDF 提取的文本缺少代码块高亮，页眉页脚已尽量剔除，**仍需人工校对**公式与 Lean 代码片段。
