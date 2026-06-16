@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:12:52.724Z",
+  "generatedAt": "2026-06-16T23:17:18.400Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 177 篇已翻译",
+      "status": "首批 183 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 177,
+      "chapterCount": 183,
       "sections": [
         {
           "title": "官网入口",
@@ -1181,6 +1181,41 @@
               "title": "命名空间与 section",
               "path": "lean-reference/Reference/NamespacesSections.md",
               "summary": "namespace、`open`、`export`、section scope 与 `variable`"
+            }
+          ]
+        },
+        {
+          "title": "namespace 与 section 详解",
+          "chapters": [
+            {
+              "title": "namespace",
+              "path": "lean-reference/Reference/NamespaceDetails/Namespaces.md",
+              "summary": "层级名称、root namespace、module 正交性与 current namespace"
+            },
+            {
+              "title": "`open` 声明",
+              "path": "lean-reference/Reference/NamespaceDetails/OpenDeclarations.md",
+              "summary": "打开整个 namespace、`hiding`、`renaming`、restricted opening、`open scoped`"
+            },
+            {
+              "title": "导出名称",
+              "path": "lean-reference/Reference/NamespaceDetails/ExportingNames.md",
+              "summary": "`export`、透明别名与 root namespace 导出"
+            },
+            {
+              "title": "section scope",
+              "path": "lean-reference/Reference/NamespaceDetails/SectionScopes.md",
+              "summary": "current namespace、opened namespace、option 与 section variable"
+            },
+            {
+              "title": "控制 section scope",
+              "path": "lean-reference/Reference/NamespaceDetails/ControllingSectionScopes.md",
+              "summary": "`section`、`namespace`、`end`、`in` 与 header modifier"
+            },
+            {
+              "title": "section variable",
+              "path": "lean-reference/Reference/NamespaceDetails/SectionVariables.md",
+              "summary": "`variable`、自动参数传播、`include` / `omit`"
             },
             {
               "title": "定义",
@@ -2468,9 +2503,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–9 章已翻译 · 10–24 章待译",
+      "status": "第 1–10 章已翻译 · 11–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 9,
+      "chapterCount": 10,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2559,6 +2594,16 @@
               "title": "Lean 中的一阶逻辑",
               "path": "logic-and-proof/first_order_logic_in_lean.md",
               "summary": "函数谓词关系、全称/存在量词、相等、策略模式、`calc`、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 10 章：一阶逻辑的语义",
+          "chapters": [
+            {
+              "title": "一阶逻辑的语义",
+              "path": "logic-and-proof/semantics_of_first_order_logic.md",
+              "summary": "解释、模型中的真、例子、有效性与逻辑后承、可靠性与完全性、练习"
             }
           ]
         }
