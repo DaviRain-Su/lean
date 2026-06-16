@@ -19,6 +19,14 @@
 - [参考手册总览](Reference/Overview.md) — 参考手册定位、Lean 的证明与编程双重角色
 - [引言](Reference/Introduction.md) — Lean 历史、排版约定、示例和引用方式
 - [Elaboration 与编译](Reference/ElaborationCompilation.md) — parsing、macro expansion、elaboration、kernel、`.olean` 与初始化
+
+### Elaboration 详解
+
+- [Parsing](Reference/Elaboration/Parsing.md) — recursive-descent、Pratt parsing、歧义处理与 `SourceInfo`
+- [Macro expansion 与 elaboration](Reference/Elaboration/MacroAndElaboration.md) — command/term elaboration、macro 展开与 info trees
+- [Kernel](Reference/Elaboration/Kernel.md) — 受信任核心、类型论特性与独立实现
+- [elaboration 结果](Reference/Elaboration/ElaborationResults.md) — pre-definition、递归消去、equational lemma、`.olean` / `.ilean`
+- [初始化](Reference/Elaboration/Initialization.md) — `initialize`、`builtin_initialize` 与 environment extension
 - [与 Lean 交互](Reference/InteractingWithLean.md) — `#eval`、`#reduce`、`#check`、`#synth`、`#guard_msgs` 与格式化输出
 
 ### 与 Lean 交互详解
@@ -30,6 +38,25 @@
 - [#guard_msgs](Reference/Interacting/GuardMsgs.md) — 测试错误、警告和信息输出
 - [类型系统](Reference/TypeSystem.md) — term、definitional equality、reduction、conversion 与基础 type
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
+
+### 源文件与模块详解
+
+- [编码与表示](Reference/Source/EncodingRepresentation.md) — UTF-8、行尾规范化与文件编码约定
+- [具体语法](Reference/Source/ConcreteSyntax.md) — 可扩展 concrete syntax 与核心语法关系
+- [空白符](Reference/Source/Whitespace.md) — 合法空白、换行与 tab 限制
+- [注释](Reference/Source/Comments.md) — 行注释、块注释、嵌套注释与文档注释
+- [关键字与标识符](Reference/Source/KeywordsIdentifiers.md) — identifier component、Unicode、书名号引用与层级名
+- [模块头](Reference/Source/Headers.md) — `module`、`prelude`、`import` 与 import 名到文件的映射
+- [顶层命令](Reference/Source/Commands.md) — command 作为顶层动作及其可扩展性
+
+### 模块系统详解
+
+- [module 与可见性](Reference/Source/ModulesVisibility.md) — public/private scope、`meta import`、`all` 与兼容选项
+- [Meta phase](Reference/Source/MetaPhase.md) — 编译期工具、元编程依赖与相位边界
+- [elaborated module](Reference/Source/ElaboratedModules.md) — `.olean`、`.ilean` 与可导入产物
+- [模块系统错误与模式](Reference/Source/ModuleErrorsPatterns.md) — import、根目录、可见性与缓存排查思路
+- [迁移旧文件的配方](Reference/Source/PortingRecipe.md) — 旧项目迁移到新 module 语义的顺序与策略
+- [package、library 与 target](Reference/Source/PackagesLibrariesTargets.md) — 文件、模块、library、package 与 target 关系
 - [命名空间与 section](Reference/NamespacesSections.md) — namespace、`open`、`export`、section scope 与 `variable`
 - [定义](Reference/Definitions.md) — `def`、`abbrev`、`example`、`theorem`、`opaque` 与递归定义入口
 - [公理](Reference/Axioms.md) — axiom 风险、标准公理、`sorryAx`、compiler trust 与 `#print axioms`
@@ -59,6 +86,31 @@
 - [Simplifier](Reference/Simplifier.md) — `simp`、rewrite rule、simp set、normal form 与配置
 - [`grind` tactic](Reference/Grind.md) — congruence closure、constraint propagation、E-matching 与 theory solver
 - [`mvcgen` tactic](Reference/Mvcgen.md) — monadic verification condition generation 与 proof mode
+
+### Simplifier 详解
+
+- [调用 simplifier](Reference/Simplifier/Invoking.md) — tactic 名称系统、参数语法、规则列表与位置说明
+- [simplifier 的重写规则](Reference/Simplifier/RewriteRules.md) — definition unfolding、equational lemma、simproc 与内建 reduction
+- [simp set](Reference/Simplifier/SimpSets.md) — 默认 simp set、自定义 simp set 与 `[simp]` attribute
+- [simp normal form](Reference/Simplifier/SimpNormalForms.md) — 规范形式、右侧 normal form 与库接口设计
+- [配置 simplification](Reference/Simplifier/ConfiguringSimplification.md) — `Simp.Config`、关键选项与 trace
+- [simplification 与 rewriting](Reference/Simplifier/SimpVsRw.md) — `simp` 和 `rw` 的目标、策略与适用场景
+
+### `grind` 详解
+
+- [`grind`：congruence closure](Reference/Grind/CongruenceClosure.md) — 等价类、constructor 冲突与和 `simp` 的区别
+- [`grind`：constraint propagation](Reference/Grind/ConstraintPropagation.md) — true/false bucket、向上/向下传播与布尔后果
+- [`grind`：E-matching](Reference/Grind/EMatching.md) — pattern、multi-pattern、`grind_pattern` 与实例化
+- [`grind`：线性整数算术](Reference/Grind/LinearIntegerArithmetic.md) — LIA 约束、`ToInt` 扩展与非线性限制
+- [为 `grind` 标注库](Reference/Grind/AnnotatingLibraries.md) — `@[grind]`、`grind_pattern`、前向/后向推理
+
+### `mvcgen` 详解
+
+- [`mvcgen` 概览](Reference/Mvcgen/Overview.md) — weakest precondition 工作流、Hoare triple 与 invariant
+- [predicate transformer](Reference/Mvcgen/PredicateTransformers.md) — `SPred`、`Assertion`、`WP`、`PostCond`
+- [verification condition](Reference/Mvcgen/VerificationConditions.md) — VC 生成流程、`@[spec]` lemma 与 invariant 子目标
+- [为 monad 启用 `mvcgen`](Reference/Mvcgen/EnablingForMonads.md) — `WP` / `WPMonad` / adequacy lemma / spec lemma
+- [`mvcgen` proof mode](Reference/Mvcgen/ProofMode.md) — `⊢ₛ` 目标、stateful context 与专用 tactic
 - [Functor、Monad 与 `do` 记法](Reference/FunctorsMonads.md) — `Functor`、`Applicative`、`Monad`、`Alternative` 与 sequencing
 - [基础命题](Reference/BasicPropositions.md) — `Prop` 中的逻辑 connective、quantifier 与 propositional equality
 - [基础类型](Reference/BasicTypes.md) — 数值、文本、collection、subtype 与 lazy computation
@@ -71,6 +123,10 @@
 - [数组](Reference/BasicTypes/Arrays.md) — 动态数组、线性使用、字面量、subarray 与高性能更新
 - [可选值](Reference/BasicTypes/OptionalValues.md) — `Option`、coercion、提取值、容器视角与控制流
 - [子类型](Reference/BasicTypes/Subtypes.md) — `{ x // p x }`、proof carrying value、coercion 与 extensionality
+- [布尔值](Reference/BasicTypes/Booleans.md) — `Bool`、运行时表示、`Prop` 区别、布尔运算与转换
+- [链表](Reference/BasicTypes/LinkedLists.md) — `List` 的构造子、语法、性能特征与常见操作
+- [Range](Reference/BasicTypes/Ranges.md) — 开闭区间、无界范围、range 类型与 slices
+- [映射与集合](Reference/BasicTypes/MapsAndSets.md) — `HashMap`、`TreeMap`、`HashSet`、extensional 与 dependent 设计
 - [IO](Reference/IO.md) — 纯函数式语义下的副作用、`IO α`、文件、进程与 task
 
 ### IO 详解
@@ -94,7 +150,30 @@
 - [Lake script](Reference/Lake/Scripts.md) — `lake script` 工作流与脚本型任务
 - [Lake 命令行接口](Reference/Lake/Cli.md) — `lake new`、`build`、`test`、`lint`、`update`、`cache`
 - [Lake TOML 配置格式](Reference/Lake/ConfigToml.md) — `[[require]]`、`[[lean_lib]]`、`[[lean_exe]]` 与配置字段
+
+### Lake 测试、发布与缓存
+
+- [Lake 测试与 lint driver](Reference/Lake/TestLintDrivers.md) — test driver、lint driver、builtin linter 与 `check-test` / `check-lint`
+- [Lake GitHub Release 构建](Reference/Lake/GithubReleaseBuilds.md) — 预构建产物下载、上传与发布工作流
+- [Lake artifact cache](Reference/Lake/ArtifactCaches.md) — 远程 cache、mappings、配置与 `lake cache` 生态
+
+### Lake CLI 详解
+
+- [`lake new` / `lake init`](Reference/Lake/Cli/New.md) — 创建新 workspace、初始化现有目录与项目骨架
+- [`lake build`](Reference/Lake/Cli/Build.md) — 增量构建、重配置、缓存与相关构建命令
+- [`lake test`](Reference/Lake/Cli/Test.md) — test driver、参数传递、library/executable/script 测试
+- [`lake lint`](Reference/Lake/Cli/Lint.md) — lint driver、builtin linter 与 `check-lint`
+- [`lake update`](Reference/Lake/Cli/Update.md) — 依赖同步、manifest 更新与可复现性
+- [`lake cache`](Reference/Lake/Cli/Cache.md) — get/put/add/clean/services 与远程 artifact cache
 - [使用 Elan 管理工具链](Reference/Elan.md) — toolchain 选择、`lean-toolchain`、override 与常用命令
+
+### Elan 详解
+
+- [选择 toolchain](Reference/Elan/SelectingToolchains.md) — proxy、`+版本` 覆盖与项目级版本切换
+- [toolchain identifier](Reference/Elan/ToolchainIdentifiers.md) — `stable`、`beta`、`nightly`、固定版本、origin 与本地 toolchain
+- [当前 toolchain 的判定](Reference/Elan/CurrentToolchain.md) — `lean-toolchain`、override、父目录查找与优先级
+- [toolchain 存放位置](Reference/Elan/ToolchainLocations.md) — `~/.elan`、`ELAN_HOME` 与目录约定
+- [Elan 命令行接口](Reference/Elan/Commands.md) — `elan show`、`default`、`toolchain`、`override`、`run`、`which`
 - [验证 Lean 证明](Reference/ValidatingProof.md) — 蓝色双对勾、`#print axioms`、`lean4checker`、`comparator` 与 `Lean.trustCompiler`
 - [错误解释](Reference/ErrorExplanations.md) — Lean 具名错误索引、摘要、版本与排查方向
 - [发布说明](Reference/ReleaseNotes.md) — release notes 用途、版本索引与升级阅读建议

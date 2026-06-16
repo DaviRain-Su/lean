@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T13:50:50.689Z",
+  "generatedAt": "2026-06-16T22:11:00.324Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 92 篇已翻译",
+      "status": "首批 144 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 92,
+      "chapterCount": 144,
       "sections": [
         {
           "title": "官网入口",
@@ -996,6 +996,36 @@
               "title": "Elaboration 与编译",
               "path": "lean-reference/Reference/ElaborationCompilation.md",
               "summary": "parsing、macro expansion、elaboration、kernel、`.olean` 与初始化"
+            }
+          ]
+        },
+        {
+          "title": "Elaboration 详解",
+          "chapters": [
+            {
+              "title": "Parsing",
+              "path": "lean-reference/Reference/Elaboration/Parsing.md",
+              "summary": "recursive-descent、Pratt parsing、歧义处理与 `SourceInfo`"
+            },
+            {
+              "title": "Macro expansion 与 elaboration",
+              "path": "lean-reference/Reference/Elaboration/MacroAndElaboration.md",
+              "summary": "command/term elaboration、macro 展开与 info trees"
+            },
+            {
+              "title": "Kernel",
+              "path": "lean-reference/Reference/Elaboration/Kernel.md",
+              "summary": "受信任核心、类型论特性与独立实现"
+            },
+            {
+              "title": "elaboration 结果",
+              "path": "lean-reference/Reference/Elaboration/ElaborationResults.md",
+              "summary": "pre-definition、递归消去、equational lemma、`.olean` / `.ilean`"
+            },
+            {
+              "title": "初始化",
+              "path": "lean-reference/Reference/Elaboration/Initialization.md",
+              "summary": "`initialize`、`builtin_initialize` 与 environment extension"
             },
             {
               "title": "与 Lean 交互",
@@ -1041,6 +1071,81 @@
               "title": "源文件与模块",
               "path": "lean-reference/Reference/SourceFilesModules.md",
               "summary": "文件名、导入名、UTF-8、注释、标识符和模块结构"
+            }
+          ]
+        },
+        {
+          "title": "源文件与模块详解",
+          "chapters": [
+            {
+              "title": "编码与表示",
+              "path": "lean-reference/Reference/Source/EncodingRepresentation.md",
+              "summary": "UTF-8、行尾规范化与文件编码约定"
+            },
+            {
+              "title": "具体语法",
+              "path": "lean-reference/Reference/Source/ConcreteSyntax.md",
+              "summary": "可扩展 concrete syntax 与核心语法关系"
+            },
+            {
+              "title": "空白符",
+              "path": "lean-reference/Reference/Source/Whitespace.md",
+              "summary": "合法空白、换行与 tab 限制"
+            },
+            {
+              "title": "注释",
+              "path": "lean-reference/Reference/Source/Comments.md",
+              "summary": "行注释、块注释、嵌套注释与文档注释"
+            },
+            {
+              "title": "关键字与标识符",
+              "path": "lean-reference/Reference/Source/KeywordsIdentifiers.md",
+              "summary": "identifier component、Unicode、书名号引用与层级名"
+            },
+            {
+              "title": "模块头",
+              "path": "lean-reference/Reference/Source/Headers.md",
+              "summary": "`module`、`prelude`、`import` 与 import 名到文件的映射"
+            },
+            {
+              "title": "顶层命令",
+              "path": "lean-reference/Reference/Source/Commands.md",
+              "summary": "command 作为顶层动作及其可扩展性"
+            }
+          ]
+        },
+        {
+          "title": "模块系统详解",
+          "chapters": [
+            {
+              "title": "module 与可见性",
+              "path": "lean-reference/Reference/Source/ModulesVisibility.md",
+              "summary": "public/private scope、`meta import`、`all` 与兼容选项"
+            },
+            {
+              "title": "Meta phase",
+              "path": "lean-reference/Reference/Source/MetaPhase.md",
+              "summary": "编译期工具、元编程依赖与相位边界"
+            },
+            {
+              "title": "elaborated module",
+              "path": "lean-reference/Reference/Source/ElaboratedModules.md",
+              "summary": "`.olean`、`.ilean` 与可导入产物"
+            },
+            {
+              "title": "模块系统错误与模式",
+              "path": "lean-reference/Reference/Source/ModuleErrorsPatterns.md",
+              "summary": "import、根目录、可见性与缓存排查思路"
+            },
+            {
+              "title": "迁移旧文件的配方",
+              "path": "lean-reference/Reference/Source/PortingRecipe.md",
+              "summary": "旧项目迁移到新 module 语义的顺序与策略"
+            },
+            {
+              "title": "package、library 与 target",
+              "path": "lean-reference/Reference/Source/PackagesLibrariesTargets.md",
+              "summary": "文件、模块、library、package 与 target 关系"
             },
             {
               "title": "命名空间与 section",
@@ -1166,6 +1271,101 @@
               "title": "`mvcgen` tactic",
               "path": "lean-reference/Reference/Mvcgen.md",
               "summary": "monadic verification condition generation 与 proof mode"
+            }
+          ]
+        },
+        {
+          "title": "Simplifier 详解",
+          "chapters": [
+            {
+              "title": "调用 simplifier",
+              "path": "lean-reference/Reference/Simplifier/Invoking.md",
+              "summary": "tactic 名称系统、参数语法、规则列表与位置说明"
+            },
+            {
+              "title": "simplifier 的重写规则",
+              "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
+              "summary": "definition unfolding、equational lemma、simproc 与内建 reduction"
+            },
+            {
+              "title": "simp set",
+              "path": "lean-reference/Reference/Simplifier/SimpSets.md",
+              "summary": "默认 simp set、自定义 simp set 与 `[simp]` attribute"
+            },
+            {
+              "title": "simp normal form",
+              "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
+              "summary": "规范形式、右侧 normal form 与库接口设计"
+            },
+            {
+              "title": "配置 simplification",
+              "path": "lean-reference/Reference/Simplifier/ConfiguringSimplification.md",
+              "summary": "`Simp.Config`、关键选项与 trace"
+            },
+            {
+              "title": "simplification 与 rewriting",
+              "path": "lean-reference/Reference/Simplifier/SimpVsRw.md",
+              "summary": "`simp` 和 `rw` 的目标、策略与适用场景"
+            }
+          ]
+        },
+        {
+          "title": "`grind` 详解",
+          "chapters": [
+            {
+              "title": "`grind`：congruence closure",
+              "path": "lean-reference/Reference/Grind/CongruenceClosure.md",
+              "summary": "等价类、constructor 冲突与和 `simp` 的区别"
+            },
+            {
+              "title": "`grind`：constraint propagation",
+              "path": "lean-reference/Reference/Grind/ConstraintPropagation.md",
+              "summary": "true/false bucket、向上/向下传播与布尔后果"
+            },
+            {
+              "title": "`grind`：E-matching",
+              "path": "lean-reference/Reference/Grind/EMatching.md",
+              "summary": "pattern、multi-pattern、`grind_pattern` 与实例化"
+            },
+            {
+              "title": "`grind`：线性整数算术",
+              "path": "lean-reference/Reference/Grind/LinearIntegerArithmetic.md",
+              "summary": "LIA 约束、`ToInt` 扩展与非线性限制"
+            },
+            {
+              "title": "为 `grind` 标注库",
+              "path": "lean-reference/Reference/Grind/AnnotatingLibraries.md",
+              "summary": "`@[grind]`、`grind_pattern`、前向/后向推理"
+            }
+          ]
+        },
+        {
+          "title": "`mvcgen` 详解",
+          "chapters": [
+            {
+              "title": "`mvcgen` 概览",
+              "path": "lean-reference/Reference/Mvcgen/Overview.md",
+              "summary": "weakest precondition 工作流、Hoare triple 与 invariant"
+            },
+            {
+              "title": "predicate transformer",
+              "path": "lean-reference/Reference/Mvcgen/PredicateTransformers.md",
+              "summary": "`SPred`、`Assertion`、`WP`、`PostCond`"
+            },
+            {
+              "title": "verification condition",
+              "path": "lean-reference/Reference/Mvcgen/VerificationConditions.md",
+              "summary": "VC 生成流程、`@[spec]` lemma 与 invariant 子目标"
+            },
+            {
+              "title": "为 monad 启用 `mvcgen`",
+              "path": "lean-reference/Reference/Mvcgen/EnablingForMonads.md",
+              "summary": "`WP` / `WPMonad` / adequacy lemma / spec lemma"
+            },
+            {
+              "title": "`mvcgen` proof mode",
+              "path": "lean-reference/Reference/Mvcgen/ProofMode.md",
+              "summary": "`⊢ₛ` 目标、stateful context 与专用 tactic"
             },
             {
               "title": "Functor、Monad 与 `do` 记法",
@@ -1216,6 +1416,26 @@
               "title": "子类型",
               "path": "lean-reference/Reference/BasicTypes/Subtypes.md",
               "summary": "`{ x // p x }`、proof carrying value、coercion 与 extensionality"
+            },
+            {
+              "title": "布尔值",
+              "path": "lean-reference/Reference/BasicTypes/Booleans.md",
+              "summary": "`Bool`、运行时表示、`Prop` 区别、布尔运算与转换"
+            },
+            {
+              "title": "链表",
+              "path": "lean-reference/Reference/BasicTypes/LinkedLists.md",
+              "summary": "`List` 的构造子、语法、性能特征与常见操作"
+            },
+            {
+              "title": "Range",
+              "path": "lean-reference/Reference/BasicTypes/Ranges.md",
+              "summary": "开闭区间、无界范围、range 类型与 slices"
+            },
+            {
+              "title": "映射与集合",
+              "path": "lean-reference/Reference/BasicTypes/MapsAndSets.md",
+              "summary": "`HashMap`、`TreeMap`、`HashSet`、extensional 与 dependent 设计"
             },
             {
               "title": "IO",
@@ -1311,11 +1531,96 @@
               "title": "Lake TOML 配置格式",
               "path": "lean-reference/Reference/Lake/ConfigToml.md",
               "summary": "`[[require]]`、`[[lean_lib]]`、`[[lean_exe]]` 与配置字段"
+            }
+          ]
+        },
+        {
+          "title": "Lake 测试、发布与缓存",
+          "chapters": [
+            {
+              "title": "Lake 测试与 lint driver",
+              "path": "lean-reference/Reference/Lake/TestLintDrivers.md",
+              "summary": "test driver、lint driver、builtin linter 与 `check-test` / `check-lint`"
+            },
+            {
+              "title": "Lake GitHub Release 构建",
+              "path": "lean-reference/Reference/Lake/GithubReleaseBuilds.md",
+              "summary": "预构建产物下载、上传与发布工作流"
+            },
+            {
+              "title": "Lake artifact cache",
+              "path": "lean-reference/Reference/Lake/ArtifactCaches.md",
+              "summary": "远程 cache、mappings、配置与 `lake cache` 生态"
+            }
+          ]
+        },
+        {
+          "title": "Lake CLI 详解",
+          "chapters": [
+            {
+              "title": "`lake new` / `lake init`",
+              "path": "lean-reference/Reference/Lake/Cli/New.md",
+              "summary": "创建新 workspace、初始化现有目录与项目骨架"
+            },
+            {
+              "title": "`lake build`",
+              "path": "lean-reference/Reference/Lake/Cli/Build.md",
+              "summary": "增量构建、重配置、缓存与相关构建命令"
+            },
+            {
+              "title": "`lake test`",
+              "path": "lean-reference/Reference/Lake/Cli/Test.md",
+              "summary": "test driver、参数传递、library/executable/script 测试"
+            },
+            {
+              "title": "`lake lint`",
+              "path": "lean-reference/Reference/Lake/Cli/Lint.md",
+              "summary": "lint driver、builtin linter 与 `check-lint`"
+            },
+            {
+              "title": "`lake update`",
+              "path": "lean-reference/Reference/Lake/Cli/Update.md",
+              "summary": "依赖同步、manifest 更新与可复现性"
+            },
+            {
+              "title": "`lake cache`",
+              "path": "lean-reference/Reference/Lake/Cli/Cache.md",
+              "summary": "get/put/add/clean/services 与远程 artifact cache"
             },
             {
               "title": "使用 Elan 管理工具链",
               "path": "lean-reference/Reference/Elan.md",
               "summary": "toolchain 选择、`lean-toolchain`、override 与常用命令"
+            }
+          ]
+        },
+        {
+          "title": "Elan 详解",
+          "chapters": [
+            {
+              "title": "选择 toolchain",
+              "path": "lean-reference/Reference/Elan/SelectingToolchains.md",
+              "summary": "proxy、`+版本` 覆盖与项目级版本切换"
+            },
+            {
+              "title": "toolchain identifier",
+              "path": "lean-reference/Reference/Elan/ToolchainIdentifiers.md",
+              "summary": "`stable`、`beta`、`nightly`、固定版本、origin 与本地 toolchain"
+            },
+            {
+              "title": "当前 toolchain 的判定",
+              "path": "lean-reference/Reference/Elan/CurrentToolchain.md",
+              "summary": "`lean-toolchain`、override、父目录查找与优先级"
+            },
+            {
+              "title": "toolchain 存放位置",
+              "path": "lean-reference/Reference/Elan/ToolchainLocations.md",
+              "summary": "`~/.elan`、`ELAN_HOME` 与目录约定"
+            },
+            {
+              "title": "Elan 命令行接口",
+              "path": "lean-reference/Reference/Elan/Commands.md",
+              "summary": "`elan show`、`default`、`toolchain`、`override`、`run`、`which`"
             },
             {
               "title": "验证 Lean 证明",
