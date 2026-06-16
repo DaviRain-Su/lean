@@ -23,11 +23,15 @@
 
 - [命题逻辑的自然演绎](natural_deduction_for_propositional_logic.md) — 自然演绎中的推导、示例、前向与后向推理、分情况讨论、逻辑恒等式、练习
 
-## 待翻译章节
-
 ### 第 4 章：Lean 中的命题逻辑
 
 - [Lean 中的命题逻辑](propositional_logic_in_lean.md) — 命题与证明的表达式、更多命令、构建自然演绎证明、策略模式、前向推理、定义与定理、额外语法、练习
+
+## 待翻译章节
+
+### 第 5 章：经典推理
+
+- [经典推理](classical_reasoning.md) — 反证法、若干经典原则、`contradiction` 策略、练习
 
 ### 第 5 章：经典推理
 
