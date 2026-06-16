@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:35:33.907Z",
+  "generatedAt": "2026-06-16T04:36:19.000Z",
   "books": [
     {
       "id": "tpil",
@@ -1261,7 +1261,7 @@
       "externalPdfUrl": null,
       "status": "练习与解答已完成",
       "indexPath": "glimpse/INDEX.md",
-      "chapterCount": 22,
+      "chapterCount": 28,
       "sections": [
         {
           "title": "入门",
@@ -1370,11 +1370,41 @@
               "title": "存在量词（解答）",
               "path": "glimpse/Solutions/04Exists.md",
               "summary": ""
+            },
+            {
+              "title": "经典命题逻辑（解答）",
+              "path": "glimpse/Solutions/Topics/ClassicalPropositionalLogic.md",
+              "summary": ""
+            },
+            {
+              "title": "直觉主义命题逻辑（解答）",
+              "path": "glimpse/Solutions/Topics/IntuitionisticPropositionalLogic.md",
+              "summary": ""
+            },
+            {
+              "title": "伽罗瓦伴随（解答）",
+              "path": "glimpse/Solutions/Topics/GaloisAdjunctions.md",
+              "summary": ""
+            },
+            {
+              "title": "概率论（解答）",
+              "path": "glimpse/Solutions/Topics/Probability.md",
+              "summary": ""
+            },
+            {
+              "title": "环论（解答）",
+              "path": "glimpse/Solutions/Topics/RingTheory.md",
+              "summary": ""
+            },
+            {
+              "title": "序列极限（解答）",
+              "path": "glimpse/Solutions/Topics/SequenceLimits.md",
+              "summary": ""
             }
           ]
         },
         {
-          "title": "库（英文原文）",
+          "title": "库（英文）",
           "chapters": [
             {
               "title": "Basic",
