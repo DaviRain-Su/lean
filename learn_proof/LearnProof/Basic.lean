@@ -336,3 +336,28 @@ theorem add_comm (a b : Nat) : a + b = b + a := by
     trace_state                 -- ⊢ succ (d + a) = (d + 1) + a
     rw [succ_add]               -- 用 succ_add d a 对齐右边
     trace_state                 -- ⊢ succ (d + a) = succ (d + a)，随后自动完成
+
+-- 示例 14：归纳法证明 add_assoc —— (a + b) + c = a + (b + c)
+--
+-- Lean 里 a + b + c 表示 (a + b) + c（左结合）。
+-- 对 c 归纳；等式两边最外层同步展开 (d + 1)。
+--
+-- 基础步 c = 0：
+--   (a + b) + 0 = a + (b + 0)  →  rw [add_zero, add_zero]  →  a + b = a + b
+--
+-- succ 步（hd : (a + b) + d = a + (b + d)）：
+--   rw [add_succ, add_succ, add_succ]  -- 两边各展开一次 d+1
+--   rw [hd]                            -- 用归纳假设对齐内层
+
+theorem add_assoc (a b c : Nat) : a + b + c = a + (b + c) := by
+  induction c with
+  | zero =>
+    trace_state                 -- ⊢ a + b + 0 = a + (b + 0)
+    rw [Nat.add_zero, Nat.add_zero]
+    trace_state                 -- ⊢ a + b = a + b，随后自动完成
+  | succ d hd =>
+    trace_state                 -- ⊢ a + b + (d + 1) = a + (b + (d + 1))
+    rw [Nat.add_succ, Nat.add_succ, Nat.add_succ]
+    trace_state                 -- ⊢ succ (a + b + d) = succ (a + (b + d))
+    rw [hd]                     -- hd : a + b + d = a + (b + d)
+    trace_state                 -- ⊢ succ (a + (b + d)) = succ (a + (b + d))，随后自动完成
