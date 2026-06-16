@@ -3,7 +3,7 @@
  * Extract LoVe Chinese PDF into chapter Markdown (line-range split + cleanup).
  */
 import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -59,10 +59,18 @@ function main() {
   mkdirSync(outDir, { recursive: true });
 
   for (const ch of CHAPTERS) {
+    const outPath = join(outDir, ch.file);
+    if (existsSync(outPath)) {
+      const existing = readFileSync(outPath, 'utf8');
+      if (/已(?:对照|校对)/.test(existing.slice(0, 500))) {
+        console.log(`  ${ch.file}: skipped (proofread)`);
+        continue;
+      }
+    }
     const slice = lines.slice(ch.from - 1, ch.to);
     const body = cleanLines(slice);
     const md = `# ${ch.title}\n\n> 由 Lean-zh PDF 自动提取（${ch.from}–${ch.to} 行），代码块与公式尚需人工校对。\n\n${body}\n`;
-    writeFileSync(join(outDir, ch.file), md);
+    writeFileSync(outPath, md);
     console.log(`  ${ch.file}: ${body.length} chars`);
   }
 }
