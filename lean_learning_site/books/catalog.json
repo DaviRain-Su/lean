@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:40:49.807Z",
+  "generatedAt": "2026-06-16T22:41:46.582Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 161 篇已翻译",
+      "status": "首批 167 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 161,
+      "chapterCount": 167,
       "sections": [
         {
           "title": "官网入口",
@@ -1186,6 +1186,41 @@
               "title": "定义",
               "path": "lean-reference/Reference/Definitions.md",
               "summary": "`def`、`abbrev`、`example`、`theorem`、`opaque` 与递归定义入口"
+            }
+          ]
+        },
+        {
+          "title": "定义详解",
+          "chapters": [
+            {
+              "title": "声明修饰符",
+              "path": "lean-reference/Reference/DefinitionsDetails/Modifiers.md",
+              "summary": "文档注释、attribute、可见性、`noncomputable`、`unsafe`、`partial`"
+            },
+            {
+              "title": "头部与签名",
+              "path": "lean-reference/Reference/DefinitionsDetails/HeadersSignatures.md",
+              "summary": "声明名、参数形式、bracketed binder 与 automatic implicit parameter"
+            },
+            {
+              "title": "`def` / `abbrev` / `opaque`",
+              "path": "lean-reference/Reference/DefinitionsDetails/Definitions.md",
+              "summary": "semireducible、reducible、opaque 与模式匹配定义"
+            },
+            {
+              "title": "`theorem`",
+              "path": "lean-reference/Reference/DefinitionsDetails/Theorems.md",
+              "summary": "proposition 结果、先 elaboration header、默认 irreducible"
+            },
+            {
+              "title": "`example` 声明",
+              "path": "lean-reference/Reference/DefinitionsDetails/ExampleDeclarations.md",
+              "summary": "匿名声明、增量测试与文档示例"
+            },
+            {
+              "title": "递归定义总览",
+              "path": "lean-reference/Reference/DefinitionsDetails/RecursiveDefinitions.md",
+              "summary": "结构递归、良基递归、partial、unsafe 与 reducibility"
             },
             {
               "title": "公理",
