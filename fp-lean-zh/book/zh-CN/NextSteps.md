@@ -11,7 +11,7 @@ Lean 4 本身在以下资源中有介绍：
  * [Theorem Proving in Lean 4](https://lean-lang.org/theorem_proving_in_lean4/) 是使用 Lean 编写证明的教程。
  * [The Lean 4 Manual](https://lean-lang.org/doc/reference/latest/) 对语言及其特性有详细描述。
  * [How To Prove It With Lean](https://djvelleman.github.io/HTPIwL/) 是广受好评的教材 [_How To Prove It_](https://www.cambridge.org/highereducation/books/how-to-prove-it/6D2965D625C6836CD4A785A2C843B3DA) 的 Lean 配套读物，介绍如何编写纸笔数学证明。
- * [Metaprogramming in Lean 4](https://github.com/arthurpaulino/lean4-metaprogramming-book) 概述 Lean 的扩展机制，从中缀运算符和记法到宏、自定义策略以及完整的自定义嵌入语言。
+ * [Metaprogramming in Lean 4](https://leanprover-community.github.io/lean4-metaprogramming-book/) 概述 Lean 的扩展机制；中文译本见 monorepo 的 `mp-lean-zh/` 与学习工作台 `books/reader.html?book=mp-lean`。
  * [Functional Programming in Lean](https://lean-lang.org/functional_programming_in_lean/) 可能对喜欢递归笑话的读者有趣。
 
 不过，继续学习 Lean 的最佳方式是开始阅读和编写代码，遇到问题时查阅文档。

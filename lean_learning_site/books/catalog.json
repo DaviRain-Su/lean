@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:23:43.193Z",
+  "generatedAt": "2026-06-16T04:29:40.923Z",
   "books": [
     {
       "id": "tpil",
@@ -1033,16 +1033,122 @@
           ]
         }
       ]
+    },
+    {
+      "id": "mp-lean",
+      "title": "Metaprogramming in Lean 4",
+      "titleZh": "Lean 4 元编程",
+      "subtitle": "Syntax、宏、elab、tactic 与 DSL（Lean-zh 译本）",
+      "originalUrl": "https://leanprover-community.github.io/lean4-metaprogramming-book/",
+      "externalPdfUrl": null,
+      "status": "全书 10 章 + 习题解答",
+      "indexPath": "mp-lean/INDEX.md",
+      "chapterCount": 17,
+      "sections": [
+        {
+          "title": "正文",
+          "chapters": [
+            {
+              "title": "介绍",
+              "path": "mp-lean/main/01_intro.md",
+              "summary": "元编程概述与示例"
+            },
+            {
+              "title": "概述",
+              "path": "mp-lean/main/02_overview.md",
+              "summary": "核心概念鸟瞰"
+            },
+            {
+              "title": "表达式",
+              "path": "mp-lean/main/03_expressions.md",
+              "summary": "`Expr` 与表达式操作"
+            },
+            {
+              "title": "MetaM",
+              "path": "mp-lean/main/04_metam.md",
+              "summary": "元编程 monad"
+            },
+            {
+              "title": "语法",
+              "path": "mp-lean/main/05_syntax.md",
+              "summary": "`Syntax` 与解析"
+            },
+            {
+              "title": "宏",
+              "path": "mp-lean/main/06_macros.md",
+              "summary": "宏系统"
+            },
+            {
+              "title": "繁饰",
+              "path": "mp-lean/main/07_elaboration.md",
+              "summary": "elaboration 与自定义命令"
+            },
+            {
+              "title": "通过繁饰嵌入 DSL",
+              "path": "mp-lean/main/08_dsls.md",
+              "summary": "领域特定语言"
+            },
+            {
+              "title": "证明策略",
+              "path": "mp-lean/main/09_tactics.md",
+              "summary": "编写 tactic"
+            },
+            {
+              "title": "Lean 4 速查表",
+              "path": "mp-lean/main/10_cheat-sheet.md",
+              "summary": "关键 API 备忘"
+            }
+          ]
+        },
+        {
+          "title": "额外内容",
+          "chapters": [
+            {
+              "title": "选项",
+              "path": "mp-lean/extra/01_options.md",
+              "summary": "`set_option` 与 trace"
+            },
+            {
+              "title": "美观打印",
+              "path": "mp-lean/extra/03_pretty-printing.md",
+              "summary": "pretty printer"
+            }
+          ]
+        },
+        {
+          "title": "习题解答",
+          "chapters": [
+            {
+              "title": "表达式（解答）",
+              "path": "mp-lean/solutions/03_expressions.md",
+              "summary": ""
+            },
+            {
+              "title": "MetaM（解答）",
+              "path": "mp-lean/solutions/04_metam.md",
+              "summary": ""
+            },
+            {
+              "title": "语法（解答）",
+              "path": "mp-lean/solutions/05_syntax.md",
+              "summary": ""
+            },
+            {
+              "title": "繁饰（解答）",
+              "path": "mp-lean/solutions/07_elaboration.md",
+              "summary": ""
+            },
+            {
+              "title": "证明策略（解答）",
+              "path": "mp-lean/solutions/09_tactics.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
     }
   ],
   "externalLinks": [
-    {
-      "title": "Metaprogramming in Lean 4",
-      "titleZh": "Lean 4 元编程",
-      "description": "宏、策略、elab 与扩展 Lean。Lean-zh Sphinx 译本。",
-      "url": "https://leanprover.cn/mp-lean-zh/",
-      "originalUrl": "https://leanprover-community.github.io/lean4-metaprogramming-book/"
-    },
     {
       "title": "Natural Number Game (NNG4)",
       "titleZh": "自然数游戏 NNG4",

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -64,16 +65,19 @@ const BOOKS = [
     status: '导读已完成 · 正文见 PDF',
     externalPdfUrl: 'https://github.com/Lean-zh/LoVe-zh',
   },
+  {
+    id: 'mp-lean',
+    title: 'Metaprogramming in Lean 4',
+    titleZh: 'Lean 4 元编程',
+    subtitle: 'Syntax、宏、elab、tactic 与 DSL（Lean-zh 译本）',
+    source: join(repoRoot, 'mp-lean-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://leanprover-community.github.io/lean4-metaprogramming-book/',
+    status: '全书 10 章 + 习题解答',
+    preSync: join(repoRoot, 'mp-lean-zh', 'scripts', 'sync-md.mjs'),
+  },
 ];
 
 const EXTERNAL_LINKS = [
-  {
-    title: 'Metaprogramming in Lean 4',
-    titleZh: 'Lean 4 元编程',
-    description: '宏、策略、elab 与扩展 Lean。Lean-zh Sphinx 译本。',
-    url: 'https://leanprover.cn/mp-lean-zh/',
-    originalUrl: 'https://leanprover-community.github.io/lean4-metaprogramming-book/',
-  },
   {
     title: 'Natural Number Game (NNG4)',
     titleZh: '自然数游戏 NNG4',
@@ -154,6 +158,13 @@ function parseIndex(indexText) {
 }
 
 function syncBook(book) {
+  if (book.preSync && existsSync(book.preSync)) {
+    const result = spawnSync(process.execPath, [book.preSync], { stdio: 'inherit' });
+    if (result.status !== 0) {
+      throw new Error(`preSync failed for ${book.id}: ${book.preSync}`);
+    }
+  }
+
   if (!existsSync(book.source)) {
     throw new Error(`Missing translation source: ${book.source}`);
   }
