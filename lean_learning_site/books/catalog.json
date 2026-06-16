@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:37:40.926Z",
+  "generatedAt": "2026-06-16T22:40:49.807Z",
   "books": [
     {
       "id": "tpil",
@@ -2373,9 +2373,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–5 章已翻译 · 6–24 章待译",
+      "status": "第 1–6 章已翻译 · 7–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 5,
+      "chapterCount": 6,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2424,6 +2424,16 @@
               "title": "经典推理",
               "path": "logic-and-proof/classical_reasoning.md",
               "summary": "反证法、若干经典原则、`contradiction` 策略、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 6 章：命题逻辑的语义",
+          "chapters": [
+            {
+              "title": "命题逻辑的语义",
+              "path": "logic-and-proof/semantics_of_propositional_logic.md",
+              "summary": "真值与赋值、真值表、可靠性与完全性、练习"
             }
           ]
         }
