@@ -265,20 +265,44 @@ theorem zero_add (n : Nat) : 0 + n = n := by
 
 -- 示例 12：归纳法证明 succ_add —— succ a + b = succ (a + b)
 --
--- succ 步常见卡点：rw [hd] 之后两边外层都是 succ，但内层形状还不一致：
---   左边：(a + d).succ.succ
---   右边：(a + (d + 1)).succ
--- 需要再用 ← Nat.add_succ 把 a + (d + 1) 展开成 succ (a + d)。
+-- 浏览器 NNG 写法（对 b 归纳）：
+--   induction b with
+--   | zero => rw [add_zero, add_zero]; rfl
+--   | succ d hd =>
+--       rw [add_succ]    -- 改左边：succ a + (d+1) → succ (succ a + d)
+--       rw [add_succ]    -- 改右边：a + (d+1) → succ (a + d)
+--       rw [hd]          -- 用归纳假设 succ a + d = succ (a + d)
+--       rfl
+--
+-- 两种本地写法等价，差别只在 succ 步「先改哪边」：
+-- ┌────────┬──────────────────────────────────────────────────────────────┐
+-- │ 12a    │ 浏览器风格：两次正向 add_succ（左一次、右一次），再 rw [hd]  │
+-- ├────────┼──────────────────────────────────────────────────────────────┤
+-- │ 12b    │ 先 add_succ + hd，再用 ← add_succ 对齐右边（多一步反向改写）│
+-- └────────┴──────────────────────────────────────────────────────────────┘
 
+-- 12a：浏览器风格（推荐，与 NNG 一致）
 theorem succ_add (a b : Nat) : Nat.succ a + b = Nat.succ (a + b) := by
   induction b with
-  | zero => rw [Nat.add_zero, Nat.add_zero]  -- 基础步：两边都化简为 succ a
+  | zero =>
+    trace_state                 -- ⊢ succ a + 0 = succ (a + 0)
+    rw [Nat.add_zero, Nat.add_zero]
+    trace_state                 -- ⊢ succ a = succ a，随后自动完成
   | succ d hd =>
     trace_state                 -- ⊢ succ a + (d + 1) = succ (a + (d + 1))
-    rw [Nat.add_succ]           -- ⊢ succ (succ a + d) = succ (a + (d + 1))
+    rw [Nat.add_succ]           -- 改左边：⊢ succ (succ a + d) = succ (a + (d + 1))
+    trace_state
+    rw [Nat.add_succ]           -- 改右边：⊢ succ (succ a + d) = succ (succ (a + d))
     trace_state
     rw [hd]                     -- hd : succ a + d = succ (a + d)
-    trace_state                 -- ⊢ succ (succ (a + d)) = succ (a + (d + 1))
-    rw [← Nat.add_succ]         -- a + (d + 1) = succ (a + d)，对齐内层
-    trace_state                 -- ⊢ succ (succ (a + d)) = succ (succ (a + d))
+    trace_state                 -- ⊢ succ (succ (a + d)) = succ (succ (a + d))，随后自动完成
+
+-- 12b：等价证法（先归纳假设，再反向展开右边）
+theorem succ_add' (a b : Nat) : Nat.succ a + b = Nat.succ (a + b) := by
+  induction b with
+  | zero => rw [Nat.add_zero, Nat.add_zero]
+  | succ d hd =>
+    rw [Nat.add_succ]
+    rw [hd]
+    rw [← Nat.add_succ]         -- 本地这一步后仍需 rfl（浏览器用两次 add_succ 代替）
     rfl
