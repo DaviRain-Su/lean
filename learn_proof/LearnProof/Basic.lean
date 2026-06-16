@@ -306,3 +306,33 @@ theorem succ_add' (a b : Nat) : Nat.succ a + b = Nat.succ (a + b) := by
     rw [hd]
     rw [← Nat.add_succ]         -- 本地这一步后仍需 rfl（浏览器用两次 add_succ 代替）
     rfl
+
+-- 示例 13：归纳法证明 add_comm —— a + b = b + a
+--
+-- 依赖前面证过的 zero_add、succ_add（浏览器里先证 add_succ 再证 add_comm）。
+--
+-- 基础步 b = 0：a + 0 = 0 + a
+--   rw [Nat.add_zero, zero_add]   -- a + 0 → a，0 + a → a
+--
+-- succ 步（hd : a + d = d + a）：
+--   rw [Nat.add_succ]   -- a + (d+1) → succ (a + d)
+--   rw [hd]             -- succ (a + d) → succ (d + a)
+--   rw [succ_add]       -- 右边 d+1+a 里的 succ d + a 与左边对齐
+--   （本地 rw [succ_add] 后常已自动完成，无需 rfl；浏览器里可能要写 rfl）
+--
+-- 常见报错：最后 rfl 报「No goals to be solved」→ 删掉 rfl 即可，不是证法错了。
+
+theorem add_comm (a b : Nat) : a + b = b + a := by
+  induction b with
+  | zero =>
+    trace_state                 -- ⊢ a + 0 = 0 + a
+    rw [Nat.add_zero, zero_add]
+    trace_state                 -- ⊢ a = a，随后自动完成
+  | succ d hd =>
+    trace_state                 -- ⊢ a + (d + 1) = (d + 1) + a
+    rw [Nat.add_succ]           -- ⊢ succ (a + d) = (d + 1) + a
+    trace_state
+    rw [hd]                     -- hd : a + d = d + a
+    trace_state                 -- ⊢ succ (d + a) = (d + 1) + a
+    rw [succ_add]               -- 用 succ_add d a 对齐右边
+    trace_state                 -- ⊢ succ (d + a) = succ (d + a)，随后自动完成
