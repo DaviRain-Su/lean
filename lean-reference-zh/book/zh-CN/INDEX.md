@@ -65,6 +65,15 @@
 - [package、library 与 target](Reference/Source/PackagesLibrariesTargets.md) — 文件、模块、library、package 与 target 关系
 - [命名空间与 section](Reference/NamespacesSections.md) — namespace、`open`、`export`、section scope 与 `variable`
 - [定义](Reference/Definitions.md) — `def`、`abbrev`、`example`、`theorem`、`opaque` 与递归定义入口
+
+### 定义详解
+
+- [声明修饰符](Reference/DefinitionsDetails/Modifiers.md) — 文档注释、attribute、可见性、`noncomputable`、`unsafe`、`partial`
+- [头部与签名](Reference/DefinitionsDetails/HeadersSignatures.md) — 声明名、参数形式、bracketed binder 与 automatic implicit parameter
+- [`def` / `abbrev` / `opaque`](Reference/DefinitionsDetails/Definitions.md) — semireducible、reducible、opaque 与模式匹配定义
+- [`theorem`](Reference/DefinitionsDetails/Theorems.md) — proposition 结果、先 elaboration header、默认 irreducible
+- [`example` 声明](Reference/DefinitionsDetails/ExampleDeclarations.md) — 匿名声明、增量测试与文档示例
+- [递归定义总览](Reference/DefinitionsDetails/RecursiveDefinitions.md) — 结构递归、良基递归、partial、unsafe 与 reducibility
 - [公理](Reference/Axioms.md) — axiom 风险、标准公理、`sorryAx`、compiler trust 与 `#print axioms`
 - [Attribute](Reference/Attributes.md) — declaration annotation、`attribute` command、`local` 与 `scoped`
 - [Type class](Reference/TypeClasses.md) — ad-hoc polymorphism、instance synthesis 与常见用例

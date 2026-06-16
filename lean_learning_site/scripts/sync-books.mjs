@@ -53,7 +53,7 @@ const BOOKS = [
     subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
     source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
     originalUrl: 'https://lean-lang.org/doc/reference/latest/',
-    status: '首批 161 篇已翻译',
+    status: '首批 167 篇已翻译',
   },
   {
     id: 'vscode-lean4',
@@ -110,7 +110,7 @@ const BOOKS = [
     subtitle: '经典逻辑、自然演绎与 Lean 形式化',
     source: join(repoRoot, 'logic-and-proof-zh', 'book', 'zh-CN'),
     originalUrl: 'https://leanprover.github.io/logic_and_proof/',
-    status: '第 1–5 章已翻译 · 6–24 章待译',
+    status: '第 1–6 章已翻译 · 7–24 章待译',
   },
   {
     id: 'mp-lean',
