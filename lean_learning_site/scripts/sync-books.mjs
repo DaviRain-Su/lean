@@ -110,7 +110,7 @@ const BOOKS = [
     subtitle: '经典逻辑、自然演绎与 Lean 形式化',
     source: join(repoRoot, 'logic-and-proof-zh', 'book', 'zh-CN'),
     originalUrl: 'https://leanprover.github.io/logic_and_proof/',
-    status: '第 1–7 章已翻译 · 8–24 章待译',
+    status: '第 1–8 章已翻译 · 9–24 章待译',
   },
   {
     id: 'mp-lean',
