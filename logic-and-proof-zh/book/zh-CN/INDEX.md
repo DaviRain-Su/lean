@@ -31,11 +31,15 @@
 
 - [经典推理](classical_reasoning.md) — 反证法、若干经典原则、`contradiction` 策略、练习
 
-## 待翻译章节
-
 ### 第 6 章：命题逻辑的语义
 
 - [命题逻辑的语义](semantics_of_propositional_logic.md) — 真值与赋值、真值表、可靠性与完全性、练习
+
+## 待翻译章节
+
+### 第 7 章：一阶逻辑
+
+- [一阶逻辑](first_order_logic.md) — 函数、谓词与关系、全称量词、存在量词、相对化与类、相等、练习
 
 ### 第 5 章：经典推理
 
