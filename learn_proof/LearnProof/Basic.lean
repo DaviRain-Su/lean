@@ -262,3 +262,23 @@ theorem zero_add (n : Nat) : 0 + n = n := by
     trace_state
     rw [hd]                     -- 用归纳假设 hd : 0 + d = d
     trace_state                 -- ⊢ succ d = d + 1，随后自动完成
+
+-- 示例 12：归纳法证明 succ_add —— succ a + b = succ (a + b)
+--
+-- succ 步常见卡点：rw [hd] 之后两边外层都是 succ，但内层形状还不一致：
+--   左边：(a + d).succ.succ
+--   右边：(a + (d + 1)).succ
+-- 需要再用 ← Nat.add_succ 把 a + (d + 1) 展开成 succ (a + d)。
+
+theorem succ_add (a b : Nat) : Nat.succ a + b = Nat.succ (a + b) := by
+  induction b with
+  | zero => rw [Nat.add_zero, Nat.add_zero]  -- 基础步：两边都化简为 succ a
+  | succ d hd =>
+    trace_state                 -- ⊢ succ a + (d + 1) = succ (a + (d + 1))
+    rw [Nat.add_succ]           -- ⊢ succ (succ a + d) = succ (a + (d + 1))
+    trace_state
+    rw [hd]                     -- hd : succ a + d = succ (a + d)
+    trace_state                 -- ⊢ succ (succ (a + d)) = succ (a + (d + 1))
+    rw [← Nat.add_succ]         -- a + (d + 1) = succ (a + d)，对齐内层
+    trace_state                 -- ⊢ succ (succ (a + d)) = succ (succ (a + d))
+    rfl
