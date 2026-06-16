@@ -225,6 +225,15 @@
   line-height: 1.85;
 }
 
+.reader-content a {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.reader-content code {
+  word-break: break-word;
+}
+
 .reader-content > :first-child {
   margin-top: 0;
 }
@@ -289,7 +298,7 @@
 @media (max-width: 980px) {
   .book-grid,
   .reader-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .reader-sidebar {

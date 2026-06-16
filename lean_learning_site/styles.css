@@ -53,6 +53,7 @@ pre {
 }
 
 pre code {
+  display: block;
   font-size: 0.9rem;
   line-height: 1.65;
 }
@@ -126,7 +127,7 @@ li code {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 390px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
   align-items: center;
   gap: clamp(2rem, 5vw, 5rem);
   max-width: 1180px;
@@ -305,7 +306,7 @@ h3 {
 
 .split {
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: 3rem;
   align-items: start;
 }
@@ -322,10 +323,14 @@ h3 {
 
 .lesson-card {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 1rem;
   border-radius: 30px;
   padding: 1.2rem;
+}
+
+.lesson-card > div {
+  min-width: 0;
 }
 
 .lesson-card.active {
@@ -457,7 +462,7 @@ h3 {
   .cards.three,
   .proof-grid,
   .resource-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero-grid {
