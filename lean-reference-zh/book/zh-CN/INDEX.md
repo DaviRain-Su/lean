@@ -64,6 +64,15 @@
 - [迁移旧文件的配方](Reference/Source/PortingRecipe.md) — 旧项目迁移到新 module 语义的顺序与策略
 - [package、library 与 target](Reference/Source/PackagesLibrariesTargets.md) — 文件、模块、library、package 与 target 关系
 - [命名空间与 section](Reference/NamespacesSections.md) — namespace、`open`、`export`、section scope 与 `variable`
+
+### namespace 与 section 详解
+
+- [namespace](Reference/NamespaceDetails/Namespaces.md) — 层级名称、root namespace、module 正交性与 current namespace
+- [`open` 声明](Reference/NamespaceDetails/OpenDeclarations.md) — 打开整个 namespace、`hiding`、`renaming`、restricted opening、`open scoped`
+- [导出名称](Reference/NamespaceDetails/ExportingNames.md) — `export`、透明别名与 root namespace 导出
+- [section scope](Reference/NamespaceDetails/SectionScopes.md) — current namespace、opened namespace、option 与 section variable
+- [控制 section scope](Reference/NamespaceDetails/ControllingSectionScopes.md) — `section`、`namespace`、`end`、`in` 与 header modifier
+- [section variable](Reference/NamespaceDetails/SectionVariables.md) — `variable`、自动参数传播、`include` / `omit`
 - [定义](Reference/Definitions.md) — `def`、`abbrev`、`example`、`theorem`、`opaque` 与递归定义入口
 
 ### 定义详解
