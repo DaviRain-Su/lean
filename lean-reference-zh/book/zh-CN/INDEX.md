@@ -84,7 +84,21 @@
 - [`example` 声明](Reference/DefinitionsDetails/ExampleDeclarations.md) — 匿名声明、增量测试与文档示例
 - [递归定义总览](Reference/DefinitionsDetails/RecursiveDefinitions.md) — 结构递归、良基递归、partial、unsafe 与 reducibility
 - [公理](Reference/Axioms.md) — axiom 风险、标准公理、`sorryAx`、compiler trust 与 `#print axioms`
+
+### 公理详解
+
+- [axiom 声明](Reference/AxiomDetails/AxiomDeclarations.md) — 后设常量、可用 modifier 与逻辑定位
+- [一致性](Reference/AxiomDetails/Consistency.md) — axiom 风险、可信边界与一致性责任
+- [axiom 与 reduction](Reference/AxiomDetails/Reduction.md) — stuck reduction、编译限制与 `noncomputable`
+- [Lean 标准公理](Reference/AxiomDetails/StandardAxioms.md) — `Classical.choice`、`propext`、`Quot.sound`、`sorryAx`
+- [显示公理依赖](Reference/AxiomDetails/PrintingDependencies.md) — `#print axioms`、传递依赖与 proof 审计
 - [Attribute](Reference/Attributes.md) — declaration annotation、`attribute` command、`local` 与 `scoped`
+
+### Attribute 详解
+
+- [把 attribute 用作声明修饰符](Reference/AttributeDetails/AsModifiers.md) — 在声明头中直接附加 attribute
+- [`attribute` 命令](Reference/AttributeDetails/AttributeCommand.md) — 修改现有声明 attribute 与擦除 attribute
+- [scoped attribute](Reference/AttributeDetails/ScopedAttributes.md) — 全局、`local`、`scoped` 三种作用域
 - [Type class](Reference/TypeClasses.md) — ad-hoc polymorphism、instance synthesis 与常见用例
 
 ### Type class 详解
