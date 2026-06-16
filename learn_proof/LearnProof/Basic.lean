@@ -405,3 +405,48 @@ theorem mul_one (m : Nat) : m * 1 = m := by
   trace_state                 -- ⊢ 0 + m = m
   rw [zero_add]               -- 用已证的 zero_add
   trace_state                 -- ⊢ m = m，随后自动完成
+
+-- 示例 17：归纳法证明 zero_mul —— 0 * m = 0
+--
+-- 浏览器 NNG 证法（对 m 归纳）：
+--   | zero  => rw [mul_zero]; rfl
+--   | succ d hd =>
+--       rw [mul_succ]    -- 0 * (d+1) = 0 * d + 0
+--       rw [hd]          -- 0 + 0 = 0
+--       rw [add_zero]    -- 0 = 0   ← 浏览器需要，本地常可省略
+--       rfl              --         ← 浏览器需要，本地常可省略
+--
+-- 本地 vs 浏览器：
+-- ┌──────────┬────────────────────────────────────────────────────────┐
+-- │ 浏览器多出的步骤 │ 原因                                              │
+-- ├──────────┼────────────────────────────────────────────────────────┤
+-- │ 基础步 rfl     │ NNG 里 rw [mul_zero] 后目标为 0 = 0，需 rfl 收尾   │
+-- ├──────────┼────────────────────────────────────────────────────────┤
+-- │ rw [add_zero]  │ rw [hd] 后得 0 + 0 = 0，浏览器需再化简为 0 = 0     │
+-- ├──────────┼────────────────────────────────────────────────────────┤
+-- │ succ 步 rfl    │ add_zero 后 0 = 0，浏览器需 rfl                    │
+-- └──────────┴────────────────────────────────────────────────────────┘
+
+-- 17a：本地版（浏览器 succ 步的 add_zero、rfl 在这里通常可省略）
+theorem zero_mul (m : Nat) : 0 * m = 0 := by
+  induction m with
+  | zero =>
+    trace_state                 -- ⊢ 0 * 0 = 0
+    rw [Nat.mul_zero]
+    trace_state                 -- ⊢ 0 = 0（浏览器此处要 rfl）
+  | succ d hd =>
+    trace_state                 -- ⊢ 0 * (d + 1) = 0
+    rw [Nat.mul_succ]           -- ⊢ 0 * d + 0 = 0
+    trace_state
+    rw [hd]                     -- hd : 0 * d = 0，⊢ 0 + 0 = 0
+    trace_state                 -- 浏览器此处还要 rw [add_zero]; rfl
+
+-- 17b：浏览器完整版（NNG 里逐步执行；本地勿直接跑，add_zero/rfl 会报 No goals）
+-- theorem zero_mul (m : Nat) : 0 * m = 0 := by
+--   induction m with
+--   | zero => rw [Nat.mul_zero]; rfl
+--   | succ d hd =>
+--       rw [Nat.mul_succ]
+--       rw [hd]
+--       rw [Nat.add_zero]
+--       rfl
