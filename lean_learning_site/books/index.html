@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lean 4 中文教材库：定理证明、函数式编程、数学形式化三本书的 Markdown 译文。">
+  <title>中文教材库 · Lean 4 学习工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="./books.css">
+</head>
+<body class="books-page">
+  <div class="books-shell">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="../index.html" aria-label="返回学习工作台首页">
+        <span class="brand-mark">∀</span>
+        <span>Lean 4 学习工作台</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="./index.html">中文教材</a>
+      </div>
+    </nav>
+
+    <header class="books-hero">
+      <p class="eyebrow">Chinese translations</p>
+      <h1>Lean 4 中文教材库</h1>
+      <p class="lead">三本书的 Markdown 译文集中在此阅读。代码块保持英文原样，可直接复制到 VS Code 中运行。建议学习顺序：定理证明 → 函数式编程 → 数学形式化。</p>
+    </header>
+
+    <div id="book-grid" class="book-grid" aria-live="polite">
+      <p class="reader-status">正在加载目录…</p>
+    </div>
+  </div>
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>

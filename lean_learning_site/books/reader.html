@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lean 4 中文教材在线阅读器">
+  <title>阅读器 · Lean 4 学习工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="./books.css">
+</head>
+<body class="reader-page">
+  <div class="reader-shell">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="../index.html" aria-label="返回学习工作台首页">
+        <span class="brand-mark">∀</span>
+        <span>Lean 4 学习工作台</span>
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="./index.html">中文教材</a>
+      </div>
+    </nav>
+
+    <div class="reader-layout">
+      <aside class="reader-sidebar" aria-label="章节目录">
+        <h2 id="sidebar-title">目录</h2>
+        <div id="book-switch" class="book-switch"></div>
+        <nav id="reader-toc" class="reader-toc" aria-label="当前书籍目录"></nav>
+      </aside>
+
+      <article class="reader-main">
+        <div class="reader-toolbar">
+          <div class="crumbs" id="crumbs"></div>
+          <div class="nav-buttons">
+            <button type="button" id="prev-btn">上一篇</button>
+            <button type="button" id="next-btn">下一篇</button>
+          </div>
+        </div>
+        <div id="reader-content" class="reader-content">
+          <p class="reader-status">正在加载…</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
+  <script type="module" src="./reader.js"></script>
+</body>
+</html>

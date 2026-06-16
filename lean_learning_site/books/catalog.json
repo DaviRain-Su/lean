@@ -1,0 +1,916 @@
+{
+  "generatedAt": "2026-06-16T03:57:50.274Z",
+  "books": [
+    {
+      "id": "tpil",
+      "title": "Theorem Proving in Lean 4",
+      "titleZh": "Lean 4 定理证明",
+      "subtitle": "依赖类型论、命题逻辑、策略与归纳类型",
+      "originalUrl": "https://lean-lang.org/theorem_proving_in_lean4/",
+      "status": "全书 12 章已完成",
+      "indexPath": "tpil/INDEX.md",
+      "chapterCount": 12,
+      "sections": [
+        {
+          "title": "第 1 章：引言",
+          "chapters": [
+            {
+              "title": "引言",
+              "path": "tpil/Intro.md",
+              "summary": "形式化验证、Lean 简介、本书说明"
+            }
+          ]
+        },
+        {
+          "title": "第 2 章：依赖类型论",
+          "chapters": [
+            {
+              "title": "依赖类型论",
+              "path": "tpil/DependentTypeTheory.md",
+              "summary": "简单类型论、宇宙、lambda、`def`/`let`、命名空间、依赖类型、隐式参数"
+            }
+          ]
+        },
+        {
+          "title": "第 3 章：命题与证明",
+          "chapters": [
+            {
+              "title": "命题与证明",
+              "path": "tpil/PropositionsAndProofs.md",
+              "summary": "命题即类型、Curry-Howard、`theorem`/`example`、命题逻辑联结词、经典逻辑"
+            }
+          ]
+        },
+        {
+          "title": "第 4 章：量词与相等",
+          "chapters": [
+            {
+              "title": "量词与相等",
+              "path": "tpil/QuantifiersEquality.md",
+              "summary": "全称/存在量词、相等与替换、`calc`、`match`、证明语言扩展"
+            }
+          ]
+        },
+        {
+          "title": "第 5 章：策略",
+          "chapters": [
+            {
+              "title": "策略",
+              "path": "tpil/Tactics.md",
+              "summary": "策略模式、`apply`/`intro`/`cases`、`rw`/`simp`、`calc`、策略组合子"
+            }
+          ]
+        },
+        {
+          "title": "第 6 章：与 Lean 交互",
+          "chapters": [
+            {
+              "title": "与 Lean 交互",
+              "path": "tpil/InteractingWithLean.md",
+              "summary": "消息、`#check`/`#eval`、记号、属性、实例、强制转换"
+            }
+          ]
+        },
+        {
+          "title": "第 7 章：归纳类型",
+          "chapters": [
+            {
+              "title": "归纳类型",
+              "path": "tpil/InductiveTypes.md",
+              "summary": "`inductive`、命题归纳、自然数、列表、归纳族、互递归"
+            }
+          ]
+        },
+        {
+          "title": "第 8 章：归纳与递归",
+          "chapters": [
+            {
+              "title": "归纳与递归",
+              "path": "tpil/InductionAndRecursion.md",
+              "summary": "模式匹配、结构递归、良基递归、函数归纳、`match`"
+            }
+          ]
+        },
+        {
+          "title": "第 9 章：结构体与记录",
+          "chapters": [
+            {
+              "title": "结构体与记录",
+              "path": "tpil/StructuresAndRecords.md",
+              "summary": "`structure`、投影、点记法、记录更新、继承"
+            }
+          ]
+        },
+        {
+          "title": "第 10 章：类型类",
+          "chapters": [
+            {
+              "title": "类型类",
+              "path": "tpil/TypeClasses.md",
+              "summary": "实例、输出参数、默认/局部实例、`Decidable`、强制转换"
+            }
+          ]
+        },
+        {
+          "title": "第 11 章：转换策略模式",
+          "chapters": [
+            {
+              "title": "转换策略模式",
+              "path": "tpil/Conv.md",
+              "summary": "`conv` 模式、`lhs`/`rhs`、`congr`、绑定子下重写"
+            }
+          ]
+        },
+        {
+          "title": "第 12 章：公理与计算",
+          "chapters": [
+            {
+              "title": "公理与计算",
+              "path": "tpil/AxiomsComputation.md",
+              "summary": "命题/函数外延性、商、选择、排中律、经典与构造"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fp-lean",
+      "title": "Functional Programming in Lean",
+      "titleZh": "Lean 函数式编程",
+      "subtitle": "类型、单子、类型类、依赖类型与程序证明",
+      "originalUrl": "https://lean-lang.org/functional_programming_in_lean/",
+      "status": "全书已完成",
+      "indexPath": "fp-lean/INDEX.md",
+      "chapterCount": 68,
+      "sections": [
+        {
+          "title": "前言与说明",
+          "chapters": [
+            {
+              "title": "README",
+              "path": "fp-lean/README.md",
+              "summary": "原书 README 的中文翻译"
+            },
+            {
+              "title": "前言",
+              "path": "fp-lean/Intro.md",
+              "summary": "本书介绍、安装说明与排版约定"
+            }
+          ]
+        },
+        {
+          "title": "第 1 章：认识 Lean",
+          "chapters": [
+            {
+              "title": "认识 Lean（本章概述）",
+              "path": "fp-lean/GettingToKnow.md",
+              "summary": ""
+            },
+            {
+              "title": "求值表达式",
+              "path": "fp-lean/GettingToKnow/Evaluating.md",
+              "summary": ""
+            },
+            {
+              "title": "类型",
+              "path": "fp-lean/GettingToKnow/Types.md",
+              "summary": ""
+            },
+            {
+              "title": "函数与定义",
+              "path": "fp-lean/GettingToKnow/FunctionsDefinitions.md",
+              "summary": ""
+            },
+            {
+              "title": "结构体",
+              "path": "fp-lean/GettingToKnow/Structures.md",
+              "summary": ""
+            },
+            {
+              "title": "数据类型与模式匹配",
+              "path": "fp-lean/GettingToKnow/DatatypesPatterns.md",
+              "summary": ""
+            },
+            {
+              "title": "多态性",
+              "path": "fp-lean/GettingToKnow/Polymorphism.md",
+              "summary": ""
+            },
+            {
+              "title": "更多便利特性",
+              "path": "fp-lean/GettingToKnow/Conveniences.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/GettingToKnow/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 2 章：Hello, World!",
+          "chapters": [
+            {
+              "title": "Hello, World!（本章概述）",
+              "path": "fp-lean/HelloWorld.md",
+              "summary": ""
+            },
+            {
+              "title": "运行一个程序",
+              "path": "fp-lean/HelloWorld/RunningAProgram.md",
+              "summary": ""
+            },
+            {
+              "title": "逐步执行",
+              "path": "fp-lean/HelloWorld/StepByStep.md",
+              "summary": ""
+            },
+            {
+              "title": "启动一个项目",
+              "path": "fp-lean/HelloWorld/StartingAProject.md",
+              "summary": ""
+            },
+            {
+              "title": "实践示例：cat",
+              "path": "fp-lean/HelloWorld/Cat.md",
+              "summary": ""
+            },
+            {
+              "title": "便利特性",
+              "path": "fp-lean/HelloWorld/Conveniences.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/HelloWorld/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "插章：命题、证明与索引",
+          "chapters": [
+            {
+              "title": "命题、证明与索引",
+              "path": "fp-lean/PropsProofsIndexing.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "插章：策略、归纳与证明",
+          "chapters": [
+            {
+              "title": "策略、归纳与证明",
+              "path": "fp-lean/TacticsInductionProofs.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 3 章：单子",
+          "chapters": [
+            {
+              "title": "单子（本章概述）",
+              "path": "fp-lean/Monads.md",
+              "summary": ""
+            },
+            {
+              "title": "单子类型类",
+              "path": "fp-lean/Monads/Class.md",
+              "summary": ""
+            },
+            {
+              "title": "示例：单子中的算术",
+              "path": "fp-lean/Monads/Arithmetic.md",
+              "summary": ""
+            },
+            {
+              "title": "单子的 do 记法",
+              "path": "fp-lean/Monads/Do.md",
+              "summary": ""
+            },
+            {
+              "title": "IO 单子",
+              "path": "fp-lean/Monads/IO.md",
+              "summary": ""
+            },
+            {
+              "title": "更多便利特性",
+              "path": "fp-lean/Monads/Conveniences.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/Monads/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 4 章：函子、应用函子与单子",
+          "chapters": [
+            {
+              "title": "函子、应用函子与单子（本章概述）",
+              "path": "fp-lean/FunctorApplicativeMonad.md",
+              "summary": ""
+            },
+            {
+              "title": "结构体与继承",
+              "path": "fp-lean/FunctorApplicativeMonad/Inheritance.md",
+              "summary": ""
+            },
+            {
+              "title": "应用函子",
+              "path": "fp-lean/FunctorApplicativeMonad/Applicative.md",
+              "summary": ""
+            },
+            {
+              "title": "应用函子约定",
+              "path": "fp-lean/FunctorApplicativeMonad/ApplicativeContract.md",
+              "summary": ""
+            },
+            {
+              "title": "Alternative",
+              "path": "fp-lean/FunctorApplicativeMonad/Alternative.md",
+              "summary": ""
+            },
+            {
+              "title": "宇宙（Universes）",
+              "path": "fp-lean/FunctorApplicativeMonad/Universes.md",
+              "summary": ""
+            },
+            {
+              "title": "完整定义",
+              "path": "fp-lean/FunctorApplicativeMonad/Complete.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/FunctorApplicativeMonad/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 5 章：单子变换器",
+          "chapters": [
+            {
+              "title": "单子变换器（本章概述）",
+              "path": "fp-lean/MonadTransformers.md",
+              "summary": ""
+            },
+            {
+              "title": "组合 IO 与 Reader",
+              "path": "fp-lean/MonadTransformers/ReaderIO.md",
+              "summary": ""
+            },
+            {
+              "title": "单子构造工具箱",
+              "path": "fp-lean/MonadTransformers/Transformers.md",
+              "summary": ""
+            },
+            {
+              "title": "单子变换器的顺序",
+              "path": "fp-lean/MonadTransformers/Order.md",
+              "summary": ""
+            },
+            {
+              "title": "单子变换器的 do 记法",
+              "path": "fp-lean/MonadTransformers/Do.md",
+              "summary": ""
+            },
+            {
+              "title": "更多便利特性",
+              "path": "fp-lean/MonadTransformers/Conveniences.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/MonadTransformers/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 6 章：重载与类型类",
+          "chapters": [
+            {
+              "title": "重载与类型类（本章概述）",
+              "path": "fp-lean/TypeClasses.md",
+              "summary": ""
+            },
+            {
+              "title": "正数",
+              "path": "fp-lean/TypeClasses/Pos.md",
+              "summary": ""
+            },
+            {
+              "title": "类型类中的多态性",
+              "path": "fp-lean/TypeClasses/Polymorphism.md",
+              "summary": ""
+            },
+            {
+              "title": "输出参数",
+              "path": "fp-lean/TypeClasses/OutParams.md",
+              "summary": ""
+            },
+            {
+              "title": "索引",
+              "path": "fp-lean/TypeClasses/Indexing.md",
+              "summary": ""
+            },
+            {
+              "title": "标准类型类",
+              "path": "fp-lean/TypeClasses/StandardClasses.md",
+              "summary": ""
+            },
+            {
+              "title": "强制转换",
+              "path": "fp-lean/TypeClasses/Coercions.md",
+              "summary": ""
+            },
+            {
+              "title": "更多便利特性",
+              "path": "fp-lean/TypeClasses/Conveniences.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/TypeClasses/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 7 章：依赖类型",
+          "chapters": [
+            {
+              "title": "用依赖类型编程（本章概述）",
+              "path": "fp-lean/DependentTypes.md",
+              "summary": ""
+            },
+            {
+              "title": "索引族",
+              "path": "fp-lean/DependentTypes/IndexedFamilies.md",
+              "summary": ""
+            },
+            {
+              "title": "宇宙模式",
+              "path": "fp-lean/DependentTypes/UniversePattern.md",
+              "summary": ""
+            },
+            {
+              "title": "类型化查询",
+              "path": "fp-lean/DependentTypes/TypedQueries.md",
+              "summary": ""
+            },
+            {
+              "title": "索引、参数与宇宙",
+              "path": "fp-lean/DependentTypes/IndicesParametersUniverses.md",
+              "summary": ""
+            },
+            {
+              "title": "常见陷阱",
+              "path": "fp-lean/DependentTypes/Pitfalls.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/DependentTypes/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 8 章：编程、证明与性能",
+          "chapters": [
+            {
+              "title": "编程、证明与性能（本章概述）",
+              "path": "fp-lean/ProgramsProofs.md",
+              "summary": ""
+            },
+            {
+              "title": "尾递归",
+              "path": "fp-lean/ProgramsProofs/TailRecursion.md",
+              "summary": ""
+            },
+            {
+              "title": "尾递归证明",
+              "path": "fp-lean/ProgramsProofs/TailRecursionProofs.md",
+              "summary": ""
+            },
+            {
+              "title": "数组与终止性",
+              "path": "fp-lean/ProgramsProofs/ArraysTermination.md",
+              "summary": ""
+            },
+            {
+              "title": "不等式",
+              "path": "fp-lean/ProgramsProofs/Inequalities.md",
+              "summary": ""
+            },
+            {
+              "title": "Fin",
+              "path": "fp-lean/ProgramsProofs/Fin.md",
+              "summary": ""
+            },
+            {
+              "title": "插入排序",
+              "path": "fp-lean/ProgramsProofs/InsertionSort.md",
+              "summary": ""
+            },
+            {
+              "title": "特殊类型",
+              "path": "fp-lean/ProgramsProofs/SpecialTypes.md",
+              "summary": ""
+            },
+            {
+              "title": "小结",
+              "path": "fp-lean/ProgramsProofs/Summary.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "下一步",
+          "chapters": [
+            {
+              "title": "下一步",
+              "path": "fp-lean/NextSteps.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mil",
+      "title": "Mathematics in Lean",
+      "titleZh": "Lean 中的数学",
+      "subtitle": "Mathlib、集合论、代数、拓扑与测度论",
+      "originalUrl": "https://leanprover-community.github.io/mathematics_in_lean/",
+      "status": "全书 13 章已完成",
+      "indexPath": "mil/INDEX.md",
+      "chapterCount": 57,
+      "sections": [
+        {
+          "title": "说明",
+          "chapters": [
+            {
+              "title": "README",
+              "path": "mil/README.md",
+              "summary": "原书 README 的中文翻译"
+            }
+          ]
+        },
+        {
+          "title": "第 1 章：引言",
+          "chapters": [
+            {
+              "title": "引言（本章概述）",
+              "path": "mil/C01_Introduction.md",
+              "summary": ""
+            },
+            {
+              "title": "入门指南",
+              "path": "mil/C01_Introduction/GettingStarted.md",
+              "summary": ""
+            },
+            {
+              "title": "概述",
+              "path": "mil/C01_Introduction/Overview.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 2 章：基础",
+          "chapters": [
+            {
+              "title": "基础（本章概述）",
+              "path": "mil/C02_Basics.md",
+              "summary": ""
+            },
+            {
+              "title": "计算",
+              "path": "mil/C02_Basics/Calculating.md",
+              "summary": ""
+            },
+            {
+              "title": "证明代数结构中的恒等式",
+              "path": "mil/C02_Basics/ProvingIdentitiesInAlgebraicStructures.md",
+              "summary": ""
+            },
+            {
+              "title": "使用定理和引理",
+              "path": "mil/C02_Basics/UsingTheoremsAndLemmas.md",
+              "summary": ""
+            },
+            {
+              "title": "apply 和 rw 的更多例子",
+              "path": "mil/C02_Basics/MoreOnOrderAndDivisibility.md",
+              "summary": ""
+            },
+            {
+              "title": "证明关于代数结构的命题",
+              "path": "mil/C02_Basics/ProvingFactsAboutAlgebraicStructures.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 3 章：逻辑",
+          "chapters": [
+            {
+              "title": "逻辑（本章概述）",
+              "path": "mil/C03_Logic.md",
+              "summary": ""
+            },
+            {
+              "title": "蕴含与全称量词",
+              "path": "mil/C03_Logic/ImplicationAndUniversalQuantifier.md",
+              "summary": ""
+            },
+            {
+              "title": "存在量词",
+              "path": "mil/C03_Logic/ExistentialQuantifier.md",
+              "summary": ""
+            },
+            {
+              "title": "否定",
+              "path": "mil/C03_Logic/Negation.md",
+              "summary": ""
+            },
+            {
+              "title": "合取与双向蕴含",
+              "path": "mil/C03_Logic/ConjunctionAndIff.md",
+              "summary": ""
+            },
+            {
+              "title": "析取",
+              "path": "mil/C03_Logic/Disjunction.md",
+              "summary": ""
+            },
+            {
+              "title": "序列与收敛",
+              "path": "mil/C03_Logic/SequencesAndConvergence.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 4 章：集合与函数",
+          "chapters": [
+            {
+              "title": "集合与函数（本章概述）",
+              "path": "mil/C04_Sets_and_Functions.md",
+              "summary": ""
+            },
+            {
+              "title": "集合",
+              "path": "mil/C04_Sets_and_Functions/Sets.md",
+              "summary": ""
+            },
+            {
+              "title": "函数",
+              "path": "mil/C04_Sets_and_Functions/Functions.md",
+              "summary": ""
+            },
+            {
+              "title": "施罗德-伯恩斯坦定理",
+              "path": "mil/C04_Sets_and_Functions/SchroederBernsteinTheorem.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 5 章：初等数论",
+          "chapters": [
+            {
+              "title": "初等数论（本章概述）",
+              "path": "mil/C05_Elementary_Number_Theory.md",
+              "summary": ""
+            },
+            {
+              "title": "无理根",
+              "path": "mil/C05_Elementary_Number_Theory/IrrationalRoots.md",
+              "summary": ""
+            },
+            {
+              "title": "归纳与递归",
+              "path": "mil/C05_Elementary_Number_Theory/InductionAndRecursion.md",
+              "summary": ""
+            },
+            {
+              "title": "无穷多素数",
+              "path": "mil/C05_Elementary_Number_Theory/InfinitelyManyPrimes.md",
+              "summary": ""
+            },
+            {
+              "title": "更多归纳",
+              "path": "mil/C05_Elementary_Number_Theory/MoreInduction.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 6 章：离散数学",
+          "chapters": [
+            {
+              "title": "离散数学（本章概述）",
+              "path": "mil/C06_Discrete_Mathematics.md",
+              "summary": ""
+            },
+            {
+              "title": "Finsets 与 Fintypes",
+              "path": "mil/C06_Discrete_Mathematics/FinsetsAndFintypes.md",
+              "summary": ""
+            },
+            {
+              "title": "计数论证",
+              "path": "mil/C06_Discrete_Mathematics/CountingArguments.md",
+              "summary": ""
+            },
+            {
+              "title": "归纳定义的类型",
+              "path": "mil/C06_Discrete_Mathematics/InductiveStructures.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 7 章：结构体",
+          "chapters": [
+            {
+              "title": "结构体（本章概述）",
+              "path": "mil/C07_Structures.md",
+              "summary": ""
+            },
+            {
+              "title": "定义结构体",
+              "path": "mil/C07_Structures/Structures.md",
+              "summary": ""
+            },
+            {
+              "title": "代数结构",
+              "path": "mil/C07_Structures/AlgebraicStructures.md",
+              "summary": ""
+            },
+            {
+              "title": "构造高斯整数",
+              "path": "mil/C07_Structures/BuildingTheGaussianIntegers.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 8 章：层次结构",
+          "chapters": [
+            {
+              "title": "层次结构（本章概述）",
+              "path": "mil/C08_Hierarchies.md",
+              "summary": ""
+            },
+            {
+              "title": "基础",
+              "path": "mil/C08_Hierarchies/Basics.md",
+              "summary": ""
+            },
+            {
+              "title": "态射",
+              "path": "mil/C08_Hierarchies/Morphisms.md",
+              "summary": ""
+            },
+            {
+              "title": "子对象",
+              "path": "mil/C08_Hierarchies/Subobjects.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 9 章：群与环",
+          "chapters": [
+            {
+              "title": "群与环（本章概述）",
+              "path": "mil/C09_Groups_and_Rings.md",
+              "summary": ""
+            },
+            {
+              "title": "幺半群与群",
+              "path": "mil/C09_Groups_and_Rings/Groups.md",
+              "summary": ""
+            },
+            {
+              "title": "环",
+              "path": "mil/C09_Groups_and_Rings/Rings.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 10 章：线性代数",
+          "chapters": [
+            {
+              "title": "线性代数（本章概述）",
+              "path": "mil/C10_Linear_Algebra.md",
+              "summary": ""
+            },
+            {
+              "title": "向量空间与线性映射",
+              "path": "mil/C10_Linear_Algebra/VectorSpaces.md",
+              "summary": ""
+            },
+            {
+              "title": "子空间与商空间",
+              "path": "mil/C10_Linear_Algebra/Subspaces.md",
+              "summary": ""
+            },
+            {
+              "title": "自同态",
+              "path": "mil/C10_Linear_Algebra/Endomorphisms.md",
+              "summary": ""
+            },
+            {
+              "title": "矩阵、基与维数",
+              "path": "mil/C10_Linear_Algebra/Bases.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 11 章：拓扑学",
+          "chapters": [
+            {
+              "title": "拓扑学（本章概述）",
+              "path": "mil/C11_Topology.md",
+              "summary": ""
+            },
+            {
+              "title": "滤子",
+              "path": "mil/C11_Topology/Filters.md",
+              "summary": ""
+            },
+            {
+              "title": "度量空间",
+              "path": "mil/C11_Topology/MetricSpaces.md",
+              "summary": ""
+            },
+            {
+              "title": "拓扑空间",
+              "path": "mil/C11_Topology/TopologicalSpaces.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 12 章：微分学",
+          "chapters": [
+            {
+              "title": "微分学（本章概述）",
+              "path": "mil/C12_Differential_Calculus.md",
+              "summary": ""
+            },
+            {
+              "title": "初等微分学",
+              "path": "mil/C12_Differential_Calculus/ElementaryDifferentialCalculus.md",
+              "summary": ""
+            },
+            {
+              "title": "赋范空间上的微分学",
+              "path": "mil/C12_Differential_Calculus/CalculusInNormedSpaces.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "第 13 章：积分与测度论",
+          "chapters": [
+            {
+              "title": "积分与测度论（本章概述）",
+              "path": "mil/C13_Integration_and_Measure_Theory.md",
+              "summary": ""
+            },
+            {
+              "title": "初等积分",
+              "path": "mil/C13_Integration_and_Measure_Theory/ElementaryIntegration.md",
+              "summary": ""
+            },
+            {
+              "title": "测度论",
+              "path": "mil/C13_Integration_and_Measure_Theory/MeasureTheory.md",
+              "summary": ""
+            },
+            {
+              "title": "积分",
+              "path": "mil/C13_Integration_and_Measure_Theory/Integration.md",
+              "summary": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

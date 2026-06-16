@@ -21,6 +21,7 @@
         <a href="#install">安装</a>
         <a href="#code">写代码</a>
         <a href="#proofs">证明</a>
+        <a href="./books/index.html">中文教材</a>
         <a href="#deploy">部署</a>
       </div>
     </nav>
@@ -32,7 +33,7 @@
         <p class="lead">这里集中放安装状态、可运行代码、证明笔记、练习路线和 Cloudflare Pages 部署入口。后面每学一个 theorem，就补到这个站里。</p>
         <div class="hero-actions">
           <a class="button primary" href="#code">开始写 Lean</a>
-          <a class="button secondary" href="#proofs">查看证明笔记</a>
+          <a class="button secondary" href="./books/index.html">阅读中文教材</a>
         </div>
       </div>
 
@@ -160,10 +161,36 @@ code .</code></pre>
       </div>
     </section>
 
+    <section class="section resources" id="books">
+      <div class="section-heading">
+        <p class="eyebrow">04 · Chinese books</p>
+        <h2>中文教材库</h2>
+        <p>三本书的 Markdown 译文已接入本站，可在浏览器中直接阅读，代码块保持英文原样便于复制运行。</p>
+      </div>
+      <div class="resource-list">
+        <a href="./books/reader.html?book=tpil">
+          <strong>Lean 4 定理证明（TPIL4）</strong>
+          <span>全书 12 章 · 依赖类型论、命题逻辑、策略、归纳类型。</span>
+        </a>
+        <a href="./books/reader.html?book=fp-lean">
+          <strong>Lean 函数式编程（FP in Lean）</strong>
+          <span>全书已完成 · 单子、类型类、依赖类型、程序证明。</span>
+        </a>
+        <a href="./books/reader.html?book=mil">
+          <strong>Lean 中的数学（MiL）</strong>
+          <span>全书 13 章 · Mathlib、代数、拓扑、测度论。</span>
+        </a>
+        <a href="./books/index.html">
+          <strong>查看全部教材</strong>
+          <span>进入教材库首页，选择章节开始阅读。</span>
+        </a>
+      </div>
+    </section>
+
     <section class="section resources">
       <div class="section-heading">
-        <p class="eyebrow">04 · Learning path</p>
-        <h2>后续学习路线</h2>
+        <p class="eyebrow">05 · Learning path</p>
+        <h2>外部学习资源</h2>
       </div>
       <div class="resource-list">
         <a href="https://adam.math.hhu.de/#/g/leanprover-community/NNG4" target="_blank" rel="noreferrer">
@@ -174,39 +201,39 @@ code .</code></pre>
           <strong>Theorem Proving in Lean 4</strong>
           <span>系统学习命题、类型、证明（英文原版）。</span>
         </a>
-        <a href="../tpil-zh/book/zh-CN/INDEX.md">
-          <strong>TPIL4 中文版（进行中）</strong>
-          <span>Markdown 译文，与 fp-lean-zh / mil-zh 同风格。</span>
-        </a>
         <a href="https://lean-lang.org/functional_programming_in_lean/" target="_blank" rel="noreferrer">
           <strong>Functional Programming in Lean</strong>
-          <span>把 Lean 当函数式语言学习。</span>
+          <span>把 Lean 当函数式语言学习（英文原版）。</span>
         </a>
         <a href="https://leanprover-community.github.io/mathematics_in_lean/" target="_blank" rel="noreferrer">
           <strong>Mathematics in Lean</strong>
-          <span>进入 Mathlib 和正式数学证明。</span>
+          <span>进入 Mathlib 和正式数学证明（英文原版）。</span>
         </a>
       </div>
     </section>
 
     <section class="section deploy" id="deploy">
       <div class="section-heading">
-        <p class="eyebrow">05 · Cloudflare Pages</p>
+        <p class="eyebrow">06 · Cloudflare Pages</p>
         <h2>部署到 Cloudflare</h2>
-        <p>这个站是纯静态网站，最适合 Cloudflare Pages。后面登录 Cloudflare 后，用 Wrangler 一条命令即可发布。</p>
+        <p>这个站是纯静态网站，最适合 Cloudflare Pages。部署前会先同步三本书的 Markdown 译文到 <code>books/data/</code>。</p>
       </div>
 
       <div class="deploy-panel">
         <ol>
+          <li>同步教材：<code>npm run build</code></li>
           <li>确认已登录：<code>npx wrangler whoami</code></li>
           <li>如果没登录：<code>npx wrangler login</code></li>
-          <li>部署当前目录：<code>npx wrangler pages deploy . --project-name lean-learning-site</code></li>
+          <li>构建并部署：<code>npm run deploy</code></li>
         </ol>
-        <pre><code># 本地预览
-python3 -m http.server 8787
+        <pre><code># 本地预览（含教材同步）
+npm run preview
+
+# 仅同步教材
+npm run build
 
 # Cloudflare Pages 部署
-npx wrangler pages deploy . --project-name lean-learning-site</code></pre>
+npm run deploy</code></pre>
       </div>
     </section>
   </main>
