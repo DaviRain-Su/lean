@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:16:38.135Z",
+  "generatedAt": "2026-06-16T22:25:34.776Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 150 篇已翻译",
+      "status": "首批 156 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 150,
+      "chapterCount": 156,
       "sections": [
         {
           "title": "官网入口",
@@ -1466,6 +1466,36 @@
               "title": "映射与集合",
               "path": "lean-reference/Reference/BasicTypes/MapsAndSets.md",
               "summary": "`HashMap`、`TreeMap`、`HashSet`、extensional 与 dependent 设计"
+            },
+            {
+              "title": "有限自然数",
+              "path": "lean-reference/Reference/BasicTypes/FiniteNaturalNumbers.md",
+              "summary": "`Fin n`、索引类型、模运算、转换与归纳"
+            },
+            {
+              "title": "定长整数",
+              "path": "lean-reference/Reference/BasicTypes/FixedPrecisionIntegers.md",
+              "summary": "`UInt*` / `Int*` / `USize` / `ISize` 的位宽与运算"
+            },
+            {
+              "title": "浮点数",
+              "path": "lean-reference/Reference/BasicTypes/FloatingPointNumbers.md",
+              "summary": "`Float` 的语法、比较、算术、对数与三角函数"
+            },
+            {
+              "title": "字符",
+              "path": "lean-reference/Reference/BasicTypes/Characters.md",
+              "summary": "`Char`、Unicode scalar value、字符类别与编码大小"
+            },
+            {
+              "title": "字节数组",
+              "path": "lean-reference/Reference/BasicTypes/ByteArrays.md",
+              "summary": "packed byte buffer、UTF-8 解码、切片与 iterator"
+            },
+            {
+              "title": "Unit 类型",
+              "path": "lean-reference/Reference/BasicTypes/UnitType.md",
+              "summary": "`Unit`、`PUnit`、唯一值与 monad 返回语义"
             },
             {
               "title": "IO",
@@ -2306,6 +2336,29 @@
               "title": "前言与说明",
               "path": "math2001/00_Introduction.md",
               "summary": "待翻译"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logic-and-proof",
+      "title": "Logic and Proof",
+      "titleZh": "逻辑与证明",
+      "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
+      "originalUrl": "https://leanprover.github.io/logic_and_proof/",
+      "externalPdfUrl": null,
+      "status": "第 1 章已翻译 · 2–24 章待译",
+      "indexPath": "logic-and-proof/INDEX.md",
+      "chapterCount": 1,
+      "sections": [
+        {
+          "title": "第 1 章：引言",
+          "chapters": [
+            {
+              "title": "引言",
+              "path": "logic-and-proof/introduction.md",
+              "summary": "数学证明、符号逻辑、交互式定理证明、语义观点、课程目标"
             }
           ]
         }
