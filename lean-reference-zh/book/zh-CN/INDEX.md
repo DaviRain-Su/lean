@@ -43,6 +43,14 @@
 - [如何写 `Repr` instance](Reference/Interacting/ReprInstance.md) — `addAppParen`、`reprArg` 与括号策略
 - [`Repr` 的原子类型](Reference/Interacting/ReprAtomic.md) — `ReprAtom` 与原子项显示约定
 - [类型系统](Reference/TypeSystem.md) — term、definitional equality、reduction、conversion 与基础 type
+
+### 类型系统详解
+
+- [函数（类型系统层）](Reference/TypeSystemDetails/Functions.md) — 依赖函数、currying、β/η、外延性与 totality
+- [命题（类型系统层）](Reference/TypeSystemDetails/Propositions.md) — `Prop`、proof irrelevance、run-time irrelevance、`propext`
+- [universe](Reference/TypeSystemDetails/Universes.md) — `Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`
+- [归纳类型](Reference/TypeSystemDetails/InductiveTypes.md) — constructor、recursor、参数与索引、良构性与运行时表示
+- [quotient](Reference/TypeSystemDetails/Quotients.md) — `Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
