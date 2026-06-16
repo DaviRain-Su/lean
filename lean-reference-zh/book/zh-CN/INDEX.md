@@ -77,6 +77,14 @@
 - [公理](Reference/Axioms.md) — axiom 风险、标准公理、`sorryAx`、compiler trust 与 `#print axioms`
 - [Attribute](Reference/Attributes.md) — declaration annotation、`attribute` command、`local` 与 `scoped`
 - [Type class](Reference/TypeClasses.md) — ad-hoc polymorphism、instance synthesis 与常见用例
+
+### Type class 详解
+
+- [class 声明](Reference/TypeClasses/ClassDeclarations.md) — class vs structure、继承、method 与 class inductive
+- [instance 声明](Reference/TypeClasses/InstanceDeclarations.md) — where 风格、递归实例、优先级、`default_instance`
+- [instance synthesis](Reference/TypeClasses/InstanceSynthesis.md) — `inferInstance`、`inferInstanceAs`、输出参数与默认实例
+- [deriving instance](Reference/TypeClasses/DerivingInstances.md) — deriving 子句、独立 deriving 命令与 deriving handler
+- [基础 class 总览](Reference/TypeClasses/BasicClasses.md) — `BEq`、`Ord`、`Decidable`、`Inhabited`、算术与索引 class
 - [Coercion](Reference/Coercions.md) — 自动 coercion、`Coe`、`OfNat` 限制与自定义 coercion
 - [运行时代码](Reference/RunTimeCode.md) — runtime、内存管理、reference counting、task 与 primitive operator
 - [Term](Reference/Terms.md) — identifier、函数、应用、literal、pattern matching、hole 与 `do` notation
