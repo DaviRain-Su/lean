@@ -1,6 +1,6 @@
 # Theorem Proving in Lean 4（中文版）目录
 
-本目录为 *Theorem Proving in Lean 4* 的中文翻译。当前已完成第 1–4 章。
+本目录为 *Theorem Proving in Lean 4* 的中文翻译。当前已完成第 1–5 章。
 
 原书作者：Jeremy Avigad、Leonardo de Moura、Soonho Kong、Sebastian Ullrich（Lean 社区贡献）。
 
@@ -22,8 +22,11 @@
 
 - [量词与相等](QuantifiersEquality.md) — 全称/存在量词、相等与替换、`calc`、`match`、证明语言扩展
 
+### 第 5 章：策略
+
+- [策略](Tactics.md) — 策略模式、`apply`/`intro`/`cases`、`rw`/`simp`、`calc`、策略组合子
+
 ## 待翻译
-- 第 5 章：[策略](https://lean-lang.org/theorem_proving_in_lean4/Tactics/) — `Tactics.lean`
 - 第 6 章：[与 Lean 交互](https://lean-lang.org/theorem_proving_in_lean4/Interacting-with-Lean/) — `InteractingWithLean.lean`
 - 第 7 章：[归纳类型](https://lean-lang.org/theorem_proving_in_lean4/Inductive-Types/) — `InductiveTypes.lean`
 - 第 8 章：[归纳与递归](https://lean-lang.org/theorem_proving_in_lean4/Induction-and-Recursion/) — `InductionAndRecursion.lean`

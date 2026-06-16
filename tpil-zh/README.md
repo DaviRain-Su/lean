@@ -50,7 +50,8 @@ lake exe tpil   # 本地构建 HTML，输出在 _out/html-multi
 - [x] 第 2 章：依赖类型论
 - [x] 第 3 章：命题与证明
 - [x] 第 4 章：量词与相等
-- [ ] 第 5–12 章：待译
+- [x] 第 5 章：策略
+- [ ] 第 6–12 章：待译
 
 | 章 | 英文源文件 | 状态 |
 |----|-----------|------|
@@ -58,7 +59,7 @@ lake exe tpil   # 本地构建 HTML，输出在 _out/html-multi
 | 2 依赖类型论 | `DependentTypeTheory.lean` | 已完成 |
 | 3 命题与证明 | `PropositionsAndProofs.lean` | 已完成 |
 | 4 量词与相等 | `QuantifiersEquality.lean` | 已完成 |
-| 5 策略 | `Tactics.lean` | 待译 |
+| 5 策略 | `Tactics.lean` | 已完成 |
 | 6 与 Lean 交互 | `InteractingWithLean.lean` | 待译 |
 | 7 归纳类型 | `InductiveTypes.lean` | 待译 |
 | 8 归纳与递归 | `InductionAndRecursion.lean` | 待译 |
