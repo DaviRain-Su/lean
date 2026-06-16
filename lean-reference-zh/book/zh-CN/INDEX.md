@@ -129,6 +129,12 @@
 - [模式匹配](Reference/Terms/PatternMatching.md) — pattern、motive、generalization、`match_pattern` 与 `nomatch`
 - [Hole](Reference/Terms/Holes.md) — `_`、`?x`、`?_` 与 unification
 - [证明](Reference/Terms/Proofs.md) — proof 作为 term，以及 `by` 与 tactic proof 的关系
+- [数值字面量](Reference/Terms/NumericLiterals.md) — `OfNat`、`OfScientific`、进制字面量与列表/数组字面量
+- [结构体与构造子](Reference/Terms/StructuresConstructors.md) — 匿名构造子与 structure instance 语法的导航说明
+- [条件表达式](Reference/Terms/Conditionals.md) — `if`、`if h : p`、`if let` 与 `bif`
+- [类型标注](Reference/Terms/TypeAscription.md) — `(e : α)`、`show α from ...` 与 coercion 控制
+- [quotation 与 antiquotation](Reference/Terms/QuotationAntiquotation.md) — quotation 的导航说明与元编程定位
+- [`do` 记法](Reference/Terms/DoNotation.md) — 作为 term 语法的 `do` 与 monad 章节衔接
 - [策略证明](Reference/TacticProofs.md) — tactic language、proof state、goal 与 kernel 检查
 
 ### Tactic 详解

@@ -2,7 +2,7 @@
 
 本项目开始翻译 Lean 官方网站与 [The Lean Language Reference](https://lean-lang.org/doc/reference/latest/) 中最常用的入口材料。
 
-首批内容优先覆盖安装、学习资源、手动安装、语义高亮、LaTeX 高亮、参考手册总览、引言、elaboration 与其详解、交互命令与交互详解（含查询上下文、Format、`ToFormat`、`Repr`）、类型系统、源文件与模块及其详解、模块系统详解、命名空间与 section 详解、定义、公理与公理详解、attribute 与 attribute 详解、type class 与其详解、coercion 与其详解、运行时代码、term 与 term 详解、策略证明与 tactic 详解、simplifier / `grind` / `mvcgen` 及其详解、functor/monad、基础命题、基础类型与基础类型详解、IO 与 IO 详解、iterator、notation/macro 详解、错误解释及常见错误详解、发布说明、支持平台、证明验证、Lake、Lake 详解、Lake 测试/发布/缓存、Lake CLI 详解、Elan 与 Elan 详解。当前也已补齐布尔值、链表、range、映射与集合、有限自然数、定长整数、浮点数、字符、字节数组、Unit 类型、位向量、Empty 类型、Tuple、Sum 类型、惰性计算等高频基础类型子页。Lean 代码、命令、选项名、文件名和工具名保持英文原样，便于直接复制和对照官方文档。
+首批内容优先覆盖安装、学习资源、手动安装、语义高亮、LaTeX 高亮、参考手册总览、引言、elaboration 与其详解、交互命令与交互详解（含查询上下文、Format、`ToFormat`、`Repr`）、类型系统、源文件与模块及其详解、模块系统详解、命名空间与 section 详解、定义、公理与公理详解、attribute 与 attribute 详解、type class 与其详解、coercion 与其详解、运行时代码、term 与 term 详解（含字面量、条件、type ascription、quotation、`do` 记法）、策略证明与 tactic 详解、simplifier / `grind` / `mvcgen` 及其详解、functor/monad、基础命题、基础类型与基础类型详解、IO 与 IO 详解、iterator、notation/macro 详解、错误解释及常见错误详解、发布说明、支持平台、证明验证、Lake、Lake 详解、Lake 测试/发布/缓存、Lake CLI 详解、Elan 与 Elan 详解。当前也已补齐布尔值、链表、range、映射与集合、有限自然数、定长整数、浮点数、字符、字节数组、Unit 类型、位向量、Empty 类型、Tuple、Sum 类型、惰性计算等高频基础类型子页。Lean 代码、命令、选项名、文件名和工具名保持英文原样，便于直接复制和对照官方文档。
 
 ## 结构
 
@@ -21,4 +21,4 @@
 
 ## 状态
 
-首批 191 篇已翻译；完整参考手册深层小节仍待分批补齐。
+首批 197 篇已翻译；完整参考手册深层小节仍待分批补齐。
