@@ -361,3 +361,25 @@ theorem add_assoc (a b c : Nat) : a + b + c = a + (b + c) := by
     trace_state                 -- ⊢ succ (a + b + d) = succ (a + (b + d))
     rw [hd]                     -- hd : a + b + d = a + (b + d)
     trace_state                 -- ⊢ succ (a + (b + d)) = succ (a + (b + d))，随后自动完成
+
+-- 示例 15：add_right_comm —— a + b + c = a + c + b（右边 b、c 可交换）
+--
+-- 不直接对 b、c 归纳，而是复用已证的 add_assoc、add_comm：
+--   ① add_assoc    把左边 (a+b)+c 括号改成 a+(b+c)
+--   ② add_comm b c 把中间的 b+c 换成 c+b
+--   ③ ← add_assoc   把右边 a+c+b 括号改成 a+(c+b)，与左边一致
+--
+-- 三步对应目标变化：
+--   a + b + c = a + c + b
+--   → a + (b + c) = a + c + b
+--   → a + (c + b) = a + c + b
+--   → a + (c + b) = a + (c + b)
+
+theorem add_right_comm (a b c : Nat) : a + b + c = a + c + b := by
+  trace_state                 -- ⊢ (a + b) + c = a + c + b
+  rw [add_assoc]              -- ① 左边结合律：⊢ a + (b + c) = a + c + b
+  trace_state
+  rw [add_comm b c]           -- ② 交换 b、c：⊢ a + (c + b) = a + c + b
+  trace_state
+  rw [← add_assoc]            -- ③ 右边结合律反向：⊢ a + (c + b) = a + (c + b)
+  trace_state                 -- 随后自动完成
