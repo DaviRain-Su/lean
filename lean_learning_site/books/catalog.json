@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:06:25.480Z",
+  "generatedAt": "2026-06-16T23:12:15.655Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 172 篇已翻译",
+      "status": "首批 177 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 172,
+      "chapterCount": 177,
       "sections": [
         {
           "title": "官网入口",
@@ -1271,6 +1271,36 @@
               "title": "Coercion",
               "path": "lean-reference/Reference/Coercions.md",
               "summary": "自动 coercion、`Coe`、`OfNat` 限制与自定义 coercion"
+            }
+          ]
+        },
+        {
+          "title": "Coercion 详解",
+          "chapters": [
+            {
+              "title": "coercion 插入",
+              "path": "lean-reference/Reference/CoercionDetails/Insertion.md",
+              "summary": "自动插入场景、显式请求与双重 type ascription"
+            },
+            {
+              "title": "在类型之间 coercion",
+              "path": "lean-reference/Reference/CoercionDetails/BetweenTypes.md",
+              "summary": "`Coe`、`CoeDep`、链式 coercion 与 `NatCast` / `IntCast`"
+            },
+            {
+              "title": "coercion 到 sort",
+              "path": "lean-reference/Reference/CoercionDetails/ToSorts.md",
+              "summary": "`CoeSort`、`↥` 与 type/proposition 位置"
+            },
+            {
+              "title": "coercion 到函数类型",
+              "path": "lean-reference/Reference/CoercionDetails/ToFunctions.md",
+              "summary": "`CoeFun`、`⇑` 与“对象可调用”语义"
+            },
+            {
+              "title": "coercion 的实现细节",
+              "path": "lean-reference/Reference/CoercionDetails/ImplementationDetails.md",
+              "summary": "unfolding、chaining 与 `CoeTC` / `CoeHTCT`"
             },
             {
               "title": "运行时代码",
@@ -2438,9 +2468,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–8 章已翻译 · 9–24 章待译",
+      "status": "第 1–9 章已翻译 · 10–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 8,
+      "chapterCount": 9,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2519,6 +2549,16 @@
               "title": "一阶逻辑的自然演绎",
               "path": "logic-and-proof/natural_deduction_for_first_order_logic.md",
               "summary": "推理规则、全称量词、存在量词、相等、反例与相对化量词、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 9 章：Lean 中的一阶逻辑",
+          "chapters": [
+            {
+              "title": "Lean 中的一阶逻辑",
+              "path": "logic-and-proof/first_order_logic_in_lean.md",
+              "summary": "函数谓词关系、全称/存在量词、相等、策略模式、`calc`、练习"
             }
           ]
         }
