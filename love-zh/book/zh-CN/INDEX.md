@@ -4,7 +4,7 @@
 
 ## 说明
 
-阿姆斯特丹自由大学《逻辑验证》课程教材。第 1–3 章已人工校对；第 4–8 章由 Lean-zh PDF 自动提取为 Markdown（待人工校对）；第 9–14 章 PDF 尚未发布，保留占位与 Lean 练习。重新提取：`node scripts/extract-from-pdf.mjs`。
+阿姆斯特丹自由大学《逻辑验证》课程教材。第 1–4 章已人工校对；第 5–8 章由 Lean-zh PDF 自动提取为 Markdown（待人工校对）；第 9–14 章 PDF 尚未发布，保留占位与 Lean 练习。重新提取：`node scripts/extract-from-pdf.mjs`。
 
 ### 前言
 
