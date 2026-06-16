@@ -43,11 +43,15 @@
 
 - [一阶逻辑的自然演绎](natural_deduction_for_first_order_logic.md) — 推理规则、全称量词、存在量词、相等、反例与相对化量词、练习
 
-## 待翻译章节
-
 ### 第 9 章：Lean 中的一阶逻辑
 
-- [Lean 中的一阶逻辑](first_order_logic_in_lean.md) — 量词、等式、相等的计算、练习
+- [Lean 中的一阶逻辑](first_order_logic_in_lean.md) — 函数谓词关系、全称/存在量词、相等、策略模式、`calc`、练习
+
+## 待翻译章节
+
+### 第 10 章：一阶逻辑的语义
+
+- [一阶逻辑的语义](semantics_of_first_order_logic.md) — 模型、真值、有效性、可靠性与完全性
 
 ### 第 5 章：经典推理
 
