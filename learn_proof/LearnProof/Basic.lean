@@ -533,3 +533,71 @@ theorem mul_comm' (a b : Nat) : a * b = b * a := by
   induction b with
   | zero => rw [Nat.mul_zero, zero_mul]
   | succ d hd => rw [Nat.mul_succ, hd, succ_mul]
+
+-- ============================================================================
+-- 简写速查：本地 Lean 4 可编译的紧凑证法
+-- ============================================================================
+-- 说明：带 trace_state 的分步版用于学习；下面是与之一致的「能短则短」写法。
+-- 浏览器 NNG 里往往还要多写 rfl / add_zero，见各示例的浏览器注释。
+--
+-- ┌──────────────┬────────────────────────────────────────────────────────────┐
+-- │ 定理         │ 简写                                                       │
+-- ├──────────────┼────────────────────────────────────────────────────────────┤
+-- │ 示例 8       │ rw [Nat.add_zero, Nat.add_zero]                            │
+-- │ succ_eq_add_one │ rfl（本地定义相等；浏览器用 rw 链，见 9b）              │
+-- │ 示例 10      │ calc 五步（已是最短可读形式）                              │
+-- │ zero_add     │ induction n <;> first | rw [Nat.add_zero] | rw [Nat.add_succ, hd] │
+-- │ succ_add     │ 见 12c（浏览器风格一行 succ 步）                           │
+-- │ add_comm     │ 见 13b                                                     │
+-- │ add_assoc    │ 见 14b                                                     │
+-- │ add_right_comm │ rw [add_assoc, add_comm b c, ← add_assoc]              │
+-- │ mul_one      │ rw [one_eq_succ_zero, Nat.mul_succ, Nat.mul_zero, zero_add] │
+-- │ zero_mul     │ induction m <;> first | rw [Nat.mul_zero] | rw [Nat.mul_succ, hd] │
+-- │ succ_mul     │ 见 18b                                                     │
+-- │ mul_comm     │ 见 19b                                                     │
+-- └──────────────┴────────────────────────────────────────────────────────────┘
+
+-- 8c：add_zero 练习简写
+example (a b c : Nat) : a + (b + 0) + (c + 0) = a + b + c := by
+  rw [Nat.add_zero, Nat.add_zero]
+
+-- 9c：本地一行（浏览器需 9a 注释中的 rw 链）
+theorem succ_eq_add_one' (n : Nat) : Nat.succ n = n + 1 := rfl
+
+-- 11b
+theorem zero_add' (n : Nat) : 0 + n = n := by
+  induction n with
+  | zero => rw [Nat.add_zero]
+  | succ d hd => rw [Nat.add_succ, hd]
+
+-- 12c：succ_add 浏览器风格简写（succ 步一行）
+theorem succ_add'' (a b : Nat) : Nat.succ a + b = Nat.succ (a + b) := by
+  induction b with
+  | zero => rw [Nat.add_zero, Nat.add_zero]
+  | succ d hd => rw [Nat.add_succ, Nat.add_succ, hd]
+
+-- 13b
+theorem add_comm' (a b : Nat) : a + b = b + a := by
+  induction b with
+  | zero => rw [Nat.add_zero, zero_add]
+  | succ d hd => rw [Nat.add_succ, hd, succ_add]
+
+-- 14b
+theorem add_assoc' (a b c : Nat) : a + b + c = a + (b + c) := by
+  induction c with
+  | zero => rw [Nat.add_zero, Nat.add_zero]
+  | succ d hd => rw [Nat.add_succ, Nat.add_succ, Nat.add_succ, hd]
+
+-- 15b
+theorem add_right_comm' (a b c : Nat) : a + b + c = a + c + b := by
+  rw [add_assoc, add_comm b c, ← add_assoc]
+
+-- 16b
+theorem mul_one' (m : Nat) : m * 1 = m := by
+  rw [one_eq_succ_zero, Nat.mul_succ, Nat.mul_zero, zero_add]
+
+-- 17c
+theorem zero_mul' (m : Nat) : 0 * m = 0 := by
+  induction m with
+  | zero => rw [Nat.mul_zero]
+  | succ d hd => rw [Nat.mul_succ, hd]
