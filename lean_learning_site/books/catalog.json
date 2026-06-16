@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:45:30.930Z",
+  "generatedAt": "2026-06-16T23:05:46.346Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 167 篇已翻译",
+      "status": "首批 172 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 167,
+      "chapterCount": 172,
       "sections": [
         {
           "title": "官网入口",
@@ -1236,6 +1236,36 @@
               "title": "Type class",
               "path": "lean-reference/Reference/TypeClasses.md",
               "summary": "ad-hoc polymorphism、instance synthesis 与常见用例"
+            }
+          ]
+        },
+        {
+          "title": "Type class 详解",
+          "chapters": [
+            {
+              "title": "class 声明",
+              "path": "lean-reference/Reference/TypeClasses/ClassDeclarations.md",
+              "summary": "class vs structure、继承、method 与 class inductive"
+            },
+            {
+              "title": "instance 声明",
+              "path": "lean-reference/Reference/TypeClasses/InstanceDeclarations.md",
+              "summary": "where 风格、递归实例、优先级、`default_instance`"
+            },
+            {
+              "title": "instance synthesis",
+              "path": "lean-reference/Reference/TypeClasses/InstanceSynthesis.md",
+              "summary": "`inferInstance`、`inferInstanceAs`、输出参数与默认实例"
+            },
+            {
+              "title": "deriving instance",
+              "path": "lean-reference/Reference/TypeClasses/DerivingInstances.md",
+              "summary": "deriving 子句、独立 deriving 命令与 deriving handler"
+            },
+            {
+              "title": "基础 class 总览",
+              "path": "lean-reference/Reference/TypeClasses/BasicClasses.md",
+              "summary": "`BEq`、`Ord`、`Decidable`、`Inhabited`、算术与索引 class"
             },
             {
               "title": "Coercion",
@@ -2408,9 +2438,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–7 章已翻译 · 8–24 章待译",
+      "status": "第 1–8 章已翻译 · 9–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 7,
+      "chapterCount": 8,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2479,6 +2509,16 @@
               "title": "一阶逻辑",
               "path": "logic-and-proof/first_order_logic.md",
               "summary": "函数、谓词与关系、全称量词、存在量词、相对化与类、相等、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 8 章：一阶逻辑的自然演绎",
+          "chapters": [
+            {
+              "title": "一阶逻辑的自然演绎",
+              "path": "logic-and-proof/natural_deduction_for_first_order_logic.md",
+              "summary": "推理规则、全称量词、存在量词、相等、反例与相对化量词、练习"
             }
           ]
         }
