@@ -1,6 +1,6 @@
 # Theorem Proving in Lean 4（中文版）目录
 
-本目录为 *Theorem Proving in Lean 4* 的中文翻译。当前已完成第 1–5 章。
+本目录为 *Theorem Proving in Lean 4* 的中文翻译。**全书 12 章已全部译完。**
 
 原书作者：Jeremy Avigad、Leonardo de Moura、Soonho Kong、Sebastian Ullrich（Lean 社区贡献）。
 
@@ -26,14 +26,33 @@
 
 - [策略](Tactics.md) — 策略模式、`apply`/`intro`/`cases`、`rw`/`simp`、`calc`、策略组合子
 
-## 待翻译
-- 第 6 章：[与 Lean 交互](https://lean-lang.org/theorem_proving_in_lean4/Interacting-with-Lean/) — `InteractingWithLean.lean`
-- 第 7 章：[归纳类型](https://lean-lang.org/theorem_proving_in_lean4/Inductive-Types/) — `InductiveTypes.lean`
-- 第 8 章：[归纳与递归](https://lean-lang.org/theorem_proving_in_lean4/Induction-and-Recursion/) — `InductionAndRecursion.lean`
-- 第 9 章：[结构体与记录](https://lean-lang.org/theorem_proving_in_lean4/Structures-and-Records/) — `StructuresAndRecords.lean`
-- 第 10 章：[类型类](https://lean-lang.org/theorem_proving_in_lean4/Type-Classes/) — `TypeClasses.lean`
-- 第 11 章：[转换策略模式](https://lean-lang.org/theorem_proving_in_lean4/The-Conversion-Tactic-Mode/) — `Conv.lean`
-- 第 12 章：[公理与计算](https://lean-lang.org/theorem_proving_in_lean4/Axioms-and-Computation/) — `AxiomsComputation.lean`
+### 第 6 章：与 Lean 交互
+
+- [与 Lean 交互](InteractingWithLean.md) — 消息、`#check`/`#eval`、记号、属性、实例、强制转换
+
+### 第 7 章：归纳类型
+
+- [归纳类型](InductiveTypes.md) — `inductive`、命题归纳、自然数、列表、归纳族、互递归
+
+### 第 8 章：归纳与递归
+
+- [归纳与递归](InductionAndRecursion.md) — 模式匹配、结构递归、良基递归、函数归纳、`match`
+
+### 第 9 章：结构体与记录
+
+- [结构体与记录](StructuresAndRecords.md) — `structure`、投影、点记法、记录更新、继承
+
+### 第 10 章：类型类
+
+- [类型类](TypeClasses.md) — 实例、输出参数、默认/局部实例、`Decidable`、强制转换
+
+### 第 11 章：转换策略模式
+
+- [转换策略模式](Conv.md) — `conv` 模式、`lhs`/`rhs`、`congr`、绑定子下重写
+
+### 第 12 章：公理与计算
+
+- [公理与计算](AxiomsComputation.md) — 命题/函数外延性、商、选择、排中律、经典与构造
 
 ## 对应英文源文件
 

@@ -51,7 +51,13 @@ lake exe tpil   # 本地构建 HTML，输出在 _out/html-multi
 - [x] 第 3 章：命题与证明
 - [x] 第 4 章：量词与相等
 - [x] 第 5 章：策略
-- [ ] 第 6–12 章：待译
+- [x] 第 6 章：与 Lean 交互
+- [x] 第 7 章：归纳类型
+- [x] 第 8 章：归纳与递归
+- [x] 第 9 章：结构体与记录
+- [x] 第 10 章：类型类
+- [x] 第 11 章：转换策略模式
+- [x] 第 12 章：公理与计算
 
 | 章 | 英文源文件 | 状态 |
 |----|-----------|------|
@@ -60,10 +66,10 @@ lake exe tpil   # 本地构建 HTML，输出在 _out/html-multi
 | 3 命题与证明 | `PropositionsAndProofs.lean` | 已完成 |
 | 4 量词与相等 | `QuantifiersEquality.lean` | 已完成 |
 | 5 策略 | `Tactics.lean` | 已完成 |
-| 6 与 Lean 交互 | `InteractingWithLean.lean` | 待译 |
-| 7 归纳类型 | `InductiveTypes.lean` | 待译 |
-| 8 归纳与递归 | `InductionAndRecursion.lean` | 待译 |
-| 9 结构体与记录 | `StructuresAndRecords.lean` | 待译 |
-| 10 类型类 | `TypeClasses.lean` | 待译 |
-| 11 转换策略模式 | `Conv.lean` | 待译 |
-| 12 公理与计算 | `AxiomsComputation.lean` | 待译 |
+| 6 与 Lean 交互 | `InteractingWithLean.lean` | 已完成 |
+| 7 归纳类型 | `InductiveTypes.lean` | 已完成 |
+| 8 归纳与递归 | `InductionAndRecursion.lean` | 已完成 |
+| 9 结构体与记录 | `StructuresAndRecords.lean` | 已完成 |
+| 10 类型类 | `TypeClasses.lean` | 已完成 |
+| 11 转换策略模式 | `Conv.lean` | 已完成 |
+| 12 公理与计算 | `AxiomsComputation.lean` | 已完成 |
