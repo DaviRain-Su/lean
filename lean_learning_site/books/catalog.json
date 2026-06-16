@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:28:34.447Z",
+  "generatedAt": "2026-06-16T23:33:19.352Z",
   "books": [
     {
       "id": "tpil",
@@ -2553,9 +2553,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–11 章已翻译 · 12–24 章待译",
+      "status": "第 1–12 章已翻译 · 13–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 11,
+      "chapterCount": 12,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2664,6 +2664,16 @@
               "title": "集合",
               "path": "logic-and-proof/sets.md",
               "summary": "集合论基础、集合运算、指标族、笛卡尔积与幂集、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 12 章：Lean 中的集合",
+          "chapters": [
+            {
+              "title": "Lean 中的集合",
+              "path": "logic-and-proof/sets_in_lean.md",
+              "summary": "`Set` 类型、外延性、并交补、指标族、幂集、练习"
             }
           ]
         }
