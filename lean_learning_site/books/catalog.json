@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T03:57:50.274Z",
+  "generatedAt": "2026-06-16T04:23:43.193Z",
   "books": [
     {
       "id": "tpil",
@@ -7,6 +7,7 @@
       "titleZh": "Lean 4 定理证明",
       "subtitle": "依赖类型论、命题逻辑、策略与归纳类型",
       "originalUrl": "https://lean-lang.org/theorem_proving_in_lean4/",
+      "externalPdfUrl": null,
       "status": "全书 12 章已完成",
       "indexPath": "tpil/INDEX.md",
       "chapterCount": 12,
@@ -139,6 +140,7 @@
       "titleZh": "Lean 函数式编程",
       "subtitle": "类型、单子、类型类、依赖类型与程序证明",
       "originalUrl": "https://lean-lang.org/functional_programming_in_lean/",
+      "externalPdfUrl": null,
       "status": "全书已完成",
       "indexPath": "fp-lean/INDEX.md",
       "chapterCount": 68,
@@ -551,6 +553,7 @@
       "titleZh": "Lean 中的数学",
       "subtitle": "Mathlib、集合论、代数、拓扑与测度论",
       "originalUrl": "https://leanprover-community.github.io/mathematics_in_lean/",
+      "externalPdfUrl": null,
       "status": "全书 13 章已完成",
       "indexPath": "mil/INDEX.md",
       "chapterCount": 57,
@@ -911,6 +914,155 @@
           ]
         }
       ]
+    },
+    {
+      "id": "faq",
+      "title": "Lean FAQ",
+      "titleZh": "Lean 常见问题",
+      "subtitle": "官方 FAQ：用途、逻辑、可信代码基与安全",
+      "originalUrl": "https://lean-lang.org/faq",
+      "externalPdfUrl": null,
+      "status": "全文已完成",
+      "indexPath": "faq/INDEX.md",
+      "chapterCount": 1,
+      "sections": [
+        {
+          "title": "全文",
+          "chapters": [
+            {
+              "title": "常见问题全文",
+              "path": "faq/FAQ.md",
+              "summary": "数学/软件验证、与 Rocq/Isabelle 对比、证明对象、可信代码基、供应链安全等"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vscode-lean4",
+      "title": "Lean 4 VS Code Extension Manual",
+      "titleZh": "VS Code Lean 4 手册",
+      "subtitle": "安装、InfoView、项目与 Elan 版本管理",
+      "originalUrl": "https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md",
+      "externalPdfUrl": null,
+      "status": "全书 8 篇已完成",
+      "indexPath": "vscode-lean4/INDEX.md",
+      "chapterCount": 8,
+      "sections": [
+        {
+          "title": "入门",
+          "chapters": [
+            {
+              "title": "安装与设置",
+              "path": "vscode-lean4/SetupAndSettings.md",
+              "summary": "安装 Lean 4、配置编辑器默认值"
+            },
+            {
+              "title": "使用命令",
+              "path": "vscode-lean4/Commands.md",
+              "summary": "命令菜单、命令面板、快捷键"
+            }
+          ]
+        },
+        {
+          "title": "编辑与导航",
+          "chapters": [
+            {
+              "title": "与 Lean 文件交互",
+              "path": "vscode-lean4/InteractingWithFiles.md",
+              "summary": "文件处理、诊断、Unicode 输入、InfoView、补全、代码动作"
+            },
+            {
+              "title": "在项目中导航",
+              "path": "vscode-lean4/NavigatingProjects.md",
+              "summary": "跳转定义、引用、符号搜索、模块层次"
+            }
+          ]
+        },
+        {
+          "title": "项目与工具链",
+          "chapters": [
+            {
+              "title": "管理 Lean 项目",
+              "path": "vscode-lean4/ManagingProjects.md",
+              "summary": "创建/打开项目、Lake 操作、终端"
+            },
+            {
+              "title": "管理 Lean 版本",
+              "path": "vscode-lean4/ManagingVersions.md",
+              "summary": "Elan、默认版本、卸载"
+            },
+            {
+              "title": "查找定义与定理",
+              "path": "vscode-lean4/FindingDefinitions.md",
+              "summary": "LoogleView"
+            }
+          ]
+        },
+        {
+          "title": "排错",
+          "chapters": [
+            {
+              "title": "故障排除",
+              "path": "vscode-lean4/Troubleshooting.md",
+              "summary": "安装诊断、输出视图、重启服务器"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "love",
+      "title": "The Hitchhiker's Guide to Logical Verification",
+      "titleZh": "逻辑验证漫游指南",
+      "subtitle": "研究生级逻辑验证 · PDF 中文 + 练习",
+      "originalUrl": "https://github.com/lean-forward/logical_verification_2025",
+      "externalPdfUrl": "https://github.com/Lean-zh/LoVe-zh",
+      "status": "导读已完成 · 正文见 PDF",
+      "indexPath": "love/INDEX.md",
+      "chapterCount": 1,
+      "sections": [
+        {
+          "title": "导读",
+          "chapters": [
+            {
+              "title": "关于本书与学习路径",
+              "path": "love/README.md",
+              "summary": "适用对象、与 TPIL/MIL 的关系、如何获取 PDF 与练习"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "externalLinks": [
+    {
+      "title": "Metaprogramming in Lean 4",
+      "titleZh": "Lean 4 元编程",
+      "description": "宏、策略、elab 与扩展 Lean。Lean-zh Sphinx 译本。",
+      "url": "https://leanprover.cn/mp-lean-zh/",
+      "originalUrl": "https://leanprover-community.github.io/lean4-metaprogramming-book/"
+    },
+    {
+      "title": "Natural Number Game (NNG4)",
+      "titleZh": "自然数游戏 NNG4",
+      "description": "交互式入门：tactic、rw、induction。",
+      "url": "https://nng4.leanprover.cn",
+      "originalUrl": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4"
+    },
+    {
+      "title": "The Mechanics of Proof",
+      "titleZh": "证明的机制（Math2001）",
+      "description": "本科数学推理 + Lean。英文在线书。",
+      "url": "https://hrmacbeth.github.io/math2001/",
+      "originalUrl": "https://hrmacbeth.github.io/math2001/"
+    },
+    {
+      "title": "The Lean Language Reference",
+      "titleZh": "Lean 语言参考手册",
+      "description": "权威参考（非教程）。按章节查阅。",
+      "url": "https://lean-lang.org/doc/reference/latest/",
+      "originalUrl": "https://lean-lang.org/doc/reference/latest/"
     }
   ]
 }

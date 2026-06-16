@@ -24,8 +24,22 @@
 
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+}
+
+.external-hero {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.external-hero h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin: 0.35rem 0 0.75rem;
+}
+
+.external-card .badge {
+  display: none;
 }
 
 .book-card {

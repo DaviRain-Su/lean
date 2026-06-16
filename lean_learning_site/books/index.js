@@ -1,4 +1,5 @@
 const grid = document.getElementById('book-grid');
+const externalGrid = document.getElementById('external-grid');
 
 function renderBooks(catalog) {
   grid.innerHTML = catalog.books.map((book) => {
@@ -6,6 +7,10 @@ function renderBooks(catalog) {
     const startHref = firstChapter
       ? `./reader.html?book=${encodeURIComponent(book.id)}&path=${encodeURIComponent(firstChapter.path)}`
       : `./reader.html?book=${encodeURIComponent(book.id)}`;
+
+    const pdfAction = book.externalPdfUrl
+      ? `<a class="button secondary" href="${book.externalPdfUrl}" target="_blank" rel="noreferrer">中文 PDF</a>`
+      : '';
 
     return `
       <article class="book-card">
@@ -16,10 +21,25 @@ function renderBooks(catalog) {
         <div class="actions">
           <a class="button primary" href="${startHref}">开始阅读</a>
           <a class="button secondary" href="./reader.html?book=${encodeURIComponent(book.id)}">章节目录</a>
+          ${pdfAction}
         </div>
       </article>
     `;
   }).join('');
+
+  if (!externalGrid) return;
+
+  const links = catalog.externalLinks ?? [];
+  externalGrid.innerHTML = links.map((item) => `
+    <article class="book-card external-card">
+      <h2>${item.titleZh}</h2>
+      <p class="meta"><strong>${item.title}</strong><br>${item.description}</p>
+      <div class="actions">
+        <a class="button primary" href="${item.url}" target="_blank" rel="noreferrer">打开</a>
+        <a class="button secondary" href="${item.originalUrl}" target="_blank" rel="noreferrer">英文原版</a>
+      </div>
+    </article>
+  `).join('');
 }
 
 async function main() {

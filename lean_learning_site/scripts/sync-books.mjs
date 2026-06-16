@@ -36,6 +36,65 @@ const BOOKS = [
     originalUrl: 'https://leanprover-community.github.io/mathematics_in_lean/',
     status: '全书 13 章已完成',
   },
+  {
+    id: 'faq',
+    title: 'Lean FAQ',
+    titleZh: 'Lean 常见问题',
+    subtitle: '官方 FAQ：用途、逻辑、可信代码基与安全',
+    source: join(repoRoot, 'faq-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://lean-lang.org/faq',
+    status: '全文已完成',
+  },
+  {
+    id: 'vscode-lean4',
+    title: 'Lean 4 VS Code Extension Manual',
+    titleZh: 'VS Code Lean 4 手册',
+    subtitle: '安装、InfoView、项目与 Elan 版本管理',
+    source: join(repoRoot, 'vscode-lean4-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md',
+    status: '全书 8 篇已完成',
+  },
+  {
+    id: 'love',
+    title: "The Hitchhiker's Guide to Logical Verification",
+    titleZh: '逻辑验证漫游指南',
+    subtitle: '研究生级逻辑验证 · PDF 中文 + 练习',
+    source: join(repoRoot, 'love-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://github.com/lean-forward/logical_verification_2025',
+    status: '导读已完成 · 正文见 PDF',
+    externalPdfUrl: 'https://github.com/Lean-zh/LoVe-zh',
+  },
+];
+
+const EXTERNAL_LINKS = [
+  {
+    title: 'Metaprogramming in Lean 4',
+    titleZh: 'Lean 4 元编程',
+    description: '宏、策略、elab 与扩展 Lean。Lean-zh Sphinx 译本。',
+    url: 'https://leanprover.cn/mp-lean-zh/',
+    originalUrl: 'https://leanprover-community.github.io/lean4-metaprogramming-book/',
+  },
+  {
+    title: 'Natural Number Game (NNG4)',
+    titleZh: '自然数游戏 NNG4',
+    description: '交互式入门：tactic、rw、induction。',
+    url: 'https://nng4.leanprover.cn',
+    originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
+  },
+  {
+    title: 'The Mechanics of Proof',
+    titleZh: '证明的机制（Math2001）',
+    description: '本科数学推理 + Lean。英文在线书。',
+    url: 'https://hrmacbeth.github.io/math2001/',
+    originalUrl: 'https://hrmacbeth.github.io/math2001/',
+  },
+  {
+    title: 'The Lean Language Reference',
+    titleZh: 'Lean 语言参考手册',
+    description: '权威参考（非教程）。按章节查阅。',
+    url: 'https://lean-lang.org/doc/reference/latest/',
+    originalUrl: 'https://lean-lang.org/doc/reference/latest/',
+  },
 ];
 
 function copyMarkdownTree(source, target) {
@@ -116,6 +175,7 @@ function syncBook(book) {
     titleZh: book.titleZh,
     subtitle: book.subtitle,
     originalUrl: book.originalUrl,
+    externalPdfUrl: book.externalPdfUrl ?? null,
     status: book.status,
     indexPath: `${book.id}/INDEX.md`,
     chapterCount,
@@ -136,6 +196,7 @@ function main() {
   const catalog = {
     generatedAt: new Date().toISOString(),
     books,
+    externalLinks: EXTERNAL_LINKS,
   };
 
   writeFileSync(join(siteRoot, 'books', 'catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
