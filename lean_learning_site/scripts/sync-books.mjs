@@ -53,7 +53,7 @@ const BOOKS = [
     subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
     source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
     originalUrl: 'https://lean-lang.org/doc/reference/latest/',
-    status: '首批 172 篇已翻译',
+    status: '首批 177 篇已翻译',
   },
   {
     id: 'vscode-lean4',

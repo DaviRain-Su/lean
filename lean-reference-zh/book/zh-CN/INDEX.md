@@ -86,6 +86,14 @@
 - [deriving instance](Reference/TypeClasses/DerivingInstances.md) — deriving 子句、独立 deriving 命令与 deriving handler
 - [基础 class 总览](Reference/TypeClasses/BasicClasses.md) — `BEq`、`Ord`、`Decidable`、`Inhabited`、算术与索引 class
 - [Coercion](Reference/Coercions.md) — 自动 coercion、`Coe`、`OfNat` 限制与自定义 coercion
+
+### Coercion 详解
+
+- [coercion 插入](Reference/CoercionDetails/Insertion.md) — 自动插入场景、显式请求与双重 type ascription
+- [在类型之间 coercion](Reference/CoercionDetails/BetweenTypes.md) — `Coe`、`CoeDep`、链式 coercion 与 `NatCast` / `IntCast`
+- [coercion 到 sort](Reference/CoercionDetails/ToSorts.md) — `CoeSort`、`↥` 与 type/proposition 位置
+- [coercion 到函数类型](Reference/CoercionDetails/ToFunctions.md) — `CoeFun`、`⇑` 与“对象可调用”语义
+- [coercion 的实现细节](Reference/CoercionDetails/ImplementationDetails.md) — unfolding、chaining 与 `CoeTC` / `CoeHTCT`
 - [运行时代码](Reference/RunTimeCode.md) — runtime、内存管理、reference counting、task 与 primitive operator
 - [Term](Reference/Terms.md) — identifier、函数、应用、literal、pattern matching、hole 与 `do` notation
 
