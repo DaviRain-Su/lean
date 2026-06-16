@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–11 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–12 章。
 
 ## 已翻译章节
 
@@ -90,8 +90,13 @@
 - [度量空间](C11_Topology/MetricSpaces.md)
 - [拓扑空间](C11_Topology/TopologicalSpaces.md)
 
+### 第 12 章：微分学
+
+- [微分学（本章概述）](C12_Differential_Calculus.md)
+- [初等微分学](C12_Differential_Calculus/ElementaryDifferentialCalculus.md)
+- [赋范空间上的微分学](C12_Differential_Calculus/CalculusInNormedSpaces.md)
+
 ## 待翻译
-- 第 12 章：微分学
 - 第 13 章：积分与测度论
 
 ## 对应英文源文件
