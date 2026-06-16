@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:39:15.635Z",
+  "generatedAt": "2026-06-16T23:45:10.911Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 191 篇已翻译",
+      "status": "首批 197 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 191,
+      "chapterCount": 197,
       "sections": [
         {
           "title": "官网入口",
@@ -1436,6 +1436,36 @@
               "title": "证明",
               "path": "lean-reference/Reference/Terms/Proofs.md",
               "summary": "proof 作为 term，以及 `by` 与 tactic proof 的关系"
+            },
+            {
+              "title": "数值字面量",
+              "path": "lean-reference/Reference/Terms/NumericLiterals.md",
+              "summary": "`OfNat`、`OfScientific`、进制字面量与列表/数组字面量"
+            },
+            {
+              "title": "结构体与构造子",
+              "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
+              "summary": "匿名构造子与 structure instance 语法的导航说明"
+            },
+            {
+              "title": "条件表达式",
+              "path": "lean-reference/Reference/Terms/Conditionals.md",
+              "summary": "`if`、`if h : p`、`if let` 与 `bif`"
+            },
+            {
+              "title": "类型标注",
+              "path": "lean-reference/Reference/Terms/TypeAscription.md",
+              "summary": "`(e : α)`、`show α from ...` 与 coercion 控制"
+            },
+            {
+              "title": "quotation 与 antiquotation",
+              "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
+              "summary": "quotation 的导航说明与元编程定位"
+            },
+            {
+              "title": "`do` 记法",
+              "path": "lean-reference/Reference/Terms/DoNotation.md",
+              "summary": "作为 term 语法的 `do` 与 monad 章节衔接"
             },
             {
               "title": "策略证明",
@@ -2553,9 +2583,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–13 章已翻译 · 14–24 章待译",
+      "status": "第 1–14 章已翻译 · 15–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 13,
+      "chapterCount": 14,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2684,6 +2714,16 @@
               "title": "关系",
               "path": "logic-and-proof/relations.md",
               "summary": "偏序与全序、严格序、极小元与最小元、等价关系与商、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 14 章：Lean 中的关系",
+          "chapters": [
+            {
+              "title": "Lean 中的关系",
+              "path": "logic-and-proof/relations_in_lean.md",
+              "summary": "`A → A → Prop`、序关系类、数上的序、等价关系、练习"
             }
           ]
         }
