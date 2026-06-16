@@ -17,7 +17,7 @@ example (a b c : ℝ) : (a * b) * c = b * (a * c) := by
 
 ```
 
-现在轮到你了，用证明替换下面的单词 sorry。在这种情况下，证明就是 `ring`。在你证明某些东西后，你会看到一个小的 "No goals" 消息，这表明你的证明已经完成。
+现在轮到你了，用证明替换下面的单词 sorry。在这种情况下，证明就是 `ring`。在你证明某些东西后，你会看到一条表示没有剩余目标的小消息，这表明你的证明已经完成。
 
 ```lean
 example (a b : ℝ) : (a+b)^2 = a^2 + 2*a*b + b^2 := by
@@ -166,7 +166,7 @@ example (a b c : ℝ) (h : a = b + c) : exp (2 * a) = (exp b) ^ 2 * (exp c) ^ 2 
     exp (2 * a) = exp (2 * (b + c))                 := by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 rw [h]/- inline sorry -/
@@ -176,7 +176,7 @@ rw [h]/- inline sorry -/
               _ = exp ((b + b) + (c + c))           := by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 ring/- inline sorry -/
@@ -186,7 +186,7 @@ ring/- inline sorry -/
               _ = exp (b + b) * exp (c + c)         := by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 rw [exp_add]/- inline sorry -/
@@ -196,7 +196,7 @@ rw [exp_add]/- inline sorry -/
               _ = (exp b * exp b) * (exp c * exp c) := by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 rw [exp_add, exp_add]/- inline sorry -/
@@ -206,7 +206,7 @@ rw [exp_add, exp_add]/- inline sorry -/
               _ = (exp b) ^ 2 * (exp c)^2           := by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 ring/- inline sorry -/

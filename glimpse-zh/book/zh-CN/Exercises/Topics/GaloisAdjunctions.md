@@ -109,7 +109,7 @@ lemma isInf_of_isSup {S : Set X → X} (h : isSupFun S) : isInfFun (fun s ↦ S 
 
 我们现在准备好了这个文件的第一个主要定义：完备格。
 
-- 一个完备格是一个配备了偏序、下确界函数和上确界函数的类型。例如，`X = Set Y` 配备包含序、交集函数和并集函数是一个完备格。特别是，这里的 "lattice" here has nothing to do with lattices as discrete subgroups in Euclidean spaces.
+- 一个完备格是一个配备了偏序、下确界函数和上确界函数的类型。例如，`X = Set Y` 配备包含序、交集函数和并集函数是一个完备格。特别是，这里的“格”与欧几里得空间中作为离散子群的格无关。
 
 ```lean
 class CompleteLattice (X : Type) [PartialOrder X] where
@@ -383,7 +383,7 @@ def push (f : X → Y) (T : Topology X) : Topology Y where
   isOpen_iInter := by
     sorry
 
-postfix:1024 "⁎" => push -- type using `\_*`
+postfix:1024 "⁎" => push -- 输入时使用 `\_*`
 
 ```
 
@@ -413,7 +413,7 @@ lemma push_push (f : X → Y) (g : Y →Z) (T : Topology X) :
 
 ```
 
-我们想要 `f ⁎` 的右伴随，所以我们需要检查它与 `Sup` 交换。你可能想使用 `Set.ball_image_iff : (∀ y ∈ f '' s, p y) ↔ ∀ x ∈ s, p (f x)` 其中 "ball" 代表 "bounded for all"，即 `∀ x ∈ ...`。
+我们想要 `f ⁎` 的右伴随，所以我们需要检查它与 `Sup` 交换。你可能想使用 `Set.ball_image_iff : (∀ y ∈ f '' s, p y) ↔ ∀ x ∈ s, p (f x)`，其中名称里的 `ball` 表示“带界的全称量词”，也就是 `∀ x ∈ ...`。
 
 ```lean
 lemma push_Sup (f : X → Y) {t : Set (Topology X)} : f ⁎ (Sup t) = Sup (f ⁎ '' t) := by

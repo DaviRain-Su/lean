@@ -177,13 +177,13 @@ example (f : ℝ → ℝ) (hf : Continuous f) (h2f : HasCompactSupport f) : ∃ 
 * `simp`
 * `apply?`
 
-现在你可以选择接下来做什么。还有一个基础文件 `04Exists` 关于存在量词和合取。你可以现在就做，或者直接深入到某个专门的文件中。在后一种情况下，如果你在任何涉及 `∃`/`∧` 的内容上遇到困难，你应该回到 `04Exists` (where `∧` is the symbol for conjunctions, aka the logical "and" operator)。
+现在你可以选择接下来做什么。还有一个基础文件 `04Exists` 关于存在量词和合取。你可以现在就做，或者直接深入到某个专门的文件中。在后一种情况下，如果你在任何涉及 `∃`/`∧` 的内容上遇到困难，你应该回到 `04Exists`（其中 `∧` 是合取符号，也就是逻辑上的“且”运算符）。
 
 你可以从 `Topics` 文件夹中的专门文件开始。你可以选择：
 * `SequenceLimit`（较简单，数学）如果你想做一些初等微积分。建议先完成 `04Exists` 文件。
 * `Probability`（较简单，数学）如果你想研究概率测度、独立集合和条件概率，包括贝叶斯定理。
-* `RingTheory`（中等难度，数学）如果你想做一些交换代数。它从交换环的基础知识开始，然后介绍理想并证明 Nœther's first isomorphism theorem, and finishes with the Chinese remainder theorem 在一般交换环中。
-* `GaloisAdjunctions`（较难，数学）如果你想要更多抽象并学习如何证明关于完全格之间的伴随的事实。它以乘积拓扑的构造子及其泛性质结束尽可能少操作开集。
+* `RingTheory`（中等难度，数学）如果你想做一些交换代数。它从交换环的基础开始，然后介绍理想，最后在一般交换环中证明诺特第一同构定理和中国剩余定理。
+* `GaloisAdjunctions`（较难，数学）如果你想要更多抽象并学习如何证明关于完全格之间的伴随的事实。它以乘积拓扑的构造及其泛性质结束，并尽量少操作开集。
 * `ClassicalPropositionalLogic`（较简单，逻辑）如果你想学习如何在 Lean 中做经典命题逻辑。
 * `IntuitionisticPropositionalLogic`（较难，逻辑）如果你想要更大的挑战并做直觉主义命题逻辑。
 

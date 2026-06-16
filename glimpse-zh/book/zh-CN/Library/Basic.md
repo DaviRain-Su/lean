@@ -4,7 +4,7 @@ import Mathlib.RingTheory.Ideal.Maps
 import Mathlib.RingTheory.Ideal.Quotient.Defs
 
 set_option warningAsError false
--- it would be nice to do this persistently
+-- 最好能持久地设置这些选项
 -- set_option linter.unnecessarySeqFocus false
 -- set_option linter.unreachableTactic false
 -- set_option linter.unusedVariables false
@@ -38,7 +38,7 @@ def delabMin' : Delab := do
   let y ← withNaryArg 3 delab
   `($(m) $(x) $(y))
 
--- The mathlib version is unusable because it is stated in terms of ≤
+-- mathlib 中的版本不能直接用，因为它用 ≤ 表述
 lemma ge_max_iff {α : Type*} [LinearOrder α] {p q r : α} : r ≥ max p q  ↔ r ≥ p ∧ r ≥ q :=
   max_le_iff
 

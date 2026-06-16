@@ -35,9 +35,14 @@
 - [当且仅当（解答）](Solutions/02Iff.md)
 - [全称量词（解答）](Solutions/03Forall.md)
 - [存在量词（解答）](Solutions/04Exists.md)
-- [主题解答](Solutions/Topics/ClassicalPropositionalLogic.md) 等同目录下各篇
+- [经典命题逻辑（解答）](Solutions/Topics/ClassicalPropositionalLogic.md)
+- [直觉主义命题逻辑（解答）](Solutions/Topics/IntuitionisticPropositionalLogic.md)
+- [伽罗瓦伴随（解答）](Solutions/Topics/GaloisAdjunctions.md)
+- [概率论（解答）](Solutions/Topics/Probability.md)
+- [环论（解答）](Solutions/Topics/RingTheory.md)
+- [序列极限（解答）](Solutions/Topics/SequenceLimits.md)
 
-### 库（英文原文）
+### 库（英文）
 
 - [Basic](Library/Basic.md)
 - [Short](Library/Short.md)

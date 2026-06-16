@@ -101,7 +101,7 @@ example : Valid (~(A && ~A)) := by
 
 ```lean
 section
-set_option hygiene false -- this is a hacky way to allow forward reference in notation
+set_option hygiene false -- 这是允许记号中前向引用的技巧性方法
 local infix:27 " ⊢ " => ProvableFrom
 
 
@@ -209,7 +209,7 @@ lemma weakening (h : Γ ⊢ A) (h2 : Γ ⊆ Δ) : Δ ⊢ A := by
 lemma ProvableFrom.insert (h : Γ ⊢ A) : insert B Γ ⊢ A := by
   -- sorry
   apply weakening h
-  -- use `apply?` here
+  -- 在这里使用 `apply?`
   exact subset_insert B Γ
   -- sorry
 
@@ -271,9 +271,9 @@ theorem soundness_theorem (h : Γ ⊢ A) : Γ ⊨ A := by
   case orE Γ A B C _h1 _h2 _h3 ih₁ ih₂ ih₃ =>
     specialize ih₁ hφ
     have h2φ : ∀ D ∈ insert A Γ, c ⊓ eval φ A ≤ eval φ D := by
-      simp; intros D hD; exact inf_le_of_left_le (hφ D hD) -- apply? found this
+      simp; intros D hD; exact inf_le_of_left_le (hφ D hD) -- 这是 `apply?` 找到的证明
     have h3φ : ∀ D ∈ insert B Γ, c ⊓ eval φ B ≤ eval φ D := by
-      simp; intros D hD; exact inf_le_of_left_le (hφ D hD) -- apply? found this
+      simp; intros D hD; exact inf_le_of_left_le (hφ D hD) -- 这是 `apply?` 找到的证明
     simp at ih₁
     rw [← inf_eq_left.mpr ih₁, inf_sup_left]
     rw [← sup_idem (a := eval φ C)]

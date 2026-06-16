@@ -191,7 +191,7 @@ theorem bayesTheorem (hB : ℙ B ≠ 0) : ℙ(A|B) = ℙ A * ℙ(B|A) / ℙ B :=
   ·
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 simp [h] /- inline sorry -/

@@ -95,7 +95,7 @@ example : Valid (~(A && ~A)) := by
 
 ```lean
 section
-set_option hygiene false -- this is a hacky way to allow forward reference in notation
+set_option hygiene false -- 这是允许记号中前向引用的技巧性方法
 local infix:27 " ⊢ " => ProvableFrom
 
 

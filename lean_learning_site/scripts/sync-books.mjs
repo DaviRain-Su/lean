@@ -47,6 +47,15 @@ const BOOKS = [
     status: '全文已完成',
   },
   {
+    id: 'lean-reference',
+    title: 'The Lean Language Reference',
+    titleZh: 'Lean 语言参考手册',
+    subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
+    source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
+    originalUrl: 'https://lean-lang.org/doc/reference/latest/',
+    status: '首批 92 篇已翻译',
+  },
+  {
     id: 'vscode-lean4',
     title: 'Lean 4 VS Code Extension Manual',
     titleZh: 'VS Code Lean 4 手册',
@@ -113,13 +122,6 @@ const EXTERNAL_LINKS = [
     description: '交互式入门：tactic、rw、induction。',
     url: 'https://nng4.leanprover.cn',
     originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
-  },
-  {
-    title: 'The Lean Language Reference',
-    titleZh: 'Lean 语言参考手册',
-    description: '权威参考（非教程）。按章节查阅。',
-    url: 'https://lean-lang.org/doc/reference/latest/',
-    originalUrl: 'https://lean-lang.org/doc/reference/latest/',
   },
 ];
 

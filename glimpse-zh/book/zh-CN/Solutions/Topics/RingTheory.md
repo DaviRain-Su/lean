@@ -315,7 +315,7 @@ def chineseMap  : (R ⧸ ⨅ i, I i) →+* Π i, R ⧸ I i :=
     (by
 ```
 
-inline sorry
+内联 sorry
 
 ```lean
 simp [← mem_ker, ker_Pi_Quotient_mk]/- inline sorry -/)

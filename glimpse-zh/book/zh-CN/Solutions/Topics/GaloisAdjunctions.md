@@ -41,7 +41,7 @@ def isInf (s : Set X) (x₀ : X) :=
 lemma isInf.lowerBound {s : Set X} {x₀ : X} (h : isInf s x₀) : x₀ ∈ lowerBounds s := by
   -- sorry
   rw [h]
-  -- Slower alternative:
+  -- 较慢的替代写法：
   -- specialize h x₀
   -- apply h.2
   -- apply le_rfl
@@ -56,7 +56,7 @@ def isInf.eq {s : Set X} {x₀ x₁ : X} (hx₀ : isInf s x₀) (hx₁ : isInf s
   -- sorry
   apply le_antisymm
   · exact (hx₁ x₀).1 (isInf.lowerBound hx₀)
-    -- Slower alternative:
+    -- 较慢的替代写法：
     -- apply (hx₁ x₀).1
     -- apply isInf.lowerBound hx₀
   · exact (hx₀ x₁).1 (isInf.lowerBound hx₁)
@@ -131,7 +131,7 @@ lemma isInf_of_isSup {S : Set X → X} (h : isSupFun S) : isInfFun (fun s ↦ S 
 
 我们现在准备好了这个文件的第一个主要定义：完备格。
 
-- 一个完备格是一个配备了偏序、下确界函数和上确界函数的类型。例如，`X = Set Y` 配备包含序、交集函数和并集函数是一个完备格。特别是，这里的 "lattice" here has nothing to do with lattices as discrete subgroups in Euclidean spaces.
+- 一个完备格是一个配备了偏序、下确界函数和上确界函数的类型。例如，`X = Set Y` 配备包含序、交集函数和并集函数是一个完备格。特别是，这里的“格”与欧几里得空间中作为离散子群的格无关。
 
 ```lean
 class CompleteLattice (X : Type) [PartialOrder X] where
@@ -228,8 +228,8 @@ lemma Inf_pair {x x' : X} : x ≤ x' ↔ Inf {x, x'} = x := by
       simp
       constructor
       · apply hz
-      · calc z ≤ x  := by apply hz -- or simply `:= hz`
-             _ ≤ x' := by apply h -- or simply `:= h`
+      · calc z ≤ x  := by apply hz -- 或直接写 `:= hz`
+             _ ≤ x' := by apply h -- 或直接写 `:= h`
   · intro h
     calc
       x = Inf {x, x'} := by rw [h]
@@ -474,7 +474,7 @@ def push (f : X → Y) (T : Topology X) : Topology Y where
     exact T.isOpen_iInter hs hι
     -- sorry
 
-postfix:1024 "⁎" => push -- type using `\_*`
+postfix:1024 "⁎" => push -- 输入时使用 `\_*`
 
 ```
 
@@ -504,7 +504,7 @@ lemma push_push (f : X → Y) (g : Y →Z) (T : Topology X) :
 
 ```
 
-我们想要 `f ⁎` 的右伴随，所以我们需要检查它与 `Sup` 交换。你可能想使用 `Set.ball_image_iff : (∀ y ∈ f '' s, p y) ↔ ∀ x ∈ s, p (f x)` 其中 "ball" 代表 "bounded for all"，即 `∀ x ∈ ...`。
+我们想要 `f ⁎` 的右伴随，所以我们需要检查它与 `Sup` 交换。你可能想使用 `Set.ball_image_iff : (∀ y ∈ f '' s, p y) ↔ ∀ x ∈ s, p (f x)`，其中名称里的 `ball` 表示“带界的全称量词”，也就是 `∀ x ∈ ...`。
 
 ```lean
 lemma push_Sup (f : X → Y) {t : Set (Topology X)} : f ⁎ (Sup t) = Sup (f ⁎ '' t) := by

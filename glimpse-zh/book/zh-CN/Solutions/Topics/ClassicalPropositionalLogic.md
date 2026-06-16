@@ -168,7 +168,7 @@ macro_rules
 ```
 
 ```lean
--- Let’s first see an example using the `apply_ax` tactic
+-- 先看一个使用 `apply_ax` 策略的例子
 example : {A, B} ⊢ A && B := by
   apply andI
   apply_ax
