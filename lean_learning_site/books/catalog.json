@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:46:02.036Z",
+  "generatedAt": "2026-06-16T23:49:43.292Z",
   "books": [
     {
       "id": "tpil",
@@ -2583,9 +2583,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–14 章已翻译 · 15–24 章待译",
+      "status": "第 1–15 章已翻译 · 16–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 14,
+      "chapterCount": 15,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2724,6 +2724,16 @@
               "title": "Lean 中的关系",
               "path": "logic-and-proof/relations_in_lean.md",
               "summary": "`A → A → Prop`、序关系类、数上的序、等价关系、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 15 章：函数",
+          "chapters": [
+            {
+              "title": "函数",
+              "path": "logic-and-proof/functions.md",
+              "summary": "函数概念、单射/满射/双射、逆函数、像与原像、函数与关系、练习"
             }
           ]
         }
