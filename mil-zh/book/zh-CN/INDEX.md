@@ -1,6 +1,6 @@
 # Mathematics in Lean（中文版）目录
 
-本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–10 章。
+本目录包含 *Mathematics in Lean* 的中文翻译。当前已完成第 1–11 章。
 
 ## 已翻译章节
 
@@ -83,8 +83,14 @@
 - [自同态](C10_Linear_Algebra/Endomorphisms.md)
 - [矩阵、基与维数](C10_Linear_Algebra/Bases.md)
 
+### 第 11 章：拓扑学
+
+- [拓扑学（本章概述）](C11_Topology.md)
+- [滤子](C11_Topology/Filters.md)
+- [度量空间](C11_Topology/MetricSpaces.md)
+- [拓扑空间](C11_Topology/TopologicalSpaces.md)
+
 ## 待翻译
-- 第 11 章：拓扑学
 - 第 12 章：微分学
 - 第 13 章：积分与测度论
 
