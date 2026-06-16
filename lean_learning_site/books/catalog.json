@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:26:11.420Z",
+  "generatedAt": "2026-06-16T22:30:15.467Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 156 篇已翻译",
+      "status": "首批 161 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 156,
+      "chapterCount": 161,
       "sections": [
         {
           "title": "官网入口",
@@ -1496,6 +1496,31 @@
               "title": "Unit 类型",
               "path": "lean-reference/Reference/BasicTypes/UnitType.md",
               "summary": "`Unit`、`PUnit`、唯一值与 monad 返回语义"
+            },
+            {
+              "title": "位向量",
+              "path": "lean-reference/Reference/BasicTypes/Bitvectors.md",
+              "summary": "固定宽度位序列、`BitVec`、位运算与 `bv_decide`"
+            },
+            {
+              "title": "Empty 类型",
+              "path": "lean-reference/Reference/BasicTypes/EmptyType.md",
+              "summary": "不可能值、`Empty` / `PEmpty` 与 `elim`"
+            },
+            {
+              "title": "Tuple",
+              "path": "lean-reference/Reference/BasicTypes/Tuples.md",
+              "summary": "`Prod`、`Sigma`、有序对与依赖对"
+            },
+            {
+              "title": "Sum 类型",
+              "path": "lean-reference/Reference/BasicTypes/SumTypes.md",
+              "summary": "`Sum`、`PSum`、`⊕`、析取式数据与分支结果"
+            },
+            {
+              "title": "惰性计算",
+              "path": "lean-reference/Reference/BasicTypes/LazyComputations.md",
+              "summary": "`Thunk`、缓存求值、coercion 与 lazy evaluation"
             },
             {
               "title": "IO",
@@ -2348,9 +2373,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1 章已翻译 · 2–24 章待译",
+      "status": "第 1–3 章已翻译 · 4–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 1,
+      "chapterCount": 3,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2359,6 +2384,26 @@
               "title": "引言",
               "path": "logic-and-proof/introduction.md",
               "summary": "数学证明、符号逻辑、交互式定理证明、语义观点、课程目标"
+            }
+          ]
+        },
+        {
+          "title": "第 2 章：命题逻辑",
+          "chapters": [
+            {
+              "title": "命题逻辑",
+              "path": "logic-and-proof/propositional_logic.md",
+              "summary": "谜题、解法、推理规则、命题逻辑的语言、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 3 章：命题逻辑的自然演绎",
+          "chapters": [
+            {
+              "title": "命题逻辑的自然演绎",
+              "path": "logic-and-proof/natural_deduction_for_propositional_logic.md",
+              "summary": "自然演绎中的推导、示例、前向与后向推理、分情况讨论、逻辑恒等式、练习"
             }
           ]
         }
