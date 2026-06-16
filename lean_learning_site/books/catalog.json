@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:49:43.292Z",
+  "generatedAt": "2026-06-16T23:50:35.096Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 197 篇已翻译",
+      "status": "首批 202 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 197,
+      "chapterCount": 202,
       "sections": [
         {
           "title": "官网入口",
@@ -1096,6 +1096,36 @@
               "title": "类型系统",
               "path": "lean-reference/Reference/TypeSystem.md",
               "summary": "term、definitional equality、reduction、conversion 与基础 type"
+            }
+          ]
+        },
+        {
+          "title": "类型系统详解",
+          "chapters": [
+            {
+              "title": "函数（类型系统层）",
+              "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+              "summary": "依赖函数、currying、β/η、外延性与 totality"
+            },
+            {
+              "title": "命题（类型系统层）",
+              "path": "lean-reference/Reference/TypeSystemDetails/Propositions.md",
+              "summary": "`Prop`、proof irrelevance、run-time irrelevance、`propext`"
+            },
+            {
+              "title": "universe",
+              "path": "lean-reference/Reference/TypeSystemDetails/Universes.md",
+              "summary": "`Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`"
+            },
+            {
+              "title": "归纳类型",
+              "path": "lean-reference/Reference/TypeSystemDetails/InductiveTypes.md",
+              "summary": "constructor、recursor、参数与索引、良构性与运行时表示"
+            },
+            {
+              "title": "quotient",
+              "path": "lean-reference/Reference/TypeSystemDetails/Quotients.md",
+              "summary": "`Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障"
             },
             {
               "title": "源文件与模块",
