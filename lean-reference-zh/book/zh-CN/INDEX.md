@@ -133,6 +133,12 @@
 - [链表](Reference/BasicTypes/LinkedLists.md) — `List` 的构造子、语法、性能特征与常见操作
 - [Range](Reference/BasicTypes/Ranges.md) — 开闭区间、无界范围、range 类型与 slices
 - [映射与集合](Reference/BasicTypes/MapsAndSets.md) — `HashMap`、`TreeMap`、`HashSet`、extensional 与 dependent 设计
+- [有限自然数](Reference/BasicTypes/FiniteNaturalNumbers.md) — `Fin n`、索引类型、模运算、转换与归纳
+- [定长整数](Reference/BasicTypes/FixedPrecisionIntegers.md) — `UInt*` / `Int*` / `USize` / `ISize` 的位宽与运算
+- [浮点数](Reference/BasicTypes/FloatingPointNumbers.md) — `Float` 的语法、比较、算术、对数与三角函数
+- [字符](Reference/BasicTypes/Characters.md) — `Char`、Unicode scalar value、字符类别与编码大小
+- [字节数组](Reference/BasicTypes/ByteArrays.md) — packed byte buffer、UTF-8 解码、切片与 iterator
+- [Unit 类型](Reference/BasicTypes/UnitType.md) — `Unit`、`PUnit`、唯一值与 monad 返回语义
 - [IO](Reference/IO.md) — 纯函数式语义下的副作用、`IO α`、文件、进程与 task
 
 ### IO 详解
