@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:17:59.947Z",
+  "generatedAt": "2026-06-16T23:27:50.987Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 183 篇已翻译",
+      "status": "首批 191 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 183,
+      "chapterCount": 191,
       "sections": [
         {
           "title": "官网入口",
@@ -1261,11 +1261,61 @@
               "title": "公理",
               "path": "lean-reference/Reference/Axioms.md",
               "summary": "axiom 风险、标准公理、`sorryAx`、compiler trust 与 `#print axioms`"
+            }
+          ]
+        },
+        {
+          "title": "公理详解",
+          "chapters": [
+            {
+              "title": "axiom 声明",
+              "path": "lean-reference/Reference/AxiomDetails/AxiomDeclarations.md",
+              "summary": "后设常量、可用 modifier 与逻辑定位"
+            },
+            {
+              "title": "一致性",
+              "path": "lean-reference/Reference/AxiomDetails/Consistency.md",
+              "summary": "axiom 风险、可信边界与一致性责任"
+            },
+            {
+              "title": "axiom 与 reduction",
+              "path": "lean-reference/Reference/AxiomDetails/Reduction.md",
+              "summary": "stuck reduction、编译限制与 `noncomputable`"
+            },
+            {
+              "title": "Lean 标准公理",
+              "path": "lean-reference/Reference/AxiomDetails/StandardAxioms.md",
+              "summary": "`Classical.choice`、`propext`、`Quot.sound`、`sorryAx`"
+            },
+            {
+              "title": "显示公理依赖",
+              "path": "lean-reference/Reference/AxiomDetails/PrintingDependencies.md",
+              "summary": "`#print axioms`、传递依赖与 proof 审计"
             },
             {
               "title": "Attribute",
               "path": "lean-reference/Reference/Attributes.md",
               "summary": "declaration annotation、`attribute` command、`local` 与 `scoped`"
+            }
+          ]
+        },
+        {
+          "title": "Attribute 详解",
+          "chapters": [
+            {
+              "title": "把 attribute 用作声明修饰符",
+              "path": "lean-reference/Reference/AttributeDetails/AsModifiers.md",
+              "summary": "在声明头中直接附加 attribute"
+            },
+            {
+              "title": "`attribute` 命令",
+              "path": "lean-reference/Reference/AttributeDetails/AttributeCommand.md",
+              "summary": "修改现有声明 attribute 与擦除 attribute"
+            },
+            {
+              "title": "scoped attribute",
+              "path": "lean-reference/Reference/AttributeDetails/ScopedAttributes.md",
+              "summary": "全局、`local`、`scoped` 三种作用域"
             },
             {
               "title": "Type class",
@@ -2503,9 +2553,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–10 章已翻译 · 11–24 章待译",
+      "status": "第 1–11 章已翻译 · 12–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 10,
+      "chapterCount": 11,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2604,6 +2654,16 @@
               "title": "一阶逻辑的语义",
               "path": "logic-and-proof/semantics_of_first_order_logic.md",
               "summary": "解释、模型中的真、例子、有效性与逻辑后承、可靠性与完全性、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 11 章：集合",
+          "chapters": [
+            {
+              "title": "集合",
+              "path": "logic-and-proof/sets.md",
+              "summary": "集合论基础、集合运算、指标族、笛卡尔积与幂集、练习"
             }
           ]
         }
