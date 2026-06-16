@@ -53,7 +53,7 @@ const BOOKS = [
     subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
     source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
     originalUrl: 'https://lean-lang.org/doc/reference/latest/',
-    status: '首批 144 篇已翻译',
+    status: '首批 150 篇已翻译',
   },
   {
     id: 'vscode-lean4',
@@ -198,9 +198,19 @@ function syncBook(book) {
   copyMarkdownTree(book.source, target);
 
   const indexPath = join(target, 'INDEX.md');
-  const sections = existsSync(indexPath)
+  const rawSections = existsSync(indexPath)
     ? parseIndex(readFileSync(indexPath, 'utf8'))
     : [];
+
+  // Only advertise chapters whose Markdown files actually exist.
+  const sections = rawSections
+    .map((section) => ({
+      ...section,
+      chapters: section.chapters.filter((chapter) =>
+        existsSync(join(target, chapter.path))
+      ),
+    }))
+    .filter((section) => section.chapters.length > 0);
 
   const chapterCount = sections.reduce((sum, section) => sum + section.chapters.length, 0);
 

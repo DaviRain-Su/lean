@@ -36,6 +36,12 @@
 - [#check](Reference/Interacting/Check.md) — 查看 term 的 type 与 `#check_failure`
 - [#synth](Reference/Interacting/Synth.md) — type class instance synthesis 与调试
 - [#guard_msgs](Reference/Interacting/GuardMsgs.md) — 测试错误、警告和信息输出
+- [查询上下文](Reference/Interacting/QueryingContext.md) — `#print`、`#print axioms`、`#print equations`、`#where`、`#version`
+- [Format](Reference/Interacting/Format.md) — 文档结构、序列、缩进、括号与渲染
+- [`ToFormat` 类](Reference/Interacting/ToFormat.md) — 结构化输出接口与消息展示
+- [`Repr`](Reference/Interacting/Repr.md) — `#eval` 输出、值表示与 `ToString`/`Format` 的区别
+- [如何写 `Repr` instance](Reference/Interacting/ReprInstance.md) — `addAppParen`、`reprArg` 与括号策略
+- [`Repr` 的原子类型](Reference/Interacting/ReprAtomic.md) — `ReprAtom` 与原子项显示约定
 - [类型系统](Reference/TypeSystem.md) — term、definitional equality、reduction、conversion 与基础 type
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 

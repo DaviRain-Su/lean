@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:11:00.324Z",
+  "generatedAt": "2026-06-16T22:13:22.933Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 144 篇已翻译",
+      "status": "首批 150 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 144,
+      "chapterCount": 150,
       "sections": [
         {
           "title": "官网入口",
@@ -1061,6 +1061,36 @@
               "title": "#guard_msgs",
               "path": "lean-reference/Reference/Interacting/GuardMsgs.md",
               "summary": "测试错误、警告和信息输出"
+            },
+            {
+              "title": "查询上下文",
+              "path": "lean-reference/Reference/Interacting/QueryingContext.md",
+              "summary": "`#print`、`#print axioms`、`#print equations`、`#where`、`#version`"
+            },
+            {
+              "title": "Format",
+              "path": "lean-reference/Reference/Interacting/Format.md",
+              "summary": "文档结构、序列、缩进、括号与渲染"
+            },
+            {
+              "title": "`ToFormat` 类",
+              "path": "lean-reference/Reference/Interacting/ToFormat.md",
+              "summary": "结构化输出接口与消息展示"
+            },
+            {
+              "title": "`Repr`",
+              "path": "lean-reference/Reference/Interacting/Repr.md",
+              "summary": "`#eval` 输出、值表示与 `ToString`/`Format` 的区别"
+            },
+            {
+              "title": "如何写 `Repr` instance",
+              "path": "lean-reference/Reference/Interacting/ReprInstance.md",
+              "summary": "`addAppParen`、`reprArg` 与括号策略"
+            },
+            {
+              "title": "`Repr` 的原子类型",
+              "path": "lean-reference/Reference/Interacting/ReprAtomic.md",
+              "summary": "`ReprAtom` 与原子项显示约定"
             },
             {
               "title": "类型系统",
@@ -2267,7 +2297,7 @@
       "externalPdfUrl": null,
       "status": "目录已建 · 正文待译",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 13,
+      "chapterCount": 1,
       "sections": [
         {
           "title": "前言",
@@ -2275,76 +2305,6 @@
             {
               "title": "前言与说明",
               "path": "math2001/00_Introduction.md",
-              "summary": "待翻译"
-            }
-          ]
-        },
-        {
-          "title": "正文",
-          "chapters": [
-            {
-              "title": "第 1 章 计算式证明",
-              "path": "math2001/01_Proofs_by_Calculation.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 2 章 结构化证明",
-              "path": "math2001/02_Proofs_with_Structure.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 3 章 奇偶与整除",
-              "path": "math2001/03_Parity_and_Divisibility.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 4 章 结构化证明 II",
-              "path": "math2001/04_Proofs_with_Structure_II.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 5 章 逻辑",
-              "path": "math2001/05_Logic.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 6 章 归纳法",
-              "path": "math2001/06_Induction.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 7 章 数论",
-              "path": "math2001/07_Number_Theory.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 8 章 函数",
-              "path": "math2001/08_Functions.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 9 章 集合",
-              "path": "math2001/09_Sets.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "第 10 章 关系",
-              "path": "math2001/10_Relations.md",
-              "summary": "待翻译"
-            }
-          ]
-        },
-        {
-          "title": "附录",
-          "chapters": [
-            {
-              "title": "Lean 策略索引",
-              "path": "math2001/Index_of_Tactics.md",
-              "summary": "待翻译"
-            },
-            {
-              "title": "过渡到主流 Lean",
-              "path": "math2001/Mainstream_Lean.md",
               "summary": "待翻译"
             }
           ]
