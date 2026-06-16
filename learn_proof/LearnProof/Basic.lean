@@ -450,3 +450,50 @@ theorem zero_mul (m : Nat) : 0 * m = 0 := by
 --       rw [hd]
 --       rw [Nat.add_zero]
 --       rfl
+
+-- 示例 18：归纳法证明 succ_mul —— succ a * b = a * b + b
+--
+-- 对 b 归纳（NNG 乘法世界标准证法）：
+--
+-- 基础步 b = 0：
+--   succ a * 0 = 0，a * 0 + 0 = 0 + 0 = 0  →  mul_zero + zero_add
+--
+-- succ 步（hd : succ a * d = a * d + d）目标：succ a * (d+1) = a * (d+1) + (d+1)
+--   ① mul_succ ×2   两边展开 (d+1)
+--   ② rw [hd]       左边 succ a * d 换成 a * d + d
+--   ③ add_assoc ×2  调整括号，把 d+a.succ 凑在一起
+--   ④ add_succ      d + succ a → succ (d + a)
+--   ⑤ add_comm d a  d + a → a + d
+--   ⑥ ← add_succ     a + (d+1) 展开，与右边对齐
+--
+-- 更简写法（18b）：succ 步一行 rw 写完 ②–⑥
+
+-- 18a：分步版（便于 trace_state 观察）
+theorem succ_mul (a b : Nat) : Nat.succ a * b = a * b + b := by
+  induction b with
+  | zero =>
+    trace_state                 -- ⊢ succ a * 0 = a * 0 + 0
+    rw [Nat.mul_zero, Nat.mul_zero, zero_add]
+    trace_state                 -- ⊢ 0 = 0，随后自动完成
+  | succ d hd =>
+    trace_state                 -- ⊢ succ a * (d + 1) = a * (d + 1) + (d + 1)
+    rw [Nat.mul_succ, Nat.mul_succ]
+    trace_state                 -- ⊢ succ a * d + succ a = a * d + a + (d + 1)
+    rw [hd]                     -- hd : succ a * d = a * d + d
+    trace_state                 -- ⊢ a * d + d + succ a = a * d + a + (d + 1)
+    rw [add_assoc, add_assoc]   -- 括号调整
+    trace_state                 -- ⊢ a * d + (d + succ a) = a * d + (a + (d + 1))
+    rw [Nat.add_succ]           -- d + succ a → succ (d + a)
+    trace_state                 -- ⊢ a * d + succ (d + a) = a * d + (a + (d + 1))
+    rw [add_comm d a]           -- succ (d + a) 里 d+a → a+d
+    trace_state                 -- ⊢ a * d + succ (a + d) = a * d + (a + (d + 1))
+    rw [← Nat.add_succ]         -- 右边 a + (d+1) 展开
+    trace_state                 -- ⊢ a * d + succ (a + d) = a * d + succ (a + d)，随后自动完成
+
+-- 18b：简洁版（逻辑与 18a 相同）
+theorem succ_mul' (a b : Nat) : Nat.succ a * b = a * b + b := by
+  induction b with
+  | zero => rw [Nat.mul_zero, Nat.mul_zero, zero_add]
+  | succ d hd =>
+    rw [Nat.mul_succ, Nat.mul_succ, hd, add_assoc, add_assoc,
+        Nat.add_succ, add_comm d a, ← Nat.add_succ]
