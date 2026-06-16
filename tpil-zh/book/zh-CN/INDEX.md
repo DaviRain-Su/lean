@@ -1,6 +1,6 @@
 # Theorem Proving in Lean 4（中文版）目录
 
-本目录为 *Theorem Proving in Lean 4* 的中文翻译。当前已完成第 1 章。
+本目录为 *Theorem Proving in Lean 4* 的中文翻译。当前已完成第 1–2 章。
 
 原书作者：Jeremy Avigad、Leonardo de Moura、Soonho Kong、Sebastian Ullrich（Lean 社区贡献）。
 
@@ -10,9 +10,11 @@
 
 - [引言](Intro.md) — 形式化验证、Lean 简介、本书说明
 
-## 待翻译
+### 第 2 章：依赖类型论
 
-- 第 2 章：[依赖类型论](https://lean-lang.org/theorem_proving_in_lean4/Dependent-Type-Theory/) — `DependentTypeTheory.lean`
+- [依赖类型论](DependentTypeTheory.md) — 简单类型论、宇宙、lambda、`def`/`let`、命名空间、依赖类型、隐式参数
+
+## 待翻译
 - 第 3 章：[命题与证明](https://lean-lang.org/theorem_proving_in_lean4/Propositions-and-Proofs/) — `PropositionsAndProofs.lean`
 - 第 4 章：[量词与相等](https://lean-lang.org/theorem_proving_in_lean4/Quantifiers-and-Equality/) — `QuantifiersEquality.lean`
 - 第 5 章：[策略](https://lean-lang.org/theorem_proving_in_lean4/Tactics/) — `Tactics.lean`

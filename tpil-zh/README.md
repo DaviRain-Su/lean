@@ -47,12 +47,13 @@ lake exe tpil   # 本地构建 HTML，输出在 _out/html-multi
 ## 翻译进度
 
 - [x] 第 1 章：引言
-- [ ] 第 2–12 章：待译
+- [x] 第 2 章：依赖类型论
+- [ ] 第 3–12 章：待译
 
 | 章 | 英文源文件 | 状态 |
 |----|-----------|------|
 | 1 引言 | `Intro.lean` | 已完成 |
-| 2 依赖类型论 | `DependentTypeTheory.lean` | 待译 |
+| 2 依赖类型论 | `DependentTypeTheory.lean` | 已完成 |
 | 3 命题与证明 | `PropositionsAndProofs.lean` | 待译 |
 | 4 量词与相等 | `QuantifiersEquality.lean` | 待译 |
 | 5 策略 | `Tactics.lean` | 待译 |
