@@ -52,6 +52,8 @@ example (x y : Nat) (h : y = x + 7) : 2 * y = 2 * (x + 7) := by
 -- 在浏览器教程里，1 和 2 不能直接使用 succ 形式，需要先证明这两个等式。
 theorem one_eq_succ_zero : (1 : Nat) = Nat.succ 0 := rfl  -- 1 = succ 0
 theorem two_eq_succ_one : (2 : Nat) = Nat.succ 1 := rfl    -- 2 = succ 1
+theorem three_eq_succ_two : (3 : Nat) = Nat.succ 2 := rfl  -- 3 = succ 2
+theorem four_eq_succ_three : (4 : Nat) = Nat.succ 3 := rfl   -- 4 = succ 3
 
 -- 示例 3a：浏览器第二步——把 succ 1 中的 1 改写为 succ 0
 theorem step_succ_one : Nat.succ 1 = Nat.succ (Nat.succ 0) := by
@@ -196,3 +198,67 @@ theorem succ_eq_add_one (n : Nat) : Nat.succ n = n + 1 := by
          trace_state
          rw [Nat.add_zero]        -- n + 0 → n
          trace_state
+
+-- 示例 10：证明 2 + 2 = 4
+--
+-- 浏览器 NNG 证法：
+--   nth_rewrite 2 [two_eq_succ_one]  -- 只改第二个 2 → succ 1
+--   rw [add_succ]
+--   rw [one_eq_succ_zero]
+--   rw [add_succ, add_zero]
+--   rw [← three_eq_succ_two]
+--   rw [← four_eq_succ_three]
+--   rfl
+--
+-- 本地修复要点：
+--   1. nth_rewrite 在标准 Lean 4 不可用 → 用 rw (occs := .pos [2]) 或 conv
+--   2. add_succ / add_zero → Nat.add_succ / Nat.add_zero
+--   3. 需补充 three_eq_succ_two、four_eq_succ_three
+--   4. 本地会自动化简，rw 链可能第一步就结束；calc 可逐步看到过程
+
+-- 10a：浏览器 rw 链（NNG 里逐步执行；本地第一步后常已证完）
+-- example : 2 + 2 = 4 := by
+--   rw (occs := .pos [2]) [two_eq_succ_one]  -- 等价于 nth_rewrite 2
+--   rw [Nat.add_succ]
+--   rw [one_eq_succ_zero]
+--   rw [Nat.add_succ, Nat.add_zero]
+--   rw [← three_eq_succ_two]
+--   rw [← four_eq_succ_three]
+--   rfl
+
+-- 10b：本地可编译的 calc 证法（对应 NNG 每一步）
+example : 2 + 2 = 4 := by
+  calc 2 + 2 = 2 + Nat.succ 1 := by
+         -- 只改第二个 2（nth_rewrite 2 的本地写法）
+         rw (occs := .pos [2]) [two_eq_succ_one]
+       _ = Nat.succ (2 + 1) := by rw [Nat.add_succ]
+       _ = Nat.succ (2 + Nat.succ 0) := by rw [one_eq_succ_zero]
+       _ = Nat.succ (Nat.succ (2 + 0)) := by rw [Nat.add_succ]
+       _ = Nat.succ (Nat.succ 2) := by rw [Nat.add_zero]
+       _ = Nat.succ 3 := by rw [← three_eq_succ_two]
+       _ = 4 := by rw [← four_eq_succ_three]
+
+-- 示例 11：归纳法证明 zero_add —— 0 + n = n
+--
+-- Nat.add_succ n m : n + succ m = succ (n + m)
+-- 它改写的是「n + succ m」这种形状，要用在当前目标上，不是随便用在假设上。
+--
+-- 常见错误：rw [Nat.add_succ] at hd
+--   hd 的类型是 0 + d = d，左边是 0 + d（d 不一定是 succ 形式），
+--   匹配不到 ?n + Nat.succ ?m，所以报错。
+--
+-- 正确思路（succ 步）：
+--   目标：0 + (d + 1) = d + 1
+--   rw [Nat.add_succ]     →  succ (0 + d) = d + 1
+--   rw [hd]               →  用归纳假设 0 + d = d
+--   rfl
+
+theorem zero_add (n : Nat) : 0 + n = n := by
+  induction n with
+  | zero => rw [Nat.add_zero]   -- 基础步：0 + 0 = 0
+  | succ d hd =>
+    trace_state                 -- ⊢ 0 + (d + 1) = d + 1
+    rw [Nat.add_succ]           -- ⊢ succ (0 + d) = d + 1
+    trace_state
+    rw [hd]                     -- 用归纳假设 hd : 0 + d = d
+    trace_state                 -- ⊢ succ d = d + 1，随后自动完成
