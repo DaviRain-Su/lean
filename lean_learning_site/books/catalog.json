@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T22:31:04.703Z",
+  "generatedAt": "2026-06-16T22:34:11.619Z",
   "books": [
     {
       "id": "tpil",
@@ -2373,9 +2373,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–3 章已翻译 · 4–24 章待译",
+      "status": "第 1–4 章已翻译 · 5–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 3,
+      "chapterCount": 4,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2404,6 +2404,16 @@
               "title": "命题逻辑的自然演绎",
               "path": "logic-and-proof/natural_deduction_for_propositional_logic.md",
               "summary": "自然演绎中的推导、示例、前向与后向推理、分情况讨论、逻辑恒等式、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 4 章：Lean 中的命题逻辑",
+          "chapters": [
+            {
+              "title": "Lean 中的命题逻辑",
+              "path": "logic-and-proof/propositional_logic_in_lean.md",
+              "summary": "命题与证明的表达式、更多命令、构建自然演绎证明、策略模式、前向推理、定义与定理、额外语法、练习"
             }
           ]
         }
