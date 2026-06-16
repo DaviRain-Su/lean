@@ -139,6 +139,11 @@
 - [字符](Reference/BasicTypes/Characters.md) — `Char`、Unicode scalar value、字符类别与编码大小
 - [字节数组](Reference/BasicTypes/ByteArrays.md) — packed byte buffer、UTF-8 解码、切片与 iterator
 - [Unit 类型](Reference/BasicTypes/UnitType.md) — `Unit`、`PUnit`、唯一值与 monad 返回语义
+- [位向量](Reference/BasicTypes/Bitvectors.md) — 固定宽度位序列、`BitVec`、位运算与 `bv_decide`
+- [Empty 类型](Reference/BasicTypes/EmptyType.md) — 不可能值、`Empty` / `PEmpty` 与 `elim`
+- [Tuple](Reference/BasicTypes/Tuples.md) — `Prod`、`Sigma`、有序对与依赖对
+- [Sum 类型](Reference/BasicTypes/SumTypes.md) — `Sum`、`PSum`、`⊕`、析取式数据与分支结果
+- [惰性计算](Reference/BasicTypes/LazyComputations.md) — `Thunk`、缓存求值、coercion 与 lazy evaluation
 - [IO](Reference/IO.md) — 纯函数式语义下的副作用、`IO α`、文件、进程与 task
 
 ### IO 详解
