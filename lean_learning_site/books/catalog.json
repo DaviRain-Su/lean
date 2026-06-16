@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T04:47:48.028Z",
+  "generatedAt": "2026-06-16T04:56:57.464Z",
   "books": [
     {
       "id": "tpil",
@@ -1018,7 +1018,7 @@
       "subtitle": "逻辑验证研究生课程 · 第 1–8 章 PDF 提取",
       "originalUrl": "https://github.com/lean-forward/logical_verification_2025",
       "externalPdfUrl": "https://github.com/Lean-zh/LoVe-zh",
-      "status": "第 1 章已校对 · 2–8 章已提取 · 9–14 待 PDF",
+      "status": "第 1–2 章已校对 · 3–8 章已提取 · 9–14 待 PDF",
       "indexPath": "love/INDEX.md",
       "chapterCount": 16,
       "sections": [
