@@ -497,3 +497,39 @@ theorem succ_mul' (a b : Nat) : Nat.succ a * b = a * b + b := by
   | succ d hd =>
     rw [Nat.mul_succ, Nat.mul_succ, hd, add_assoc, add_assoc,
         Nat.add_succ, add_comm d a, ← Nat.add_succ]
+
+
+-- 示例 19：归纳法证明 mul_comm —— a * b = b * a
+--
+-- 对 b 归纳，复用 zero_mul、succ_mul：
+--
+-- 基础步 b = 0：
+--   a * 0 = 0 = 0 * a  →  rw [mul_zero, zero_mul]
+--
+-- succ 步（hd : a * d = d * a）：
+--   rw [mul_succ]   -- a * (d+1) = a * d + a
+--   rw [hd]         -- a * d → d * a，得 d * a + a = (d+1) * a
+--   rw [succ_mul]   -- (d+1) * a = d * a + a（Lean 推断 succ_mul d a）
+--
+-- 更简写法（19b）：succ 步 rw [mul_succ, hd, succ_mul]
+
+theorem mul_comm (a b : Nat) : a * b = b * a := by
+  induction b with
+  | zero =>
+    trace_state                 -- ⊢ a * 0 = 0 * a
+    rw [Nat.mul_zero, zero_mul]
+    trace_state                 -- ⊢ 0 = 0，随后自动完成
+  | succ d hd =>
+    trace_state                 -- ⊢ a * (d + 1) = (d + 1) * a
+    rw [Nat.mul_succ]           -- ⊢ a * d + a = (d + 1) * a
+    trace_state
+    rw [hd]                     -- hd : a * d = d * a
+    trace_state                 -- ⊢ d * a + a = (d + 1) * a
+    rw [succ_mul]               -- 右边 (d+1)*a → d*a + a
+    trace_state                 -- ⊢ d * a + a = d * a + a，随后自动完成
+
+-- 19b：简洁版
+theorem mul_comm' (a b : Nat) : a * b = b * a := by
+  induction b with
+  | zero => rw [Nat.mul_zero, zero_mul]
+  | succ d hd => rw [Nat.mul_succ, hd, succ_mul]
