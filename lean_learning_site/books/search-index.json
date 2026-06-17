@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:59:31.675Z",
+  "generatedAt": "2026-06-17T00:00:49.961Z",
   "entryCount": 447,
   "entries": [
     {
@@ -1317,14 +1317,6 @@
     {
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层）",
-      "section": "类型系统详解",
-      "text": "函数（类型系统层） 对应英文：Functions，抓取日期：2026 06 16。 函数类型是 Lean 核心语言的内建特性。函数把一个类型中的值映射到另一个类型中的值；函数类型则描述这种映射的 domain 与 codomain。 两类函数类型 非依赖函数 结果类型不依赖具体参数值。 依赖函数 结果类型可以显式依赖参数 。因此，从集合论直觉看，它更像“按索引变化的一族类型的乘积”。 核心语言中的统一视角 Lean 核心里所有函数类型其实都是依赖函数类型；非依赖函数只是“参数名不在 codomain 中出现”的特例。 另外，两个依赖函数类型即使绑定变量名不同，也可能 definitionally equal，只要改名后完全一致。 抽象与 β reduction 函数值通过 function abstraction 构造，也就是 lambda： 函数应用后，结果通过 β reduction 得到：把实参替换到函数体中。编译代码里，这种替换只对值进行；但在 type checking 的 definitional equality 中，任何项都可参与 β reduction。 Currying Lean 核心中每个函数都只接收 一个 参数。多参数函数只是高阶函数的嵌套：给第一个参数后返回另一个函数，再继续接收后续参数。表面语法制造了“多参数函数”的幻觉，但 elaboration 之后只剩单参数函数。 外延性与 intensional equality Lean 的函数 definitional equality 是 intensional 的：它关注语法、重命名与规约，而不是“数学上对所有输入结果都相同”这一外延意义。 为了推理函数相等，Lean 提供 theorem： 以及 tactic： 它们让你能从“对任意输入结果相等”推出“两个函数相等”。 η equivalence 虽然 Lean 没有把一般函数外延性放进 definitional equality，但它支持受限的 η equivalence： 前提是 有适当函数类型。 全函数与终止 从 Lean 逻辑角度看，所有函数都是 total 的： 对任意类型正确输入都有定义； 会在有限时间内给出结果。 现实编程中，Lean 也允许某些“逃生口”： function function 运行时 panic 型操作（需结果类型 ） 这些让 Lean 既能作为实用编程语言，也能在逻辑上维持更强保证。"
-    },
-    {
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/FunctionAbstractions.md",
       "title": "函数抽象",
       "section": "类型系统详解",
@@ -1353,6 +1345,14 @@
       "title": "totality 与终止",
       "section": "类型系统详解",
       "text": "totality 与终止 对应英文：Totality and Termination，抓取日期：2026 06 16。 从 Lean 逻辑的角度看，所有函数都是 total 的： 对每个类型正确的输入都有定义； 在有限时间内返回某个结果； 不会因为少了 pattern match 分支而崩溃。 为什么 Lean 需要 totality Lean 不只是编程语言，也是证明系统。若任意非终止函数都能直接进入逻辑，那么就可能通过循环定义破坏一致性。 因此，Lean 在逻辑层面把“函数是 total 的”视为基本前提之一。 与现实编程的张力 实际编程里，有时你仍想写： 尚未证明终止的递归 运行时可能 panic 的操作 某些只关心编译后行为的低层函数 Lean 因此提供了一些“逃生口”，但会显式标记可信边界变化。 与 function 在 Lean 逻辑里会被当成 uninterpreted function： 它在编译代码中照常执行； 但逻辑层面不会把它当作可规约、可展开的 total function。 只要其 codomain 已知 nonempty，这类函数仍可被引入逻辑环境。 function 更进一步：它完全不作为普通安全逻辑对象暴露给 Lean 的推理系统。 panic 型运行时操作 像越界数组访问这类在编译代码中可能失败的操作，也只能在“结果类型已知有 inhabitant”时使用。逻辑层面上，Lean 会用该类型的某个 inhabitant 兜底表示其结果，而不是让逻辑陷入未定义状态。 使用建议 若希望函数参与普通推理与规约，优先证明终止； 只有在明确接受“逻辑视角与执行视角分离”时，才使用 ； 应严格限制在低层实现边界。"
+    },
+    {
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层）",
+      "section": "类型系统详解",
+      "text": "函数（类型系统层） 对应英文：Functions，抓取日期：2026 06 16。 函数类型是 Lean 核心语言的内建特性。函数把一个类型中的值映射到另一个类型中的值；函数类型则描述这种映射的 domain 与 codomain。 两类函数类型 非依赖函数 结果类型不依赖具体参数值。 依赖函数 结果类型可以显式依赖参数 。因此，从集合论直觉看，它更像“按索引变化的一族类型的乘积”。 核心语言中的统一视角 Lean 核心里所有函数类型其实都是依赖函数类型；非依赖函数只是“参数名不在 codomain 中出现”的特例。 另外，两个依赖函数类型即使绑定变量名不同，也可能 definitionally equal，只要改名后完全一致。 抽象与 β reduction 函数值通过 function abstraction 构造，也就是 lambda： 函数应用后，结果通过 β reduction 得到：把实参替换到函数体中。编译代码里，这种替换只对值进行；但在 type checking 的 definitional equality 中，任何项都可参与 β reduction。 Currying Lean 核心中每个函数都只接收 一个 参数。多参数函数只是高阶函数的嵌套：给第一个参数后返回另一个函数，再继续接收后续参数。表面语法制造了“多参数函数”的幻觉，但 elaboration 之后只剩单参数函数。 外延性与 intensional equality Lean 的函数 definitional equality 是 intensional 的：它关注语法、重命名与规约，而不是“数学上对所有输入结果都相同”这一外延意义。 为了推理函数相等，Lean 提供 theorem： 以及 tactic： 它们让你能从“对任意输入结果相等”推出“两个函数相等”。 η equivalence 虽然 Lean 没有把一般函数外延性放进 definitional equality，但它支持受限的 η equivalence： 前提是 有适当函数类型。 全函数与终止 从 Lean 逻辑角度看，所有函数都是 total 的： 对任意类型正确输入都有定义； 会在有限时间内给出结果。 现实编程中，Lean 也允许某些“逃生口”： function function 运行时 panic 型操作（需结果类型 ） 这些让 Lean 既能作为实用编程语言，也能在逻辑上维持更强保证。"
     },
     {
       "bookId": "lean-reference",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T23:55:03.915Z",
+  "generatedAt": "2026-06-17T00:00:49.928Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 202 篇已翻译",
+      "status": "首批 206 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 202,
+      "chapterCount": 206,
       "sections": [
         {
           "title": "官网入口",
@@ -1102,6 +1102,26 @@
         {
           "title": "类型系统详解",
           "chapters": [
+            {
+              "title": "函数抽象",
+              "path": "lean-reference/Reference/TypeSystemDetails/FunctionAbstractions.md",
+              "summary": "lambda、β-reduction 与高层语法到核心 abstraction 的映射"
+            },
+            {
+              "title": "Currying",
+              "path": "lean-reference/Reference/TypeSystemDetails/Currying.md",
+              "summary": "多参数函数的单参数嵌套编码"
+            },
+            {
+              "title": "函数外延性",
+              "path": "lean-reference/Reference/TypeSystemDetails/FunctionExtensionality.md",
+              "summary": "intensional equality、η-equivalence、`funext`"
+            },
+            {
+              "title": "totality 与终止",
+              "path": "lean-reference/Reference/TypeSystemDetails/TotalityTermination.md",
+              "summary": "total function、`partial`、`unsafe` 与 panic 边界"
+            },
             {
               "title": "函数（类型系统层）",
               "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
@@ -2613,9 +2633,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–16 章已翻译 · 17–24 章待译",
+      "status": "第 1–17 章已翻译 · 18–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 16,
+      "chapterCount": 17,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2776,6 +2796,16 @@
               "summary": "函数与符号逻辑、二阶/高阶逻辑、Lean 中的函数、经典逆、函数与集合、练习"
             }
           ]
+        },
+        {
+          "title": "第 17 章：数论基础",
+          "chapters": [
+            {
+              "title": "数论基础",
+              "path": "logic-and-proof/elementary_number_theory.md",
+              "summary": "带余除法、整除、GCD、素数、模算术、平方的性质、练习"
+            }
+          ]
         }
       ]
     },
@@ -2891,15 +2921,64 @@
           ]
         }
       ]
+    },
+    {
+      "id": "learn-proof",
+      "title": "Learn Proof Playground",
+      "titleZh": "证明练习笔记",
+      "subtitle": "NNG 风格 tactic 练习 · 同步自 learn_proof 项目",
+      "originalUrl": null,
+      "externalPdfUrl": null,
+      "status": "随 learn_proof/Basic.lean 自动同步",
+      "indexPath": "learn-proof/INDEX.md",
+      "chapterCount": 1,
+      "sections": [
+        {
+          "title": "练习",
+          "chapters": [
+            {
+              "title": "证明练习笔记",
+              "path": "learn-proof/Basic.md",
+              "summary": "rfl、rw、calc、归纳法与乘法练习"
+            }
+          ]
+        }
+      ]
     }
   ],
   "externalLinks": [
     {
+      "kind": "interactive",
       "title": "Natural Number Game (NNG4)",
-      "titleZh": "自然数游戏 NNG4",
-      "description": "交互式入门：tactic、rw、induction。",
+      "titleZh": "自然数游戏 NNG4（中文）",
+      "description": "交互式入门：tactic、rw、induction。建议配合本站「证明练习笔记」一起用。",
       "url": "https://nng4.leanprover.cn",
+      "originalUrl": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4",
+      "relatedPath": "learn-proof/Basic.md"
+    },
+    {
+      "kind": "interactive",
+      "title": "Natural Number Game (NNG4)",
+      "titleZh": "Natural Number Game（英文）",
+      "description": "NNG4 英文站，与中文版关卡一致。",
+      "url": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4",
       "originalUrl": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4"
+    },
+    {
+      "kind": "community",
+      "title": "Theorem Proving in Lean (Lean 3, Chinese)",
+      "titleZh": "Lean 3 定理证明（Lean-zh 社区版）",
+      "description": "Sphinx 站点，适合对照 Lean 3 历史资料；Lean 4 请优先读本站 TPIL。",
+      "url": "https://www.leanprover.cn/tp-lean-zh/",
+      "originalUrl": "https://leanprover.github.io/theorem_proving_in_lean/"
+    },
+    {
+      "kind": "community",
+      "title": "GlimpseOfLean (Lean-zh)",
+      "titleZh": "Lean 初探（Lean-zh 在线站）",
+      "description": "社区原版 Sphinx 站点；本站已同步 Markdown 译文与解答。",
+      "url": "https://leanprover.cn/GlimpseOfLean/",
+      "originalUrl": "https://leanprover-community.github.io/GlimpseOfLean/"
     }
   ]
 }
