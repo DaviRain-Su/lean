@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:23:13.848Z",
+  "generatedAt": "2026-06-17T00:26:26.068Z",
   "books": [
     {
       "id": "tpil",
@@ -2683,9 +2683,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–20 章已翻译 · 公理化基础与附录待译",
+      "status": "全书 20 章 + 公理化基础 + 附录",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 20,
+      "chapterCount": 22,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2884,6 +2884,26 @@
               "title": "无穷",
               "path": "logic-and-proof/the_infinite.md",
               "summary": "等势、可数无穷集、Cantor 定理、Cantor-Bernstein 定理、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 23 章：公理化基础",
+          "chapters": [
+            {
+              "title": "公理化基础",
+              "path": "logic-and-proof/axiomatic_foundations.md",
+              "summary": "ZF/ZFC 公理、自然数的集合论构造、类型论与 Lean、练习"
+            }
+          ]
+        },
+        {
+          "title": "附录",
+          "chapters": [
+            {
+              "title": "附录：自然演绎规则",
+              "path": "logic-and-proof/nd_quickref.md",
+              "summary": "命题逻辑与一阶逻辑推理规则速查"
             }
           ]
         }

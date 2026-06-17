@@ -2,14 +2,9 @@
 
 > 英文原版：[leanprover.github.io/logic_and_proof](https://leanprover.github.io/logic_and_proof/) · 源码：[leanprover-community/logic_and_proof](https://github.com/leanprover-community/logic_and_proof)
 
-本科数学严格证明写作 + 经典逻辑 + Lean 形式化。全书共 24 章，目前逐步翻译中。
+本科数学严格证明写作 + 经典逻辑 + Lean 形式化。全书正文与附录已全部译完。
 
-## 说明
-
-- 已翻译章节可直接点击阅读。
-- 未翻译章节仅列出目录，后续分批补齐。
-
-## 已翻译章节
+## 目录
 
 ### 第 1 章：引言
 
@@ -91,12 +86,10 @@
 
 - [无穷](the_infinite.md) — 等势、可数无穷集、Cantor 定理、Cantor-Bernstein 定理、练习
 
-## 待翻译章节
-
 ### 第 23 章：公理化基础
 
-- [公理化基础](axiomatic_foundations.md) — 集合的基本公理、无穷公理、其余公理、类型论、练习
+- [公理化基础](axiomatic_foundations.md) — ZF/ZFC 公理、自然数的集合论构造、类型论与 Lean、练习
 
-### 第 24 章：附录
+### 附录
 
-- [附录：自然演绎规则](nd_quickref.md) — 自然演绎规则速查
+- [附录：自然演绎规则](nd_quickref.md) — 命题逻辑与一阶逻辑推理规则速查
