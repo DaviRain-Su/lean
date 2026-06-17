@@ -46,19 +46,20 @@
 
 ### 类型系统详解
 
+- [函数（类型系统层）](Reference/TypeSystemDetails/Functions.md) — 依赖函数、currying、β/η、外延性与 totality
 - [函数抽象](Reference/TypeSystemDetails/FunctionAbstractions.md) — lambda、β-reduction 与高层语法到核心 abstraction 的映射
 - [Currying](Reference/TypeSystemDetails/Currying.md) — 多参数函数的单参数嵌套编码
 - [函数外延性](Reference/TypeSystemDetails/FunctionExtensionality.md) — intensional equality、η-equivalence、`funext`
 - [totality 与终止](Reference/TypeSystemDetails/TotalityTermination.md) — total function、`partial`、`unsafe` 与 panic 边界
-- [Predicativity](Reference/TypeSystemDetails/Predicativity.md) —  predicative universe、impredicative `Prop`、strictly positive 约束
-- [Universe Polymorphism](Reference/TypeSystemDetails/UniversePolymorphism.md) — level variables、`u+1`、level constraints、自动推断
-- [Universe Lifting](Reference/TypeSystemDetails/UniverseLifting.md) — `PLift`、`ULift`、universe level 之间的升降
-- [Setoid](Reference/TypeSystemDetails/Setoids.md) — 带证明的等价关系、`Quotient` 的接口与商类型
-- [函数（类型系统层）](Reference/TypeSystemDetails/Functions.md) — 依赖函数、currying、β/η、外延性与 totality
 - [命题（类型系统层）](Reference/TypeSystemDetails/Propositions.md) — `Prop`、proof irrelevance、run-time irrelevance、`propext`
 - [universe](Reference/TypeSystemDetails/Universes.md) — `Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`
+- [predicativity](Reference/TypeSystemDetails/Predicativity.md) — `Prop` 的 impredicativity、`Type` 的 predicativity 与非累积 universe
+- [universe polymorphism](Reference/TypeSystemDetails/UniversePolymorphism.md) — universe 参数、level expression 与 `universe` 命令
+- [universe lifting](Reference/TypeSystemDetails/UniverseLifting.md) — `PLift`、`ULift` 与跨 universe 搬运
 - [归纳类型](Reference/TypeSystemDetails/InductiveTypes.md) — constructor、recursor、参数与索引、良构性与运行时表示
 - [quotient](Reference/TypeSystemDetails/Quotients.md) — `Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障
+- [setoid 与等价关系](Reference/TypeSystemDetails/Setoids.md) — `Setoid`、`≈`、`Equivalence` 与 quotient 前置结构
+- [quotient API](Reference/TypeSystemDetails/QuotientAPI.md) — `mk`、`lift`、`sound`、`ind` 与 `recOn`
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
