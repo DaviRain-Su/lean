@@ -230,6 +230,8 @@
 - [逻辑连接词](Reference/PropositionDetails/LogicalConnectives.md) — `And`、`Or`、`Not`、`Iff` 与对应构造/消去
 - [量词](Reference/PropositionDetails/Quantifiers.md) — `∀`、`Exists`、witness 与构造性限制
 - [命题相等](Reference/PropositionDetails/PropositionalEquality.md) — `Eq`、`rfl`、`subst`、`cast`、`HEq`
+- [等式证明的唯一性](Reference/PropositionDetails/EqualityProofUniqueness.md) — `Eq.unique`、proof irrelevance 与 axiom K
+- [异类相等](Reference/PropositionDetails/HeterogeneousEquality.md) — `HEq`、`heq_of_eq`、`eq_of_heq` 与 dependent pattern matching
 - [基础类型](Reference/BasicTypes.md) — 数值、文本、collection、subtype 与 lazy computation
 
 ### 基础类型详解
