@@ -202,6 +202,9 @@
 - [阅读 proof state](Reference/Tactics/ReadingProofStates.md) — main goal、假设、不可访问名字、metavariable 与 pretty-printer 选项
 - [Tactic 语言](Reference/Tactics/TacticLanguage.md) — 控制结构、goal 管理、hygiene、假设管理与局部定义
 - [用 `conv` 做定点重写](Reference/Tactics/Conv.md) — 子项导航、定点重写、binder 下改写与 conversion goal
+- [tactic 选项](Reference/Tactics/Options.md) — `tactic.customEliminators`、`tactic.skipAssignedInstances`、`tactic.simp.trace`
+- [命名绑定变量](Reference/Tactics/NamingBoundVariables.md) — `binderNameHint` 与重写后 binder 命名控制
+- [自定义 tactic](Reference/Tactics/CustomTactics.md) — tactic macro、hygiene、回溯与 `TacticM`
 - [Simplifier](Reference/Simplifier.md) — `simp`、rewrite rule、simp set、normal form 与配置
 - [`grind` tactic](Reference/Grind.md) — congruence closure、constraint propagation、E-matching 与 theory solver
 - [`mvcgen` tactic](Reference/Mvcgen.md) — monadic verification condition generation 与 proof mode
