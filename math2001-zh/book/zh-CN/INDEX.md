@@ -15,7 +15,7 @@
 - [第 1 章 计算式证明](01_Proofs_by_Calculation.md)
 - [第 2 章 结构化证明](02_Proofs_with_Structure.md)
 - [第 3 章 奇偶与整除](03_Parity_and_Divisibility.md)
-- [第 4 章 结构化证明 II](04_Proofs_with_Structure_II.md) — 待翻译
+- [第 4 章 结构化证明 II](04_Proofs_with_Structure_II.md)
 - [第 5 章 逻辑](05_Logic.md) — 待翻译
 - [第 6 章 归纳法](06_Induction.md) — 待翻译
 - [第 7 章 数论](07_Number_Theory.md) — 待翻译

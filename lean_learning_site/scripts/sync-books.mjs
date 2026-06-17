@@ -55,7 +55,7 @@ const BOOKS = [
     subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
     source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
     originalUrl: 'https://lean-lang.org/doc/reference/latest/',
-    status: '首批 240 篇已翻译',
+    status: '首批 250 篇已翻译',
   },
   {
     id: 'vscode-lean4',
@@ -103,7 +103,7 @@ const BOOKS = [
     subtitle: '本科严谨证明 + Lean',
     source: join(repoRoot, 'math2001-zh', 'book', 'zh-CN'),
     originalUrl: 'https://hrmacbeth.github.io/math2001/',
-    status: '前言 + 第 1–3 章已译',
+    status: '前言 + 第 1–4 章已译',
   },
   {
     id: 'logic-and-proof',
