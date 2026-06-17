@@ -232,6 +232,8 @@
 - [命题相等](Reference/PropositionDetails/PropositionalEquality.md) — `Eq`、`rfl`、`subst`、`cast`、`HEq`
 - [等式证明的唯一性](Reference/PropositionDetails/EqualityProofUniqueness.md) — `Eq.unique`、proof irrelevance 与 axiom K
 - [异类相等](Reference/PropositionDetails/HeterogeneousEquality.md) — `HEq`、`heq_of_eq`、`eq_of_heq` 与 dependent pattern matching
+- [命题相等的基础 API](Reference/PropositionDetails/EqualityCoreAPI.md) — `Eq.refl`、`rfl`、`Eq.symm`、`Eq.trans`、`Eq.subst`
+- [cast 与 congruence](Reference/PropositionDetails/EqualityCastCongruence.md) — `cast`、`Eq.mp` / `Eq.mpr`、`congr`、`congrFun`、`congrArg`
 - [基础类型](Reference/BasicTypes.md) — 数值、文本、collection、subtype 与 lazy computation
 
 ### 基础类型详解
