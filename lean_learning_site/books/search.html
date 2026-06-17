@@ -3,46 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#efe7d2">
   <meta name="description" content="搜索 Lean 4 中文教材库全部章节。">
   <title>搜索教材 · Lean 4 学习工作台</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./books.css">
 </head>
 <body class="books-page search-page">
-  <div class="books-shell">
-    <nav class="nav" aria-label="主导航">
-      <a class="brand" href="../index.html" aria-label="返回学习工作台首页">
-        <span class="brand-mark">∀</span>
-        <span>Lean 4 学习工作台</span>
-      </a>
-      <div class="nav-links">
-        <a href="../index.html">首页</a>
-        <a href="./index.html">中文教材</a>
-        <a href="./search.html">搜索</a>
-      </div>
-    </nav>
+  <div class="shell">
+    <aside class="side-rail left" aria-hidden="true"><span class="rail-text">Lean 4</span></aside>
+    <aside class="side-rail right" aria-hidden="true"><span class="rail-text">搜索</span></aside>
 
-    <header class="books-hero">
-      <p class="eyebrow">Search</p>
-      <h1>搜索全部教材</h1>
-      <p class="lead">覆盖本站同步的 Markdown 译文与「证明练习笔记」。输入关键词后按 Enter 打开第一条结果。</p>
+    <header class="site-chrome">
+      <div class="topbar">
+        <div class="container topbar-inner">
+          <span><b>全文搜索</b> · Fuse.js</span>
+          <span class="accent">2900+ 篇章节</span>
+          <span><a href="./index.html">教材库</a></span>
+        </div>
+      </div>
+      <div class="container nav" aria-label="主导航">
+        <a class="brand" href="../index.html">
+          <span class="brand-mark">∀</span>
+          <span>Lean 4 学习工作台</span>
+        </a>
+        <div class="nav-links">
+          <a href="../index.html">首页</a>
+          <a href="./index.html">中文教材</a>
+          <a href="./search.html" class="is-active">搜索</a>
+        </div>
+      </div>
     </header>
 
-    <div class="search-page-panel">
-      <div class="search-controls search-controls-page">
-        <div class="search-field">
-          <label class="search-label" for="global-search">关键词</label>
-          <input id="global-search" class="search-input search-input-large" type="search" placeholder="例如：归纳法、rw、type class、集合…" autocomplete="off" spellcheck="false" autofocus>
+    <div class="books-shell">
+      <header class="books-hero">
+        <p class="label">Search</p>
+        <h1>搜索全部教材</h1>
+        <p class="lead">覆盖本站同步的 Markdown 译文与「证明练习笔记」。输入关键词后按 Enter 打开第一条结果。</p>
+      </header>
+
+      <div class="search-page-panel">
+        <div class="search-controls search-controls-page">
+          <div class="search-field">
+            <label class="search-label" for="global-search">关键词</label>
+            <input id="global-search" class="search-input search-input-large" type="search" placeholder="例如：归纳法、rw、type class、集合…" autocomplete="off" spellcheck="false" autofocus>
+          </div>
+          <div class="search-field search-field-filter">
+            <label class="search-label" for="global-search-filter">教材</label>
+            <select id="global-search-filter" class="search-filter"></select>
+          </div>
         </div>
-        <div class="search-field search-field-filter">
-          <label class="search-label" for="global-search-filter">教材</label>
-          <select id="global-search-filter" class="search-filter"></select>
-        </div>
+        <div id="global-search-results" class="search-results search-results-page"></div>
       </div>
-      <div id="global-search-results" class="search-results search-results-page"></div>
     </div>
   </div>
 

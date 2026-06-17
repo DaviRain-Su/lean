@@ -28,3 +28,29 @@ for (const card of lessonCards) {
     card.classList.add('active');
   });
 }
+
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const sections = [...navLinks]
+  .map((link) => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    return el ? { link, el } : null;
+  })
+  .filter(Boolean);
+
+if (sections.length > 0) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const match = sections.find((s) => s.el === entry.target);
+        if (!match) continue;
+        for (const { link } of sections) link.classList.remove('is-active');
+        match.link.classList.add('is-active');
+      }
+    },
+    { rootMargin: '-30% 0px -55% 0px', threshold: 0 },
+  );
+
+  for (const { el } of sections) observer.observe(el);
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T01:18:57.191Z",
+  "generatedAt": "2026-06-17T01:23:06.560Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 240 篇已翻译",
+      "status": "首批 250 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 248,
+      "chapterCount": 250,
       "sections": [
         {
           "title": "官网入口",
@@ -1881,6 +1881,16 @@
               "title": "命题相等",
               "path": "lean-reference/Reference/PropositionDetails/PropositionalEquality.md",
               "summary": "`Eq`、`rfl`、`subst`、`cast`、`HEq`"
+            },
+            {
+              "title": "等式证明的唯一性",
+              "path": "lean-reference/Reference/PropositionDetails/EqualityProofUniqueness.md",
+              "summary": "`Eq.unique`、proof irrelevance 与 axiom K"
+            },
+            {
+              "title": "异类相等",
+              "path": "lean-reference/Reference/PropositionDetails/HeterogeneousEquality.md",
+              "summary": "`HEq`、`heq_of_eq`、`eq_of_heq` 与 dependent pattern matching"
             },
             {
               "title": "基础类型",

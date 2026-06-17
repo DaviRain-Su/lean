@@ -3,66 +3,81 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#efe7d2">
   <meta name="description" content="Lean 4 中文教材库：FAQ、VS Code 手册、定理证明、函数式编程、数学形式化、LoVe 导读等 Markdown 译文。">
   <title>中文教材库 · Lean 4 学习工作台</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./books.css">
 </head>
 <body class="books-page">
-  <div class="books-shell">
-    <nav class="nav" aria-label="主导航">
-      <a class="brand" href="../index.html" aria-label="返回学习工作台首页">
-        <span class="brand-mark">∀</span>
-        <span>Lean 4 学习工作台</span>
-      </a>
-      <div class="nav-links">
-        <a href="../index.html">首页</a>
-        <a href="./index.html">中文教材</a>
-        <a href="./search.html">搜索</a>
-      </div>
-    </nav>
+  <div class="shell">
+    <aside class="side-rail left" aria-hidden="true"><span class="rail-text">Lean 4</span></aside>
+    <aside class="side-rail right" aria-hidden="true"><span class="rail-text">教材库</span></aside>
 
-    <header class="books-hero">
-      <p class="eyebrow">Chinese translations</p>
-      <h1>Lean 4 中文教材库</h1>
-      <p class="lead">官方教程与工具文档的 Markdown 译文集中在此阅读。支持 LaTeX 公式、Lean 代码高亮与全文搜索。建议顺序：FAQ / VS Code 手册 → 定理证明 → 函数式编程 → 数学形式化 → LoVe。</p>
-      <div class="search-bar-wrap search-bar-inline">
-        <div class="search-controls">
-          <div class="search-field">
-            <label class="search-label" for="catalog-search">全文搜索</label>
-            <input id="catalog-search" class="search-input" type="search" placeholder="搜索 400+ 篇教材章节与文内标题…" autocomplete="off" spellcheck="false">
-          </div>
-          <div class="search-field search-field-filter">
-            <label class="search-label" for="catalog-search-filter">教材</label>
-            <select id="catalog-search-filter" class="search-filter"></select>
-          </div>
+    <header class="site-chrome">
+      <div class="topbar">
+        <div class="container topbar-inner">
+          <span><b>中文教材库</b> · Markdown 译文</span>
+          <span class="accent">LaTeX · Lean 高亮 · 全文搜索</span>
+          <span><a href="../index.html">返回工作台</a></span>
         </div>
-        <div id="catalog-search-results" class="search-results" hidden></div>
+      </div>
+      <div class="container nav" aria-label="主导航">
+        <a class="brand" href="../index.html">
+          <span class="brand-mark">∀</span>
+          <span>Lean 4 学习工作台</span>
+        </a>
+        <div class="nav-links">
+          <a href="../index.html">首页</a>
+          <a href="./index.html" class="is-active">中文教材</a>
+          <a href="./search.html">搜索</a>
+        </div>
       </div>
     </header>
 
-    <div id="book-grid" class="book-grid" aria-live="polite">
-      <p class="reader-status">正在加载目录…</p>
+    <div class="books-shell">
+      <header class="books-hero">
+        <p class="label">Chinese translations</p>
+        <h1>Lean 4 中文教材库</h1>
+        <p class="lead">官方教程与工具文档的 Markdown 译文集中在此阅读。支持 LaTeX 公式、Lean 代码高亮与全文搜索。建议顺序：FAQ / VS Code 手册 → 定理证明 → 函数式编程 → 数学形式化 → LoVe。</p>
+        <div class="search-bar-wrap search-bar-inline">
+          <div class="search-controls">
+            <div class="search-field">
+              <label class="search-label" for="catalog-search">全文搜索</label>
+              <input id="catalog-search" class="search-input" type="search" placeholder="搜索 2900+ 篇教材章节与文内标题…" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="search-field search-field-filter">
+              <label class="search-label" for="catalog-search-filter">教材</label>
+              <select id="catalog-search-filter" class="search-filter"></select>
+            </div>
+          </div>
+          <div id="catalog-search-results" class="search-results" hidden></div>
+        </div>
+      </header>
+
+      <div id="book-grid" class="book-grid" aria-live="polite">
+        <p class="reader-status">正在加载目录…</p>
+      </div>
+
+      <header class="books-hero external-hero">
+        <p class="label">Interactive</p>
+        <h2>交互式学习</h2>
+        <p class="lead">无法导出为 Markdown 的在线教程与游戏，建议与本站「证明练习笔记」配合使用。</p>
+      </header>
+
+      <div id="interactive-grid" class="book-grid external-grid" aria-live="polite"></div>
+
+      <header class="books-hero external-hero">
+        <p class="label">Community</p>
+        <h2>社区在线资源</h2>
+        <p class="lead">Lean-zh 等社区维护的 Sphinx / 在线站点，作为补充参考。</p>
+      </header>
+
+      <div id="community-grid" class="book-grid external-grid" aria-live="polite"></div>
     </div>
-
-    <header class="books-hero external-hero">
-      <p class="eyebrow">Interactive · 交互式</p>
-      <h2>交互式学习</h2>
-      <p class="lead">无法导出为 Markdown 的在线教程与游戏，建议与本站「证明练习笔记」配合使用。</p>
-    </header>
-
-    <div id="interactive-grid" class="book-grid external-grid" aria-live="polite"></div>
-
-    <header class="books-hero external-hero">
-      <p class="eyebrow">Community · 社区站点</p>
-      <h2>社区在线资源</h2>
-      <p class="lead">Lean-zh 等社区维护的 Sphinx / 在线站点，作为补充参考。</p>
-    </header>
-
-    <div id="community-grid" class="book-grid external-grid" aria-live="polite"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
