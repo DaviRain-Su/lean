@@ -4,7 +4,7 @@
 
 ## 说明
 
-本科数学严格证明写作 + Lean 形式化。**前言与第 1–2 章已译**；正文与其余附录按章推进中。
+本科数学严格证明写作 + Lean 形式化。**前言与第 1–3 章已译**；正文与其余附录按章推进中。
 
 ### 前言
 
@@ -14,7 +14,7 @@
 
 - [第 1 章 计算式证明](01_Proofs_by_Calculation.md)
 - [第 2 章 结构化证明](02_Proofs_with_Structure.md)
-- [第 3 章 奇偶与整除](03_Parity_and_Divisibility.md) — 待翻译
+- [第 3 章 奇偶与整除](03_Parity_and_Divisibility.md)
 - [第 4 章 结构化证明 II](04_Proofs_with_Structure_II.md) — 待翻译
 - [第 5 章 逻辑](05_Logic.md) — 待翻译
 - [第 6 章 归纳法](06_Induction.md) — 待翻译
