@@ -750,7 +750,7 @@ def UPair (α : Type) [LinearOrder α] : Type :=
 
 | 名称 | 含义 |
 |------|------|
-| `noncomputable` | 修饰不可计算声明的前缀 |
+| `noncomputable` | 声明不可计算定义时使用的**关键字** |
 
 **常量**
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T02:33:39.720Z",
+  "generatedAt": "2026-06-17T02:38:33.390Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 258 篇已翻译",
+      "status": "首批 261 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 258,
+      "chapterCount": 261,
       "sections": [
         {
           "title": "官网入口",
@@ -1773,6 +1773,21 @@
               "summary": "子项导航、定点重写、binder 下改写与 conversion goal"
             },
             {
+              "title": "tactic 选项",
+              "path": "lean-reference/Reference/Tactics/Options.md",
+              "summary": "`tactic.customEliminators`、`tactic.skipAssignedInstances`、`tactic.simp.trace`"
+            },
+            {
+              "title": "命名绑定变量",
+              "path": "lean-reference/Reference/Tactics/NamingBoundVariables.md",
+              "summary": "`binderNameHint` 与重写后 binder 命名控制"
+            },
+            {
+              "title": "自定义 tactic",
+              "path": "lean-reference/Reference/Tactics/CustomTactics.md",
+              "summary": "tactic macro、hygiene、回溯与 `TacticM`"
+            },
+            {
               "title": "Simplifier",
               "path": "lean-reference/Reference/Simplifier.md",
               "summary": "`simp`、rewrite rule、simp set、normal form 与配置"
@@ -2461,7 +2476,7 @@
       "subtitle": "逻辑验证研究生课程 · 全书 14 章",
       "originalUrl": "https://github.com/lean-forward/logical_verification_2025",
       "externalPdfUrl": "https://github.com/Lean-zh/LoVe-zh",
-      "status": "全书 14 章已译（9–14 对照英文版，待中文 PDF 对齐）",
+      "status": "全书 14 章已译（9–14 已对照英文 PDF 润色，待中文 PDF 对齐）",
       "indexPath": "love/INDEX.md",
       "chapterCount": 16,
       "sections": [

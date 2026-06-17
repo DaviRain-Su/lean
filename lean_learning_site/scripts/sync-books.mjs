@@ -55,7 +55,7 @@ const BOOKS = [
     subtitle: 'Lean 4 语言、模块、策略、Lake 与工具链参考',
     source: join(repoRoot, 'lean-reference-zh', 'book', 'zh-CN'),
     originalUrl: 'https://lean-lang.org/doc/reference/latest/',
-    status: '首批 258 篇已翻译',
+    status: '首批 261 篇已翻译',
   },
   {
     id: 'vscode-lean4',
@@ -73,7 +73,7 @@ const BOOKS = [
     subtitle: '逻辑验证研究生课程 · 全书 14 章',
     source: join(repoRoot, 'love-zh', 'book', 'zh-CN'),
     originalUrl: 'https://github.com/lean-forward/logical_verification_2025',
-    status: '全书 14 章已译（9–14 对照英文版，待中文 PDF 对齐）',
+    status: '全书 14 章已译（9–14 已对照英文 PDF 润色，待中文 PDF 对齐）',
     externalPdfUrl: 'https://github.com/Lean-zh/LoVe-zh',
     preSync: join(repoRoot, 'love-zh', 'scripts', 'extract-from-pdf.mjs'),
     preSyncOptional: true,

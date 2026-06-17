@@ -302,7 +302,7 @@ Semiring ──→ Ring ──→ DivisionRing
 CommSemiring → CommRing ──→ Field
 ```
 
-`Field` 类型类要求性质 `∀a, a / 0 = 0`。这仅仅是一种约定，使除法成为全函数。数学家会把除法视为偏函数。以这种方式将偏函数全化化并无害处。
+`Field` 类型类要求性质 `∀a, a / 0 = 0`。这仅仅是一种约定，使除法成为全函数。数学家会把除法视为偏函数。以这种方式将偏函数**全化**并无害处。
 
 一旦我们用具体类型实例化了类型类，就可以使用 `ring` 策略来归一化含有该类型运算符的项。例如：
 
@@ -347,7 +347,7 @@ theorem neg_Nat_mul_neg (n : ℕ) (z : ℤ) :
   by simp
 ```
 
-在涉及强制类型转换的证明中，`norm_cast` 策略可能很方便。它有助于处理如下目标中的子目标 `⊢ m n : ℕ, h : ↑m = ↑n ⊢ m = n`：
+在涉及强制类型转换的证明中，`norm_cast` 策略可能很方便。它有助于处理形如 `m n : ℕ, h : ↑m = ↑n ⊢ m = n` 的目标：
 
 ```lean
 theorem Eq_coe_int_imp_Eq_Nat (m n : ℕ)
@@ -356,7 +356,7 @@ theorem Eq_coe_int_imp_Eq_Nat (m n : ℕ)
   by norm_cast at h
 ```
 
-类似地，它有助于处理目标 `⊢ m n : ℕ ⊢ ↑m + ↑n = ↑(m + n)`：
+类似地，它有助于处理形如 `m n : ℕ ⊢ ↑m + ↑n = ↑(m + n)` 的目标：
 
 ```lean
 theorem Nat_coe_Int_add_eq_add_Nat_coe_Int (m n : ℕ) :

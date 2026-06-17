@@ -7,7 +7,7 @@
 | 部分 | 来源 |
 |------|------|
 | 第 1–8 章 Markdown | `pdf/逻辑验证漫游指南-2026-桌面版.pdf` → `scripts/extract-from-pdf.mjs` |
-| 第 9–14 章 Markdown | 对照 `pdf/hitchhikers_guide_2025_en.pdf` 翻译（中文 PDF 第三、四部分待发布） |
+| 第 9–14 章 Markdown | 对照 `pdf/hitchhikers_guide_2025_en.pdf` 翻译并润色（`node scripts/proofread-compare.mjs` 比对节结构；中文 PDF 第三、四部分待发布） |
 | 英文 PDF 参考 | `pdf/hitchhikers_guide_2025_en.pdf`；`node scripts/extract-from-pdf.mjs --english` 可提取英文原文 |
 | Lean 练习 | `lean/` 目录（与 Lean-zh 同步） |
 

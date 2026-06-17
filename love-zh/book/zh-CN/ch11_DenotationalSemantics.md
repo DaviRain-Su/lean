@@ -1,6 +1,6 @@
 # 第 11 章 指称语义
 
-> 已对照 Lean-zh PDF 与 `LoVe11_DenotationalSemantics_Demo.lean` 人工校对（原 PDF 8100–8555 行）。
+> 已对照英文原版 PDF（8100–8555 行）与 `LoVe11_DenotationalSemantics_Demo.lean` 人工校对（Lean-zh 中文版 PDF 第三部分尚未发布，发布后可用 `node scripts/extract-from-pdf.mjs` 重新对齐）。
 
 英文原版与练习：[logical_verification_2025](https://github.com/lean-forward/logical_verification_2025)
 
@@ -22,6 +22,8 @@
 -- 非组合性的定义（示意）
 -- ⟦S⟧ = {(s, t) | (S, s) ⟹ t}
 ```
+
+实际上，由于 Lean 只允许在竖线 `|` 左侧写**单个变量**，我们必须写成 `⟦S⟧ = {st | (S, Prod.fst st) ⟹ Prod.snd st}`。
 
 该定义指定了所期望的语义，但由于缺乏组合性，它并不构成指称语义：复合语句（顺序组合、`if`–`then`–`else` 和 `while`）的含义是直接给出的，而没有使用其子语句的指称。
 
@@ -102,7 +104,7 @@ infixl:90 " ⇃ " => restrict
 -- ∪ (Id ⇃ (fun s ↦ ¬ B s))
 ```
 
-但这由于在对 `Stmt.whileDo B S` 的递归调用而**无基**（ill-founded）。我们需要别的办法。我们在右端寻找的是满足方程
+但这在对 `Stmt.whileDo B S` 的递归调用上是**非良基的**（ill-founded）。我们需要别的办法。我们在右端寻找的是满足方程
 
 ```
 X = ((denote S ◯ X) ⇃ B) ∪ (Id ⇃ (fun s ↦ ¬ B s))
@@ -152,7 +154,7 @@ theorem Even_Iff (n : ℕ) :
 X = (fun P ↦ P) X
 ```
 
-其中 `X : ℕ → Prop`。最小不动点是 `fun _ ↦ False`，最大不动点是 `fun _ ↦ True`。按惯例，我们有 `False < True`，从而 `(fun _ ↦ False) < (fun _ ↦ True)`。类似地，对任意有居元素的类型 `α`，有 `∅ < @Set.univ α`。
+其中 `X : ℕ → Prop`。最小不动点是 `fun _ ↦ False`，最大不动点是 `fun _ ↦ True`。按惯例，我们有 `False < True`，从而 `(fun _ ↦ False) < (fun _ ↦ True)`。类似地，对任意**非空**类型 `α`，有 `∅ < @Set.univ α`。
 
 对于 `while` 循环的语义，`X` 的类型将是 `Set (State × State)`，即状态之间的关系，而 `f` 将对应于再执行循环的一次额外迭代（若条件 `B` 为真）或恒等（若 `B` 为假）。
 
@@ -168,7 +170,7 @@ X = (fun P ↦ P) X
 -- f A = (if A = ∅ then Set.univ else ∅)
 ```
 
-若 `α` 有居元素，则 `∅ ⊆ Set.univ`，但 `f ∅ = Set.univ ⊈ ∅ = f Set.univ`。
+若 `α` **非空**，则 `∅ ⊆ Set.univ`，但 `f ∅ = Set.univ ⊈ ∅ = f Set.univ`。
 
 在 Lean 中，我们可以如下定义单调性：
 
@@ -261,7 +263,21 @@ def lfp {α : Type} [CompleteLattice α] (f : α → α) : α :=
 theorem lfp_eq {α : Type} [CompleteLattice α] (f : α → α)
       (hf : Monotone f) :
     lfp f = f (lfp f) :=
-  sorry
+  by
+    have h : f (lfp f) ≤ lfp f :=
+      by
+        apply le_lfp
+        intro a' ha'
+        apply le_trans
+        · apply hf
+          apply lfp_le
+          assumption
+        · assumption
+    apply le_antisymm
+    · apply lfp_le
+      apply hf
+      assumption
+    · assumption
 ```
 
 ## 11.7 关系型指称语义（续）
