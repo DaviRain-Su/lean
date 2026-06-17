@@ -108,3 +108,63 @@ tactic 中也可以临时调整：
 - `with_unfolding_all`
 
 这些构造主要用于控制 elaboration、instance search 和 unfolding 行为。
+
+## 示例：控制流
+
+`first` 与 `try`：
+
+```lean
+example (p q : Prop) (hp : p) : p ∨ q := by
+  first | apply Or.inl; exact hp | apply Or.inr; sorry
+```
+
+`tac <;> tac'`（先 `tac`，再对每个子 goal 跑 `tac'`）：
+
+```lean
+example (a b : Nat) : a + 0 = a ∧ b + 0 = b := by
+  constructor <;> simp
+```
+
+## 示例：分支 = 分类讨论
+
+tactic 里的 `if` 不是运行时分支，而是对两种情况都要证：
+
+```lean
+example (p q : Prop) (hp : p) : p ∨ q := by
+  if h : p then exact Or.inl hp else exact Or.inr (by sorry)
+```
+
+`match` 同理——每个分支都是独立子证明。
+
+## 示例：多 goal 与 bullet
+
+```lean
+theorem and_comm (p q : Prop) (hp : p) (hq : q) : q ∧ p := by
+  apply And.intro
+  · exact hq
+  · exact hp
+```
+
+`·` 聚焦第一个子 goal；`case` 可按名称选 goal：`case left => ...`。
+
+## 示例：假设管理
+
+```lean
+example (a b c : Nat) (h : a + b = c) : c = a + b := by
+  have h' : c = a + b := h.symm
+  exact h'
+```
+
+`clear` 删掉无用假设；`revert` 把变量移回目标；`rename_i x y` 给不可访问假设起名。
+
+## 组合子速查
+
+| 组合子 | 行为 |
+| --- | --- |
+| `t1; t2` | 顺序执行 |
+| `t1 <;> t2` | `t1` 后对每个子 goal 执行 `t2` |
+| `all_goals t` | 每个 goal 都要成功 |
+| `any_goals t` | 至少一个 goal 成功即可 |
+| `focus t` | 只看 main goal |
+| `repeat t` | 重复直到失败并回滚最后一次 |
+| `iterate n t` | 精确 `n` 次 |

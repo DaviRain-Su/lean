@@ -72,3 +72,93 @@ fun
 - `e matches pat`：若 `e` 能匹配 `pat` 则返回 `true`；
 - `nomatch ...`：零分支匹配，表达“不可能发生”的情况；
 - `nofun`：当 expected type 是函数类型时，表示一个不可能被调用的函数。
+
+## 基础示例
+
+```lean
+def natToString : Nat → String
+  | 0 => "zero"
+  | n + 1 => s!"succ {natToString n}"   -- 需 Nat 上 match_pattern 或手写 .succ
+
+def head? : List α → Option α
+  | [] => none
+  | x :: _ => some x
+```
+
+`x :: _` 中 `_` 不绑定；`x` 绑定 head。
+
+## 具名 discriminant 与等式假设
+
+```lean
+def inspect (n : Nat) : Nat :=
+  match h : n with
+  | 0 => 0
+  | m + 1 => m + 1   -- 上下文中有 h : n = m + 1
+```
+
+`h : term` 形式会在 RHS 提供 **pattern equality proof**，对依赖类型和 `cast` 很有用。
+
+## `match_pattern`
+
+要让 `n + 1` 当 pattern，需相应 `match_pattern` 定义（标准库已给 `Nat`）：
+
+```lean
+-- 内部依赖 Nat.add 等的 match_pattern 与 simp
+example (n : Nat) : Nat :=
+  match n with
+  | 0 => 0
+  | n + 1 => n   -- 合法 pattern
+```
+
+无 `match_pattern` 时只能写 `Nat.succ m` 或 `.succ m`。
+
+## Structure 与 named pattern
+
+```lean
+structure Point where x y : Nat
+
+def swap (p : Point) : Point :=
+  match p with
+  | ⟨x, y⟩ => ⟨y, x⟩
+
+-- named pattern `p@⟨x, y⟩`：同时绑定整体与字段
+def sum (p : Point) : Nat :=
+  match p with
+  | p@⟨x, y⟩ => x + y
+```
+
+## 依赖类型与 `generalizing`
+
+对 indexed family，Lean 默认会 **generalize** 目标类型里出现的 discriminant。若不希望替换类型中的变量：
+
+```lean
+-- match (generalizing := false) e with ...
+```
+
+复杂 dependent match 失败时，可尝试显式 `(motive := ...)`（高级用法，见英文页）。
+
+## Tactic 中的 `match`
+
+tactic 模式的 `match` 是**分类讨论**，每个分支都要证完（见 [Tactic 语言](../Tactics/TacticLanguage.md)）：
+
+```lean
+example (n : Nat) : n = n := by
+  match n with
+  | 0 => rfl
+  | n + 1 => rfl
+```
+
+## 与 `cases` / `rcases` 的关系
+
+| 位置 | 工具 |
+| --- | --- |
+| term 定义 | `match` |
+| tactic 证明 | `cases`、`rcases`、`induction` |
+
+`rcases h with ⟨x, hx⟩` 本质是 tactic 层的 pattern match，常用于 `∃`、合取、析取。
+
+## 常见坑
+
+- namespace 外写 `nil` 当变量而非 `List.nil` → [redundantMatchAlt](../Errors/RedundantMatchAlt.md)；
+- 用 `.succ` 需 expected type 或 `open`；
+- dependent match 报错时，检查是否需 `generalizing` 或 motive。

@@ -2,49 +2,86 @@
 
 > 对应英文：[Simp sets](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)，抓取日期：2026-06-16。
 
-simplifier 所使用的一组规则称为 **simp set**。一个 `simp` 调用实际做的是：以默认 simp set 为基础，再叠加若干修改。
+simplifier 使用的一组规则称为 **simp set**。每次 `simp` 调用都以某个 simp set 为起点，再叠加本次调用的增删。
 
 ## 默认 simp set
 
-默认 simp set 由所有带 `[simp]` attribute 的 theorem、definition 和 simproc 组成。`simp` tactic 会在此基础上工作，除非使用 `only` 从空集合开始。
+默认 simp set = 所有带 `[simp]` attribute 的 theorem、definition 和 simproc。
 
-## 如何修改 simp set
+```lean
+-- 在默认 set 上工作
+example (n : Nat) : n + 0 = n := by simp
 
-常见操作：
+-- 从空 set 起步，只用自己的规则
+example (n : Nat) : n + 0 = n := by simp only [Nat.add_zero]
+```
 
-- 增加规则：`simp [h, foo]`
-- 移除规则：`simp [-foo]`
-- 加入当前所有 assumptions：`simp [*]`
-- 仅使用指定规则：`simp only [foo, bar]`
+`only` 会**丢弃**默认 set，适合精确控制、减少误伤。
+
+## 单次调用如何改 set
+
+| 写法 | 含义 |
+| --- | --- |
+| `simp [h, foo]` | 在默认 set 上**增加** `h`、`foo` |
+| `simp [-foo]` | 从默认 set **移除** `foo` |
+| `simp [*]` | 把当前 proof state 里**所有假设**加入 set |
+| `simp only [a, b]` | **仅**用 `a`、`b`（及内建 reduction） |
+| `simp ↓ [foo]` | 本条调用里 `foo` 优先在子项前应用 |
+
+```lean
+example (n : Nat) (h : n + 0 = n) : n = n := by
+  simp [*] at h   -- 用 h 的类型参与化简 h 本身
+  exact h
+```
 
 ## `[simp]` attribute
 
-`[simp]` 是把声明加入默认 simp set 的主要方式。
+把声明注册进**默认** simp set 的主要方式：
 
-- 如果声明是 definition，则它会被标记为“可由 simplifier 展开”；
-- 如果声明是 theorem，则它会被注册为 rewrite rule。
+```lean
+@[simp] theorem add_zero (n : Nat) : n + 0 = n := rfl
 
-还可以用：
+-- definition 标记为可展开
+@[simp] def double (n : Nat) : Nat := n + n
+```
 
-- `@[simp]`
-- `@[simp ↑]`
-- `@[simp ↓]`
-- `@[simp prio]`
+方向与优先级：
 
-来指定方向或优先级。
+| 写法 | 作用 |
+| --- | --- |
+| `@[simp]` | 加入默认 set |
+| `@[simp ↓]` | 进入子项**之前**先尝试该规则 |
+| `@[simp ↑]` | 进入子项**之后**再试（默认倾向） |
+| `@[simp 100]` | 更高优先级（数字越大越优先） |
+
+库作者应谨慎往默认 set 加规则：导入你的库会改变**全局** `simp` 行为。
 
 ## 自定义 simp set
 
-Lean 允许用 `registerSimpAttr` 创建新的自定义 simp set。它会生成一个与 `simp` 类似接口的新 attribute，把声明加入该自定义集合，同时返回一个 `SimpExtension`，供程序化访问。
+用 `registerSimpAttr` 创建独立 attribute，不污染默认 set：
 
-这非常适合：
+```lean
+-- 库内常见模式（示意）
+-- registerSimpAttr my_simp "my_simp"
+-- @[my_simp] theorem myLemma ...
+-- example : ... := by my_simp
+```
 
-- 某类专门领域的简化规则；
-- 不想污染默认 simp set 的库局部自动化；
-- 为专门 tactic 准备独立规则库。
+适合：领域专用规则、实验性自动化、为自定义 tactic 准备规则库。
+
+## 与 `simp at` 的配合
+
+```lean
+example (n m : Nat) (h : n + 0 = m) : m = n := by
+  simp only [Nat.add_zero] at h
+  rw [← h]
+```
+
+`at h` 只化简假设 `h` 的类型；`at *` 化简所有假设和目标。
 
 ## 设计建议
 
-- 默认 simp set 是库接口的一部分；
-- 不要随意把与本库无关的规则塞进默认 simp set；
-- 若某套规则只对特定工作流有意义，优先做自定义 simp set 或专用 tactic。
+- 默认 simp set 是**库公共接口**的一部分，改动会影响所有下游 `simp`；
+- 不确定是否该 `[simp]` 时，先用 `simp only [myLemma]` 在局部验证；
+- 专用工作流优先自定义 simp set 或封装 `my_tactic := simp only [...]`；
+- 用 `simp?` 看实际用到的规则，再收窄为稳定 `simp only` 列表。

@@ -2,61 +2,78 @@
 
 > 对应英文：[Custom Tactics](https://lean-lang.org/doc/reference/latest/Tactic-Proofs/Custom-Tactics/)，抓取日期：2026-06-16。
 
-自定义 tactic 的本质是：
+自定义 tactic = 扩展 `tactic` 语法 + 给出实现（macro 或 elaborator）。
 
-1. 扩展 syntax category `tactic`
-2. 再给这段新 syntax 配一个实现方式
+## 路径选择
 
-实现方式有两类：
+| 需求 | 首选 |
+| --- | --- |
+| 新语法 = 已有 tactic 的组合 | **tactic macro** |
+| 向现有 tactic 加一条分支 | **`macro_rules`** |
+| 读 goal、改 proof state、复杂逻辑 | **tactic elaborator**（`TacticM`） |
 
-- **macro**：把新 tactic syntax 展开成已有 tactic syntax
-- **elaborator**：直接在 `TacticM` 中执行动作
+## 示例 1：tactic macro
 
-## tactic interpreter 的角色
+```lean
+import Lean
 
-给定 tactic 的 syntax 后，tactic interpreter 负责在 `TacticM` 中真正执行它。`TacticM` 本身是建立在 Lean term elaborator 之上的一层包装，多了：
+open Lean Parser.Tactic
 
-- goal / proof state 管理
-- tactic 特有的控制流
-- tactic 级别的错误与回溯
+macro "my_ring" : tactic => `(tactic| simp [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm])
 
-## tactic macro
+example (a b c : Nat) : a + b + c = c + a + b := by
+  my_ring
+```
 
-最容易写的新 tactic，通常就是 macro：
+macro 在**执行时**交错展开，可递归；只要递归调用落在会执行的 tactic 之后，就不会无限展开。
 
-- 你发明一段更顺手的 tactic 语法；
-- 把它展开为现有 tactic 组合。
+## 示例 2：可扩展 macro（`macro_rules`）
 
-### 为什么 tactic macro 很强
+向已有语法注入行为（与内建 `simp`、`rw` 扩展方式相同）：
 
-英文页强调：tactic macro 的展开与 tactic 执行是交错进行的，而不是在脚本开始前一次性完全展开。因此：
+```lean
+-- 示意：为自定义关键字注册展开规则
+-- macro_rules
+--   | `(tactic| my_simp) => `(tactic| simp only [Lemma.a, Lemma.b])
+```
 
-- tactic macro 可以递归；
-- 只要递归调用出现在某个会真正执行的 tactic 之后，就不会形成无限展开链。
+若展开后的 tactic **执行失败**，解释器可尝试匹配下一条 `macro_rules`（tactic macro 的回溯）。
 
-### hygiene
+## 示例 3：何时用 elaborator
 
-和其他 Lean macro 一样，tactic macro 是 hygienic 的：
+需要直接操作 `TacticM` 时，例如查询 main goal 类型、按条件选不同 tactic：
 
-- 对全局名的引用在定义时确定；
-- 它引入的新名字不会捕获调用点的名字。
+```lean
+-- 仅示意结构；完整实现需 import Mathlib 或自建 TacticM 逻辑
+-- elab "inspect_goal" : tactic => fun _ stx => do
+--   let goal ← getMainGoal
+--   logInfo m!"{← goal.getType}"
+```
 
-## 可扩展 tactic macro
+日常项目 99% 情况 **macro 足够**；elaborator 留给元编程库与工具。
 
-tactic macro 的回溯规则比普通 macro 更进一步：即便某个 macro 成功展开，如果展开后的 tactic 执行失败，解释器仍可尝试后续匹配的 tactic macro。正因如此，Lean 能把一些内建 tactic 设计成可扩展的：你只需额外加一条 `macro_rules`，就能向现有 tactic 注入新行为。
+## `TacticM` 是什么
 
-## 何时需要 elaborator
+tactic interpreter 在 `TacticM` 中运行脚本，它在 term elaborator 之上增加：
 
-如果只是“把新语法翻成旧语法”，优先 macro；只有当你需要：
+- goal / metavariable 管理；
+- `getMainGoal`、`replaceMainGoal`、`evalTactic`；
+- tactic 级回溯与错误。
 
-- 直接操纵 proof state
-- 查询 elaboration / goal 细节
-- 运行更复杂的 `TacticM` 逻辑
+写 elaborator 前，先查是否可用 `by ...` + 现有 tactic 组合表达。
 
-时，才值得写真正的 tactic elaborator。
+## Hygiene
+
+tactic macro 与 term macro 一样 **hygienic**：
+
+- 宏体内引用的全局名在**定义处**解析；
+- 宏引入的局部名不会捕获调用点用户变量。
+
+选项 `set_option tactic.hygienic false` 一般不要关。
 
 ## 使用建议
 
-- 自定义 tactic 首选 macro；
-- 需要访问底层 proof state 时，再考虑 elaborator；
-- 扩展现有 tactic 行为时，优先想想是否能用 `macro_rules` 做可扩展 tactic macro。
+1. 先写 `macro "name" : tactic => \`(tactic| ...)\`` 验证行为；
+2. 需要参数时用 `syntax` + `macro` 的 pattern 绑定（如 `ident`、`term`）；
+3. 扩展现有 tactic 优先 `macro_rules`；
+4. 发布到库时给自定义 tactic 写清「等价于哪组内置 tactic」，便于维护。

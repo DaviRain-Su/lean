@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T04:23:07.423Z",
-  "entryCount": 3414,
+  "generatedAt": "2026-06-17T04:25:21.161Z",
+  "entryCount": 3430,
   "entries": [
     {
       "kind": "chapter",
@@ -13482,7 +13482,7 @@
       "path": "lean-reference/Reference/Terms/PatternMatching.md",
       "title": "模式匹配",
       "section": "Term 详解",
-      "text": "模式匹配 对应英文：Pattern Matching，抓取日期：2026 06 16。 pattern matching 用 pattern 识别并解构值。pattern 是 term 的子集：能够识别并拆解某值的 pattern，在语法上通常看起来像“构造这个值”的写法。 一个或多个 discriminant 会同时与一系列 match alternative 比较。每个 alternative 有一组 pattern；当某个 pattern sequence 匹配全部 discriminant 时，对应 后的 term 会在扩展后的环境中求值：其中包含 pattern variable 绑定，以及对每个具名 discriminant 的 equality hypothesis。 基本语法 也可以带： 具名 discriminant，例如 Pattern 可以包含什么 ：匹配任意值，不绑定变量； 未绑定 identifier：pattern variable； constructor 应用； 带 attribute 的定义应用； 字面量； structure instance pattern； quoted name； macro 展开后的 pattern； inaccessible pattern： ； named pattern： 。 类型与 refinement 每个 discriminant 都必须 well typed；对应 pattern 也必须与其类型一致。每个 right hand side 的 type 必须与整个 match term type 一致。 为了支持 dependent type，匹配某个 discriminant 到特定 pattern 时，会 refinement 后续 pattern 和 right hand side 中出现的类型：在这些位置，discriminant 的出现会被匹配到的 pattern 替换。 Pattern equality proof 若 discriminant 具名，match 会在 right hand side 中额外绑定一个 proof，证明“该 pattern 与该 discriminant 相等”。这对 indexed family 和显式 proposition argument 的桥接很有用。 Explicit motive pattern matching 并不是内建 primitive，而是通过 recursor 和辅助 matching function 实现，因此需要 motive。通常 elaborator 能自动合成 motive；特殊情况下可用 显式给出。 Discriminant refinement 与 generalization 对 indexed family 做匹配时，Lean 会自动进行 discriminant refinement：必要时把 index 加入 discriminant，使 pattern 类型成立。Lean 还会默认 generalize expected type 和局部变量类型中出现的 discriminant；可用 关闭这一行为。 与 pattern function 带 attribute 的定义在 pattern 中不会被拒绝，而会被展开并规约后继续检查。这让诸如 这样的 pattern 成为可能，而不必手写 。 Pattern matching function 函数也可直接用 pattern matching 形式写： 它会 desugar 为“先接收参数，再立即对参数做 match”的函数。 其他 pattern matching operator ：若 能匹配 则返回 ； ：零分支匹配，表达“不可能发生”的情况； ：当 expected type 是函数类型时，表示一个不可能被调用的函数。"
+      "text": "模式匹配 对应英文：Pattern Matching，抓取日期：2026 06 16。 pattern matching 用 pattern 识别并解构值。pattern 是 term 的子集：能够识别并拆解某值的 pattern，在语法上通常看起来像“构造这个值”的写法。 一个或多个 discriminant 会同时与一系列 match alternative 比较。每个 alternative 有一组 pattern；当某个 pattern sequence 匹配全部 discriminant 时，对应 后的 term 会在扩展后的环境中求值：其中包含 pattern variable 绑定，以及对每个具名 discriminant 的 equality hypothesis。 基本语法 也可以带： 具名 discriminant，例如 Pattern 可以包含什么 ：匹配任意值，不绑定变量； 未绑定 identifier：pattern variable； constructor 应用； 带 attribute 的定义应用； 字面量； structure instance pattern； quoted name； macro 展开后的 pattern； inaccessible pattern： ； named pattern： 。 类型与 refinement 每个 discriminant 都必须 well typed；对应 pattern 也必须与其类型一致。每个 right hand side 的 type 必须与整个 match term type 一致。 为了支持 dependent type，匹配某个 discriminant 到特定 pattern 时，会 refinement 后续 pattern 和 right hand side 中出现的类型：在这些位置，discriminant 的出现会被匹配到的 pattern 替换。 Pattern equality proof 若 discriminant 具名，match 会在 right hand side 中额外绑定一个 proof，证明“该 pattern 与该 discriminant 相等”。这对 indexed family 和显式 proposition argument 的桥接很有用。 Explicit motive pattern matching 并不是内建 primitive，而是通过 recursor 和辅助 matching function 实现，因此需要 motive。通常 elaborator 能自动合成 motive；特殊情况下可用 显式给出。 Discriminant refinement 与 generalization 对 indexed family 做匹配时，Lean 会自动进行 discriminant refinement：必要时把 index 加入 discriminant，使 pattern 类型成立。Lean 还会默认 generalize expected type 和局部变量类型中出现的 discriminant；可用 关闭这一行为。 与 pattern function 带 attribute 的定义在 pattern 中不会被拒绝，而会被展开并规约后继续检查。这让诸如 这样的 pattern 成为可能，而不必手写 。 Pattern matching function 函数也可直接用 pattern matching 形式写： 它会 desugar 为“先接收参数，再立即对参数做 match”的函数。 其他 pattern matching operator ：若 能匹配 则返回 ； ：零分支匹配，表达“不可能发生”的情况； ：当 expected type 是函数类型时，表示一个不可能被调用的函数。 基础示例 中 不绑定； 绑定 head。 具名 discriminant 与等式假设 形式会在 RHS 提供 pattern equality proof ，对依赖类型和 很有用。 要让 当 pattern，需相应 定义（标准库已给 ）： 无 时只能写 或 。 Structure 与 named pattern 依赖类型与 对 indexed family，Lean 默认会 generalize 目标类型里出现的 discriminant。若不希望替换类型中的变量： 复杂 dependent match 失败时，可尝试显式 （高级用法，见英文页）。 Tactic 中的 tactic 模式的 是 分类讨论 ，每个分支都要证完（见 Tactic 语言）： 与 / 的关系 位置 工具 term 定义 tactic 证明 、 、 本质是 tactic 层的 pattern match，常用于 、合取、析取。 常见坑 namespace 外写 当变量而非 → redundantMatchAlt； 用 需 expected type 或 ； dependent match 报错时，检查是否需 或 motive。"
     },
     {
       "kind": "heading",
@@ -13573,6 +13573,86 @@
       "section": "Term 详解",
       "text": "其他 pattern matching operator",
       "anchor": "pattern-matching-operator"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › 基础示例",
+      "section": "Term 详解",
+      "text": "基础示例",
+      "anchor": "section-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › 具名 discriminant 与等式假设",
+      "section": "Term 详解",
+      "text": "具名 discriminant 与等式假设",
+      "anchor": "discriminant"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › `match_pattern`",
+      "section": "Term 详解",
+      "text": "`match_pattern`",
+      "anchor": "match-pattern"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › Structure 与 named pattern",
+      "section": "Term 详解",
+      "text": "Structure 与 named pattern",
+      "anchor": "structure-named-pattern"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › 依赖类型与 `generalizing`",
+      "section": "Term 详解",
+      "text": "依赖类型与 `generalizing`",
+      "anchor": "generalizing"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › Tactic 中的 `match`",
+      "section": "Term 详解",
+      "text": "Tactic 中的 `match`",
+      "anchor": "tactic-match"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › 与 `cases` / `rcases` 的关系",
+      "section": "Term 详解",
+      "text": "与 `cases` / `rcases` 的关系",
+      "anchor": "cases-rcases"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/PatternMatching.md",
+      "title": "模式匹配 › 常见坑",
+      "section": "Term 详解",
+      "text": "常见坑",
+      "anchor": "section-16"
     },
     {
       "kind": "chapter",
@@ -14220,7 +14300,7 @@
       "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
       "title": "Tactic 语言",
       "section": "Tactic 详解",
-      "text": "Tactic 语言 对应英文：The Tactic Language，抓取日期：2026 06 16。 一个 tactic script 是一串 tactic 的序列。它们可以用分号分隔，也可以按相同缩进逐行书写；若某处语法上只允许一个 tactic，也可以用括号把一串 tactic 组合起来。 通常执行顺序是自上而下：每个 tactic 都在上一个 tactic 留下的 proof state 上运行。不过，tactic 语言还提供了一套控制结构，可以改变这一流程。 成功与失败 每个 tactic 要么成功，要么失败。失败类似异常：会一直向外冒泡，直到被更外层控制结构处理。 常见控制结构： ：总是失败，并给出消息； ：若 成功则失败； ：运行 ，即使失败也整体成功； ：依次尝试，取第一个成功分支。 分支 在 tactic mode 中， 和 不是“运行时选一个分支”，而是 做分类讨论 。 可视为 的语法糖； tactic 中的 会对 discriminant 做 cases analysis，每个分支都必须分别完成证明。 这和 term mode 的 / 差异很大：proof 脚本是对所有情况同时推理，而不是对某个已知值执行程序。 goal 选择与多 goal 处理 多数 tactic 只作用于 main goal。常见 goal 管理工具： / / 其中： ：先运行 ，再对它生成的每个子 goal 运行 ； ：把 应用于每个 goal，若有任一失败则整体失败； ：只要求至少一个 goal 应用成功。 聚焦与子证明结构 聚焦类 tactic 用于把后续脚本限制在某个 goal 上： bullet / 良好风格通常要求：一旦某行 tactic 生成多个子 goal，就尽快使用 bullet 或 把它们分开。这会让 proof 更稳，也更容易维护。 重复与迭代 ：精确运行 次； ：运行直到失败； ：反复应用 ，每次失败时回滚该次局部效果； ：递归地对所有新 goal 重复； ：像 ，但要求至少成功一次。 这些 combinator 很适合写轻量自动化，但必须保证最终会停止。 名字与 hygiene tactic 语言是 hygienic 的：脚本中名字的含义由源代码中的词法作用域决定，而不是由 tactic 生成 term 时临时取的内部名字决定。这样可以避免变量捕获，也让 proof 对 tactic 内部实现细节更稳定。 选项： ：默认 。 通常不建议关闭它。 假设管理与局部定义 常见假设管理 tactic： 局部证明/定义相关 tactic： 一般经验： 中间 lemma 用 ； 真正的局部定义用 ； 若想保证某个局部对象不可展开，也可用 引入非 proposition，但应有明确性能或表达上的理由。 namespace 与 option 管理 tactic 中也可以临时调整： 这些构造主要用于控制 elaboration、instance search 和 unfolding 行为。"
+      "text": "Tactic 语言 对应英文：The Tactic Language，抓取日期：2026 06 16。 一个 tactic script 是一串 tactic 的序列。它们可以用分号分隔，也可以按相同缩进逐行书写；若某处语法上只允许一个 tactic，也可以用括号把一串 tactic 组合起来。 通常执行顺序是自上而下：每个 tactic 都在上一个 tactic 留下的 proof state 上运行。不过，tactic 语言还提供了一套控制结构，可以改变这一流程。 成功与失败 每个 tactic 要么成功，要么失败。失败类似异常：会一直向外冒泡，直到被更外层控制结构处理。 常见控制结构： ：总是失败，并给出消息； ：若 成功则失败； ：运行 ，即使失败也整体成功； ：依次尝试，取第一个成功分支。 分支 在 tactic mode 中， 和 不是“运行时选一个分支”，而是 做分类讨论 。 可视为 的语法糖； tactic 中的 会对 discriminant 做 cases analysis，每个分支都必须分别完成证明。 这和 term mode 的 / 差异很大：proof 脚本是对所有情况同时推理，而不是对某个已知值执行程序。 goal 选择与多 goal 处理 多数 tactic 只作用于 main goal。常见 goal 管理工具： / / 其中： ：先运行 ，再对它生成的每个子 goal 运行 ； ：把 应用于每个 goal，若有任一失败则整体失败； ：只要求至少一个 goal 应用成功。 聚焦与子证明结构 聚焦类 tactic 用于把后续脚本限制在某个 goal 上： bullet / 良好风格通常要求：一旦某行 tactic 生成多个子 goal，就尽快使用 bullet 或 把它们分开。这会让 proof 更稳，也更容易维护。 重复与迭代 ：精确运行 次； ：运行直到失败； ：反复应用 ，每次失败时回滚该次局部效果； ：递归地对所有新 goal 重复； ：像 ，但要求至少成功一次。 这些 combinator 很适合写轻量自动化，但必须保证最终会停止。 名字与 hygiene tactic 语言是 hygienic 的：脚本中名字的含义由源代码中的词法作用域决定，而不是由 tactic 生成 term 时临时取的内部名字决定。这样可以避免变量捕获，也让 proof 对 tactic 内部实现细节更稳定。 选项： ：默认 。 通常不建议关闭它。 假设管理与局部定义 常见假设管理 tactic： 局部证明/定义相关 tactic： 一般经验： 中间 lemma 用 ； 真正的局部定义用 ； 若想保证某个局部对象不可展开，也可用 引入非 proposition，但应有明确性能或表达上的理由。 namespace 与 option 管理 tactic 中也可以临时调整： 这些构造主要用于控制 elaboration、instance search 和 unfolding 行为。 示例：控制流 与 ： （先 ，再对每个子 goal 跑 ）： 示例：分支 = 分类讨论 tactic 里的 不是运行时分支，而是对两种情况都要证： 同理——每个分支都是独立子证明。 示例：多 goal 与 bullet 聚焦第一个子 goal； 可按名称选 goal： 。 示例：假设管理 删掉无用假设； 把变量移回目标； 给不可访问假设起名。 组合子速查 组合子 行为 顺序执行 后对每个子 goal 执行 每个 goal 都要成功 至少一个 goal 成功即可 只看 main goal 重复直到失败并回滚最后一次 精确 次"
     },
     {
       "kind": "heading",
@@ -14301,6 +14381,56 @@
       "section": "Tactic 详解",
       "text": "namespace 与 option 管理",
       "anchor": "namespace-option"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
+      "title": "Tactic 语言 › 示例：控制流",
+      "section": "Tactic 详解",
+      "text": "示例：控制流",
+      "anchor": "section-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
+      "title": "Tactic 语言 › 示例：分支 = 分类讨论",
+      "section": "Tactic 详解",
+      "text": "示例：分支 = 分类讨论",
+      "anchor": "section-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
+      "title": "Tactic 语言 › 示例：多 goal 与 bullet",
+      "section": "Tactic 详解",
+      "text": "示例：多 goal 与 bullet",
+      "anchor": "goal-bullet"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
+      "title": "Tactic 语言 › 示例：假设管理",
+      "section": "Tactic 详解",
+      "text": "示例：假设管理",
+      "anchor": "section-11"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/TacticLanguage.md",
+      "title": "Tactic 语言 › 组合子速查",
+      "section": "Tactic 详解",
+      "text": "组合子速查",
+      "anchor": "section-12"
     },
     {
       "kind": "chapter",
@@ -14606,67 +14736,67 @@
       "path": "lean-reference/Reference/Tactics/CustomTactics.md",
       "title": "自定义 tactic",
       "section": "Tactic 详解",
-      "text": "自定义 tactic 对应英文：Custom Tactics，抓取日期：2026 06 16。 自定义 tactic 的本质是： 1. 扩展 syntax category 2. 再给这段新 syntax 配一个实现方式 实现方式有两类： macro ：把新 tactic syntax 展开成已有 tactic syntax elaborator ：直接在 中执行动作 tactic interpreter 的角色 给定 tactic 的 syntax 后，tactic interpreter 负责在 中真正执行它。 本身是建立在 Lean term elaborator 之上的一层包装，多了： goal / proof state 管理 tactic 特有的控制流 tactic 级别的错误与回溯 tactic macro 最容易写的新 tactic，通常就是 macro： 你发明一段更顺手的 tactic 语法； 把它展开为现有 tactic 组合。 为什么 tactic macro 很强 英文页强调：tactic macro 的展开与 tactic 执行是交错进行的，而不是在脚本开始前一次性完全展开。因此： tactic macro 可以递归； 只要递归调用出现在某个会真正执行的 tactic 之后，就不会形成无限展开链。 hygiene 和其他 Lean macro 一样，tactic macro 是 hygienic 的： 对全局名的引用在定义时确定； 它引入的新名字不会捕获调用点的名字。 可扩展 tactic macro tactic macro 的回溯规则比普通 macro 更进一步：即便某个 macro 成功展开，如果展开后的 tactic 执行失败，解释器仍可尝试后续匹配的 tactic macro。正因如此，Lean 能把一些内建 tactic 设计成可扩展的：你只需额外加一条 ，就能向现有 tactic 注入新行为。 何时需要 elaborator 如果只是“把新语法翻成旧语法”，优先 macro；只有当你需要： 直接操纵 proof state 查询 elaboration / goal 细节 运行更复杂的 逻辑 时，才值得写真正的 tactic elaborator。 使用建议 自定义 tactic 首选 macro； 需要访问底层 proof state 时，再考虑 elaborator； 扩展现有 tactic 行为时，优先想想是否能用 做可扩展 tactic macro。"
+      "text": "自定义 tactic 对应英文：Custom Tactics，抓取日期：2026 06 16。 自定义 tactic = 扩展 语法 + 给出实现（macro 或 elaborator）。 路径选择 需求 首选 新语法 = 已有 tactic 的组合 tactic macro 向现有 tactic 加一条分支 读 goal、改 proof state、复杂逻辑 tactic elaborator （ ） 示例 1：tactic macro macro 在 执行时 交错展开，可递归；只要递归调用落在会执行的 tactic 之后，就不会无限展开。 示例 2：可扩展 macro（ ） 向已有语法注入行为（与内建 、 扩展方式相同）： 若展开后的 tactic 执行失败 ，解释器可尝试匹配下一条 （tactic macro 的回溯）。 示例 3：何时用 elaborator 需要直接操作 时，例如查询 main goal 类型、按条件选不同 tactic： 日常项目 99% 情况 macro 足够 ；elaborator 留给元编程库与工具。 是什么 tactic interpreter 在 中运行脚本，它在 term elaborator 之上增加： goal / metavariable 管理； 、 、 ； tactic 级回溯与错误。 写 elaborator 前，先查是否可用 + 现有 tactic 组合表达。 Hygiene tactic macro 与 term macro 一样 hygienic ： 宏体内引用的全局名在 定义处 解析； 宏引入的局部名不会捕获调用点用户变量。 选项 一般不要关。 使用建议 1. 先写 (tactic ...)\\` syntax macro ident term macro rules`； 4. 发布到库时给自定义 tactic 写清「等价于哪组内置 tactic」，便于维护。"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › tactic interpreter 的角色",
+      "title": "自定义 tactic › 路径选择",
       "section": "Tactic 详解",
-      "text": "tactic interpreter 的角色",
-      "anchor": "tactic-interpreter"
+      "text": "路径选择",
+      "anchor": "section-0"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › tactic macro",
+      "title": "自定义 tactic › 示例 1：tactic macro",
       "section": "Tactic 详解",
-      "text": "tactic macro",
-      "anchor": "tactic-macro"
+      "text": "示例 1：tactic macro",
+      "anchor": "1-tactic-macro"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › 为什么 tactic macro 很强",
+      "title": "自定义 tactic › 示例 2：可扩展 macro（`macro_rules`）",
       "section": "Tactic 详解",
-      "text": "为什么 tactic macro 很强",
-      "anchor": "tactic-macro"
+      "text": "示例 2：可扩展 macro（`macro_rules`）",
+      "anchor": "2-macro-macro-rules"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › hygiene",
+      "title": "自定义 tactic › 示例 3：何时用 elaborator",
       "section": "Tactic 详解",
-      "text": "hygiene",
+      "text": "示例 3：何时用 elaborator",
+      "anchor": "3-elaborator"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/CustomTactics.md",
+      "title": "自定义 tactic › `TacticM` 是什么",
+      "section": "Tactic 详解",
+      "text": "`TacticM` 是什么",
+      "anchor": "tacticm"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/CustomTactics.md",
+      "title": "自定义 tactic › Hygiene",
+      "section": "Tactic 详解",
+      "text": "Hygiene",
       "anchor": "hygiene"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › 可扩展 tactic macro",
-      "section": "Tactic 详解",
-      "text": "可扩展 tactic macro",
-      "anchor": "tactic-macro"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/Tactics/CustomTactics.md",
-      "title": "自定义 tactic › 何时需要 elaborator",
-      "section": "Tactic 详解",
-      "text": "何时需要 elaborator",
-      "anchor": "elaborator"
     },
     {
       "kind": "heading",
@@ -15070,7 +15200,7 @@
       "path": "lean-reference/Reference/Simplifier/SimpSets.md",
       "title": "simp set",
       "section": "Simplifier 详解",
-      "text": "simp set 对应英文：Simp sets，抓取日期：2026 06 16。 simplifier 所使用的一组规则称为 simp set 。一个 调用实际做的是：以默认 simp set 为基础，再叠加若干修改。 默认 simp set 默认 simp set 由所有带 attribute 的 theorem、definition 和 simproc 组成。 tactic 会在此基础上工作，除非使用 从空集合开始。 如何修改 simp set 常见操作： 增加规则： 移除规则： 加入当前所有 assumptions： 仅使用指定规则： attribute 是把声明加入默认 simp set 的主要方式。 如果声明是 definition，则它会被标记为“可由 simplifier 展开”； 如果声明是 theorem，则它会被注册为 rewrite rule。 还可以用： 来指定方向或优先级。 自定义 simp set Lean 允许用 创建新的自定义 simp set。它会生成一个与 类似接口的新 attribute，把声明加入该自定义集合，同时返回一个 ，供程序化访问。 这非常适合： 某类专门领域的简化规则； 不想污染默认 simp set 的库局部自动化； 为专门 tactic 准备独立规则库。 设计建议 默认 simp set 是库接口的一部分； 不要随意把与本库无关的规则塞进默认 simp set； 若某套规则只对特定工作流有意义，优先做自定义 simp set 或专用 tactic。"
+      "text": "simp set 对应英文：Simp sets，抓取日期：2026 06 16。 simplifier 使用的一组规则称为 simp set 。每次 调用都以某个 simp set 为起点，再叠加本次调用的增删。 默认 simp set 默认 simp set = 所有带 attribute 的 theorem、definition 和 simproc。 会 丢弃 默认 set，适合精确控制、减少误伤。 单次调用如何改 set 写法 含义 在默认 set 上 增加 、 从默认 set 移除 把当前 proof state 里 所有假设 加入 set 仅 用 、 （及内建 reduction） 本条调用里 优先在子项前应用 attribute 把声明注册进 默认 simp set 的主要方式： 方向与优先级： 写法 作用 加入默认 set 进入子项 之前 先尝试该规则 进入子项 之后 再试（默认倾向） 更高优先级（数字越大越优先） 库作者应谨慎往默认 set 加规则：导入你的库会改变 全局 行为。 自定义 simp set 用 创建独立 attribute，不污染默认 set： 适合：领域专用规则、实验性自动化、为自定义 tactic 准备规则库。 与 的配合 只化简假设 的类型； 化简所有假设和目标。 设计建议 默认 simp set 是 库公共接口 的一部分，改动会影响所有下游 ； 不确定是否该 时，先用 在局部验证； 专用工作流优先自定义 simp set 或封装 ； 用 看实际用到的规则，再收窄为稳定 列表。"
     },
     {
       "kind": "heading",
@@ -15087,10 +15217,10 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpSets.md",
-      "title": "simp set › 如何修改 simp set",
+      "title": "simp set › 单次调用如何改 set",
       "section": "Simplifier 详解",
-      "text": "如何修改 simp set",
-      "anchor": "simp-set"
+      "text": "单次调用如何改 set",
+      "anchor": "set"
     },
     {
       "kind": "heading",
@@ -15117,10 +15247,20 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpSets.md",
+      "title": "simp set › 与 `simp at` 的配合",
+      "section": "Simplifier 详解",
+      "text": "与 `simp at` 的配合",
+      "anchor": "simp-at"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/SimpSets.md",
       "title": "simp set › 设计建议",
       "section": "Simplifier 详解",
       "text": "设计建议",
-      "anchor": "section-4"
+      "anchor": "section-5"
     },
     {
       "kind": "chapter",
@@ -15129,16 +15269,16 @@
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
       "title": "simp normal form",
       "section": "Simplifier 详解",
-      "text": "simp normal form 对应英文：Simp Normal Forms，抓取日期：2026 06 16。 某个表达式在默认 simp set 下反复应用 、直到再无规则可用时得到的结果，称为它的 simp normal form 。 重要事实 并不保证 confluence。也就是说，一个表达式的最终 normal form 可能取决于规则应用顺序和优先级。因此，设计良好的 simp lemma 和 simp set 非常关键。 设计原则 右侧应当已经是 normal form 若某条 simp lemma 的右侧本身还会被另外的 simp lemma 进一步改写，往往说明它不是好设计。右侧越接近最终 normal form，simplification 越稳定，也越容易终止。 同一概念应有单一规范表达 若一个概念有多种等价表述，而不同 simp lemma 又分别把它们导向不同形式，simplifier 就可能缺少“桥接”步骤，导致某些简化无法发生。为库设计 simp normal form 时，应尽量为每类概念选定单一规范表达。 默认 simp set 是库接口的一部分 一个库暴露的不只是类型签名，还包括“导入后 的行为”。因此，simp normal form 应具有可预测性，而不是依赖偶然顺序。 对库作者的建议 若库依赖某些额外规则但这些规则不属于本库接口，不要把它们加入默认 simp set； 考虑建立自定义 simp set 或封装一个专门 tactic； 把“simp 后应该长什么样”当作库设计的一部分来审视。"
+      "text": "simp normal form 对应英文：Simp Normal Forms，抓取日期：2026 06 16。 在某一 simp set 下对表达式反复应用 ，直到没有规则可用，得到的结果称为该 set 下的 simp normal form 。 重要限制 不保证合流 （confluence）：同一表达式可能因规则顺序、优先级不同而停在不同形态。因此： 库作者要为每类概念选定 单一规范写法 ； 证明脚本不要依赖「偶然」的 simp 顺序，应用 固定规则集。 设计原则 1. 等式右侧应已是 normal form 若 RHS 仍会被其他 规则继续改写，往往说明 lemma 方向或形式需调整。 2. 同一概念只保留一种规范表达 例如自然数加法，应统一用 还是 、是否展开 ，并在 simp set 里 只朝一个方向 化简。若 把 化成 ， 又把 化成 ，而目标里需要的是 ，就可能出现「 simp 不动」的死角。 3. 默认 simp set = 库接口 用户 后， 的默认行为应与文档一致。意外加入的 会导致： 证明变短但不可维护； 或目标被化成无法继续的形。 可预测性检查清单 问题 做法 这条 lemma 的 RHS 还会被 simp 吗？ 看一步结果 与现有 冲突吗？ 下游证明是否过度依赖？ 在库外写 测试 是否应进默认 set？ 仅放「安全、稳定、常用」的规则 对库作者 不属于本库稳定接口的规则 → 自定义 simp set 或局部 ； 为复杂域封装 / tactic，而不是无限膨胀默认 set； 把「 之后长什么样」写进设计文档或模块注释。 与 / 的区别 normal form 讨论的是 带 rewrite 规则 的 ； 主要做 definitional unfolding，normal form 概念较弱； 更激进展开定义，normal form 更不可预测，库接口中应少用。"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
-      "title": "simp normal form › 重要事实",
+      "title": "simp normal form › 重要限制",
       "section": "Simplifier 详解",
-      "text": "重要事实",
+      "text": "重要限制",
       "anchor": "section-0"
     },
     {
@@ -15156,40 +15296,60 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
-      "title": "simp normal form › 右侧应当已经是 normal form",
+      "title": "simp normal form › 1. 等式右侧应已是 normal form",
       "section": "Simplifier 详解",
-      "text": "右侧应当已经是 normal form",
-      "anchor": "normal-form"
+      "text": "1. 等式右侧应已是 normal form",
+      "anchor": "1-normal-form"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
-      "title": "simp normal form › 同一概念应有单一规范表达",
+      "title": "simp normal form › 2. 同一概念只保留一种规范表达",
       "section": "Simplifier 详解",
-      "text": "同一概念应有单一规范表达",
-      "anchor": "section-3"
+      "text": "2. 同一概念只保留一种规范表达",
+      "anchor": "2"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
-      "title": "simp normal form › 默认 simp set 是库接口的一部分",
+      "title": "simp normal form › 3. 默认 simp set = 库接口",
       "section": "Simplifier 详解",
-      "text": "默认 simp set 是库接口的一部分",
-      "anchor": "simp-set"
+      "text": "3. 默认 simp set = 库接口",
+      "anchor": "3-simp-set"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
-      "title": "simp normal form › 对库作者的建议",
+      "title": "simp normal form › 可预测性检查清单",
       "section": "Simplifier 详解",
-      "text": "对库作者的建议",
+      "text": "可预测性检查清单",
       "anchor": "section-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
+      "title": "simp normal form › 对库作者",
+      "section": "Simplifier 详解",
+      "text": "对库作者",
+      "anchor": "section-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/SimpNormalForms.md",
+      "title": "simp normal form › 与 `dsimp` / `simp!` 的区别",
+      "section": "Simplifier 详解",
+      "text": "与 `dsimp` / `simp!` 的区别",
+      "anchor": "dsimp-simp"
     },
     {
       "kind": "chapter",
