@@ -6,7 +6,7 @@
 
 ## 状态
 
-**进行中** — 前言与第 1 章已译；正文其余章节与附录按章推进，见 [book/zh-CN/INDEX.md](book/zh-CN/INDEX.md)。
+**进行中** — 前言与第 1–2 章已译；正文其余章节与附录按章推进，见 [book/zh-CN/INDEX.md](book/zh-CN/INDEX.md)。
 
 ## 建议顺序
 

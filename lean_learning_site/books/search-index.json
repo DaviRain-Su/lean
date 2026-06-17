@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T00:49:20.005Z",
-  "entryCount": 2815,
+  "generatedAt": "2026-06-17T01:05:09.002Z",
+  "entryCount": 2854,
   "entries": [
     {
       "kind": "chapter",
@@ -24619,6 +24619,395 @@
       "section": "正文",
       "text": "1.5 一种捷径",
       "anchor": "1-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明",
+      "section": "正文",
+      "text": "第 2 章 结构化证明 本译文对应原书 Proofs with structure；英文 Sphinx 源： 。 第 1 章 的计算式证明，从某种角度看都是 一步证明 （one step proof）。本章逐步引入多步证明的要素：建立稍后会被引用的「 中间 」事实、调用自己或他人事先证明的 命名引理 （named lemma），以及用逻辑符号 、 、 把由更简单命题拼成的复杂数学陈述拆开处理。 本章还介绍 Lean 语言的关键交互特性：实时更新的 infoview （信息视图），持续显示你当前的 假设 （hypotheses）与 目标 （goals）。 本章内容在（中间插入其他章节之后）于 第 4 章 继续。 2.1 中间步骤 2.1.1 例题 迄今见过的证明都是单一计算。更典型地，证明会有更复杂的结构：早期建立一些事实，并不马上用到，而是留到后面。 例如，下面是 例题 1.3.3 中的代数题。 问题 设 、 为实数，且 、 。证明 。 我们曾用一条长计算解过： 但另一种表述——也许更自然，也更接近高中解法——是先解出 ，再代入以帮助解出 。 解 由 ，得 。因此 这是我们第一次见到带文字的证明。句子 由 ，得 。 运用了 第 1.5 节 讨论的推理：在心理上从假设 两边减去 2 推出 ，这被认为足够显然，除指明所用假设外不必再解释。 至此我们在本题已知事实列表中又多了 ，并做一条计算式证明，其中用到该事实（在步骤 处，与 一并代入）。「因此」（同义词：「于是」「所以」）引出这条计算式证明；其含义是：刚证出的事实将在后续推理中使用。 下面看该论证在 Lean 中的样子。我们用关键字 陈述 ，紧接证明该事实的推理：从假设 （本题中名为 ）两边加减。然后照常给出计算式证明，其中某处用到 （名为 ）。 逐步读 Lean 代码并不难理解该证明。但 Lean 还提供理解多步证明的利器： Lean Infoview 窗口——我们现在首次使用。Infoview 把自然演绎（natural deduction）中的 逆向推理 （backward reasoning，从目标往回想）与 正向推理 （forward reasoning，从假设往前推）同时可视化：左侧列出假设，右侧（ 后）显示当前目标。下面随做题过程看 infoview 能告诉我们什么。 1. 把光标放在行 开头，查看 Lean Infoview。我们看到： 这正是起始问题的竖排版本： 它列出题中所有变量与假设；符号 旁显示我们的 目标 ：证 。 2. 接着把光标移到行 开头。新证事实 （即 ）已加入 infoview 的假设列表： 3. 最后把光标移到最后一行代码下方的 开头。infoview 不再显示待办目标，而是显示 这是对 块已解决目标、从而完成本题的视觉确认。 2.1.2 例题 下面是另一例：先建立中间陈述，再做主证明。 问题 设 、 为整数，且 、 。证明 。 解 我们有 所以 。 这里的中间步骤是事实 ，可从「我们有」之后的计算式证明读出：计算左上为 ，右下为 ，中间各步关系 、 、 合起来建立 与 之间的 。 我们在 例题 2.1.1 讨论过「因此/于是/所以」的含义。此处文字 所以 。 表示刚证事实（ ）蕴含 ，其证明过于直接不必细写；本题又是 第 1.5 节 所述两边加减推理的一例。 Lean 中同一证明如下。用于建立中间步骤的计算块用 引入并命名： 注意，在最后一行 开头，infoview 中的 目标状态 （goal state）为 由 块建立并命名为 的事实 现已可作为额外事实在后续步骤使用；下一步确实用到了（ ）。 2.1.3 例题 再重做一题，这次是 例题 1.4.2。题目为： 问题 设 、 为有理数，且 、 。证明 。 我们曾用一条巧妙的长计算完成，但下面解法虽更长，也许更易想到。 解 由 得 ，由 得 。因此 本题有两个中间步骤：证 与 。 练习： 下面是本题的 Lean 框架：已写出所述中间步骤（尚未证明），以及作为最后一步的所述计算式证明轮廓。填好所有 。并试着预测证明各位置 infoview 的显示，再与实际对照。 2.1.4 例题 下一题出现一种新的推理形式。 问题 设 为实数，且 、 。证明事实上 。 解 我们有 所以 。于是 。 证明第一步是建立中间陈述 的计算。接着用 所以 从 两边消去 ，建立另一中间陈述 。最后推出目标 。 Lean 中用策略 做消去推理。下面证明中，在 之前，目标状态含假设 该行之后变为 完整 Lean 证明： 此处有数学细节：只有公因子已知非零时，才能从等式两边消去该因子。本题中 Lean 能推出公因子 非零。为什么？ 2.1.5 例题 再一题：先建立中间事实，再化简。 问题 设 、 为实数，且 ， 非负。证明 。 解 我们有 所以 。 从 推出 同样可用 策略。注意 Lean 会静默检查其有效性条件（ ）。若删除假设 ，消去步骤会在 Lean 中失败——请验证。 2.1.6 例题 本节以若干练习收尾：把文字证明译成 Lean。难点是从文字中辨认中间陈述有哪些。 先再重做 例题 1.4.1。题目为： 问题 设 、 为整数，且 、 。证明 。 下面是用中间步骤的解。 解 由 ，得 。所以 练习： 指出中间步骤，并把该解写成 Lean。 2.1.7 例题 这题数学上稍难。 问题 设 、 为实数，且 。证明 。 解 由假设前半， ；由后半， 。因此 非负，所以 练习： 指出两个中间步骤，并把该解写成 Lean。（注意 Lean 此处比人更强：不必为步骤 因此 非负， 单独写 Lean 翻译；Lean 会在需要处自行推出。） 2.1.8 例题 问题 设 、 为实数，且 。证明 。 注意并未假设 、 为正，故不等式在乘法/乘方下的简便技巧不适用。 解 由 ，得 。因此 非负，所以 练习： 指出中间步骤，并把该解写成 Lean。 2.1.9 练习 1. 设 为有理数，平方为 4，且大于 1。证明 。 建议步骤：先证 ，再消去得 。 2. 设 为整数，满足 。证明 。 建议步骤：先证 ，消去平方得 ，再收尾。 3. 设 、 为有理数，且 、 。证明 。 建议步骤：先证 ，消去 得 ，再计算证目标。 2.2 调用引理 2.2.1 例题 下面是一种新题型：目标是 不等式命题 （disequality） ，而非等式（ ）或不等式（ 、 、 、 ）。 问题 设 为有理数，且 。证明 。 解 只需证 。事实上， 本题发生了什么？我们用了一条「常识」：一个数严格小于另一个数，则二者不能相等。这感觉像常识——但实质上是一条 引理 （lemma）：已由我们或他人证明、可在证明中调用的事实。[^1] 在 Lean 中要这样调用引理，必须 按名称指出 。Lean 数学库中早有人证明该事实并命名为 ：[^2] 可用策略 在本题中调用该引理。开始做题时， 目标状态为： 该引理后（光标在该行末尾）， 目标状态变为： 故 只改变 目标 ：把 变为 ，再用惯常不等式方法解决。 对照文字证明与 Lean 证明，调用引理时的表述很不同。文字中我说： 只需证 。事实上，…… 即实际上说明了新目标是什么，让读者自己推断用了哪条常识来改变目标。Lean 中不必说明新目标——读者可查目标状态。但必须显式写出引理名： 因为「这是常识！」对 Lean 来说不够精确，无法自动找到。 2.2.2 例题 类似题目：通过证明左边 更大 （而非上题中 更小 ）来证明不等式命题。 问题 设 为实数。证明 。 解 只需证 ，而平方非负，故显然。 练习： 把本题解写成 Lean。 使用引理 ： 2.2.3 例题 问题 设 、 为实数，且 。证明 。 解 只需同时证 与 。后者因平方非负而显然。对前者， Lean 中使用引理——「 关系的 反对称性 」（antisymmetry）： 完整 Lean 证明： 注意， 引理后 infoview 显示 两个 目标！ 数学上不意外：引理有两个前提，都需证明。Lean 中完全可以有多个目标——任意时刻可有多个；你写的代码作用于列表中第一个目标（解决后再做第二个，依此类推）。 2.2.4 练习 1. 设 为整数，且 。证明 。 可用事实：第一个数大于第二个则二者不等（需引理 ，见 例题 2.2.2）。 2. 设 为有理数，且 、 。证明 。 大概会用到引理 ：若 且 ，则 。 [^1]: 本例中，作为有理数上 关系定义之推论。 [^2]: 此处 表「不等」， 表「小于」， 表示从 陈述推出 陈述。标准 Lean 数学库有许多此类命名惯例，你不必遵循；自己的引理可叫 、 。 2.3 或（ ）与分情形证明 2.3.1 例题 数学中「或」（逻辑符号 ）可连接两个陈述。下面一题假设是「或」陈述。 问题 设 、 为实数，且 或 。证明 。 假设 或 表示备选 、 中至少一个成立（两者可同时成立，无需特别处理）。故解本题只需依次考虑这两种备选——这叫 分情形证明 （proof by cases）。 解 若 ，则 若 ，则 Lean 中「或」陈述用逻辑符号 表示。本题开始时 infoview 显示一个任务：假设 为「或」陈述，目标为证 。 对「或」假设的两种情形依次考虑，用策略 。应用后 infoview 显示两个更简单的任务：目标仍为证 ，但假设变为左备选 （第一任务）或右备选 （第二任务）。 然后逐个解决，各给一条计算式证明。 2.3.2 例题 更常见的是：假设并非直接的「或」陈述，你自己建立并证明一条「或」形式的中间陈述，再分情形。 问题 设 为任意自然数。证明 。 本题对「或」陈述 或 分情形。纸上可不证而直接陈述，实则来自关于自然数的引理：一般地， 要么 某自然数，要么 其 successor。分情形后解题容易。 解 分别考虑 与 。 情形 1 （ ）：只需证 。事实上， 情形 2 （ ）：只需证 。事实上， Lean 中把该「或」陈述显式建为中间事实，即调用引理 我们尚未以这种方式调用引理。语法用 ： 该行后 infoview 显示想要的或陈述： 建立中间事实后，对该事实分情形，剩下对应两种情形的两个任务： 练习： 第一情形已写成 Lean。补全第二情形。 2.3.3 例题 迄今讨论的是假设中出现「或」陈述。若 目标 是「或」陈述，则较易：须证其中一备选，宣布选哪一个，再证明即可。 问题 设 为实数，且 。证明 或 。 解 我们将证 。事实上， Lean 中用策略 宣布证目标的右备选（左备选用 ）。这会改变 infoview 中的目标：应用前 应用后 2.3.4 例题 一题同时用到两种逻辑推理。解二次方程——经典地结果含「或」。将用到引理：两数乘积为 0，则其中一为 0。 问题 设 为实数，且 。证明 或 。 解 我们有 所以 或 。 若 ，则 。 若 ，则 。 本解中分情形写得比前面随意：「若 」「若 」静默引入两种情形，读者自行观察 是「 或 」的左备选，从而完成第一情形（第二情形类似）。 我已写好 Lean 论证的第一部分：计算得 ，再调用引理 得到「或」假设。目标状态同时有「或」假设与「或」目标： 练习： 补全 Lean 论证其余部分。 2.3.5 例题 例题 2.3.2 证了没有自然数平方为 2。整数亦然，但涉及负数时序关系更复杂，证明需 情形之中再分情形 。 问题 设 为任意整数。证明 。 解 分别考虑 与 。 情形 1 （ ）：此时 。再分别考虑 与 。 情形 1(i) （ ）：只需证 。事实上， 情形 1(ii) （ ）：只需证 。事实上， 情形 2 （ ）：再分别考虑 与 。 情形 2(i) （ ）：只需证 。事实上， 情形 2(ii) （ ）：只需证 。事实上， 证明如此复杂时，可用符号 标出每个子证明起点，如下。 我们将该定理记为 供日后使用。 2.3.6 练习 1. 设 为有理数，且 或 。证明 。 2. 设 为实数，且 或 。证明 。 3. 设 为有理数，且 或 。证明 。 4. 设 、 为实数，且 或 。证明 "
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1 中间步骤",
+      "section": "正文",
+      "text": "2.1 中间步骤",
+      "anchor": "2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.1 例题",
+      "section": "正文",
+      "text": "2.1.1 例题",
+      "anchor": "2-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.2 例题",
+      "section": "正文",
+      "text": "2.1.2 例题",
+      "anchor": "2-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.3 例题",
+      "section": "正文",
+      "text": "2.1.3 例题",
+      "anchor": "2-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.4 例题",
+      "section": "正文",
+      "text": "2.1.4 例题",
+      "anchor": "2-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.5 例题",
+      "section": "正文",
+      "text": "2.1.5 例题",
+      "anchor": "2-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.6 例题",
+      "section": "正文",
+      "text": "2.1.6 例题",
+      "anchor": "2-1-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.7 例题",
+      "section": "正文",
+      "text": "2.1.7 例题",
+      "anchor": "2-1-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.8 例题",
+      "section": "正文",
+      "text": "2.1.8 例题",
+      "anchor": "2-1-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.1.9 练习",
+      "section": "正文",
+      "text": "2.1.9 练习",
+      "anchor": "2-1-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.2 调用引理",
+      "section": "正文",
+      "text": "2.2 调用引理",
+      "anchor": "2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.2.1 例题",
+      "section": "正文",
+      "text": "2.2.1 例题",
+      "anchor": "2-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.2.2 例题",
+      "section": "正文",
+      "text": "2.2.2 例题",
+      "anchor": "2-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.2.3 例题",
+      "section": "正文",
+      "text": "2.2.3 例题",
+      "anchor": "2-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.2.4 练习",
+      "section": "正文",
+      "text": "2.2.4 练习",
+      "anchor": "2-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3 或（$\\lor$）与分情形证明",
+      "section": "正文",
+      "text": "2.3 或（$\\lor$）与分情形证明",
+      "anchor": "2-3-lor"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.1 例题",
+      "section": "正文",
+      "text": "2.3.1 例题",
+      "anchor": "2-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.2 例题",
+      "section": "正文",
+      "text": "2.3.2 例题",
+      "anchor": "2-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.3 例题",
+      "section": "正文",
+      "text": "2.3.3 例题",
+      "anchor": "2-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.4 例题",
+      "section": "正文",
+      "text": "2.3.4 例题",
+      "anchor": "2-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.5 例题",
+      "section": "正文",
+      "text": "2.3.5 例题",
+      "anchor": "2-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.3.6 练习",
+      "section": "正文",
+      "text": "2.3.6 练习",
+      "anchor": "2-3-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4 与（$\\land$）",
+      "section": "正文",
+      "text": "2.4 与（$\\land$）",
+      "anchor": "2-4-land"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4.1 例题",
+      "section": "正文",
+      "text": "2.4.1 例题",
+      "anchor": "2-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4.2 例题",
+      "section": "正文",
+      "text": "2.4.2 例题",
+      "anchor": "2-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4.3 例题",
+      "section": "正文",
+      "text": "2.4.3 例题",
+      "anchor": "2-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4.4 例题",
+      "section": "正文",
+      "text": "2.4.4 例题",
+      "anchor": "2-4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.4.5 练习",
+      "section": "正文",
+      "text": "2.4.5 练习",
+      "anchor": "2-4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5 存在（$\\exists$）证明",
+      "section": "正文",
+      "text": "2.5 存在（$\\exists$）证明",
+      "anchor": "2-5-exists"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.1 例题",
+      "section": "正文",
+      "text": "2.5.1 例题",
+      "anchor": "2-5-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.2 例题",
+      "section": "正文",
+      "text": "2.5.2 例题",
+      "anchor": "2-5-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.3 例题",
+      "section": "正文",
+      "text": "2.5.3 例题",
+      "anchor": "2-5-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.4 例题",
+      "section": "正文",
+      "text": "2.5.4 例题",
+      "anchor": "2-5-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.5 例题",
+      "section": "正文",
+      "text": "2.5.5 例题",
+      "anchor": "2-5-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.6 例题",
+      "section": "正文",
+      "text": "2.5.6 例题",
+      "anchor": "2-5-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.7 例题",
+      "section": "正文",
+      "text": "2.5.7 例题",
+      "anchor": "2-5-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.8 例题",
+      "section": "正文",
+      "text": "2.5.8 例题",
+      "anchor": "2-5-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/02_Proofs_with_Structure.md",
+      "title": "第 2 章 结构化证明 › 2.5.9 练习",
+      "section": "正文",
+      "text": "2.5.9 练习",
+      "anchor": "2-5-9"
     },
     {
       "kind": "chapter",
