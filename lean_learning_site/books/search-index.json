@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T00:05:48.511Z",
-  "entryCount": 2482,
+  "generatedAt": "2026-06-17T00:19:02.406Z",
+  "entryCount": 2518,
   "entries": [
     {
       "kind": "chapter",
@@ -6082,6 +6082,105 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层）",
+      "section": "类型系统详解",
+      "text": "函数（类型系统层） 对应英文：Functions，抓取日期：2026 06 16。 函数类型是 Lean 核心语言的内建特性。函数把一个类型中的值映射到另一个类型中的值；函数类型则描述这种映射的 domain 与 codomain。 两类函数类型 非依赖函数 结果类型不依赖具体参数值。 依赖函数 结果类型可以显式依赖参数 。因此，从集合论直觉看，它更像“按索引变化的一族类型的乘积”。 核心语言中的统一视角 Lean 核心里所有函数类型其实都是依赖函数类型；非依赖函数只是“参数名不在 codomain 中出现”的特例。 另外，两个依赖函数类型即使绑定变量名不同，也可能 definitionally equal，只要改名后完全一致。 抽象与 β reduction 函数值通过 function abstraction 构造，也就是 lambda： 函数应用后，结果通过 β reduction 得到：把实参替换到函数体中。编译代码里，这种替换只对值进行；但在 type checking 的 definitional equality 中，任何项都可参与 β reduction。 Currying Lean 核心中每个函数都只接收 一个 参数。多参数函数只是高阶函数的嵌套：给第一个参数后返回另一个函数，再继续接收后续参数。表面语法制造了“多参数函数”的幻觉，但 elaboration 之后只剩单参数函数。 外延性与 intensional equality Lean 的函数 definitional equality 是 intensional 的：它关注语法、重命名与规约，而不是“数学上对所有输入结果都相同”这一外延意义。 为了推理函数相等，Lean 提供 theorem： 以及 tactic： 它们让你能从“对任意输入结果相等”推出“两个函数相等”。 η equivalence 虽然 Lean 没有把一般函数外延性放进 definitional equality，但它支持受限的 η equivalence： 前提是 有适当函数类型。 全函数与终止 从 Lean 逻辑角度看，所有函数都是 total 的： 对任意类型正确输入都有定义； 会在有限时间内给出结果。 现实编程中，Lean 也允许某些“逃生口”： function function 运行时 panic 型操作（需结果类型 ） 这些让 Lean 既能作为实用编程语言，也能在逻辑上维持更强保证。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 两类函数类型",
+      "section": "类型系统详解",
+      "text": "两类函数类型",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 非依赖函数",
+      "section": "类型系统详解",
+      "text": "非依赖函数",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 依赖函数",
+      "section": "类型系统详解",
+      "text": "依赖函数",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 核心语言中的统一视角",
+      "section": "类型系统详解",
+      "text": "核心语言中的统一视角",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 抽象与 β-reduction",
+      "section": "类型系统详解",
+      "text": "抽象与 β-reduction",
+      "anchor": "reduction"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › Currying",
+      "section": "类型系统详解",
+      "text": "Currying",
+      "anchor": "currying"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 外延性与 intensional equality",
+      "section": "类型系统详解",
+      "text": "外延性与 intensional equality",
+      "anchor": "intensional-equality"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › η-equivalence",
+      "section": "类型系统详解",
+      "text": "η-equivalence",
+      "anchor": "equivalence"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+      "title": "函数（类型系统层） › 全函数与终止",
+      "section": "类型系统详解",
+      "text": "全函数与终止",
+      "anchor": "section-8"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/FunctionAbstractions.md",
       "title": "函数抽象",
       "section": "类型系统详解",
@@ -6318,331 +6417,6 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-      "title": "predicativity",
-      "section": "类型系统详解",
-      "text": "predicativity 对应英文：Predicativity，抓取日期：2026 06 16。 Lean 的 universe 规则在 和 之间刻意不同。 是 impredicative 若函数类型的结果仍是 proposition，那么参数类型可以来自任意 universe，而整个函数类型依然留在 。 这让命题可以量化所有类型，也让“关于所有命题的命题”仍然是 proposition。 是 predicative 对 及以上的数据 universe，函数类型的 universe 由参数和结果的 universe 决定，取它们的最小上界。 直觉上： 若函数可能返回 中的数据； 且其参数来自 ； 那么这个函数类型至少要放在足够大的 universe 中容纳两者。 不累积性 Lean 的 universe 默认 不累积 ：某个类型属于恰好一个 universe，不会自动也属于更高的 。 这和某些类型论系统不同。遇到相关错误时，通常要显式用 universe polymorphism 或 / 修正，而不是指望“自动往上放”。 为什么重要 解释为何 可更自由地量化； 解释为何某些数据类型构造会触发 universe mismatch； 解释为何 / 在某些定义中是必要的。"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-      "title": "predicativity › `Prop` 是 impredicative",
-      "section": "类型系统详解",
-      "text": "`Prop` 是 impredicative",
-      "anchor": "prop-impredicative"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-      "title": "predicativity › `Type u` 是 predicative",
-      "section": "类型系统详解",
-      "text": "`Type u` 是 predicative",
-      "anchor": "type-u-predicative"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-      "title": "predicativity › 不累积性",
-      "section": "类型系统详解",
-      "text": "不累积性",
-      "anchor": "section-2"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-      "title": "predicativity › 为什么重要",
-      "section": "类型系统详解",
-      "text": "为什么重要",
-      "anchor": "section-3"
-    },
-    {
-      "kind": "chapter",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism",
-      "section": "类型系统详解",
-      "text": "universe polymorphism 对应英文：Polymorphism，抓取日期：2026 06 16。 Lean 支持 universe polymorphism ：环境中的常量和定义可以带 universe 参数，使用时再把这些参数实例化成具体 level。 基本形式 显式写法通常在名字后带 universe 参数： 这表示 并不是只活在某个固定 universe，而是一个“可按不同 level 重复使用”的 schematic definition。 level expression universe 参数不只可直接作为变量使用，还能出现在 level expression 中，例如： 其中 主要服务 的 impredicative 规则。 命令 除了显式写在声明名后，也可以先用： 在当前 scope 中引入 universe 变量。即便 ，这样声明的 universe 名也会继续参与量化。 与 的关系 当 时，Lean 会尽量自动插入 universe 参数；但如果某 universe 变量只出现在定义右侧，而不出现在 header 中，自动机制不一定能把它加入参数，此时仍应显式 。 definitional equality 同一 universe polymorphic 定义在不同 level 实例下得到的是 不同对象 。也就是说，不同 universe 实例化并不会自动彼此 definitionally equal。 使用建议 写可复用抽象库时，优先考虑 universe polymorphism。 遇到 之类推断异常时，先检查是不是应该显式绑定 universe 变量。 若定义只在单一 universe 使用，不必过度泛化。"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › 基本形式",
-      "section": "类型系统详解",
-      "text": "基本形式",
-      "anchor": "section-0"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › level expression",
-      "section": "类型系统详解",
-      "text": "level expression",
-      "anchor": "level-expression"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › `universe` 命令",
-      "section": "类型系统详解",
-      "text": "`universe` 命令",
-      "anchor": "universe"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › 与 `autoImplicit` 的关系",
-      "section": "类型系统详解",
-      "text": "与 `autoImplicit` 的关系",
-      "anchor": "autoimplicit"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › definitional equality",
-      "section": "类型系统详解",
-      "text": "definitional equality",
-      "anchor": "definitional-equality"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-      "title": "universe polymorphism › 使用建议",
-      "section": "类型系统详解",
-      "text": "使用建议",
-      "anchor": "section-5"
-    },
-    {
-      "kind": "chapter",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-      "title": "universe lifting",
-      "section": "类型系统详解",
-      "text": "universe lifting 对应英文：Universe Lifting，抓取日期：2026 06 16。 当某个类型所在 universe 太低，无法直接用于当前上下文时，Lean 提供两种 lifting 结构： 可以把任意类型——包括 proposition——提升一层。它尤其适合： 想把 proof 放进普通数据结构时； 需要把 中的东西搬到数据 universe 时。 常见接口： 用于把 非 proposition 类型提升到任意更高的 universe。它不会改变值本身，只是改变“这个值所在类型被放在哪个 universe 里看待”。 常见接口： 何时需要 lifting 通常在以下场景才会显式遇到： universe polymorphic 定义中出现不匹配； 想把较低 universe 的值嵌入到要求更高 universe 的结构里； 处理依赖类型库、元编程工具或高阶抽象时。 使用建议 普通应用代码很少需要显式写 / ； 一旦出现 universe mismatch，可先问自己：这里需要的是真正不同的数学对象，还是只需要换个 universe 外壳；若是后者，lifting 往往正是答案。"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-      "title": "universe lifting › `PLift`",
-      "section": "类型系统详解",
-      "text": "`PLift`",
-      "anchor": "plift"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-      "title": "universe lifting › `ULift`",
-      "section": "类型系统详解",
-      "text": "`ULift`",
-      "anchor": "ulift"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-      "title": "universe lifting › 何时需要 lifting",
-      "section": "类型系统详解",
-      "text": "何时需要 lifting",
-      "anchor": "lifting"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-      "title": "universe lifting › 使用建议",
-      "section": "类型系统详解",
-      "text": "使用建议",
-      "anchor": "section-3"
-    },
-    {
-      "kind": "chapter",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系",
-      "section": "类型系统详解",
-      "text": "setoid 与等价关系 对应英文：Setoids / Equivalence Relations，抓取日期：2026 06 16。 quotient type 建立在 setoid 上。setoid 就是“一个类型，加上一条被指定为等价关系的关系”。 给定类型 ， 提供： 关系 该关系满足等价关系的证明 Lean 还通过 提供记号： 表示“ 与 在当前指定等价关系下等价”。 等价关系需要什么 一条关系要成为 equivalence relation，必须满足： reflexive symmetric transitive 英文页中的 结构正是显式打包了这三条性质。 setoid 与 quotient 的关系 setoid 只给出“哪两个东西应视为等价”； quotient 则进一步把这种等价提升为真正的不可区分相等。 也就是说，setoid 本身还没有建立完全抽象屏障；quotient 才有。 何时直接用 setoid 有时只需要一条“指定的等价关系”供推理使用，而不需要真正构造商类型。此时直接用 setoid 更轻量。 使用建议 需要明确写出一个等价关系并复用时，先定义 。 只有当你需要“所有函数都必须尊重这个等价关系”的抽象边界时，再进一步构造 。"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系 › `Setoid`",
-      "section": "类型系统详解",
-      "text": "`Setoid`",
-      "anchor": "setoid"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系 › 等价关系需要什么",
-      "section": "类型系统详解",
-      "text": "等价关系需要什么",
-      "anchor": "section-1"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系 › setoid 与 quotient 的关系",
-      "section": "类型系统详解",
-      "text": "setoid 与 quotient 的关系",
-      "anchor": "setoid-quotient"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系 › 何时直接用 setoid",
-      "section": "类型系统详解",
-      "text": "何时直接用 setoid",
-      "anchor": "setoid"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-      "title": "setoid 与等价关系 › 使用建议",
-      "section": "类型系统详解",
-      "text": "使用建议",
-      "anchor": "section-4"
-    },
-    {
-      "kind": "chapter",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层）",
-      "section": "类型系统详解",
-      "text": "函数（类型系统层） 对应英文：Functions，抓取日期：2026 06 16。 函数类型是 Lean 核心语言的内建特性。函数把一个类型中的值映射到另一个类型中的值；函数类型则描述这种映射的 domain 与 codomain。 两类函数类型 非依赖函数 结果类型不依赖具体参数值。 依赖函数 结果类型可以显式依赖参数 。因此，从集合论直觉看，它更像“按索引变化的一族类型的乘积”。 核心语言中的统一视角 Lean 核心里所有函数类型其实都是依赖函数类型；非依赖函数只是“参数名不在 codomain 中出现”的特例。 另外，两个依赖函数类型即使绑定变量名不同，也可能 definitionally equal，只要改名后完全一致。 抽象与 β reduction 函数值通过 function abstraction 构造，也就是 lambda： 函数应用后，结果通过 β reduction 得到：把实参替换到函数体中。编译代码里，这种替换只对值进行；但在 type checking 的 definitional equality 中，任何项都可参与 β reduction。 Currying Lean 核心中每个函数都只接收 一个 参数。多参数函数只是高阶函数的嵌套：给第一个参数后返回另一个函数，再继续接收后续参数。表面语法制造了“多参数函数”的幻觉，但 elaboration 之后只剩单参数函数。 外延性与 intensional equality Lean 的函数 definitional equality 是 intensional 的：它关注语法、重命名与规约，而不是“数学上对所有输入结果都相同”这一外延意义。 为了推理函数相等，Lean 提供 theorem： 以及 tactic： 它们让你能从“对任意输入结果相等”推出“两个函数相等”。 η equivalence 虽然 Lean 没有把一般函数外延性放进 definitional equality，但它支持受限的 η equivalence： 前提是 有适当函数类型。 全函数与终止 从 Lean 逻辑角度看，所有函数都是 total 的： 对任意类型正确输入都有定义； 会在有限时间内给出结果。 现实编程中，Lean 也允许某些“逃生口”： function function 运行时 panic 型操作（需结果类型 ） 这些让 Lean 既能作为实用编程语言，也能在逻辑上维持更强保证。"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 两类函数类型",
-      "section": "类型系统详解",
-      "text": "两类函数类型",
-      "anchor": "section-0"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 非依赖函数",
-      "section": "类型系统详解",
-      "text": "非依赖函数",
-      "anchor": "section-1"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 依赖函数",
-      "section": "类型系统详解",
-      "text": "依赖函数",
-      "anchor": "section-2"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 核心语言中的统一视角",
-      "section": "类型系统详解",
-      "text": "核心语言中的统一视角",
-      "anchor": "section-3"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 抽象与 β-reduction",
-      "section": "类型系统详解",
-      "text": "抽象与 β-reduction",
-      "anchor": "reduction"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › Currying",
-      "section": "类型系统详解",
-      "text": "Currying",
-      "anchor": "currying"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 外延性与 intensional equality",
-      "section": "类型系统详解",
-      "text": "外延性与 intensional equality",
-      "anchor": "intensional-equality"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › η-equivalence",
-      "section": "类型系统详解",
-      "text": "η-equivalence",
-      "anchor": "equivalence"
-    },
-    {
-      "kind": "heading",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
-      "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-      "title": "函数（类型系统层） › 全函数与终止",
-      "section": "类型系统详解",
-      "text": "全函数与终止",
-      "anchor": "section-8"
-    },
-    {
-      "kind": "chapter",
-      "bookId": "lean-reference",
-      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/Propositions.md",
       "title": "命题（类型系统层）",
       "section": "类型系统详解",
@@ -6841,6 +6615,173 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+      "title": "predicativity",
+      "section": "类型系统详解",
+      "text": "predicativity 对应英文：Predicativity，抓取日期：2026 06 16。 Lean 的 universe 规则在 和 之间刻意不同。 是 impredicative 若函数类型的结果仍是 proposition，那么参数类型可以来自任意 universe，而整个函数类型依然留在 。 这让命题可以量化所有类型，也让“关于所有命题的命题”仍然是 proposition。 是 predicative 对 及以上的数据 universe，函数类型的 universe 由参数和结果的 universe 决定，取它们的最小上界。 直觉上： 若函数可能返回 中的数据； 且其参数来自 ； 那么这个函数类型至少要放在足够大的 universe 中容纳两者。 不累积性 Lean 的 universe 默认 不累积 ：某个类型属于恰好一个 universe，不会自动也属于更高的 。 这和某些类型论系统不同。遇到相关错误时，通常要显式用 universe polymorphism 或 / 修正，而不是指望“自动往上放”。 为什么重要 解释为何 可更自由地量化； 解释为何某些数据类型构造会触发 universe mismatch； 解释为何 / 在某些定义中是必要的。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+      "title": "predicativity › `Prop` 是 impredicative",
+      "section": "类型系统详解",
+      "text": "`Prop` 是 impredicative",
+      "anchor": "prop-impredicative"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+      "title": "predicativity › `Type u` 是 predicative",
+      "section": "类型系统详解",
+      "text": "`Type u` 是 predicative",
+      "anchor": "type-u-predicative"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+      "title": "predicativity › 不累积性",
+      "section": "类型系统详解",
+      "text": "不累积性",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+      "title": "predicativity › 为什么重要",
+      "section": "类型系统详解",
+      "text": "为什么重要",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism",
+      "section": "类型系统详解",
+      "text": "universe polymorphism 对应英文：Polymorphism，抓取日期：2026 06 16。 Lean 支持 universe polymorphism ：环境中的常量和定义可以带 universe 参数，使用时再把这些参数实例化成具体 level。 基本形式 显式写法通常在名字后带 universe 参数： 这表示 并不是只活在某个固定 universe，而是一个“可按不同 level 重复使用”的 schematic definition。 level expression universe 参数不只可直接作为变量使用，还能出现在 level expression 中，例如： 其中 主要服务 的 impredicative 规则。 命令 除了显式写在声明名后，也可以先用： 在当前 scope 中引入 universe 变量。即便 ，这样声明的 universe 名也会继续参与量化。 与 的关系 当 时，Lean 会尽量自动插入 universe 参数；但如果某 universe 变量只出现在定义右侧，而不出现在 header 中，自动机制不一定能把它加入参数，此时仍应显式 。 definitional equality 同一 universe polymorphic 定义在不同 level 实例下得到的是 不同对象 。也就是说，不同 universe 实例化并不会自动彼此 definitionally equal。 使用建议 写可复用抽象库时，优先考虑 universe polymorphism。 遇到 之类推断异常时，先检查是不是应该显式绑定 universe 变量。 若定义只在单一 universe 使用，不必过度泛化。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › 基本形式",
+      "section": "类型系统详解",
+      "text": "基本形式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › level expression",
+      "section": "类型系统详解",
+      "text": "level expression",
+      "anchor": "level-expression"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › `universe` 命令",
+      "section": "类型系统详解",
+      "text": "`universe` 命令",
+      "anchor": "universe"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › 与 `autoImplicit` 的关系",
+      "section": "类型系统详解",
+      "text": "与 `autoImplicit` 的关系",
+      "anchor": "autoimplicit"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › definitional equality",
+      "section": "类型系统详解",
+      "text": "definitional equality",
+      "anchor": "definitional-equality"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+      "title": "universe polymorphism › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+      "title": "universe lifting",
+      "section": "类型系统详解",
+      "text": "universe lifting 对应英文：Universe Lifting，抓取日期：2026 06 16。 当某个类型所在 universe 太低，无法直接用于当前上下文时，Lean 提供两种 lifting 结构： 可以把任意类型——包括 proposition——提升一层。它尤其适合： 想把 proof 放进普通数据结构时； 需要把 中的东西搬到数据 universe 时。 常见接口： 用于把 非 proposition 类型提升到任意更高的 universe。它不会改变值本身，只是改变“这个值所在类型被放在哪个 universe 里看待”。 常见接口： 何时需要 lifting 通常在以下场景才会显式遇到： universe polymorphic 定义中出现不匹配； 想把较低 universe 的值嵌入到要求更高 universe 的结构里； 处理依赖类型库、元编程工具或高阶抽象时。 使用建议 普通应用代码很少需要显式写 / ； 一旦出现 universe mismatch，可先问自己：这里需要的是真正不同的数学对象，还是只需要换个 universe 外壳；若是后者，lifting 往往正是答案。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+      "title": "universe lifting › `PLift`",
+      "section": "类型系统详解",
+      "text": "`PLift`",
+      "anchor": "plift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+      "title": "universe lifting › `ULift`",
+      "section": "类型系统详解",
+      "text": "`ULift`",
+      "anchor": "ulift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+      "title": "universe lifting › 何时需要 lifting",
+      "section": "类型系统详解",
+      "text": "何时需要 lifting",
+      "anchor": "lifting"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+      "title": "universe lifting › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/InductiveTypes.md",
       "title": "归纳类型",
       "section": "类型系统详解",
@@ -7034,6 +6975,349 @@
       "section": "类型系统详解",
       "text": "使用建议",
       "anchor": "section-9"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系",
+      "section": "类型系统详解",
+      "text": "setoid 与等价关系 对应英文：Setoids / Equivalence Relations，抓取日期：2026 06 16。 quotient type 建立在 setoid 上。setoid 就是“一个类型，加上一条被指定为等价关系的关系”。 给定类型 ， 提供： 关系 该关系满足等价关系的证明 Lean 还通过 提供记号： 表示“ 与 在当前指定等价关系下等价”。 等价关系需要什么 一条关系要成为 equivalence relation，必须满足： reflexive symmetric transitive 英文页中的 结构正是显式打包了这三条性质。 setoid 与 quotient 的关系 setoid 只给出“哪两个东西应视为等价”； quotient 则进一步把这种等价提升为真正的不可区分相等。 也就是说，setoid 本身还没有建立完全抽象屏障；quotient 才有。 何时直接用 setoid 有时只需要一条“指定的等价关系”供推理使用，而不需要真正构造商类型。此时直接用 setoid 更轻量。 使用建议 需要明确写出一个等价关系并复用时，先定义 。 只有当你需要“所有函数都必须尊重这个等价关系”的抽象边界时，再进一步构造 。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系 › `Setoid`",
+      "section": "类型系统详解",
+      "text": "`Setoid`",
+      "anchor": "setoid"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系 › 等价关系需要什么",
+      "section": "类型系统详解",
+      "text": "等价关系需要什么",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系 › setoid 与 quotient 的关系",
+      "section": "类型系统详解",
+      "text": "setoid 与 quotient 的关系",
+      "anchor": "setoid-quotient"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系 › 何时直接用 setoid",
+      "section": "类型系统详解",
+      "text": "何时直接用 setoid",
+      "anchor": "setoid"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+      "title": "setoid 与等价关系 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API",
+      "section": "类型系统详解",
+      "text": "quotient API 对应英文：Quotient API，抓取日期：2026 06 16。 quotient 的日常使用主要围绕三组操作： 把底层值放进 quotient 从 quotient 定义函数到别的类型 对 quotient 做证明 1. 引入 quotient 常见构造： 它们把底层类型 的值放进某个 中。区别在于： 显式接收 通过 instance synthesis 找 2. 消去 quotient 从 quotient 出发定义函数时，必须证明你的函数 尊重等价关系 。常见接口： 它们都体现同一个原则：你不能观察等价类代表元之间的差异；若函数会受代表元选择影响，它就不能被提升到 quotient 上。 3. 关于 quotient 的证明 常用证明工具： 其中： ：若底层值满足等价关系，则它们在 quotient 中相等； / ：允许你“假定元素都是由 构造的”来证明 quotient 上的性质。 与低层 的关系 建立在更原始的 之上。普通用户应优先使用 ，因为它要求你先证明关系确实是等价关系，更安全也更符合数学直觉。 使用建议 定义 quotient 上的函数时，优先先写底层版本，再证明它 respects equivalence relation。 调试 quotient 证明时，通常先分清：你现在是在“引入值”、“消去函数”还是“证明等价”。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API › 1. 引入 quotient",
+      "section": "类型系统详解",
+      "text": "1. 引入 quotient",
+      "anchor": "1-quotient"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API › 2. 消去 quotient",
+      "section": "类型系统详解",
+      "text": "2. 消去 quotient",
+      "anchor": "2-quotient"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API › 3. 关于 quotient 的证明",
+      "section": "类型系统详解",
+      "text": "3. 关于 quotient 的证明",
+      "anchor": "3-quotient"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API › 与低层 `Quot` 的关系",
+      "section": "类型系统详解",
+      "text": "与低层 `Quot` 的关系",
+      "anchor": "quot"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+      "title": "quotient API › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案",
+      "section": "类型系统详解",
+      "text": "quotient 的替代方案 对应英文：Alternatives to Quotient Types，抓取日期：2026 06 16。 提供了一个方便且计算上可接受的商类型机制，但它并不是所有场景的唯一答案。 universal property 视角 若类型 连同函数 满足： 当且仅当 那么从范畴论/集合论视角看， 就是 按关系 的 quotient。 给出的对象在命题相等意义下满足这个性质。 canonical representative 方案 另一种常见做法是： 1. 在每个等价类中选一个 canonical representative； 2. 直接把 quotient 实现为“这些 canonical representative 的子类型”； 3. 再给出从原类型到 canonical representative 的归约函数。 这种方式的好处： 同一等价类的代表值往往是 definitionally equal； 从 quotient 出发定义函数时，不必再反复证明“尊重等价关系”； 在某些场景下计算行为更好，因为结果总是归一化后的 canonical form。 局限 并不是所有 quotient 都容易挑出 canonical representative； canonicalization 本身可能很难、很昂贵，甚至依赖额外公理； 某些数学对象自然上更适合真正的 quotient，而不是“先归一化再包装”。 与归纳类型的关系 手工 canonical representative 方案往往更适合与归纳类型嵌套使用，因为它仍是普通 inductive / subtype 风格对象，而不是 primitive quotient。 使用建议 若每个等价类都容易选规范代表元，优先考虑“正规化 + 子类型/结构体”方案； 若想要更直接的抽象屏障，或规范代表元难以选取，则用 更自然。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案 › universal property 视角",
+      "section": "类型系统详解",
+      "text": "universal property 视角",
+      "anchor": "universal-property"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案 › canonical representative 方案",
+      "section": "类型系统详解",
+      "text": "canonical representative 方案",
+      "anchor": "canonical-representative"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案 › 局限",
+      "section": "类型系统详解",
+      "text": "局限",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案 › 与归纳类型的关系",
+      "section": "类型系统详解",
+      "text": "与归纳类型的关系",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+      "title": "quotient 的替代方案 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientReduction.md",
+      "title": "quotient reduction",
+      "section": "类型系统详解",
+      "text": "quotient reduction 对应英文：Quotient Reduction，抓取日期：2026 06 16。 quotient 在 Lean 里有专门的 reduction 规则，但这类 reduction 与普通 constructor/recursor 的 ι reduction 不同。 基本直觉 quotient 允许你： 把底层值放进 quotient； 用 一类 API 从 quotient 上定义函数； 保证结果不依赖代表元的具体选择。 当一个 立即作用在由 构造的元素上时，会发生相应 reduction，把它化成底层函数应用结果。 为什么这很重要 如果 quotient 完全不能规约，那么： quotient 上的计算会几乎不可执行； 等依赖 quotient 的构造很难工作； 很多看似自然的高层定义会退化成纯逻辑存在物，而不是可计算对象。 quotient reduction 保证：quotient 既保持抽象屏障，又不会完全失去计算性。 使用建议 推理 quotient 上函数时，优先记住 “mk + lift 会化简”； 若某处规约没有按预期发生，先检查是否真的使用了 quotient API 的标准引入/消去形式，而不是绕过它们写了更底层对象。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientReduction.md",
+      "title": "quotient reduction › 基本直觉",
+      "section": "类型系统详解",
+      "text": "基本直觉",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientReduction.md",
+      "title": "quotient reduction › 为什么这很重要",
+      "section": "类型系统详解",
+      "text": "为什么这很重要",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientReduction.md",
+      "title": "quotient reduction › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+      "title": "低层 quotient API",
+      "section": "类型系统详解",
+      "text": "低层 quotient API 对应英文：Low Level Quotient API，抓取日期：2026 06 16。 是面向日常使用的高层接口；其底层 primitive 是 。英文页列出了一组更接近 primitive quotient 的 API： 为什么存在低层 API 这些接口暴露得更接近内核 primitive，因此适合： 研究 Lean 逻辑本身； 证明一些更底层的元理论性质； 实现像 这样建立在 上的高层包装； 特殊场景下进行更精细的控制。 日常代码是否该用它们 通常不应该。 对普通库和应用代码而言： 优先使用 优先使用 / / / 因为这些接口已经把“等价关系必须真的是 equivalence relation”这一层约束表达出来，更安全也更贴近数学直觉。 何时可能需要 做 Lean 核心理论相关研究； 写非常底层的元编程或库基础设施； 想证明 的某些高层性质是如何从 primitive 推出来的。 使用建议 若你不确定是否需要低层 quotient API，那大概率不需要； 只有当高层 抽象挡住了你需要表达的内容时，才考虑往下走到 。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+      "title": "低层 quotient API › 为什么存在低层 API",
+      "section": "类型系统详解",
+      "text": "为什么存在低层 API",
+      "anchor": "api"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+      "title": "低层 quotient API › 日常代码是否该用它们",
+      "section": "类型系统详解",
+      "text": "日常代码是否该用它们",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+      "title": "低层 quotient API › 何时可能需要",
+      "section": "类型系统详解",
+      "text": "何时可能需要",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+      "title": "低层 quotient API › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientFunext.md",
+      "title": "quotient 与函数外延性",
+      "section": "类型系统详解",
+      "text": "quotient 与函数外延性 对应英文：Quotients and Function Extensionality，抓取日期：2026 06 16。 Lean 中的函数外延性 theorem 并不是额外作为公理塞进系统的，而是可以借助 quotient 构造证明出来。 这说明什么 它说明 quotient 不只是数学建模工具，还深度参与 Lean 自身逻辑的组织： quotient 提供了把“对所有输入结果一致”提升为“函数相等”的关键桥梁； 因此能作为 theorem，而不是必须作为 primitive axiom。 实践意义 从日常证明角度，你通常只需要记住： 用 可以把函数相等化成逐点相等； Lean 之所以能把它当 theorem，是因为 quotient theory 足够强。 但从元理论角度，这一点很重要：它展示了 quotient 在 Lean 逻辑中的表达力。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientFunext.md",
+      "title": "quotient 与函数外延性 › 这说明什么",
+      "section": "类型系统详解",
+      "text": "这说明什么",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/QuotientFunext.md",
+      "title": "quotient 与函数外延性 › 实践意义",
+      "section": "类型系统详解",
+      "text": "实践意义",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+      "title": "Squash 类型",
+      "section": "类型系统详解",
+      "text": "Squash 类型 对应英文：Squash Types，抓取日期：2026 06 16。 Squash 类型把“某个类型里有一个值”这件事保留下来，同时抹去该值的具体信息。直觉上，它像是“把所有 inhabitant 都压扁成同一个不可区分代表”。 相关接口 英文页列出的核心名字包括： 它和 的关系 从逻辑用途上，Squash 与 很接近：都表达“至少有一个值”。区别在于 Squash 是一个更显式的类型层构造，并带有自己的 API。 为什么有用 有时你希望： 保留“存在值”这一信息； 但不允许程序或证明继续依赖该值的具体内容； 让后续所有使用者只能观察到“它存在”，而观察不到“它是谁”。 Squash 正适合这类场景。 使用建议 若只想表达存在性，且不想暴露 witness 细节，可考虑 Squash / 风格对象； 若需要后续真正取出并计算具体 witness，Squash 就不合适，应回到 / / / 普通数据结构。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+      "title": "Squash 类型 › 相关接口",
+      "section": "类型系统详解",
+      "text": "相关接口",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+      "title": "Squash 类型 › 它和 `Nonempty` 的关系",
+      "section": "类型系统详解",
+      "text": "它和 `Nonempty` 的关系",
+      "anchor": "nonempty"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+      "title": "Squash 类型 › 为什么有用",
+      "section": "类型系统详解",
+      "text": "为什么有用",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+      "title": "Squash 类型 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
     },
     {
       "kind": "chapter",
@@ -22857,6 +23141,75 @@
       "section": "第 18 章：组合数学",
       "text": "18.6. 练习",
       "anchor": "18-6"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数",
+      "section": "第 19 章：实数",
+      "text": "第 19 章：实数 本译文对应原书 The Real Numbers；英文 Sphinx 源： 。 19.1. 数系 我们已经遇到过一些基本数系：自然数 、整数 和有理数 。在某种意义上，列表中的每一个后续数系都是为了弥补前一个数系的缺陷而设计的。我们可以用任意整数减去任意整数得到另一个整数，也可以用任意非零有理数去除任意有理数得到另一个有理数。 整数满足以下所有性质： 加法满足结合律和交换律。 存在加法单位元 ，且每个元素 都有加法逆元 。 乘法满足结合律和交换律。 存在乘法单位元 。 乘法对加法满足分配律：对任意 、 、 ，有 。 序关系 是全序。 对任意元素 、 、 ，如果 ，则 。 对任意元素 、 ，如果 且 ，则 。 前五条说明，配备 、 、 、 后，整数构成一个 交换环 ；后三条说明，连同 ，这个结构是一个 有序环 。自然数缺少加法逆元，因此满足稍弱的一组公理，使其成为一个 有序半环 。另一方面，有理数也构成有序环，并且满足如下额外性质： 每个非零元素都有乘法逆元 。 这使得它们成为 有序域 的一个实例。 值得了解的是，一旦我们有了自然数，就可以用你已经见过的集合论构造来 构造 整数和有理数。例如，我们可以把一个整数定义为一对自然数 ，其中 为 或 ，意图是 表示正整数 ， 表示负整数 。（我们用 而不是 来避免 0 有两种表示。）按这个定义，整数就是 。然后我们可以继续定义加法、乘法、加法逆元和序关系，并证明它们具有期望的性质。 这种构造有一个副作用：自然数本身不是整数；例如，我们必须区分自然数 2 和整数 2。在 Lean 中就是这样。在普通数学中，通常把自然数看作整数的子集。然而，一旦我们构造出整数，就可以丢弃旧版本的自然数，之后把自然数识别为非负整数。 对有理数也可以做同样的事，把它们定义为 中的对 ，其中要么 且 ，要么 且 与 没有公共约数（除了 和 ）。思路是 表示 。按这个定义，有理数实际上是 的一个子集，然后我们可以相应地定义所有运算。 在下一节中，我们将定义一种更复杂的方法，它可以扩展到实数的定义。在后面的章节中，我们还将展示如何从集合论公理构造自然数。这表明我们可以从底部向上构造所有数系。 但首先，让我们 pause 片刻，思考为什么需要实数。我们已经看到 2 没有有理平方根。这意味着，在某种意义上，有理数中存在一个“缺口”：存在平方任意接近 2 的有理数，但没有有理数 满足 。但直观上显然应该存在某个具有该性质的 数 ： 是边长为 1 的正方形的对角线长度。类似地，半径为 1 的圆的面积 也不在有理数中。这些正是实数被设计来修补的缺陷。 你可能习惯把实数看作（可能无限的）小数：例如， ， 。本章的一个中心目标是把“ ”精确化。思路是，我们可以把一个无限小数看作一个有理逼近序列。例如，我们可以用序列 逼近 。我们想把这个序列的“极限”定义为 ，但我们已经看到这个序列在有理数中没有极限。因此，我们必须构造新的对象——实数——来担当这个角色。 事实上，我们将或多或少地把实数 定义 为这样的有理逼近序列。但我们必须处理一个事实：例如，有很多方式可以逼近 。我们可以从上方逼近： ，也可以上下振荡逼近。下一节将展示我们如何把所有这些序列“粘合”在一起，并把它们当作一个对象处理。 19.2. 商构造 设 是任意集合， 是 上的任意等价关系。回忆13.3 节，我们可以把 的每个元素 指派到其等价类 ，其中 表示 。这个指派具有如下性质：对所有 、 ， 当且仅当 。 给定任意集合 和等价关系 ，定义 为 模 的 等价类 组成的集合 。这个集合称为“ 模 ”，或 被 除的 商 。你可以把它想象成把 中等价的元素“粘合”在一起，形成一个更粗的集合。 例如，如果我们考虑整数 ，其中 表示模 5 等价（如17.4 节所述），那么 就是 。我们可以在 上定义加法为 。为使这个定义有意义，重要的是知道等式右边不依赖于我们选择的 和 的代表元。换言之，我们需要知道：只要 且 ，就有 。而这又等价于说：如果 且 ，则 。换言之，我们要求加法运算 尊重 等价关系；我们在17.4 节中已经看到这确实成立。 这种把一个定义在集合上的函数转移到该集合的商上的策略由以下定理给出。 定理。 设 、 是任意集合， 是定义在 上的任意等价关系， 。假设 尊重等价关系，即对 中任意 、 ，如果 ，则 。那么存在唯一的函数 ，定义为对所有 ， 。 证明。 我们通过把等价类 写成 的形式，并令 ，来定义 在等价类上的值。换言之，我们说 当且仅当存在 使得 且 。这个定义可疑之处在于，它先验地可能依赖于我们把 表示成这种形式的方式；换言之，我们需要证明存在 唯一 的 满足这个描述。具体地，我们需要知道：如果 ，则 。但由于 等价于 ，这正是在说 尊重等价关系，而这正是我们的假设。 数学家经常通过等式 来“定义” ，然后把上面的证明表达为“ 是 well defined”的证明。这令人困惑。他们真正想表达的就是定理所说的内容，即存在唯一满足该描述的函数。 为了构造整数，从 开始。把一对自然数 看作表示 ，其中减法发生在整数中（我们尚未构造出来！）。例如， 和 都表示整数 。直观上，当 时，对 和 表示同一个整数，但我们还不能这样说，因为我们还没有定义适当的减法概念。不过，这个等式等价于 ，而 这个 等式在自然数的加法下是有意义的。 定义。 在 上定义关系 ： 当且仅当 。 命题。 是等价关系。 证明。 自反性：显然 ，因为 。 对称性：假设 。这意味着 。但等式的对称性蕴涵 ，证毕。 传递性：假设 且 。则有 和 。把这两个等式相加，得到 两边减去 ，得到 ，这等价于 ，证毕。 我们现在可以把整数定义为 。如何定义加法？如果 表示 ， 表示 ，那么 应该表示 。因此，定义 是合理的。为使这有效，我们需要知道把 和 映射到 的运算尊重等价关系。 命题。 如果 且 ，则 。 证明。 第一个等价意味着 ，第二个意味着 。把两个等式相加，得到 ，这正好说明 。 每个自然数 都可以用整数 表示，特别地， 用 表示。而且，如果 是任意整数，我们可以定义它的负数为 ，因为 由于 。简而言之，我们“发明”了负数！ 我们可以继续用这种方式定义整数上的乘法和序关系，并证明它们具有期望的性质。对有理数也可以进行类似的构造。这里，我们从集合 开始，其中 表示严格正整数。思路当然是 表示 。基于这一点，定义 当 是合理的。然后我们也可以在那里定义加法、乘法和序关系。细节繁琐且不太有启发性，因此我们转而构造实数。 19.3. 构造实数 我们面临的问题在于，有理数序列 似乎趋近于一个“应该”是 2 的平方根的值，但没有有理数能扮演这个角色。下面的定义捕捉了一个有理数序列“似乎趋近于某个值”的概念，而不涉及它正在趋近的那个值。 定义。 有理数序列 称为 柯西序列 （Cauchy sequence），如果对每个有理数 ，存在某个自然数 ，使得对所有 ，都有 。 粗略地说，柯西序列是一个元素彼此任意接近的序列，不仅与后继项接近，而且与之后的所有项都接近。在数学中，常用 表示一个 intended to denote 很小的量；你应该把“对每个 ”读作“无论 多么小”。因此，一个序列是柯西序列，如果对于任意小的 ，都存在某个点 ，超过这个点之后元素之间的距离都小于 。 柯西序列可以用来描述有理数中的这些缺口，但如上所述，许多柯西序列可以用来描述同一个缺口。在这个阶段，说它们“趋近于同一个点”略有误导，因为没有有理点是它们趋近的对象；更精确的说法是这些序列最终变得任意接近。 定义。 两个柯西序列 和 称为 等价 的，如果对每个有理数 ，存在某个自然数 ，使得对所有 ，都有 。我们用 表示 与 等价。 命题。 是柯西序列上的等价关系。 证明。 自反性和对称性容易证明，我们来证明传递性。假设 且 。我们要证明序列 与 等价。于是，给定任意 ，选择足够大的 ，使得对每个 ， 。再选择另一个数 ，使得对每个 ， 。令 。则对每个 ，有 证毕。 注意，证明中使用了 三角不等式 ：对任意有理数 、 ， 。如果我们把 定义为 和 中的较大者，那么三角不等式实际上对任何有序环都成立： 定理。 设 、 是任意有序环中的元素。则 。 证明。 根据绝对值的定义，只需证明 和 。第一个结论来自 和 。对第二个结论，类似地有 和 ，因此 。 在上面的定理中，如果令 ， ，就得到 。 表示数轴上 与 之间的距离，这解释了它的名字：对任意三个“点” 、 、 ， 到 的距离不会大于 到 的距离加上 到 的距离。 现在令 为有理数的柯西序列组成的集合，并定义实数 为 。换言之，实数是有理数柯西序列的集合，模掉我们刚定义的等价关系。 仅仅有集合 还不够：我们还想知道如何对实数进行加、减、乘、除。与整数一样，我们需要先定义底层集合上的运算，然后证明它们尊重等价关系。例如，我们将说明如何加有理数的柯西序列，然后证明如果 且 ，则 。然后我们可以通过定义 把这个定义提升到 上。 幸运的是，定义柯西序列的加法、减法和乘法很容易。如果 和 是柯西序列，令 ，减法和乘法类似。要证明这些序列本身也是柯西序列，并证明这些运算具有适当的代数性质，则比较棘手。我们在练习中请你证明其中一些性质。 我们可以把每个有理数 与常值柯西序列 等同起来，因此实数包含有理数。下一步是抽象掉我们所选构造的细节，以便从此可以抽象地使用实数，而不再把它们看作由有理数柯西序列的等价类给出。 19.4. 实数的完备性 我们构造实数是为了填补有理数中的缺口。怎么知道我们已经把它们全部补上了呢？也许我们需要用实数的柯西序列构造更多的数？下面的定理告诉我们，恰恰相反，用这种方式再也不需要扩展实数了。 定义。 设 是实数。实数序列 收敛 于 ，如果对每个 ，存在 ，使得对每个 ， 。 定义。 序列 收敛 ，如果它收敛于某个 。 定理。 每个实数的柯西序列都收敛。 这条定理的陈述常被称为“实数是 完备 的”。粗略地说，它意味着无论你在哪里寻找一个实数，你都一定会找到一个。下面是类似的原则。 定义。 元素 称为子集 的一个 上界 ，如果 中每个元素都小于或等于 。如果 存在上界，则称 有上界 。元素 称为 的 最小上界 ，如果它是 的上界，并且任何比 小的数都不是 的上界。 定理。 设 是 的有上界的非空子集。则 有最小上界。 有理数没有这条性质：如果我们令 ，那么有理数 2 是 的一个上界，但 在有理数中没有最小上界。 一个基本定理指出，实数恰好由如下性质刻画：它们是完备有序域，并且每个实数 都小于或等于某个自然数 。任何两个满足这些要求的模型在涉及常数 、 、运算 和 以及关系 的行为上必须完全相同。这个事实非常强大，因为它使我们能够在正常数学中避免思考柯西序列构造。一旦我们证明了自己的构造满足这些要求，我们就可以把 当作“那个”唯一的完备全序域，忽略任何实现细节。我们还可以自由选择任何方式实现 ，只要它满足这个接口；并且只要定理不涉及底层表示，它们对所有构造都同样成立。 19.5. 另一种构造 许多资料使用另一种构造实数的方法，把它们看作 戴德金分割 （Dedekind cuts）。戴德金分割是有理数集合的有序对 ，满足以下性质： 每个有理数 要么在 中，要么在 中。 每个 小于每个 。 中没有最大元素。 和 都非空。 前两条性质说明为什么我们把这对集合称为“分割”：集合 包含数轴上某个标记左侧的所有有理数， 包含右侧的所有点。第三条性质告诉我们标记处发生了什么。但有两种可能：要么 有最小元素，要么没有。想象 没有最大元素且 没有最小元素的情形可能有点 tricky，但考虑例子 和 。不存在有理数 使得 ，但两边都有任意接近的有理数；因此 和 都不包含端点。 我们可以把 定义为戴德金分割的集合。戴德金分割 对应于有理数 ，如果 是 的最小元素；如果 没有最小元素，则对应于无理数。在 上定义加法很直接： 一些作者更喜欢这种构造而不是柯西序列构造，因为它避免了"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.1. 数系",
+      "section": "第 19 章：实数",
+      "text": "19.1. 数系",
+      "anchor": "19-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.2. 商构造",
+      "section": "第 19 章：实数",
+      "text": "19.2. 商构造",
+      "anchor": "19-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.3. 构造实数",
+      "section": "第 19 章：实数",
+      "text": "19.3. 构造实数",
+      "anchor": "19-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.4. 实数的完备性",
+      "section": "第 19 章：实数",
+      "text": "19.4. 实数的完备性",
+      "anchor": "19-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.5. 另一种构造",
+      "section": "第 19 章：实数",
+      "text": "19.5. 另一种构造",
+      "anchor": "19-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "logic-and-proof",
+      "bookTitleZh": "逻辑与证明",
+      "path": "logic-and-proof/the_real_numbers.md",
+      "title": "第 19 章：实数 › 19.6. 练习",
+      "section": "第 19 章：实数",
+      "text": "19.6. 练习",
+      "anchor": "19-6"
     },
     {
       "kind": "chapter",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:05:48.439Z",
+  "generatedAt": "2026-06-17T00:19:02.281Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 210 篇已翻译",
+      "status": "首批 215 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 210,
+      "chapterCount": 216,
       "sections": [
         {
           "title": "官网入口",
@@ -1103,6 +1103,11 @@
           "title": "类型系统详解",
           "chapters": [
             {
+              "title": "函数（类型系统层）",
+              "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
+              "summary": "依赖函数、currying、β/η、外延性与 totality"
+            },
+            {
               "title": "函数抽象",
               "path": "lean-reference/Reference/TypeSystemDetails/FunctionAbstractions.md",
               "summary": "lambda、β-reduction 与高层语法到核心 abstraction 的映射"
@@ -1123,31 +1128,6 @@
               "summary": "total function、`partial`、`unsafe` 与 panic 边界"
             },
             {
-              "title": "Predicativity",
-              "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
-              "summary": "predicative universe、impredicative `Prop`、strictly positive 约束"
-            },
-            {
-              "title": "Universe Polymorphism",
-              "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
-              "summary": "level variables、`u+1`、level constraints、自动推断"
-            },
-            {
-              "title": "Universe Lifting",
-              "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
-              "summary": "`PLift`、`ULift`、universe level 之间的升降"
-            },
-            {
-              "title": "Setoid",
-              "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
-              "summary": "带证明的等价关系、`Quotient` 的接口与商类型"
-            },
-            {
-              "title": "函数（类型系统层）",
-              "path": "lean-reference/Reference/TypeSystemDetails/Functions.md",
-              "summary": "依赖函数、currying、β/η、外延性与 totality"
-            },
-            {
               "title": "命题（类型系统层）",
               "path": "lean-reference/Reference/TypeSystemDetails/Propositions.md",
               "summary": "`Prop`、proof irrelevance、run-time irrelevance、`propext`"
@@ -1158,6 +1138,21 @@
               "summary": "`Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`"
             },
             {
+              "title": "predicativity",
+              "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+              "summary": "`Prop` 的 impredicativity、`Type` 的 predicativity 与非累积 universe"
+            },
+            {
+              "title": "universe polymorphism",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+              "summary": "universe 参数、level expression 与 `universe` 命令"
+            },
+            {
+              "title": "universe lifting",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+              "summary": "`PLift`、`ULift` 与跨 universe 搬运"
+            },
+            {
               "title": "归纳类型",
               "path": "lean-reference/Reference/TypeSystemDetails/InductiveTypes.md",
               "summary": "constructor、recursor、参数与索引、良构性与运行时表示"
@@ -1166,6 +1161,41 @@
               "title": "quotient",
               "path": "lean-reference/Reference/TypeSystemDetails/Quotients.md",
               "summary": "`Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障"
+            },
+            {
+              "title": "setoid 与等价关系",
+              "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+              "summary": "`Setoid`、`≈`、`Equivalence` 与 quotient 前置结构"
+            },
+            {
+              "title": "quotient API",
+              "path": "lean-reference/Reference/TypeSystemDetails/QuotientAPI.md",
+              "summary": "`mk`、`lift`、`sound`、`ind` 与 `recOn`"
+            },
+            {
+              "title": "quotient 替代方案",
+              "path": "lean-reference/Reference/TypeSystemDetails/QuotientAlternatives.md",
+              "summary": "不用 `Quotient` 的编码策略与选择理由"
+            },
+            {
+              "title": "quotient reduction",
+              "path": "lean-reference/Reference/TypeSystemDetails/QuotientReduction.md",
+              "summary": "`Quot.sound` 后的 definitional reduction、合规性与限制"
+            },
+            {
+              "title": "底层 quotient API",
+              "path": "lean-reference/Reference/TypeSystemDetails/LowLevelQuotientAPI.md",
+              "summary": "`Quot` 原始构造子、`rec`、`lift` 与 kernel 层面"
+            },
+            {
+              "title": "quotient 与函数外延性",
+              "path": "lean-reference/Reference/TypeSystemDetails/QuotientFunext.md",
+              "summary": "用 quotient 导出 `funext` 的证明思路"
+            },
+            {
+              "title": "squash 类型",
+              "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
+              "summary": "命题截断、`Squash` / `Trunc` 与不可区分值"
             },
             {
               "title": "源文件与模块",
@@ -2653,9 +2683,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–18 章已翻译 · 19–24 章待译",
+      "status": "第 1–19 章已翻译 · 20–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 18,
+      "chapterCount": 19,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2834,6 +2864,16 @@
               "title": "组合数学",
               "path": "logic-and-proof/combinatorics.md",
               "summary": "计数原理、排列组合、二项式系数、容斥原理、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 19 章：实数",
+          "chapters": [
+            {
+              "title": "实数",
+              "path": "logic-and-proof/the_real_numbers.md",
+              "summary": "实数构造、柯西序列、戴德金分割、完备性、练习"
             }
           ]
         }
