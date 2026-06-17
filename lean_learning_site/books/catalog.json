@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T01:05:08.963Z",
+  "generatedAt": "2026-06-17T01:18:10.673Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 235 篇已翻译",
+      "status": "首批 240 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 235,
+      "chapterCount": 248,
       "sections": [
         {
           "title": "官网入口",
@@ -1148,9 +1148,24 @@
               "summary": "universe 参数、level expression 与 `universe` 命令"
             },
             {
+              "title": "universe bindings",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+              "summary": "`universe` 命令、level 参数绑定与作用域"
+            },
+            {
+              "title": "level expressions",
+              "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+              "summary": "`max`、`imax`、`+1`、level 变量与约束"
+            },
+            {
               "title": "universe lifting",
               "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
               "summary": "`PLift`、`ULift` 与跨 universe 搬运"
+            },
+            {
+              "title": "lift API",
+              "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+              "summary": "`PLift`、`ULift` 的函数与实例接口"
             },
             {
               "title": "universe level 表达式",
@@ -1233,6 +1248,31 @@
               "summary": "消去原理、motive、ι-reduction 与高层模式匹配的底层形式"
             },
             {
+              "title": "recursor 类型",
+              "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+              "summary": "依赖 recursor 签名、 motive 与归纳假设类型"
+            },
+            {
+              "title": "终止检查",
+              "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+              "summary": "structural recursion、well-founded recursion、部分定义与 `partial`"
+            },
+            {
+              "title": "Prop vs Type",
+              "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+              "summary": "大规模消除、proof irrelevance 与数据/证明分离"
+            },
+            {
+              "title": "FFI 与归纳类型",
+              "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+              "summary": "外部函数接口、`extern`、primitive 与运行时映射"
+            },
+            {
+              "title": "trivial wrapper",
+              "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+              "summary": "单构造子包装类型、`casesOn` 优化与 eta"
+            },
+            {
               "title": "归纳类型的良构性要求",
               "path": "lean-reference/Reference/InductiveDetails/WellFormedness.md",
               "summary": "universe、strict positivity、`Prop` vs `Type`"
@@ -1271,6 +1311,31 @@
               "title": "嵌套归纳类型",
               "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
               "summary": "nested inductive 的用途、风险与 mutual 区别"
+            },
+            {
+              "title": "recursor 类型",
+              "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+              "summary": "motive、分支参数与依赖消去的类型结构"
+            },
+            {
+              "title": "`Prop` 与 `Type`",
+              "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+              "summary": "proposition 与数据型归纳定义的差异"
+            },
+            {
+              "title": "终止检查辅助构造",
+              "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+              "summary": "`SizeOf` 与递归 elaboration 的支持结构"
+            },
+            {
+              "title": "trivial wrapper",
+              "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+              "summary": "逻辑包装与运行时零/低开销表示"
+            },
+            {
+              "title": "归纳类型与 FFI",
+              "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+              "summary": "逻辑模型与外部接口布局之间的边界"
             },
             {
               "title": "源文件与模块",
@@ -2762,7 +2827,7 @@
       "externalPdfUrl": null,
       "status": "前言 + 第 1–2 章已译",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 3,
+      "chapterCount": 4,
       "sections": [
         {
           "title": "前言",
@@ -2785,6 +2850,11 @@
             {
               "title": "第 2 章 结构化证明",
               "path": "math2001/02_Proofs_with_Structure.md",
+              "summary": ""
+            },
+            {
+              "title": "第 3 章 奇偶与整除",
+              "path": "math2001/03_Parity_and_Divisibility.md",
               "summary": ""
             }
           ]

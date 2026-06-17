@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T01:05:09.002Z",
-  "entryCount": 2854,
+  "generatedAt": "2026-06-17T01:18:10.715Z",
+  "entryCount": 2965,
   "entries": [
     {
       "kind": "chapter",
@@ -6733,6 +6733,134 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定",
+      "section": "类型系统详解",
+      "text": "universe 变量绑定 对应英文：Universe Variable Bindings，抓取日期：2026 06 16。 Lean 支持显式绑定 universe 变量。除了把 level 直接写在名字后，如 ，也可以先声明一组 universe 名称，再在后续定义中复用。 命令 它会把 、 、 作为当前作用域中的 universe 变量引入。之后你就可以在： 类型签名 level expression 显式 universe 参数 中使用这些名字。 为什么需要显式绑定 自动 universe 推断大多数时候够用，但在以下场景中经常需要显式绑定： 定义右侧用了某个 universe 变量，而左侧 header 没显式出现它； 希望控制多个定义共享同一组 universe 参数； 想让代码更明确表达“这是一个 universe polymorphic 构造”。 与 automatic implicit parameter 的区别 绑定的是 level variable ，不是普通 term 变量。它不会出现在值级别的局部上下文里，也不参与普通参数推断；它只影响类型所在 universe。 作用域 和普通名字绑定类似， 命令引入的变量也受作用域控制。若在某个局部块中声明 universe 名称，离开该块后它们就不再可见。 使用建议 只要 universe 参数已经开始出现在错误消息里，通常就值得把它们显式命名； 若某定义明显面向多 universe 复用，优先写清楚 ，比完全依赖推断更可维护。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › `universe` 命令",
+      "section": "类型系统详解",
+      "text": "`universe` 命令",
+      "anchor": "universe"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 为什么需要显式绑定",
+      "section": "类型系统详解",
+      "text": "为什么需要显式绑定",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 与 automatic implicit parameter 的区别",
+      "section": "类型系统详解",
+      "text": "与 automatic implicit parameter 的区别",
+      "anchor": "automatic-implicit-parameter"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 作用域",
+      "section": "类型系统详解",
+      "text": "作用域",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式",
+      "section": "类型系统详解",
+      "text": "universe level 表达式 对应英文：Level Expressions，抓取日期：2026 06 16。 universe 参数并不只是“某个抽象整数变量”。Lean 允许把 universe level 组合成表达式，用来精确描述类型应落在哪一层。 常见形式 英文页列出的典型 level expression 包括： 最常见用途是表达“某个类型的类型”在更高一层。例如： 若 那么“以 为成员的某种普通数据结构”通常会落在不低于 的层 而“ 这个类型本身”的类型则要落在 表示“至少和 、 一样大”的最小 universe。它常出现在： product / sum / structure 把两个不同层级类型打包在一起时； 函数类型需要同时容纳参数和结果 universe 时。 是专门服务 impredicativity 规则的组合器。直觉上，它在处理“如果结果在 中，则整体也可落在 ”这类情况时，比普通 更精细。 为什么要显式关心它们 调试 universe mismatch 时，错误信息经常直接显示这些表达式； 写 universe polymorphic 库时，你需要知道“这个类型为什么在 ，而不是在 ”； 读 Lean 自动生成的 recursor、结构体类型和高阶抽象时，经常会看到它们。 使用建议 普通应用层代码里通常不用手写复杂 level expression； 一旦开始写 universe polymorphic 抽象，就应把 、 、 看成基础工具，而不是异常符号。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 常见形式",
+      "section": "类型系统详解",
+      "text": "常见形式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `u + 1`",
+      "section": "类型系统详解",
+      "text": "`u + 1`",
+      "anchor": "u-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `max`",
+      "section": "类型系统详解",
+      "text": "`max`",
+      "anchor": "max"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `imax`",
+      "section": "类型系统详解",
+      "text": "`imax`",
+      "anchor": "imax"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 为什么要显式关心它们",
+      "section": "类型系统详解",
+      "text": "为什么要显式关心它们",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
       "title": "universe lifting",
       "section": "类型系统详解",
@@ -6777,6 +6905,65 @@
       "section": "类型系统详解",
       "text": "使用建议",
       "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节",
+      "section": "类型系统详解",
+      "text": "与 细节 对应英文：PLift / ULift，抓取日期：2026 06 16。 和 都是“改变 universe 外壳，但不改变底层值/信息”的工具。它们最常见的接口分别是： 适用于任意类型，包括 proposition。它非常适合“把 proof 搬进普通数据世界”这一类问题。 核心直觉： 里仍是一个 只是它现在被包装到更高 universe 层级里 则专门针对非 proposition 类型，允许把某个普通数据类型抬升到任意更高 universe。 / ：把底层值装进 lifted 版本 ：把 lifted 值还原回底层值 它们不是“转换数据内容”，而只是“改变外层宇宙壳”。 何时直接看这些 API 大多数时候，知道 / 的概念就够了；但当你： 真正手写 universe polymorphic library 在定理陈述里来回搬运类型 读到底层 recursor / 内建定义中显式出现 / 时，理解这些 API 细节会更重要。 使用建议 需要 proposition 也被提升时，用 ； 只处理普通数据 universe 时，优先 ； 若发现自己频繁显式写 / ，可以考虑上层 API 是否该重新设计，以减少使用者负担。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `PLift`",
+      "section": "类型系统详解",
+      "text": "`PLift`",
+      "anchor": "plift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `ULift`",
+      "section": "类型系统详解",
+      "text": "`ULift`",
+      "anchor": "ulift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `up` / `down`",
+      "section": "类型系统详解",
+      "text": "`up` / `down`",
+      "anchor": "up-down"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › 何时直接看这些 API",
+      "section": "类型系统详解",
+      "text": "何时直接看这些 API",
+      "anchor": "api"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
     },
     {
       "kind": "chapter",
@@ -7736,6 +7923,231 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型",
+      "section": "类型系统详解",
+      "text": "recursor 类型 对应英文：Recursor Types，抓取日期：2026 06 16。 每个归纳类型都会自动生成一个 recursor。其类型并不是“随便某个高阶函数”，而是精确编码了： motive 每个 constructor 对应的分支 最终要消去的值 motive recursor 类型中最关键的一项是 motive 。它描述“对被分析值，要得到什么类型的结果”。 若只是普通 case analysis，motive 可是常量函数； 若是依赖消去，motive 会随输入值变化。 也正因如此，归纳证明和依赖类型模式匹配最终都能统一为 recursor 应用。 每个 constructor 一支 recursor 会为每个 constructor 接收一段“如果值由这个 constructor 构造，该怎么办”的分支。若 constructor 自身递归地引用该归纳类型，recursor 分支中通常还会收到对子部分递归调用后的结果。 最终参数 在所有分支之后，recursor 再接收真正待分析的归纳值。也就是说，recursor 类型把“证明规则”编码成了普通函数的参数顺序。 为什么要理解它 高层写法如： 递归 在 elaboration 之后都会落到 recursor。理解 recursor 类型，能帮助你： 读懂 elaboration 结果； 理解 dependent pattern matching 为什么有时需要 motive； 判断某个归纳定义的 elimination 能力到底有多强。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › motive",
+      "section": "类型系统详解",
+      "text": "motive",
+      "anchor": "motive"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 每个 constructor 一支",
+      "section": "类型系统详解",
+      "text": "每个 constructor 一支",
+      "anchor": "constructor"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 最终参数",
+      "section": "类型系统详解",
+      "text": "最终参数",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 为什么要理解它",
+      "section": "类型系统详解",
+      "text": "为什么要理解它",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造",
+      "section": "类型系统详解",
+      "text": "终止检查辅助构造 对应英文：Constructions for Termination Checking，抓取日期：2026 06 16。 Lean 用 recursor 作为递归定义终止性的最终基础。但在 elaboration 过程中，还需要一些辅助构造来把用户写的高层递归整理成内核可接受的形式。 英文页特别列出 。它为许多类型提供“大小”概念，使 Lean 能把某些递归调用解释为“参数在某个良基度量上严格减小”。 这类辅助构造的角色是： 帮 termination checker 建立度量； 把用户眼中的“显然变小”转成系统可验证的形式； 支撑一些不完全是结构递归、但仍可证明终止的定义。 为什么需要辅助构造 用户写下的递归函数往往经过了： 模式匹配 局部定义 语法糖 多层辅助函数 这些高层结构不一定直接暴露“递归参数变小”这一事实。辅助构造的任务，就是把这种信息重新显式化。 使用建议 看到 termination checker 报错时，不要只盯着代码表面；要想一想系统是否缺少“规模减小”的证据。 若结构递归不明显，往往需要借助 size / measure / well founded 视角重新组织定义。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › `SizeOf`",
+      "section": "类型系统详解",
+      "text": "`SizeOf`",
+      "anchor": "sizeof"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › 为什么需要辅助构造",
+      "section": "类型系统详解",
+      "text": "为什么需要辅助构造",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type`",
+      "section": "类型系统详解",
+      "text": "与 对应英文：Prop vs Type，抓取日期：2026 06 16。 归纳定义落在 还是 ，会显著影响其 elimination 和运行时意义。 落在 若归纳类型是 proposition： proof 在运行时会被擦除； elimination 一般更受限制； 重点是逻辑推理，而不是计算。 例如 、 、 、 、 都属于这一类。 落在 若归纳类型是普通数据类型： 值会参与运行时表示； elimination 可进入更一般的结果类型； recursor 更偏计算和数据结构处理。 例如 、 、 等都在 中。 为什么需要区分 Lean 之所以区分这两类，是为了同时满足： 证明的 proof irrelevance 与擦除语义； 程序计算时对数据的正常可观察性。 若不区分，命题 proof 可能泄漏到运行时；反过来，普通数据又可能被错误地当成“无信息的证明对象”。 实践含义 同样是 关键字，定义落点不同，后续可做的事情也不同； 某些 elimination 被拒绝，往往不是因为语法错，而是因为你在试图把 当普通数据消去； 设计 API 时要先问自己：这个对象是为了计算，还是为了陈述/证明。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 落在 `Prop`",
+      "section": "类型系统详解",
+      "text": "落在 `Prop`",
+      "anchor": "prop"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 落在 `Type`",
+      "section": "类型系统详解",
+      "text": "落在 `Type`",
+      "anchor": "type"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 为什么需要区分",
+      "section": "类型系统详解",
+      "text": "为什么需要区分",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 实践含义",
+      "section": "类型系统详解",
+      "text": "实践含义",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI",
+      "section": "类型系统详解",
+      "text": "归纳类型与 FFI 对应英文：FFI，抓取日期：2026 06 16。 当归纳类型要与外部语言或运行时接口交互时，仅理解其逻辑定义还不够；还必须理解它在编译后如何表示。 为什么 FFI 会在这里出现 FFI 关心的是： 这个 Lean 类型在内存里长什么样； proof 字段是否会被擦除； 是否是 trivial wrapper； 是否存在特殊运行时表示。 这些都直接依赖归纳类型的运行时布局，而不是只依赖高层 语法。 风险 若把一个逻辑上看似简单的归纳类型直接映射到外部接口，而不考虑： constructor tag 包装层 被擦除字段 内存布局 就可能得到错误甚至不安全的互操作。 使用建议 归纳类型参与 FFI 时，必须同时看逻辑模型和运行时表示。 若某类型需要稳定 FFI 布局，通常应显式设计并尽量保持简单。 不要把“Lean 源码层看起来像一个结构”直接等同于“FFI 层也就是那个结构体布局”。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 为什么 FFI 会在这里出现",
+      "section": "类型系统详解",
+      "text": "为什么 FFI 会在这里出现",
+      "anchor": "ffi"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 风险",
+      "section": "类型系统详解",
+      "text": "风险",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper",
+      "section": "类型系统详解",
+      "text": "trivial wrapper 对应英文：Trivial Wrappers，抓取日期：2026 06 16。 某些归纳类型在逻辑上看是完整的新类型，但在运行时几乎只是“把一个底层值包起来”。这类类型常被称为 trivial wrapper 。 典型特征 只有一个真正相关的非 proof 字段； 其余字段是 proof，或在运行时会被擦除； 编译后可与底层值共享相同或近似相同表示。 为什么重要 trivial wrapper 解释了许多常见现象： 某些逻辑上很丰富的类型几乎没有运行时开销； 、部分结构体包装、某些 refinement 风格对象在性能上并不昂贵； 证明层面的抽象与运行时代码的轻量表示可以同时成立。 与 proof 擦除的关系 proof 字段在编译后会被擦除，因此一个“值 + proof”的包装常常最终只剩下那个值本身。正因为如此，很多用类型携带不变量的建模方式在 Lean 中既安全又高效。 使用建议 若某类型只是在已有数据上附加 proof 或很薄的一层标记，可以把它视作 trivial wrapper 候选； 性能敏感代码里，不要过早因为“逻辑上多了一层包装”就担心运行时开销。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 典型特征",
+      "section": "类型系统详解",
+      "text": "典型特征",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 为什么重要",
+      "section": "类型系统详解",
+      "text": "为什么重要",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 与 proof 擦除的关系",
+      "section": "类型系统详解",
+      "text": "与 proof 擦除的关系",
+      "anchor": "proof"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/InductiveDetails/WellFormedness.md",
       "title": "归纳类型的良构性要求",
       "section": "类型系统详解",
@@ -8173,6 +8585,231 @@
       "section": "类型系统详解",
       "text": "使用建议",
       "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型",
+      "section": "类型系统详解",
+      "text": "recursor 类型 对应英文：Recursor Types，抓取日期：2026 06 16。 每个归纳类型都会自动生成一个 recursor。其类型并不是“随便某个高阶函数”，而是精确编码了： motive 每个 constructor 对应的分支 最终要消去的值 motive recursor 类型中最关键的一项是 motive 。它描述“对被分析值，要得到什么类型的结果”。 若只是普通 case analysis，motive 可是常量函数； 若是依赖消去，motive 会随输入值变化。 也正因如此，归纳证明和依赖类型模式匹配最终都能统一为 recursor 应用。 每个 constructor 一支 recursor 会为每个 constructor 接收一段“如果值由这个 constructor 构造，该怎么办”的分支。若 constructor 自身递归地引用该归纳类型，recursor 分支中通常还会收到对子部分递归调用后的结果。 最终参数 在所有分支之后，recursor 再接收真正待分析的归纳值。也就是说，recursor 类型把“证明规则”编码成了普通函数的参数顺序。 为什么要理解它 高层写法如： 递归 在 elaboration 之后都会落到 recursor。理解 recursor 类型，能帮助你： 读懂 elaboration 结果； 理解 dependent pattern matching 为什么有时需要 motive； 判断某个归纳定义的 elimination 能力到底有多强。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › motive",
+      "section": "类型系统详解",
+      "text": "motive",
+      "anchor": "motive"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 每个 constructor 一支",
+      "section": "类型系统详解",
+      "text": "每个 constructor 一支",
+      "anchor": "constructor"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 最终参数",
+      "section": "类型系统详解",
+      "text": "最终参数",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RecursorTypes.md",
+      "title": "recursor 类型 › 为什么要理解它",
+      "section": "类型系统详解",
+      "text": "为什么要理解它",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type`",
+      "section": "类型系统详解",
+      "text": "与 对应英文：Prop vs Type，抓取日期：2026 06 16。 归纳定义落在 还是 ，会显著影响其 elimination 和运行时意义。 落在 若归纳类型是 proposition： proof 在运行时会被擦除； elimination 一般更受限制； 重点是逻辑推理，而不是计算。 例如 、 、 、 、 都属于这一类。 落在 若归纳类型是普通数据类型： 值会参与运行时表示； elimination 可进入更一般的结果类型； recursor 更偏计算和数据结构处理。 例如 、 、 等都在 中。 为什么需要区分 Lean 之所以区分这两类，是为了同时满足： 证明的 proof irrelevance 与擦除语义； 程序计算时对数据的正常可观察性。 若不区分，命题 proof 可能泄漏到运行时；反过来，普通数据又可能被错误地当成“无信息的证明对象”。 实践含义 同样是 关键字，定义落点不同，后续可做的事情也不同； 某些 elimination 被拒绝，往往不是因为语法错，而是因为你在试图把 当普通数据消去； 设计 API 时要先问自己：这个对象是为了计算，还是为了陈述/证明。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 落在 `Prop`",
+      "section": "类型系统详解",
+      "text": "落在 `Prop`",
+      "anchor": "prop"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 落在 `Type`",
+      "section": "类型系统详解",
+      "text": "落在 `Type`",
+      "anchor": "type"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 为什么需要区分",
+      "section": "类型系统详解",
+      "text": "为什么需要区分",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/PropVsType.md",
+      "title": "`Prop` 与 `Type` › 实践含义",
+      "section": "类型系统详解",
+      "text": "实践含义",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造",
+      "section": "类型系统详解",
+      "text": "终止检查辅助构造 对应英文：Constructions for Termination Checking，抓取日期：2026 06 16。 Lean 用 recursor 作为递归定义终止性的最终基础。但在 elaboration 过程中，还需要一些辅助构造来把用户写的高层递归整理成内核可接受的形式。 英文页特别列出 。它为许多类型提供“大小”概念，使 Lean 能把某些递归调用解释为“参数在某个良基度量上严格减小”。 这类辅助构造的角色是： 帮 termination checker 建立度量； 把用户眼中的“显然变小”转成系统可验证的形式； 支撑一些不完全是结构递归、但仍可证明终止的定义。 为什么需要辅助构造 用户写下的递归函数往往经过了： 模式匹配 局部定义 语法糖 多层辅助函数 这些高层结构不一定直接暴露“递归参数变小”这一事实。辅助构造的任务，就是把这种信息重新显式化。 使用建议 看到 termination checker 报错时，不要只盯着代码表面；要想一想系统是否缺少“规模减小”的证据。 若结构递归不明显，往往需要借助 size / measure / well founded 视角重新组织定义。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › `SizeOf`",
+      "section": "类型系统详解",
+      "text": "`SizeOf`",
+      "anchor": "sizeof"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › 为什么需要辅助构造",
+      "section": "类型系统详解",
+      "text": "为什么需要辅助构造",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TerminationChecking.md",
+      "title": "终止检查辅助构造 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper",
+      "section": "类型系统详解",
+      "text": "trivial wrapper 对应英文：Trivial Wrappers，抓取日期：2026 06 16。 某些归纳类型在逻辑上看是完整的新类型，但在运行时几乎只是“把一个底层值包起来”。这类类型常被称为 trivial wrapper 。 典型特征 只有一个真正相关的非 proof 字段； 其余字段是 proof，或在运行时会被擦除； 编译后可与底层值共享相同或近似相同表示。 为什么重要 trivial wrapper 解释了许多常见现象： 某些逻辑上很丰富的类型几乎没有运行时开销； 、部分结构体包装、某些 refinement 风格对象在性能上并不昂贵； 证明层面的抽象与运行时代码的轻量表示可以同时成立。 与 proof 擦除的关系 proof 字段在编译后会被擦除，因此一个“值 + proof”的包装常常最终只剩下那个值本身。正因为如此，很多用类型携带不变量的建模方式在 Lean 中既安全又高效。 使用建议 若某类型只是在已有数据上附加 proof 或很薄的一层标记，可以把它视作 trivial wrapper 候选； 性能敏感代码里，不要过早因为“逻辑上多了一层包装”就担心运行时开销。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 典型特征",
+      "section": "类型系统详解",
+      "text": "典型特征",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 为什么重要",
+      "section": "类型系统详解",
+      "text": "为什么重要",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 与 proof 擦除的关系",
+      "section": "类型系统详解",
+      "text": "与 proof 擦除的关系",
+      "anchor": "proof"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/TrivialWrappers.md",
+      "title": "trivial wrapper › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI",
+      "section": "类型系统详解",
+      "text": "归纳类型与 FFI 对应英文：FFI，抓取日期：2026 06 16。 当归纳类型要与外部语言或运行时接口交互时，仅理解其逻辑定义还不够；还必须理解它在编译后如何表示。 为什么 FFI 会在这里出现 FFI 关心的是： 这个 Lean 类型在内存里长什么样； proof 字段是否会被擦除； 是否是 trivial wrapper； 是否存在特殊运行时表示。 这些都直接依赖归纳类型的运行时布局，而不是只依赖高层 语法。 风险 若把一个逻辑上看似简单的归纳类型直接映射到外部接口，而不考虑： constructor tag 包装层 被擦除字段 内存布局 就可能得到错误甚至不安全的互操作。 使用建议 归纳类型参与 FFI 时，必须同时看逻辑模型和运行时表示。 若某类型需要稳定 FFI 布局，通常应显式设计并尽量保持简单。 不要把“Lean 源码层看起来像一个结构”直接等同于“FFI 层也就是那个结构体布局”。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 为什么 FFI 会在这里出现",
+      "section": "类型系统详解",
+      "text": "为什么 FFI 会在这里出现",
+      "anchor": "ffi"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 风险",
+      "section": "类型系统详解",
+      "text": "风险",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/FFI.md",
+      "title": "归纳类型与 FFI › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-2"
     },
     {
       "kind": "chapter",
@@ -25008,6 +25645,465 @@
       "section": "正文",
       "text": "2.5.9 练习",
       "anchor": "2-5-9"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除",
+      "section": "正文",
+      "text": "written 1355 lines ��整除 本译文对应原书 Parity and divisibility；英文 Sphinx 源： 。 本章问题涉及自然数与整数的一些初等性质： 奇偶 （parity，即一个数是 偶 （even）还是 奇 （odd））、 整除 （divisibility），以及 模同余 （congruence modulo） 。 本章没有 、 等新逻辑符号，推理工具箱也没有重大增补（例如中间步骤或引理的新用法）。因此本章在艰苦的 第 2 章 与 第 4 章 之间起到缓冲作用，让你巩固已学内容。 3.1 定义；奇偶 3.1.1 例题 数学术语首次引入时会给出定义。 定义 整数 是 奇 （odd）的，若存在整数 ，使得 。 在 Lean 中定义如下。 在纸笔证明中，你必须记住每个定义；这对运用它们至关重要。在 Lean 中，若你想核对某术语的定义，可右键（Windows）/双指点击（Mac）选择「Go to Definition」（转到定义），会跳转到 Lean 代码中该定义所在处。（快捷键 可从定义处返回先前的工作位置。） 问题 证明 是奇数。 解 ，故 是奇数。 本题在 Lean 中如下。 初始目标状态为： 可在证明中用 （「definitional simplify」，定义化简）策略核对定义。此处可在证明中输入 ，将「奇」的定义展开： 之后目标用「奇」的定义而非单词「odd」显示： 这是可选的；若删除 行，证明仍可完成。 下面是该解的完整 Lean 翻译。 若你不太跟得上证明——无论是文字版还是 Lean 版——请重读 第 2.5 节 的一些例题，例如 例题 2.5.3。 3.1.2 例题 下面是一个类似例题。 问题 证明 是奇数。 你应证明 对某个整数 成立。但哪个 可行？ 3.1.3 例题 问题 设 为整数。证明若 为奇，则 为奇。 解 设 为奇。则存在整数 使得 。于是 故 为奇。 Lean 版问题初始目标状态如下。 若想在目标中展开定义 ，可用 ，如 例题 3.1.1 所述。若想在处处（目标与假设）展开 ，可用 。之后目标状态为： 这是我们首次遇到可能令人困惑之处。存在量词内的变量是「一次性」变量，只在该句存续期间存在。因此同一变量可能在目标状态中多次出现，却未必指同一事物。此处假设 中的 与目标中的 不同；它们只是展开「奇」的定义时的默认名称。 再次说明， 行在解中并非必需。 3.1.4 例题 问题 设 为整数。证明若 为奇，则 为奇。 3.1.5 例题 问题 证明若整数 与 均为奇，则 为奇。 解 因 与 为奇，存在整数 使得 ，且存在整数 使得 。则 故 为奇。 3.1.6 例题 问题 证明若整数 与 均为奇，则 为奇。 解 因 与 为奇，存在整数 使得 ，且存在整数 使得 。则 故 为奇。 3.1.7 例题 你大概能猜出「偶」的定义。 定义 整数 是 偶 （even）的，若存在整数 ，使得 。 问题 设 为整数。证明若 为奇，则 为偶。 解 因 为奇，存在整数 使得 。于是 故 为偶。 3.1.8 例题 问题 设 为偶整数。证明 为奇。 3.1.9 例题 事实上每个整数或为偶或为奇；我们稍后在 例题 4.2.9 讨论如何证明这一点。 在 Lean 中该事实可作为引理 调用： 问题 设 为整数。证明 为偶。 解 我们分两种情形，取决于 为偶还是奇。 若 为偶，则存在整数 使得 。则 故 为偶。 若 为奇，则存在整数 使得 。则 故 仍为偶。 3.1.10 练习 1. 证明 为奇。 2. 证明 为偶。 3. 设 为奇整数， 为偶整数。证明 为奇。 4. 设 为奇整数， 为偶整数。证明 为奇。 5. 设 为偶整数， 为奇整数。证明 为偶。 6. 证明若整数 与 均为奇，则 为偶。 7. 设 为整数。证明若 为奇，则 为奇。 8. 设 为奇整数。证明 为偶。 9. 设 为整数，且 为奇。证明 为奇。 10. 设 为奇整数。证明 为奇。 11. 设 与 为奇整数。证明 为奇。 12. 设 为整数。证明 为奇。 13. 设 为整数。证明存在整数 为奇。 14. 设 、 与 为整数。证明 、 或 中至少有一个为偶。[^1] [^1]: 练习取自 Hammack，《Book of Proof》第 9 章。 3.2 整除 3.2.1 例题 你可能以前见过整除的定义。 定义 自然数 可被 （is divisible by）另一自然数 整除 ，若存在自然数 ，使得 。 例如， 问题 证明自然数 88 可被 11 整除。 解 。 整除是非常重要的概念，有多种不同说法。下列表述含义相同： 可被 整除 是 的倍数 是 的约数 （divisor） 是 的因子 （factor） 整除 我们最常用最后一种——「 整除 」——因为它最简洁。还有标准记号 ，我们也会频繁使用。 在 Lean 中，整除的定义已在库中，并附带许多相关定理。我们通常在 Lean 中用记号 处理该定义，在 Lean 中可输入 或 。（一般地，在 VSCode 中用鼠标悬停在符号上可查看如何输入。）注意：这与键盘上视觉相似的符号 不同，后者用于 语句。 如在 第 3.1 节 中对 所做，可在 Lean 证明中途展开整除的定义以提醒自己当前语境下的含义。可写 （这是 Lean 中整除记号 的文本名），或 ——遗憾的是，不带点与括号的 不起作用。与 第 3.1 节 例题一样，这种展开是可选的——没有它证明仍成立。 3.2.2 例题 该定义的另一个特点是：虽在上面针对自然数陈述，我们也常要考虑整数的整除。整数情形定义如下： 定义 整数 可被 另一整数 整除 ，若存在整数 ，使得 。 整数整除也使用上述所有变体术语及同一记号 。 问题 证明整数 6 可被 整除。 解 。 3.2.3 例题 问题 设 与 为整数，且 。证明 。 解 因 ，存在整数 使得 。则 故 。 3.2.4 例题 问题 设 、 与 为自然数，且 、 。证明 。 解 因 ，存在自然数 使得 。因 ，存在自然数 使得 。则 故 。 将该解翻译成 Lean。如愿意，可用 在目标状态中处处展开 的定义，但这不影响证明的正确性。 3.2.5 例题 问题 设 、 与 为自然数，且 。证明 。 解 因 ，存在自然数 使得 。则 故 。 3.2.6 例题 你可能想知道如何证明一个数 不 被另一数整除。一个便利的判别法是本书稍后将在 例题 4.5.8 证明的定理：若整数 严格介于整数 的两个连续倍数之间，则 不是 的倍数。更形式地，若存在整数 使得 ，则 不是 的倍数。下面是应用该判别的一个例子： 问题 证明 12 不能被 5 整除。 解 。 在 Lean 中，该判别以引理 提供： 下面是同一解的 Lean 写法。 3.2.7 例题 问题 设 与 为自然数， 为正，且 整除 。证明 。 解 因 ，存在自然数 使得 。 我们首先注意到 故 。于是事实上 。 现在， 该引理在主 Lean 库中名为 。 3.2.8 例题 问题 设 与 为自然数， 为正，且 整除 。证明 为正。 解 因 ，存在自然数 使得 。 我们有 故 。 该引理在主 Lean 库中名为 。 3.2.9 练习 1. 证明 0 可被每个整数 整除。 2. 证明 不能被 3 整除。 3. 设 与 为整数，且 。证明 。 4. 设 与 为整数，且 。证明 。 5. 设 与 为整数，且 。证明 。 6. 设 、 与 为整数，且 整除 、 整除 。证明 整除 。 7. 设 、 与 为整数，且 整除 、 整除 。证明 整除 。 8. 证明存在自然数 ，使得 是 的因子。 9. 证明存在整数 与 ，且 ，使得 。 3.3 模算术：理论 定义 整数 与 模 同余 （congruent modulo ），若 。 我们用记号 表示 与 模 同余。 3.3.1 例题 问题 证明 。 解 ，故 。 3.3.2 例题 问题 证明 。 解 ，故 。 3.3.3 例题 引理 （模算术加法法则） 设 、 、 、 与 为整数，且 、 。则 。 证明 因 ，存在整数 使得 。因 ，存在整数 使得 。则 故 。 3.3.4 练习 引理 （模算术减法法则） 设 、 、 、 与 为整数，且 、 。则 。 3.3.5 练习 引理 （模算术取负法则） 设 、 与 为整数，且 。则 。 3.3.6 例题 引理 （模算术乘法法则） 设 、 、 、 与 为整数，且 、 。则 。 证明 因 ，存在整数 使得 。因 ，存在整数 使得 。则 故 。 3.3.7 例题 注意：模算术 没有 「除法法则」！ 问题 可以存在整数 、 、 、 与 ，使得 、 ，但 。 解 可取 、 、 、 。事实上， ，故 ； ，故 ； 介于 4 的连续倍数 与 之间，故 。 注意此处我们用了 例题 3.2.6 中的不可整除判别法。 3.3.8 例题 引理 （模算术平方法则） 设 、 与 为整数，且 。则 。 证明 因 ，存在整数 使得 。则 3.3.9 练习 引理 （模算术立方法则） 设 、 与 为整数，且 。则 。 事实上对任意幂次都成立，尽管我们尚无工具证明它。稍后在 例题 6.1.3 会回到这一点。 引理 （模算术幂法则） 设 为自然数， 、 与 为整数，且 。则 。 3.3.10 例题 引理 （模算术自反法则） 设 与 为整数。则 。 证明 ，故 。 3.3.11 例题 呼！引理真不少。但它们会派上用场，你马上就能看到。假设我们现在遇到与以前同类型、非常具体的模算术问题：模 下两个表达式同余，二者差异像「找不同」式改写。例如， 问题 设 与 为整数，且 。证明 。 我们可以直接从定义求解，这相当费力： 或者更好的是，按正确顺序组合已证引理。这需要少得多的思考： 3.3.12 练习 1. 证明 。 2. （模算术对称法则）设 、 与 为整数，且 。证明 。 3. （模算术传递法则）设 、 、 与 为整数，且 、 。证明 。 4. 设 、 与 为整数。证明 。 5. 给出 例题 3.3.7 的另一种解（即用不同数字）。 6. 设 与 为整数，且 。证明 。 给出两种解，仿照 例题 3.3.11 中两种解的风格。 7. 设 与 为整数，且 。证明 。 给出两种解，仿照 例题 3.3.11 中两种解的风格。 8. 设 为整数，且 。证明 。 给出两种解，仿照 例题 3.3.11 中两种解的风格。 3.4 模算术：计算 3.4.1 例题 回顾 例题 3.3.11 中的问题。 问题 设 与 为整数，且 。证明 。 在解完本题及 第 3.3 节 中许多类似问题后，你大概觉得这类陈述一眼就能核对正确性。这很好！当理论积累到某类陈述可以一眼核对时，我们就不再要求详细证明。因此从现在起，我们将默认接受这类陈述。 这也通常是编写 Lean 策略以自动核对某类陈述的恰当时机。我正是这样做的：更新策略 以覆盖这类陈述。本书不讨论策略编写，但实质上，该策略现在会把引理 、 、 、 、 、 以及给定假设投向陈述，直到（a）目标解决，或（b）这些引理都不再适用。这正是我们在纸面上核对问题时头脑中所做的。 3.4.2 例题 从现在起，我们将解更有趣的模算术问题，把像 例题 3.3.11 那样的步骤压缩到一行。 问题 设 与 为整数， 、 。证明 。 解 3.4.3 例题 问题 证明存在整数 ，使得 。 解 整数 8 具有该性质。事实上， 3.4.4 例题 问题 设 为整数。证明 。 解 我们按 模 3 的余数分情形讨论。 情形 1 （ ）： 情形 2 （ ）： 情形 3 （ ）： 3.4.5 练习 1. 设 为整数，且 。证明 。 2. 设 为整数，且 。证明 。 3. 设 与 为整数。证明 。 4. 证明存在整数 ，使得 。 5. 证明存在整数 ，使得 。 6. 设 为整数。证明 。 7. 设 为整数。证明 。 3.5 Bézout 恒等式 3.5.1 例题 问题 设 为整数，且 是 的倍数。证明 也是 的倍数。 解 因 ，存在整数"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1 定义；奇偶",
+      "section": "正文",
+      "text": "3.1 定义；奇偶",
+      "anchor": "3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.1 例题",
+      "section": "正文",
+      "text": "3.1.1 例题",
+      "anchor": "3-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.2 例题",
+      "section": "正文",
+      "text": "3.1.2 例题",
+      "anchor": "3-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.3 例题",
+      "section": "正文",
+      "text": "3.1.3 例题",
+      "anchor": "3-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.4 例题",
+      "section": "正文",
+      "text": "3.1.4 例题",
+      "anchor": "3-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.5 例题",
+      "section": "正文",
+      "text": "3.1.5 例题",
+      "anchor": "3-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.6 例题",
+      "section": "正文",
+      "text": "3.1.6 例题",
+      "anchor": "3-1-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.7 例题",
+      "section": "正文",
+      "text": "3.1.7 例题",
+      "anchor": "3-1-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.8 例题",
+      "section": "正文",
+      "text": "3.1.8 例题",
+      "anchor": "3-1-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.9 例题",
+      "section": "正文",
+      "text": "3.1.9 例题",
+      "anchor": "3-1-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.1.10 练习",
+      "section": "正文",
+      "text": "3.1.10 练习",
+      "anchor": "3-1-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2 整除",
+      "section": "正文",
+      "text": "3.2 整除",
+      "anchor": "3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.1 例题",
+      "section": "正文",
+      "text": "3.2.1 例题",
+      "anchor": "3-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.2 例题",
+      "section": "正文",
+      "text": "3.2.2 例题",
+      "anchor": "3-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.3 例题",
+      "section": "正文",
+      "text": "3.2.3 例题",
+      "anchor": "3-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.4 例题",
+      "section": "正文",
+      "text": "3.2.4 例题",
+      "anchor": "3-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.5 例题",
+      "section": "正文",
+      "text": "3.2.5 例题",
+      "anchor": "3-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.6 例题",
+      "section": "正文",
+      "text": "3.2.6 例题",
+      "anchor": "3-2-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.7 例题",
+      "section": "正文",
+      "text": "3.2.7 例题",
+      "anchor": "3-2-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.8 例题",
+      "section": "正文",
+      "text": "3.2.8 例题",
+      "anchor": "3-2-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.2.9 练习",
+      "section": "正文",
+      "text": "3.2.9 练习",
+      "anchor": "3-2-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3 模算术：理论",
+      "section": "正文",
+      "text": "3.3 模算术：理论",
+      "anchor": "3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.1 例题",
+      "section": "正文",
+      "text": "3.3.1 例题",
+      "anchor": "3-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.2 例题",
+      "section": "正文",
+      "text": "3.3.2 例题",
+      "anchor": "3-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.3 例题",
+      "section": "正文",
+      "text": "3.3.3 例题",
+      "anchor": "3-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.4 练习",
+      "section": "正文",
+      "text": "3.3.4 练习",
+      "anchor": "3-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.5 练习",
+      "section": "正文",
+      "text": "3.3.5 练习",
+      "anchor": "3-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.6 例题",
+      "section": "正文",
+      "text": "3.3.6 例题",
+      "anchor": "3-3-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.7 例题",
+      "section": "正文",
+      "text": "3.3.7 例题",
+      "anchor": "3-3-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.8 例题",
+      "section": "正文",
+      "text": "3.3.8 例题",
+      "anchor": "3-3-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.9 练习",
+      "section": "正文",
+      "text": "3.3.9 练习",
+      "anchor": "3-3-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.10 例题",
+      "section": "正文",
+      "text": "3.3.10 例题",
+      "anchor": "3-3-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.11 例题",
+      "section": "正文",
+      "text": "3.3.11 例题",
+      "anchor": "3-3-11"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.3.12 练习",
+      "section": "正文",
+      "text": "3.3.12 练习",
+      "anchor": "3-3-12"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4 模算术：计算",
+      "section": "正文",
+      "text": "3.4 模算术：计算",
+      "anchor": "3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4.1 例题",
+      "section": "正文",
+      "text": "3.4.1 例题",
+      "anchor": "3-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4.2 例题",
+      "section": "正文",
+      "text": "3.4.2 例题",
+      "anchor": "3-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4.3 例题",
+      "section": "正文",
+      "text": "3.4.3 例题",
+      "anchor": "3-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4.4 例题",
+      "section": "正文",
+      "text": "3.4.4 例题",
+      "anchor": "3-4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.4.5 练习",
+      "section": "正文",
+      "text": "3.4.5 练习",
+      "anchor": "3-4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.5 Bézout 恒等式",
+      "section": "正文",
+      "text": "3.5 Bézout 恒等式",
+      "anchor": "3-5-b-zout"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.5.1 例题",
+      "section": "正文",
+      "text": "3.5.1 例题",
+      "anchor": "3-5-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.5.2 例题",
+      "section": "正文",
+      "text": "3.5.2 例题",
+      "anchor": "3-5-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.5.3 例题",
+      "section": "正文",
+      "text": "3.5.3 例题",
+      "anchor": "3-5-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/03_Parity_and_Divisibility.md",
+      "title": "第 3 章 奇偶与整除 › 3.5.4 练习",
+      "section": "正文",
+      "text": "3.5.4 练习",
+      "anchor": "3-5-4"
     },
     {
       "kind": "chapter",
