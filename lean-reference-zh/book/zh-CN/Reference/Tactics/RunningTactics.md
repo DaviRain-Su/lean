@@ -37,3 +37,30 @@ by { tac1; tac2 }
 - 短而直接的证明可直接写 term；
 - 当证明需要分解 goal、引入假设、反复 rewrite 或依赖自动化时，`by` 往往更清晰；
 - 若 proof state 在多步之间演化明显，优先使用缩进式 tactic block，便于阅读和维护。
+
+## 示例
+
+定理里的 `by`：
+
+```lean
+theorem add_zero (n : Nat) : n + 0 = n := by
+  rw [Nat.add_zero]
+```
+
+`have` 引入局部引理：
+
+```lean
+example (a b : Nat) (h : a = b) : b = a := by
+  have h' : b = a := h.symm
+  exact h'
+```
+
+`let` 绑定中间项（证明里较少用，元编程里更常见）：
+
+```lean
+example (n : Nat) : n + 0 = n := by
+  let h := Nat.add_zero n
+  exact h
+```
+
+`by` 块最终都会 elaboration 成一个 proof term；可用 `#check` 查看（可能很大，默认会被折叠）。

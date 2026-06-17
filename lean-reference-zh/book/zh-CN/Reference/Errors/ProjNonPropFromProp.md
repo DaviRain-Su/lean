@@ -25,3 +25,20 @@
 ## 典型场景
 
 证明目标是 `∃ x, ...` 时，可以 pattern match 已有 existential proof，并用 witness 构造新的 existential proof。不要把 witness 提取成普通数据返回。
+
+## 示例
+
+```lean
+variable (P : Nat → Prop)
+
+-- 错误：对命题证明做字段投影
+example (h : ∃ n, P n) : ∃ m, P m := by
+  exact ⟨h.1, h.2⟩   -- projNonPropFromProp
+
+-- 正确：用 match / cases，且结果仍在 Prop
+example (h : ∃ n, P n) : ∃ m, P m := by
+  rcases h with ⟨n, hn⟩
+  exact ⟨n, hn⟩
+```
+
+`rcases`、`cases`、`match` 在**目标仍是命题**时是允许的；`h.1` 这类投影会被拒绝。

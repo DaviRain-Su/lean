@@ -33,3 +33,17 @@ noncomputable def name := ...
 - 替换 axiom 为真正实现。
 
 `noncomputable` 是语义声明，不是“忽略错误”。它表示该 declaration 只用于逻辑推理或 specification，不提供可执行代码。
+
+## 示例
+
+```lean
+open Classical
+
+-- 错误：用了 choice，却没有 noncomputable
+def pick (h : Nonempty Nat) : Nat := Classical.choose h
+
+-- 修复
+noncomputable def pick (h : Nonempty Nat) : Nat := Classical.choose h
+```
+
+`#eval` 只能跑可计算定义；标记 `noncomputable` 后该定义仍可用于证明，但不能参与代码生成。

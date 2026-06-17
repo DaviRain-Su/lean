@@ -38,4 +38,14 @@ def emptyNats := []
 def emptyNats : List Nat := []
 ```
 
-或在 body 中显式指定 constructor 的 implicit 参数。
+或在 body 中显式指定 constructor 的 implicit 参数：
+
+```lean
+def emptyNats := @List.nil Nat
+```
+
+`let` 里补类型信息有时也能带动整个定义：
+
+```lean
+def pair := let x : Nat := 1; (x, x)   -- 可推断为 Nat × Nat
+```

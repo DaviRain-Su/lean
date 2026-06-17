@@ -23,3 +23,19 @@
 - 如果确实需要返回数据，把输入从 proposition 改为 `Type` 中的数据结构，例如 dependent pair，而不是 `∃` proof。
 
 经验规则：从 `Prop` 中拆出来的东西，只能用于继续证明 `Prop`，不能作为普通程序数据返回。
+
+## 示例
+
+```lean
+-- 错误：从 ∃ 证明里取出 Nat 当作程序返回值
+def bad (h : ∃ n, n > 0) : Nat :=
+  match h with
+  | ⟨n, _⟩ => n   -- propRecLargeElim
+
+-- 可以：witness 只用于构造另一个命题
+theorem use_witness (h : ∃ n, n > 0) : ∃ m, m > 0 :=
+  match h with
+  | ⟨n, hn⟩ => ⟨n, hn⟩
+```
+
+需要可执行 witness 时，改用 `Type` 里的数据结构（例如 `Option Nat`、`Subtype`），而不是 `∃`。

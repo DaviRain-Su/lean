@@ -23,3 +23,25 @@
 - 检查 constructor type 的最后一段是否精确返回正在声明的 inductive type。
 - 如果只是 constructor 参数，使用 named binder 或普通参数语法，而不是把它写成 resulting type。
 - 对有 index 的 inductive type，确认参数和 index 出现在正确位置。
+
+## 示例
+
+```lean
+-- 错误：constructor 返回了拼错的类型名
+inductive Tree (α : Type) where
+  | leaf : α
+  | node : Tree α → α → Treee α   -- Treee 拼写错误
+
+-- 正确
+inductive Tree (α : Type) where
+  | leaf : α
+  | node : Tree α → α → Tree α
+```
+
+有 index 时必须写回完整 family：
+
+```lean
+inductive Vec (α : Type) : Nat → Type where
+  | nil  : Vec α 0
+  | cons (a : α) (n : Nat) (v : Vec α n) : Vec α (n + 1)   -- 末尾必须是 Vec α (n+1)
+```

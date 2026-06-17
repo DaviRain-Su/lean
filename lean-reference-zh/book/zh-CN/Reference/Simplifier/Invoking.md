@@ -60,3 +60,31 @@ simp optConfig only? ([ ... ])? (at ...)?
 - 只想做 definitional unfolding 优先 `dsimp`；
 - 需要限制规则时用 `simp only [...]`；
 - 想让 proof 对默认 simp set 变动更稳时，多考虑 `simpa`。
+
+## 示例
+
+只简化目标（默认）：
+
+```lean
+example (n : Nat) : n + 0 = n := by simp
+```
+
+只动假设 `h`：
+
+```lean
+example (n : Nat) (h : n + 0 = n) : n = n := by simp at h <;> rw [h]
+```
+
+从空 simp set 起步，避免默认库规则：
+
+```lean
+example (n : Nat) : n + 0 = n := by simp only [Nat.add_zero]
+```
+
+`simpa` 一步简化并关闭：
+
+```lean
+example (n : Nat) (h : n + 0 = n) : n = n := by simpa using h
+```
+
+`simp?` 在复杂目标上可打印「实际用到的规则」，便于收窄为 `simp only [...]`。

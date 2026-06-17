@@ -25,3 +25,25 @@ Lean 的 field notation 很强，也容易混淆。`color.value` 可能是一个
 - 让点号前表达式具有正确 type。
 - 添加 type annotation，使 Lean 能确定 receiver type。
 - 必要时改用完整函数调用，例如 `Nat.succ n`。
+
+## 示例
+
+```lean
+-- 错误：List 没有 .suc 字段
+#check ([] : List Nat).suc
+
+-- 修复：用 Nat.succ 或先取 head 再 succ
+#check Nat.succ 0
+```
+
+类型太泛时：
+
+```lean
+-- 错误：只知道 [Add α]，无法解析 .succ
+example [Add α] (n : α) : α := n.succ
+
+-- 修复：写清类型
+example (n : Nat) : Nat := n.succ
+-- 或
+example (n : Nat) : Nat := Nat.succ n
+```

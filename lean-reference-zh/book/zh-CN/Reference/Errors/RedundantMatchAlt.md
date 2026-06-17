@@ -31,3 +31,34 @@
 - 删除永远不会触发的 fallback clause。
 - 对 constructor 使用 dot-prefix notation 或完整名称，例如 `.nil` 或 `List.nil`。
 - 不建议关闭该检查；如果确实需要，可用 `set_option match.ignoreUnusedAlts true`，但这通常表示代码本身需要重写。
+
+## 示例
+
+```lean
+-- 错误：更一般的分支在前，后面的 nil 永远到不了
+def bad (xs : List Nat) : Nat :=
+  match xs with
+  | _   => 0
+  | nil => 1   -- redundantMatchAlt
+
+-- 正确：具体构造子放前面
+def good (xs : List Nat) : Nat :=
+  match xs with
+  | nil      => 0
+  | _ :: _   => 1
+```
+
+namespace 外忘记前缀时，`nil` 会被当成**变量**（匹配一切）：
+
+```lean
+def outside (xs : List Nat) : Nat :=
+  match xs with
+  | nil => 0      -- 这里的 nil 是变量名，不是 List.nil
+  | x :: xs => 1  -- 永远到不了
+
+-- 修复
+def fixed (xs : List Nat) : Nat :=
+  match xs with
+  | .nil => 0
+  | .cons _ _ => 1
+```

@@ -29,3 +29,13 @@ induction m with
 - 使用 core Lean 风格的 case alternative。
 - 如果你确实想用 Mathlib 风格，导入 Mathlib 并使用 `induction'`。
 - 把 inductive case 的变量名写到对应 case 中，而不是在 `with` 后一次性给出。
+
+## 对照
+
+| 写法 | 结果 |
+| --- | --- |
+| `induction n with \| zero => ... \| succ k ih => ...` | 核心 Lean 4 标准语法 |
+| `induction n with n n_ih` | 触发 `inductionWithNoAlts` |
+| `induction' n with ...` | 需 `import Mathlib`，Mathlib 专用 tactic |
+
+NNG / 旧教程里的「一行 with 两个名字」对应的是 Mathlib `induction'`，不是内置 `induction`。

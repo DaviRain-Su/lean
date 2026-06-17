@@ -23,3 +23,15 @@
 - 如果缺少的是需要稍后才提供的值，把它从 parameter 改成 index。
 
 与 `inductiveParamMismatch` 一样，核心判断是：这个量是否必须在整个 inductive declaration 中固定不变。固定不变才是 parameter；需要变化或部分应用时省略的应是 index。
+
+## 示例
+
+在定义内部引用当前归纳类型时，parameter 不能省略：
+
+```lean
+inductive MyList (α : Type) where
+  | nil  : MyList α           -- 必须写出 α，不能写 MyList
+  | cons : α → MyList α → MyList α
+```
+
+若需要「先不写长度、后面再填」的向量，应把长度改成 index（见 [inductiveParamMismatch](InductiveParamMismatch.md)），而不是部分应用 parameter。

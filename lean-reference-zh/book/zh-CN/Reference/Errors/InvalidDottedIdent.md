@@ -24,3 +24,29 @@ dotted identifier notation 允许省略 identifier 的 namespace，前提是 Lea
 - 写完整限定名，例如 `List.reverse`。
 - 如果想根据参数 type 调用函数，使用 generalized field notation，例如 `xs.reverse`。
 - 对 proposition 做 case analysis 时，如果想匹配 boolean constructor，先显式使用 `decide` 把 proposition 转成 `Bool`。
+
+## 示例
+
+```lean
+-- 错误：没有 expected type，.nil 无法解析
+def empty := .nil
+
+-- 修复：标注返回类型
+def empty : List Nat := .nil
+-- 或写全名
+def empty : List Nat := List.nil
+```
+
+在 `Prop` 位置使用 dotted ident 也会失败：
+
+```lean
+-- 错误：expected type 是命题，不能用 Bool 构造子的简写
+example : True := .true
+```
+
+若要根据**参数**类型选函数，用 field notation 而不是 dotted ident：
+
+```lean
+def rev (xs : List Nat) : List Nat := xs.reverse   -- OK
+-- 不是 def rev xs := .reverse                      -- 需要 expected type
+```

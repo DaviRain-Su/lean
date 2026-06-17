@@ -49,3 +49,36 @@
 - `rw` 的 `occs` 配置可改变目标 occurrence 的选择。
 
 这说明二者并非完全刚性工具，但其默认意图始终不同：`simp` 面向规范化，`rw` 面向精确改写。
+
+## 并排示例
+
+目标 `⊢ (if true then 1 else 2) + 0 = 1`：
+
+```lean
+-- simp：按 simp set 把 if、+0 等一并化简到 1 = 1
+example : (if true then 1 else 2) + 0 = 1 := by simp
+
+-- rw：只改你指定的那一步，其余形状保留
+example : (if true then 1 else 2) + 0 = 1 := by
+  rw [Nat.add_zero]   -- 目标仍是 (if true then 1 else 2) = 1
+```
+
+同一等式链里「只想动第二个 2」时（learn-proof 示例 10 的场景）：
+
+```lean
+-- rw 可指定 occurrence
+example : 2 + 2 = 4 := by
+  rw (occs := .pos [2]) [show 2 = Nat.succ 1 from rfl]
+
+-- simp only 限制规则，避免牵动整个数据库
+example (n : Nat) : n + 0 = n := by simp only [Nat.add_zero]
+```
+
+## 选型速查
+
+| 你想做的事 | 优先 |
+| --- | --- |
+| 清掉 `+ 0`、`if true`、projection | `simp` |
+| 按引理 `h` 精确替换一处 | `rw [h]` |
+| 只改第二个匹配子项 | `rw (occs := ...)` 或 `conv` |
+| 避免 simp 误伤其他子式 | `simp only [...]` 或 `rw` |

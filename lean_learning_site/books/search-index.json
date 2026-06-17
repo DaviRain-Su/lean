@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T04:20:01.658Z",
-  "entryCount": 3350,
+  "generatedAt": "2026-06-17T04:20:41.296Z",
+  "entryCount": 3365,
   "entries": [
     {
       "kind": "chapter",
@@ -13716,7 +13716,7 @@
       "path": "lean-reference/Reference/Tactics/RunningTactics.md",
       "title": "运行 tactic",
       "section": "Tactic 详解",
-      "text": "运行 tactic 对应英文：Running Tactics，抓取日期：2026 06 16。 通过 term 嵌入到普通 Lean term 中。也就是说，只要某个位置允许出现 term，就可以在那里写 tactic proof。 两种基本写法 缩进风格： 显式大括号和分号风格： 这两种写法在语义上等价，区别主要在排版习惯和局部可读性。 做了什么 当 elaborator 遇到 时，它不会把后面内容当作普通 term 直接 elaborates，而是调用 tactic interpreter。tactic interpreter 逐步修改 proof state，最终构造出一个满足当前位置 expected type 的 proof term。 因此： 是 term 语法的一部分； tactic proof 最终仍会生成普通 Lean term； tactic proof 可以出现在 theorem、 、 、匿名 等任何需要 term 的位置。 使用建议 短而直接的证明可直接写 term； 当证明需要分解 goal、引入假设、反复 rewrite 或依赖自动化时， 往往更清晰； 若 proof state 在多步之间演化明显，优先使用缩进式 tactic block，便于阅读和维护。"
+      "text": "运行 tactic 对应英文：Running Tactics，抓取日期：2026 06 16。 通过 term 嵌入到普通 Lean term 中。也就是说，只要某个位置允许出现 term，就可以在那里写 tactic proof。 两种基本写法 缩进风格： 显式大括号和分号风格： 这两种写法在语义上等价，区别主要在排版习惯和局部可读性。 做了什么 当 elaborator 遇到 时，它不会把后面内容当作普通 term 直接 elaborates，而是调用 tactic interpreter。tactic interpreter 逐步修改 proof state，最终构造出一个满足当前位置 expected type 的 proof term。 因此： 是 term 语法的一部分； tactic proof 最终仍会生成普通 Lean term； tactic proof 可以出现在 theorem、 、 、匿名 等任何需要 term 的位置。 使用建议 短而直接的证明可直接写 term； 当证明需要分解 goal、引入假设、反复 rewrite 或依赖自动化时， 往往更清晰； 若 proof state 在多步之间演化明显，优先使用缩进式 tactic block，便于阅读和维护。 示例 定理里的 ： 引入局部引理： 绑定中间项（证明里较少用，元编程里更常见）： 块最终都会 elaboration 成一个 proof term；可用 查看（可能很大，默认会被折叠）。"
     },
     {
       "kind": "heading",
@@ -13749,13 +13749,23 @@
       "anchor": "section-2"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/RunningTactics.md",
+      "title": "运行 tactic › 示例",
+      "section": "Tactic 详解",
+      "text": "示例",
+      "anchor": "section-3"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Tactics/ReadingProofStates.md",
       "title": "阅读 proof state",
       "section": "Tactic 详解",
-      "text": "阅读 proof state 对应英文：Reading Proof States，抓取日期：2026 06 16。 proof state 中的 goal 按顺序显示，最上方的是 main goal 。goal 可以是具名的，也可以是匿名的： 具名 goal 顶部会显示 ，称为 case label； 匿名 goal 没有该标记。 许多 tactic 会根据 constructor 名、参数名、field 名或证明步骤的性质为 goal 命名。若某个已命名 goal 再产生子 goal，新 goal 名通常会在父 goal 名后附加一个点号和后缀，形成层级名称。 goal 结构 每个 goal 由两部分组成： 一串 assumptions（局部假设） 一个 conclusion（需要证明的目标类型） 每个 assumption 都有名字和类型。它可能表示“某个类型中的任意元素”，也可能表示“某个命题为真”。 不可访问假设 有些 assumption 无法通过名字直接引用，称为 inaccessible assumption 。这通常发生在： 创建 assumption 时没有显式提供名字； 后来又有新的 assumption 遮蔽了旧名字。 它们在 proof state 中仍会显示一个名字，但名字后带匕首 ，提醒你这个名字不能直接拿来引用。虽然不能直接点名，它们仍能被 tactic 使用，例如： 如果确实需要手工引用，可使用： 给它们重新命名。 按类型引用假设 Lean 支持用单书名号按类型引用局部项： 这在两类场景中很有用： 某个局部 lemma 的名字不重要，只关心其定理陈述； 某个 assumption 不可访问，但其类型足以唯一确定它。 隐藏 proof 与大 term proof state 中的 term 可能非常大。由于 definitional proof irrelevance，proof term 往往信息不多，所以 Lean 默认会隐藏较大的 proof，并在必要时把深层 term 折叠成 。 相关 pretty printer 选项： 调大这些选项可以看到更多细节，但也可能让编辑器变慢，甚至导致工具栈溢出。 metavariable 以问号开头的项是 metavariable，表示“值尚未确定”： 一类常来自 elaboration 过程； 、 常来自 tactic 或 synthetic hole； universe level metavariable 和 term metavariable 都会出现在输出中。 选项 控制是否显示这些 metavariable 的具体名字。在写 测试时，这个选项尤其有用，因为 metavariable 编号不稳定。"
+      "text": "阅读 proof state 对应英文：Reading Proof States，抓取日期：2026 06 16。 proof state 中的 goal 按顺序显示，最上方的是 main goal 。goal 可以是具名的，也可以是匿名的： 具名 goal 顶部会显示 ，称为 case label； 匿名 goal 没有该标记。 许多 tactic 会根据 constructor 名、参数名、field 名或证明步骤的性质为 goal 命名。若某个已命名 goal 再产生子 goal，新 goal 名通常会在父 goal 名后附加一个点号和后缀，形成层级名称。 goal 结构 每个 goal 由两部分组成： 一串 assumptions（局部假设） 一个 conclusion（需要证明的目标类型） 每个 assumption 都有名字和类型。它可能表示“某个类型中的任意元素”，也可能表示“某个命题为真”。 不可访问假设 有些 assumption 无法通过名字直接引用，称为 inaccessible assumption 。这通常发生在： 创建 assumption 时没有显式提供名字； 后来又有新的 assumption 遮蔽了旧名字。 它们在 proof state 中仍会显示一个名字，但名字后带匕首 ，提醒你这个名字不能直接拿来引用。虽然不能直接点名，它们仍能被 tactic 使用，例如： 如果确实需要手工引用，可使用： 给它们重新命名。 按类型引用假设 Lean 支持用单书名号按类型引用局部项： 这在两类场景中很有用： 某个局部 lemma 的名字不重要，只关心其定理陈述； 某个 assumption 不可访问，但其类型足以唯一确定它。 隐藏 proof 与大 term proof state 中的 term 可能非常大。由于 definitional proof irrelevance，proof term 往往信息不多，所以 Lean 默认会隐藏较大的 proof，并在必要时把深层 term 折叠成 。 相关 pretty printer 选项： 调大这些选项可以看到更多细节，但也可能让编辑器变慢，甚至导致工具栈溢出。 metavariable 以问号开头的项是 metavariable，表示“值尚未确定”： 一类常来自 elaboration 过程； 、 常来自 tactic 或 synthetic hole； universe level metavariable 和 term metavariable 都会出现在输出中。 选项 控制是否显示这些 metavariable 的具体名字。在写 测试时，这个选项尤其有用，因为 metavariable 编号不稳定。 示例：典型 goal 显示 解读： — 当前在归纳的 分支（具名 case）； — 类型为 的变量； — 命题假设（归纳假设）； — 待证结论。 不可访问假设可能显示为 ，不能直接写 ，但 仍可用。 InfoView 与终端 InfoView （光标放在 tactic 行）：实时看 main goal，不必 ； ：把 goal 打到构建日志，适合 CI 或没有 InfoView 时； 二者显示格式相同，都遵循上述 assumption + 结构。"
     },
     {
       "kind": "heading",
@@ -13806,6 +13816,26 @@
       "section": "Tactic 详解",
       "text": "metavariable",
       "anchor": "metavariable"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/ReadingProofStates.md",
+      "title": "阅读 proof state › 示例：典型 goal 显示",
+      "section": "Tactic 详解",
+      "text": "示例：典型 goal 显示",
+      "anchor": "goal"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/ReadingProofStates.md",
+      "title": "阅读 proof state › InfoView 与终端",
+      "section": "Tactic 详解",
+      "text": "InfoView 与终端",
+      "anchor": "infoview"
     },
     {
       "kind": "chapter",
@@ -14476,7 +14506,7 @@
       "path": "lean-reference/Reference/Simplifier/Invoking.md",
       "title": "调用 simplifier",
       "section": "Simplifier 详解",
-      "text": "调用 simplifier 对应英文：Invoking the Simplifier，抓取日期：2026 06 16。 Lean 提供一族基于 simplifier 的 tactic。它们的名字通常都包含 ，并通过前缀和后缀表达行为差异。 常见命名规则 后缀：把 打开，允许展开更多 definition。 后缀：记录 simplification 中真正使用的规则，并尝试给出更小的 参数建议。 后缀：启用线性算术相关 simplification rule。 前缀：只使用 definitional simplification，也就是 风格。 后缀：反复简化所有假设和目标，直到无法继续。 此外还有： 它们会同时简化目标和某个 proof term / assumption，再尝试直接 closing the goal，因此通常比“先 再 ”更稳。 参数语法 简化类 tactic 的基本形态可以概括为： 也就是说，一个 调用可以包含： 1. 配置项 ：例如 。 2. ：从空的 simp set 开始，而不是默认 simp set。 3. 规则列表 ：增加或移除 simp lemma，或加入整个 simp set。 4. ：指定作用位置。 规则列表中的元素 规则列表里常见的元素包括： ：把 proof state 中所有 assumptions 加入 simp set。 ：从 simp set 中移除 lemma / rule 。 普通 lemma 名、simp set 名或 term。 / ：控制某条规则在进入子项前还是后应用。 ：把等式 lemma 反向使用。 位置说明 后可指定： 某个 assumption 名：只简化该 assumption 的 type。 ：只简化目标。 ：简化所有 assumptions 和目标。 不写 时，默认只简化目标。 实用建议 目标清理优先 ； 只想做 definitional unfolding 优先 ； 需要限制规则时用 ； 想让 proof 对默认 simp set 变动更稳时，多考虑 。"
+      "text": "调用 simplifier 对应英文：Invoking the Simplifier，抓取日期：2026 06 16。 Lean 提供一族基于 simplifier 的 tactic。它们的名字通常都包含 ，并通过前缀和后缀表达行为差异。 常见命名规则 后缀：把 打开，允许展开更多 definition。 后缀：记录 simplification 中真正使用的规则，并尝试给出更小的 参数建议。 后缀：启用线性算术相关 simplification rule。 前缀：只使用 definitional simplification，也就是 风格。 后缀：反复简化所有假设和目标，直到无法继续。 此外还有： 它们会同时简化目标和某个 proof term / assumption，再尝试直接 closing the goal，因此通常比“先 再 ”更稳。 参数语法 简化类 tactic 的基本形态可以概括为： 也就是说，一个 调用可以包含： 1. 配置项 ：例如 。 2. ：从空的 simp set 开始，而不是默认 simp set。 3. 规则列表 ：增加或移除 simp lemma，或加入整个 simp set。 4. ：指定作用位置。 规则列表中的元素 规则列表里常见的元素包括： ：把 proof state 中所有 assumptions 加入 simp set。 ：从 simp set 中移除 lemma / rule 。 普通 lemma 名、simp set 名或 term。 / ：控制某条规则在进入子项前还是后应用。 ：把等式 lemma 反向使用。 位置说明 后可指定： 某个 assumption 名：只简化该 assumption 的 type。 ：只简化目标。 ：简化所有 assumptions 和目标。 不写 时，默认只简化目标。 实用建议 目标清理优先 ； 只想做 definitional unfolding 优先 ； 需要限制规则时用 ； 想让 proof 对默认 simp set 变动更稳时，多考虑 。 示例 只简化目标（默认）： 只动假设 ： 从空 simp set 起步，避免默认库规则： 一步简化并关闭： 在复杂目标上可打印「实际用到的规则」，便于收窄为 。"
     },
     {
       "kind": "heading",
@@ -14527,6 +14557,16 @@
       "section": "Simplifier 详解",
       "text": "实用建议",
       "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/Invoking.md",
+      "title": "调用 simplifier › 示例",
+      "section": "Simplifier 详解",
+      "text": "示例",
+      "anchor": "section-5"
     },
     {
       "kind": "chapter",
@@ -14761,7 +14801,7 @@
       "path": "lean-reference/Reference/Simplifier/SimpVsRw.md",
       "title": "simplification 与 rewriting",
       "section": "Simplifier 详解",
-      "text": "simplification 与 rewriting 对应英文：Simplification vs Rewriting，抓取日期：2026 06 16。 与 / 都会用等式引理替换 term 的一部分，但它们的目标和策略不同。 的目标 主要用于把问题改写成更规范、更易读、更利于自动化的形式。它倾向于： 由内向外简化； 先简化最小子表达式，再利用这些结果解锁更外层简化； 把表达式推向某个约定俗成的 normal form。 设计上， 不应把一个本来可证明的目标改成不可证明的目标。 的目标 更像手工控制的定点变换： 选择匹配的子项； 一次性按指定方向重写； 不追求规范化，只执行用户选定的变换。 默认情况下， 会选择 最左侧最外层 的匹配项。 二者的核心差异 ：inside out、可迭代、多规则数据库驱动。 ：用户显式选规则、单次重写、关注局部变换。 何时用哪个 优先用 ： 清理 if/match/projection/let； 归一化代数或逻辑表达式； 利用库中已有 规则。 优先用 ： 需要精确控制方向； 只想改某一步，而不想触发整个 simp database； 要保留当前表达式形状，只替换某个指定等式。 可覆盖默认策略 中使用 可以让某条规则在进入子项前就先应用； 的 配置可改变目标 occurrence 的选择。 这说明二者并非完全刚性工具，但其默认意图始终不同： 面向规范化， 面向精确改写。"
+      "text": "simplification 与 rewriting 对应英文：Simplification vs Rewriting，抓取日期：2026 06 16。 与 / 都会用等式引理替换 term 的一部分，但它们的目标和策略不同。 的目标 主要用于把问题改写成更规范、更易读、更利于自动化的形式。它倾向于： 由内向外简化； 先简化最小子表达式，再利用这些结果解锁更外层简化； 把表达式推向某个约定俗成的 normal form。 设计上， 不应把一个本来可证明的目标改成不可证明的目标。 的目标 更像手工控制的定点变换： 选择匹配的子项； 一次性按指定方向重写； 不追求规范化，只执行用户选定的变换。 默认情况下， 会选择 最左侧最外层 的匹配项。 二者的核心差异 ：inside out、可迭代、多规则数据库驱动。 ：用户显式选规则、单次重写、关注局部变换。 何时用哪个 优先用 ： 清理 if/match/projection/let； 归一化代数或逻辑表达式； 利用库中已有 规则。 优先用 ： 需要精确控制方向； 只想改某一步，而不想触发整个 simp database； 要保留当前表达式形状，只替换某个指定等式。 可覆盖默认策略 中使用 可以让某条规则在进入子项前就先应用； 的 配置可改变目标 occurrence 的选择。 这说明二者并非完全刚性工具，但其默认意图始终不同： 面向规范化， 面向精确改写。 并排示例 目标 ： 同一等式链里「只想动第二个 2」时（learn proof 示例 10 的场景）： 选型速查 你想做的事 优先 清掉 、 、projection 按引理 精确替换一处 只改第二个匹配子项 或 避免 simp 误伤其他子式 或"
     },
     {
       "kind": "heading",
@@ -14812,6 +14852,26 @@
       "section": "Simplifier 详解",
       "text": "可覆盖默认策略",
       "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/SimpVsRw.md",
+      "title": "simplification 与 rewriting › 并排示例",
+      "section": "Simplifier 详解",
+      "text": "并排示例",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/SimpVsRw.md",
+      "title": "simplification 与 rewriting › 选型速查",
+      "section": "Simplifier 详解",
+      "text": "选型速查",
+      "anchor": "section-6"
     },
     {
       "kind": "chapter",
@@ -21883,7 +21943,7 @@
       "path": "lean-reference/Reference/Errors/CtorResultingTypeMismatch.md",
       "title": "ctorResultingTypeMismatch",
       "section": "错误解释详解",
-      "text": "ctorResultingTypeMismatch 对应英文：About: ctorResultingTypeMismatch，抓取日期：2026 06 16。 错误码： 含义：constructor 的 resulting type 不是正在声明的 inductive type。 严重性：Error。起始版本：4.22.0。 在 inductive declaration 中，每个 constructor 的最终返回 type 必须是当前正在声明的 inductive type。换言之，某个 inductive type 的每个 constructor 都必须返回该 type 的值；如果返回了别的 type，Lean 会报这个错误。 如果正在定义的 inductive type 没有 index，constructor 的 resulting type 可以省略。一旦给 constructor 写了完整 type annotation，就必须写出完整 type，包括最后的 resulting type。 常见原因 constructor 返回 type 拼写错误，例如 而不是 。 把 constructor 参数误写成 constructor 的返回 type。 对有参数的 inductive type，忘记在 constructor type 最后写回当前 inductive type。 修复方向 检查 constructor type 的最后一段是否精确返回正在声明的 inductive type。 如果只是 constructor 参数，使用 named binder 或普通参数语法，而不是把它写成 resulting type。 对有 index 的 inductive type，确认参数和 index 出现在正确位置。"
+      "text": "ctorResultingTypeMismatch 对应英文：About: ctorResultingTypeMismatch，抓取日期：2026 06 16。 错误码： 含义：constructor 的 resulting type 不是正在声明的 inductive type。 严重性：Error。起始版本：4.22.0。 在 inductive declaration 中，每个 constructor 的最终返回 type 必须是当前正在声明的 inductive type。换言之，某个 inductive type 的每个 constructor 都必须返回该 type 的值；如果返回了别的 type，Lean 会报这个错误。 如果正在定义的 inductive type 没有 index，constructor 的 resulting type 可以省略。一旦给 constructor 写了完整 type annotation，就必须写出完整 type，包括最后的 resulting type。 常见原因 constructor 返回 type 拼写错误，例如 而不是 。 把 constructor 参数误写成 constructor 的返回 type。 对有参数的 inductive type，忘记在 constructor type 最后写回当前 inductive type。 修复方向 检查 constructor type 的最后一段是否精确返回正在声明的 inductive type。 如果只是 constructor 参数，使用 named binder 或普通参数语法，而不是把它写成 resulting type。 对有 index 的 inductive type，确认参数和 index 出现在正确位置。 示例 有 index 时必须写回完整 family："
     },
     {
       "kind": "heading",
@@ -21906,13 +21966,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/CtorResultingTypeMismatch.md",
+      "title": "ctorResultingTypeMismatch › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/DependsOnNoncomputable.md",
       "title": "dependsOnNoncomputable",
       "section": "错误解释详解",
-      "text": "dependsOnNoncomputable 对应英文：About: dependsOnNoncomputable，抓取日期：2026 06 16。 错误码： 含义：declaration 依赖 noncomputable definition，但自身没有标记为 。 严重性：Error。起始版本：4.22.0。 这个错误表示当前 definition 依赖一个或多个不含可执行代码的 definition，因此当前 definition 也必须标记为 。这类 definition 可以通过 type checking，但 Lean 不能为它们生成可执行代码。 常见原因 依赖 axiom。axiom 有 type，但没有运行时实现。 使用 或 namespace 中的 noncomputable instance。 间接调用了已经标记为 的 definition。 某个依赖本身编译失败，因此只能作为 noncomputable 使用。 修复方向 如果当前 definition 本来就不需要执行，给它加： 如果它应该可执行，就要移除 noncomputable 依赖。例如： 用 替代 加 ； 避免 影响实例搜索； 给 proposition 提供可计算的 instance； 替换 axiom 为真正实现。 是语义声明，不是“忽略错误”。它表示该 declaration 只用于逻辑推理或 specification，不提供可执行代码。"
+      "text": "dependsOnNoncomputable 对应英文：About: dependsOnNoncomputable，抓取日期：2026 06 16。 错误码： 含义：declaration 依赖 noncomputable definition，但自身没有标记为 。 严重性：Error。起始版本：4.22.0。 这个错误表示当前 definition 依赖一个或多个不含可执行代码的 definition，因此当前 definition 也必须标记为 。这类 definition 可以通过 type checking，但 Lean 不能为它们生成可执行代码。 常见原因 依赖 axiom。axiom 有 type，但没有运行时实现。 使用 或 namespace 中的 noncomputable instance。 间接调用了已经标记为 的 definition。 某个依赖本身编译失败，因此只能作为 noncomputable 使用。 修复方向 如果当前 definition 本来就不需要执行，给它加： 如果它应该可执行，就要移除 noncomputable 依赖。例如： 用 替代 加 ； 避免 影响实例搜索； 给 proposition 提供可计算的 instance； 替换 axiom 为真正实现。 是语义声明，不是“忽略错误”。它表示该 declaration 只用于逻辑推理或 specification，不提供可执行代码。 示例 只能跑可计算定义；标记 后该定义仍可用于证明，但不能参与代码生成。"
     },
     {
       "kind": "heading",
@@ -21935,13 +22005,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/DependsOnNoncomputable.md",
+      "title": "dependsOnNoncomputable › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/InductionWithNoAlts.md",
       "title": "inductionWithNoAlts",
       "section": "错误解释详解",
-      "text": "inductionWithNoAlts 对应英文：About: inductionWithNoAlts，抓取日期：2026 06 16。 错误码： 含义：natural number game 风格 子句中的 induction pattern 后面跟了非 tactic。 严重性：Error。起始版本：4.26.0。 Lean 中基于 tactic 的 induction proof 需要使用类似 pattern matching 的写法描述各个 case。Mathlib 的 tactic 和 Natural Number Game 中的专用自然数 induction tactic 使用另一种模式；把那种写法直接用于核心 Lean 的 时，就可能触发这个错误。 常见错误形态 在基础 Lean 的 tactic 中， 后面应该跟 tactic 或 case alternative，例如： 修复方向 使用 core Lean 风格的 case alternative。 如果你确实想用 Mathlib 风格，导入 Mathlib 并使用 。 把 inductive case 的变量名写到对应 case 中，而不是在 后一次性给出。"
+      "text": "inductionWithNoAlts 对应英文：About: inductionWithNoAlts，抓取日期：2026 06 16。 错误码： 含义：natural number game 风格 子句中的 induction pattern 后面跟了非 tactic。 严重性：Error。起始版本：4.26.0。 Lean 中基于 tactic 的 induction proof 需要使用类似 pattern matching 的写法描述各个 case。Mathlib 的 tactic 和 Natural Number Game 中的专用自然数 induction tactic 使用另一种模式；把那种写法直接用于核心 Lean 的 时，就可能触发这个错误。 常见错误形态 在基础 Lean 的 tactic 中， 后面应该跟 tactic 或 case alternative，例如： 修复方向 使用 core Lean 风格的 case alternative。 如果你确实想用 Mathlib 风格，导入 Mathlib 并使用 。 把 inductive case 的变量名写到对应 case 中，而不是在 后一次性给出。 对照 写法 结果 核心 Lean 4 标准语法 触发 需 ，Mathlib 专用 tactic NNG / 旧教程里的「一行 with 两个名字」对应的是 Mathlib ，不是内置 。"
     },
     {
       "kind": "heading",
@@ -21962,6 +22042,16 @@
       "section": "错误解释详解",
       "text": "修复方向",
       "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/InductionWithNoAlts.md",
+      "title": "inductionWithNoAlts › 对照",
+      "section": "错误解释详解",
+      "text": "对照",
+      "anchor": "section-2"
     },
     {
       "kind": "chapter",
@@ -21999,7 +22089,7 @@
       "path": "lean-reference/Reference/Errors/InductiveParamMissing.md",
       "title": "inductiveParamMissing",
       "section": "错误解释详解",
-      "text": "inductiveParamMissing 对应英文：About: inductiveParamMissing，抓取日期：2026 06 16。 错误码： 含义：constructor 中出现 inductive type 时缺少参数。 严重性：Error。起始版本：4.22.0。 这个错误发生在 inductive type constructor 在某个 constructor type 中被部分应用，导致一个或多个 parameter 被省略。elaborator 要求：在当前 inductive definition 内部，任何引用该 inductive type 的位置都必须显式给出所有 parameter，包括 constructor type 中的引用。 如果确实需要部分应用 type constructor，而不指定某个参数，那么该参数不能是 parameter，必须改成 index。 常见场景 在高阶 predicate 的参数中传递当前 inductive predicate 时，可能需要部分应用当前 type constructor。若某个参数被声明在冒号左侧，它就必须始终给出；省略它会报这个错误。 修复方向 检查报错位置中当前 inductive type 的应用是否缺少 parameter。 如果缺少的是固定参数，补上它。 如果缺少的是需要稍后才提供的值，把它从 parameter 改成 index。 与 一样，核心判断是：这个量是否必须在整个 inductive declaration 中固定不变。固定不变才是 parameter；需要变化或部分应用时省略的应是 index。"
+      "text": "inductiveParamMissing 对应英文：About: inductiveParamMissing，抓取日期：2026 06 16。 错误码： 含义：constructor 中出现 inductive type 时缺少参数。 严重性：Error。起始版本：4.22.0。 这个错误发生在 inductive type constructor 在某个 constructor type 中被部分应用，导致一个或多个 parameter 被省略。elaborator 要求：在当前 inductive definition 内部，任何引用该 inductive type 的位置都必须显式给出所有 parameter，包括 constructor type 中的引用。 如果确实需要部分应用 type constructor，而不指定某个参数，那么该参数不能是 parameter，必须改成 index。 常见场景 在高阶 predicate 的参数中传递当前 inductive predicate 时，可能需要部分应用当前 type constructor。若某个参数被声明在冒号左侧，它就必须始终给出；省略它会报这个错误。 修复方向 检查报错位置中当前 inductive type 的应用是否缺少 parameter。 如果缺少的是固定参数，补上它。 如果缺少的是需要稍后才提供的值，把它从 parameter 改成 index。 与 一样，核心判断是：这个量是否必须在整个 inductive declaration 中固定不变。固定不变才是 parameter；需要变化或部分应用时省略的应是 index。 示例 在定义内部引用当前归纳类型时，parameter 不能省略： 若需要「先不写长度、后面再填」的向量，应把长度改成 index（见 inductiveParamMismatch），而不是部分应用 parameter。"
     },
     {
       "kind": "heading",
@@ -22020,6 +22110,16 @@
       "section": "错误解释详解",
       "text": "修复方向",
       "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/InductiveParamMissing.md",
+      "title": "inductiveParamMissing › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
     },
     {
       "kind": "chapter",
@@ -22077,7 +22177,7 @@
       "path": "lean-reference/Reference/Errors/InferDefTypeFailed.md",
       "title": "inferDefTypeFailed",
       "section": "错误解释详解",
-      "text": "inferDefTypeFailed 对应英文：About: inferDefTypeFailed，抓取日期：2026 06 16。 错误码： 含义：无法推断 definition 的 type。 严重性：Error。起始版本：4.23.0。 这个错误发生在 definition 的 type 没有完整指定，而 Lean 无法从已有信息推断其 type。若 definition 有参数，此错误只指冒号后 resulting type 无法推断；参数 type 无法推断时对应的是 。 修复方向 最直接的修复是在 definition header 中显式写出 resulting type： 也可以在 body 中提供更多 type 信息，例如显式给出 implicit type argument，或给 binder 加 type annotation，让 Lean 能推断整个 definition type。 注意 一旦提供显式 resulting type，Lean 就不会再用 body 来推断 definition 或参数 type。因此，添加 resulting type 有时也要求给参数补充 type annotation。 对于 theorem，必须显式给出 type：theorem syntax 要求 type annotation，elaborator 不会用 theorem body 推断要证明的 proposition。 常见例子 这里 Lean 不知道 的元素类型。可以写成： 或在 body 中显式指定 constructor 的 implicit 参数。"
+      "text": "inferDefTypeFailed 对应英文：About: inferDefTypeFailed，抓取日期：2026 06 16。 错误码： 含义：无法推断 definition 的 type。 严重性：Error。起始版本：4.23.0。 这个错误发生在 definition 的 type 没有完整指定，而 Lean 无法从已有信息推断其 type。若 definition 有参数，此错误只指冒号后 resulting type 无法推断；参数 type 无法推断时对应的是 。 修复方向 最直接的修复是在 definition header 中显式写出 resulting type： 也可以在 body 中提供更多 type 信息，例如显式给出 implicit type argument，或给 binder 加 type annotation，让 Lean 能推断整个 definition type。 注意 一旦提供显式 resulting type，Lean 就不会再用 body 来推断 definition 或参数 type。因此，添加 resulting type 有时也要求给参数补充 type annotation。 对于 theorem，必须显式给出 type：theorem syntax 要求 type annotation，elaborator 不会用 theorem body 推断要证明的 proposition。 常见例子 这里 Lean 不知道 的元素类型。可以写成： 或在 body 中显式指定 constructor 的 implicit 参数： 里补类型信息有时也能带动整个定义："
     },
     {
       "kind": "heading",
@@ -22116,7 +22216,7 @@
       "path": "lean-reference/Reference/Errors/InvalidDottedIdent.md",
       "title": "invalidDottedIdent",
       "section": "错误解释详解",
-      "text": "invalidDottedIdent 对应英文：About: invalidDottedIdent，抓取日期：2026 06 16。 错误码： 含义：dotted identifier notation 用在无效或不支持的上下文中。 严重性：Error。起始版本：4.22.0。 dotted identifier notation 允许省略 identifier 的 namespace，前提是 Lean 能根据 type 信息推断它。例如 、 、 等写法依赖 expected type 来决定完整名称。 这个 notation 只能用于 Lean 能推断当前 term type 的位置。如果 type 信息不足，就会报这个错误。推断出的 type 也不能是 type universe，例如 或 ；dotted identifier notation 不支持在这些 type universe 上使用。 常见原因 没有写返回 type，导致 Lean 无法推断 之类 identifier 的 namespace。 期望 type 是 或 ，但写了 、 等 dotted identifier。 误以为 Lean 会根据参数 type 推断 namespace；dotted identifier 实际根据 expected result type 推断。 修复方向 给 expression 或 declaration 添加 type annotation。 写完整限定名，例如 。 如果想根据参数 type 调用函数，使用 generalized field notation，例如 。 对 proposition 做 case analysis 时，如果想匹配 boolean constructor，先显式使用 把 proposition 转成 。"
+      "text": "invalidDottedIdent 对应英文：About: invalidDottedIdent，抓取日期：2026 06 16。 错误码： 含义：dotted identifier notation 用在无效或不支持的上下文中。 严重性：Error。起始版本：4.22.0。 dotted identifier notation 允许省略 identifier 的 namespace，前提是 Lean 能根据 type 信息推断它。例如 、 、 等写法依赖 expected type 来决定完整名称。 这个 notation 只能用于 Lean 能推断当前 term type 的位置。如果 type 信息不足，就会报这个错误。推断出的 type 也不能是 type universe，例如 或 ；dotted identifier notation 不支持在这些 type universe 上使用。 常见原因 没有写返回 type，导致 Lean 无法推断 之类 identifier 的 namespace。 期望 type 是 或 ，但写了 、 等 dotted identifier。 误以为 Lean 会根据参数 type 推断 namespace；dotted identifier 实际根据 expected result type 推断。 修复方向 给 expression 或 declaration 添加 type annotation。 写完整限定名，例如 。 如果想根据参数 type 调用函数，使用 generalized field notation，例如 。 对 proposition 做 case analysis 时，如果想匹配 boolean constructor，先显式使用 把 proposition 转成 。 示例 在 位置使用 dotted ident 也会失败： 若要根据 参数 类型选函数，用 field notation 而不是 dotted ident："
     },
     {
       "kind": "heading",
@@ -22139,13 +22239,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/InvalidDottedIdent.md",
+      "title": "invalidDottedIdent › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/InvalidField.md",
       "title": "invalidField",
       "section": "错误解释详解",
-      "text": "invalidField 对应英文：About: invalidField，抓取日期：2026 06 16。 错误码： 含义：generalized field notation 以潜在歧义或无效方式使用。 严重性：Error。起始版本：4.22.0。 这个错误表示 Lean 遇到了一个“表达式后接点号和 identifier”的形式，但无法把该 identifier 理解为 field 或 generalized field notation 调用。 Lean 的 field notation 很强，也容易混淆。 可能是一个完整 identifier，也可能是 structure field projection，也可能是 generalized field notation：把函数应用到点号前的值上。 常见原因 field 名拼错，例如写了 ，但实际没有 。 点号前表达式的 type 不对。例如想调用 ，却写成 一类以 为 receiver 的形式。 receiver 的 type 太泛，例如只有 ，并不知道 具体是哪种 type，因此不能解析 。 type 信息不足，例如 中 的 type 未知。 修复方向 检查 field/function 名是否存在。 让点号前表达式具有正确 type。 添加 type annotation，使 Lean 能确定 receiver type。 必要时改用完整函数调用，例如 。"
+      "text": "invalidField 对应英文：About: invalidField，抓取日期：2026 06 16。 错误码： 含义：generalized field notation 以潜在歧义或无效方式使用。 严重性：Error。起始版本：4.22.0。 这个错误表示 Lean 遇到了一个“表达式后接点号和 identifier”的形式，但无法把该 identifier 理解为 field 或 generalized field notation 调用。 Lean 的 field notation 很强，也容易混淆。 可能是一个完整 identifier，也可能是 structure field projection，也可能是 generalized field notation：把函数应用到点号前的值上。 常见原因 field 名拼错，例如写了 ，但实际没有 。 点号前表达式的 type 不对。例如想调用 ，却写成 一类以 为 receiver 的形式。 receiver 的 type 太泛，例如只有 ，并不知道 具体是哪种 type，因此不能解析 。 type 信息不足，例如 中 的 type 未知。 修复方向 检查 field/function 名是否存在。 让点号前表达式具有正确 type。 添加 type annotation，使 Lean 能确定 receiver type。 必要时改用完整函数调用，例如 。 示例 类型太泛时："
     },
     {
       "kind": "heading",
@@ -22168,13 +22278,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/InvalidField.md",
+      "title": "invalidField › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/ProjNonPropFromProp.md",
       "title": "projNonPropFromProp",
       "section": "错误解释详解",
-      "text": "projNonPropFromProp 对应英文：About: projNonPropFromProp，抓取日期：2026 06 16。 错误码： 含义：试图从 proof 中投影非 proposition 数据。 严重性：Error。起始版本：4.23.0。 这个错误发生在尝试用 index projection 从某个 proposition 的 proof 中取出数据时。例如，若 是 existential proposition 的 proof，写 试图提取 witness 就会触发这个错误。 这样做被禁止，因为它可能违反 Lean 禁止从 large elimination 的规则。proof 只应被用于构造 proof；不能随意从 proof 中抽取运行时数据。 修复方向 不要使用 这样的 index projection。从 proposition 到 proposition 的消去应使用： pattern matching ； expression； tactic。 但要注意：消去结果也必须在 中。如果消去结果是普通数据类型，例如 或某个 中的值，会触发 。 典型场景 证明目标是 时，可以 pattern match 已有 existential proof，并用 witness 构造新的 existential proof。不要把 witness 提取成普通数据返回。"
+      "text": "projNonPropFromProp 对应英文：About: projNonPropFromProp，抓取日期：2026 06 16。 错误码： 含义：试图从 proof 中投影非 proposition 数据。 严重性：Error。起始版本：4.23.0。 这个错误发生在尝试用 index projection 从某个 proposition 的 proof 中取出数据时。例如，若 是 existential proposition 的 proof，写 试图提取 witness 就会触发这个错误。 这样做被禁止，因为它可能违反 Lean 禁止从 large elimination 的规则。proof 只应被用于构造 proof；不能随意从 proof 中抽取运行时数据。 修复方向 不要使用 这样的 index projection。从 proposition 到 proposition 的消去应使用： pattern matching ； expression； tactic。 但要注意：消去结果也必须在 中。如果消去结果是普通数据类型，例如 或某个 中的值，会触发 。 典型场景 证明目标是 时，可以 pattern match 已有 existential proof，并用 witness 构造新的 existential proof。不要把 witness 提取成普通数据返回。 示例 、 、 在 目标仍是命题 时是允许的； 这类投影会被拒绝。"
     },
     {
       "kind": "heading",
@@ -22197,13 +22317,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/ProjNonPropFromProp.md",
+      "title": "projNonPropFromProp › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/PropRecLargeElim.md",
       "title": "propRecLargeElim",
       "section": "错误解释详解",
-      "text": "propRecLargeElim 对应英文：About: propRecLargeElim，抓取日期：2026 06 16。 错误码： 含义：试图把 proof 消去到更高的 type universe。 严重性：Error。起始版本：4.23.0。 这个错误发生在试图对 proposition 的 proof 做 pattern match，并产生非 proposition universe 中的数据时。Lean 的类型论通常不允许从 做 large elimination：propositional recursor 的 motive 必须仍是 proposition。 即使整个外层 expression 的 type 是 proposition，只要中间 或 先从 proof 生成了普通数据，也会触发这个错误。 为什么禁止 中的 proof 具有 proof irrelevance：同一 proposition 的所有 proof 被视为相同。如果允许从 proof 中提取普通数据，就可能得到不一致结论。例如从两个 existential proof 中分别提取不同 witness，却又因为 proof irrelevance 认为两个 proof 相等，会破坏逻辑。 修复方向 把 match/recursor 向外移动，让消去目标本身是正在证明的 proposition。 用 continuation passing 风格：把 unpack 出来的值只用于构造另一个 proof。 如果确实需要返回数据，把输入从 proposition 改为 中的数据结构，例如 dependent pair，而不是 proof。 经验规则：从 中拆出来的东西，只能用于继续证明 ，不能作为普通程序数据返回。"
+      "text": "propRecLargeElim 对应英文：About: propRecLargeElim，抓取日期：2026 06 16。 错误码： 含义：试图把 proof 消去到更高的 type universe。 严重性：Error。起始版本：4.23.0。 这个错误发生在试图对 proposition 的 proof 做 pattern match，并产生非 proposition universe 中的数据时。Lean 的类型论通常不允许从 做 large elimination：propositional recursor 的 motive 必须仍是 proposition。 即使整个外层 expression 的 type 是 proposition，只要中间 或 先从 proof 生成了普通数据，也会触发这个错误。 为什么禁止 中的 proof 具有 proof irrelevance：同一 proposition 的所有 proof 被视为相同。如果允许从 proof 中提取普通数据，就可能得到不一致结论。例如从两个 existential proof 中分别提取不同 witness，却又因为 proof irrelevance 认为两个 proof 相等，会破坏逻辑。 修复方向 把 match/recursor 向外移动，让消去目标本身是正在证明的 proposition。 用 continuation passing 风格：把 unpack 出来的值只用于构造另一个 proof。 如果确实需要返回数据，把输入从 proposition 改为 中的数据结构，例如 dependent pair，而不是 proof。 经验规则：从 中拆出来的东西，只能用于继续证明 ，不能作为普通程序数据返回。 示例 需要可执行 witness 时，改用 里的数据结构（例如 、 ），而不是 。"
     },
     {
       "kind": "heading",
@@ -22226,13 +22356,23 @@
       "anchor": "section-1"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/PropRecLargeElim.md",
+      "title": "propRecLargeElim › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/RedundantMatchAlt.md",
       "title": "redundantMatchAlt",
       "section": "错误解释详解",
-      "text": "redundantMatchAlt 对应英文：About: redundantMatchAlt，抓取日期：2026 06 16。 错误码： 含义：某个 match alternative 永远不会到达。 严重性：Error。起始版本：4.22.0。 这个错误发生在 pattern match 的某个分支不可能被匹配时：任何能匹配该分支 pattern 的值，都会先匹配前面的某个 alternative。 它可能出现在： expression； equational function definition； binding； 带 fallback clause 的 monadic binding。 常见原因 更一般的 pattern 写在更具体的 pattern 前面。 或 monadic let 的 fallback clause 实际永远不会用到。 原本想写 constructor pattern，却因为没有 namespace 前缀而被 Lean 当成 variable pattern。 例如在 namespace 外写 ，Lean 可能把它当作变量名，而不是 constructor；这样第一分支会匹配所有值，后续分支冗余。 修复方向 把更具体的 pattern 放在更一般的 pattern 前面。 删除永远不会触发的 fallback clause。 对 constructor 使用 dot prefix notation 或完整名称，例如 或 。 不建议关闭该检查；如果确实需要，可用 ，但这通常表示代码本身需要重写。"
+      "text": "redundantMatchAlt 对应英文：About: redundantMatchAlt，抓取日期：2026 06 16。 错误码： 含义：某个 match alternative 永远不会到达。 严重性：Error。起始版本：4.22.0。 这个错误发生在 pattern match 的某个分支不可能被匹配时：任何能匹配该分支 pattern 的值，都会先匹配前面的某个 alternative。 它可能出现在： expression； equational function definition； binding； 带 fallback clause 的 monadic binding。 常见原因 更一般的 pattern 写在更具体的 pattern 前面。 或 monadic let 的 fallback clause 实际永远不会用到。 原本想写 constructor pattern，却因为没有 namespace 前缀而被 Lean 当成 variable pattern。 例如在 namespace 外写 ，Lean 可能把它当作变量名，而不是 constructor；这样第一分支会匹配所有值，后续分支冗余。 修复方向 把更具体的 pattern 放在更一般的 pattern 前面。 删除永远不会触发的 fallback clause。 对 constructor 使用 dot prefix notation 或完整名称，例如 或 。 不建议关闭该检查；如果确实需要，可用 ，但这通常表示代码本身需要重写。 示例 namespace 外忘记前缀时， 会被当成 变量 （匹配一切）："
     },
     {
       "kind": "heading",
@@ -22253,6 +22393,16 @@
       "section": "错误解释详解",
       "text": "修复方向",
       "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/RedundantMatchAlt.md",
+      "title": "redundantMatchAlt › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
     },
     {
       "kind": "chapter",
