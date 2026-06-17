@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T02:04:16.623Z",
+  "generatedAt": "2026-06-17T02:10:47.225Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 250 篇已翻译",
+      "status": "首批 252 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 250,
+      "chapterCount": 252,
       "sections": [
         {
           "title": "官网入口",
@@ -1893,6 +1893,16 @@
               "summary": "`HEq`、`heq_of_eq`、`eq_of_heq` 与 dependent pattern matching"
             },
             {
+              "title": "命题相等的基础 API",
+              "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+              "summary": "`Eq.refl`、`rfl`、`Eq.symm`、`Eq.trans`、`Eq.subst`"
+            },
+            {
+              "title": "cast 与 congruence",
+              "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+              "summary": "`cast`、`Eq.mp` / `Eq.mpr`、`congr`、`congrFun`、`congrArg`"
+            },
+            {
               "title": "基础类型",
               "path": "lean-reference/Reference/BasicTypes.md",
               "summary": "数值、文本、collection、subtype 与 lazy computation"
@@ -2835,9 +2845,9 @@
       "subtitle": "本科严谨证明 + Lean",
       "originalUrl": "https://hrmacbeth.github.io/math2001/",
       "externalPdfUrl": null,
-      "status": "前言 + 第 1–5 章已译",
+      "status": "前言 + 第 1–6 章已译",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 6,
+      "chapterCount": 7,
       "sections": [
         {
           "title": "前言",
@@ -2875,6 +2885,11 @@
             {
               "title": "第 5 章 逻辑",
               "path": "math2001/05_Logic.md",
+              "summary": ""
+            },
+            {
+              "title": "第 6 章 归纳法",
+              "path": "math2001/06_Induction.md",
               "summary": ""
             }
           ]

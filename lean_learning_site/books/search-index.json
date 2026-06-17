@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T02:04:16.689Z",
-  "entryCount": 3045,
+  "generatedAt": "2026-06-17T02:10:47.282Z",
+  "entryCount": 3109,
   "entries": [
     {
       "kind": "chapter",
@@ -15368,6 +15368,164 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API",
+      "section": "命题详解",
+      "text": "命题相等的基础 API 对应英文：Propositional Equality，抓取日期：2026 06 16。本页整理其中关于 基础定理的高频部分。 是 Lean 中最核心的命题相等关系。它不仅有“两个项相等”这一声明意义，还附带一套基础 API，支撑几乎所有后续 rewrite 与等式推理。 构造子： 与 只有一个构造子： 常用简写是： 它的关键点在于：虽然表面类型是 ，Lean 会允许任何与该类型 definitionally equal 的目标使用 。因此像： 这类命题，若两边可通过 definitional equality 化成同一项，也能直接由 证明。 对称性与传递性 最基础的等价关系定理包括： 它们分别表达： 若 ，则 若 且 ，则 在 namespace 下，常可写成： 替换原则： 等式不仅是等价关系，更重要的是 可替换性 。若 且某命题/性质对 成立，那么把其中的 换成 后仍然成立。 对应定理： 这正是很多重写工具的逻辑基础。Lean 的 tactic 本质上就在为 自动寻找合适的 motive。 记号 Lean 还提供： 它是建立在 与 之上的记法，用于把某项沿相等式重写到另一侧。 为什么这些 API 重要 对应 definitional equality 的最直接入口； / 提供最基础的等式拼接； 提供“在上下文中重写”的核心原则； 许多 tactic 的行为都可回溯到这些基本定理。 使用建议 能用 definitional equality 解决时，优先试 ； 多步等式链条可用 和 组织； 若想理解 、 、 这类 tactic 的底层逻辑，先吃透 。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › 构造子：`Eq.refl` 与 `rfl`",
+      "section": "命题详解",
+      "text": "构造子：`Eq.refl` 与 `rfl`",
+      "anchor": "eq-refl-rfl"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › 对称性与传递性",
+      "section": "命题详解",
+      "text": "对称性与传递性",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › 替换原则：`Eq.subst`",
+      "section": "命题详解",
+      "text": "替换原则：`Eq.subst`",
+      "anchor": "eq-subst"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › `▸` 记号",
+      "section": "命题详解",
+      "text": "`▸` 记号",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › 为什么这些 API 重要",
+      "section": "命题详解",
+      "text": "为什么这些 API 重要",
+      "anchor": "api"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCoreAPI.md",
+      "title": "命题相等的基础 API › 使用建议",
+      "section": "命题详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence",
+      "section": "命题详解",
+      "text": "cast 与 congruence 对应英文：Propositional Equality，抓取日期：2026 06 16。本页整理其中关于 、 / 与 congruence 定理的高频部分。 除了直接声明“两个项相等”，命题相等还承担两个非常实用的角色： 沿类型相等搬运项 把相等传播进函数应用和子项内部 当你有： 但系统不接受把 直接当作 ，就可以写： 这表示“沿着类型相等把值从 搬到 ”。 英文页特别提醒：若能避免 ，最好尽量避免，因为带有大量 cast 的项通常更难读、更难推理；但当类型不 definitionally 对齐时，有时没有更好的选择。 与 和 是 的两个方向化版本： 它们都把类型相等当作“在两个类型之间搬运值”的证据。 congruence 定理 英文页列出三类高频 congruence 工具： 同时在函数部分和参数部分传播相等： 若 且 则 只在函数部分传播： 若 则对任意 ，有 这在函数外延性证明和高阶等式推理里非常常见。 只在参数部分传播： 若 则 一个重要技巧是： 不必是已命名函数，也可以是 lambda。这样你能把“某个更大表达式里的一处参数替换”包装成 congruence 证明。 与 tactic 的关系 这些定理和记号广泛支撑： dependent rewrite 相关技巧 当这些 tactic 看起来“像魔法”时，底层往往就是 或 congruence 定理在工作。 使用建议 类型不对齐时，先想是不是需要 / / ； 普通子项改写优先让 tactic 自动做； 只有 tactic 不够时，再手工用 / 精确控制相等传播。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › `cast`",
+      "section": "命题详解",
+      "text": "`cast`",
+      "anchor": "cast"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › `Eq.mp` 与 `Eq.mpr`",
+      "section": "命题详解",
+      "text": "`Eq.mp` 与 `Eq.mpr`",
+      "anchor": "eq-mp-eq-mpr"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › congruence 定理",
+      "section": "命题详解",
+      "text": "congruence 定理",
+      "anchor": "congruence"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › `congr`",
+      "section": "命题详解",
+      "text": "`congr`",
+      "anchor": "congr"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › `congrFun`",
+      "section": "命题详解",
+      "text": "`congrFun`",
+      "anchor": "congrfun"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › `congrArg`",
+      "section": "命题详解",
+      "text": "`congrArg`",
+      "anchor": "congrarg"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › 与 tactic 的关系",
+      "section": "命题详解",
+      "text": "与 tactic 的关系",
+      "anchor": "tactic"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/PropositionDetails/EqualityCastCongruence.md",
+      "title": "cast 与 congruence › 使用建议",
+      "section": "命题详解",
+      "text": "使用建议",
+      "anchor": "section-7"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/BasicTypes.md",
       "title": "基础类型",
       "section": "命题详解",
@@ -26900,6 +27058,485 @@
       "section": "正文",
       "text": "5.3.6. 练习",
       "anchor": "5-3-6"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法",
+      "section": "正文",
+      "text": "第 6 章 归纳法 本译文对应原书 Induction；英文 Sphinx 源： 。 本章介绍 归纳法 ，一种适用于自然数以及其他离散类型（如整数或自然数对）的证明方法。我们还将介绍 递归 ，一种定义数列（更一般地，从离散类型到某类型的函数）的方法；归纳法是证明关于递归定义对象的结果的标准方法。 在6.1 节到6.3 节中，我们只使用最传统的归纳形式：通过把自然数 的结果与 的结果联系起来完成证明，以及这种形式的小变体。在6.4 节到6.7 节中，我们介绍 强归纳法 ，甚至更一般的 良基归纳法 。这些归纳原理更加灵活。 6.1. 归纳法 6.1.1. 例 问题 设 是自然数。证明 。 解法 我们对 用归纳法证明。基础情形 显然成立。 现在假设对某个自然数 ，有 成立。则 在 Lean 中， 策略会自动设置归纳证明。在写出 之前，目标状态只有一个目标；使用该策略后，目标状态会分裂成两个目标：一个对应基础情形，一个对应归纳步骤。 下面是完整的 Lean 证明。 6.1.2. 例 定理 设 是自然数。则 要么是偶数，要么是奇数。 （可与例 3.1.9、例 4.2.9比较。） 证明 我们对 用归纳法证明。 基础情形需要证明 0 是偶数或奇数。我们证明它是偶数。事实上， 。 现在假设对某个自然数 ， 是偶数或奇数。 情形 1 （ 是偶数）：则存在整数 使得 ，于是 ，所以 是奇数。 情形 2 （ 是奇数）：则存在整数 使得 ，且 所以 是偶数。 下面是该论证在 Lean 中的框架。请补全 。 6.1.3. 例 定理 设 、 、 是整数，且 。设 是自然数。则 。 这是模算术的幂法则，即引理 ，我们在例 3.3.9中未加证明地陈述过。它是 策略模算术能力的组成部分之一。 证明 我们对 用归纳法证明。 首先， ，所以 ，即 。这是基础情形。 现在，设 是自然数，并假设 。则存在整数 使得 。又由假设 ，所以存在整数 使得 。于是 所以 ，即 。 请在 Lean 中写出这个证明。 6.1.4. 例 问题 设 是自然数。证明 模 15 同余于 1 或 4。 解法 我们对 用归纳法证明。首先， ，所以 。 现在，设 是自然数，并假设已知 模 15 同余于 1 或 4。 情形 1 （ ）：则 情形 2 （ ）：则 6.1.5. 例 我们也可以使用归纳法来证明关于所有大于等于某个给定数的自然数的结果，只需从该数开始归纳。 问题 设 是大于等于 2 的自然数。证明 。 解法 我们对 从 2 开始用归纳法证明。基础情形 显然成立。 现在假设对某个自然数 ，有 成立。则 在 Lean 中， 策略用于设置从指定起点开始的归纳证明。 6.1.6. 例 从非零起点开始的归纳法对“足够大”的问题特别有用。 问题 证明对所有足够大的自然数 ，有 。 解法 我们证明这对所有自然数 成立。 我们对 从 4 开始用归纳法证明。基础情形 显然成立。 现在假设对某个自然数 ，有 成立。则 下面是该论证在 Lean 中的框架。请补全 。 6.1.7. 练习 1. 设 是自然数。证明 。 2. 设 是实数， 是自然数。证明 。 这一事实称为 伯努利不等式 （Bernoulli’s inequality）。 3. 设 是自然数。证明 模 8 同余于 1 或 5。 4. 设 是自然数。证明 模 7 同余于 1 或 6。 5. 设 是自然数。证明 模 7 同余于 1、2 或 4。 6. 证明对所有足够大的自然数 ，有 。 7. 证明对所有足够大的自然数 ，有 。 8. 证明对所有足够大的自然数 ，有 。 9. 设 是奇自然数。用归纳法证明对所有自然数 ， 都是奇数。 进而推出：对所有自然数 和 ，如果 是偶数，则 是偶数。（这部分不是归纳问题。） 6.2. 递推关系 6.2.1. 例 数列 是一个无限延伸的带索引列表。有些数列由显式公式定义。例如， 定义了 2 的幂次组成的数列： 在 Lean 中，我们会这样定义这个数列： Lean 也能计算我们想要的任何一项： 然而，许多重要数列没有简单的显式公式。更灵活的定义方式是使用 递归定义 。例如，我们可以递归地定义数列 ： 它的前几项是 在 Lean 中，我们会这样定义这个数列： Lean 也能计算我们想要的任何一项（在其计算能力范围内！）： 当数列是递归定义时，用归纳法来推理它会很方便。 问题 证明对所有 ，整数 都是奇数。 解法 我们对 用归纳法证明。 首先， 所以 是奇数。 现在，设 是自然数并假设 是奇数。则存在整数 使得 。于是 所以 也是奇数。 下面是该解法在 Lean 中的写法；注意 的使用，它按需要展开 的递归定义的两部分。 你可以尝试用模算术刻画奇偶性的另一种证明；这在文本和 Lean 中都可行。 6.2.2. 例 下面是另一个递归定义的数列： 在 Lean 中定义如下： 自己计算这个数列的前几项（或让 Lean 帮你算！）。下面是可以证明的关于数列 的一个性质： 问题 证明对所有自然数 ， 。 解法 我们对 用归纳法证明。 对于基础情形，注意到 对于归纳步骤，假设对某个自然数 ， 。则 也成立。 请在 Lean 中写出该证明的两个部分。 6.2.3. 例 有时，递归定义的数列也可以给出 闭式表达式 。上一题中的数列 就是一例。 问题 证明对所有自然数 ， 。 解法 我们对 用归纳法证明。 对于基础情形，注意到如期望的那样， 对于归纳步骤，假设对某个自然数 ， 。则 6.2.4. 例 下面是另一个递归定义的数列： 让我们计算这个数列的前几项： 注意规律：我们先加 1，再加 2，再加 3，再加 4。所以事实上 数列的项 表示从 1 到 的整数之和。 问题 证明对所有自然数 ， 解法 我们对 用归纳法证明。首先注意到 这建立了基础情形。现在，设 是自然数并假设 。则 下面是它在 Lean 中的写法，步骤更少，因为 Lean 的代数比人类更强。 6.2.5. 例 前一个数列是逐项加 1、2、3 等构造的。如果做同样的事但改为乘法呢？这就得到了所谓的 阶乘 函数，“ 阶乘”记作 。 所以 具体地， 问题 设 是自然数。证明每个满足 的自然数 都是 的因子。 解法 我们对 用归纳法证明。对于基础情形 ，命题是空虚成立的，因为不存在满足 的自然数 。 设 是自然数并假设每个满足 的自然数 都是 的因子。现在设 是满足 的自然数。我们必须证明 是 的因子。 情形 1 （ ）：我们有 所以 是 的因子。 情形 2 （ ）：则 ，所以由归纳假设， 是 的因子。因此存在自然数 使得 。于是 所以 是 的因子。 下面是同一个证明在 Lean 中的写法。我们以 的名字记录它供以后使用。 6.2.6. 例 问题 证明对所有自然数 ，有 。 解法 我们对 用归纳法证明。 对于基础情形， 对于归纳步骤，假设对某个自然数 ， 。则 6.2.7. 练习 1. 考虑递归定义的数列 ： 证明对所有自然数 ，整数 都是奇数。 2. 设数列 如上题所定义。证明对所有 ， 。 3. 考虑递归定义的数列 ： 证明对所有自然数 ， 。 4. 考虑递归定义的数列 ： 因此 表示和 。证明对所有自然数 ， 5. 考虑递归定义的数列 ： 因此 表示和 。证明对所有自然数 ， 6. 证明对所有自然数 ， 严格为正。 我们以 的名字记录它供以后使用。 7. 证明对所有 ， 是偶数。使用从 2 开始的归纳法（参见例 6.1.5）。 8. 证明对所有自然数 ， 。 （可与例 6.2.6比较。） 6.3. 两步归纳 6.3.1. 例 上一节我们研究了每一项由前一项构造的递归数列。但也可以定义依赖前几项的递归数列。 例如，下面是一个依赖前两项的递归数列。 由于递推关系依赖前两项，我们需要给出数列的两个具体初始值（ 和 ）。 这个数列的前几项是 在 Lean 中，我们会这样定义这个数列： 和上一节一样，Lean 会为我们计算数列的任何一项： 自己用纸笔或 Lean 计算更多项。你会开始发现一个规律：数列的每一项都比 2 的某个幂次少 1。我们可以用归纳法证明这个规律。 问题 证明对所有自然数 ， 。 注意下面的证明中有 两个 基础情形和 两个 归纳假设。想想为什么。 解法 我们对 用归纳法证明。 我们有 以及 现在设 是自然数并假设 且 。则 主要计算的前两步（使用递推关系和归纳假设）相对固定，但后面的“收官”步骤可能因你对指数法则和心算的熟练程度而有多有少。Lean 可以一步完成！ 对这种有两个基础情形和两个归纳假设的归纳，我们使用 Lean 策略 。 6.3.2. 例 问题 证明对所有自然数 ， 模 6 同余于 1 或 5。 解法 我们将证明一个比题目更精确的结果：对所有自然数 ，要么 且 ，要么 且 。 我们对 用归纳法证明。 对于基础情形 ，注意到 且 ，所以 且 。 对于归纳步骤，设 是自然数并假设要么 且 ，要么 且 。 情形 1 （ 且 ）：则 情形 2 （ 且 ）：则 你可能不太清楚为什么这些计算就是解决问题所需要的。文本中也没有直接点明其中相当多的底层逻辑操作。下面的 Lean 证明可能会让你更清楚地看到这些逻辑操作。 6.3.3. 例 依赖前两项定义的递归数列中最著名的例子是 斐波那契数列 ：每一项都是前两项之和。 用纸笔或 Lean 计算前 10 项。 问题 证明斐波那契数列 满足：对所有自然数 ， 。 解法 我们对 用归纳法证明。 对于 ，我们有 对于 ，我们有 设 是自然数并假设 且 。则 6.3.4. 例 问题 证明斐波那契数列 满足：对所有自然数 ， 解法 我们对 用归纳法证明。首先， 现在，设 是自然数并假设 。则 6.3.5. 例 到目前为止，我们已经见过简单归纳、从指定起点开始的归纳和两步归纳。不难想象，也可以从指定起点开始进行两步归纳。 考虑递归定义的数列 ： 问题 证明对所有足够大的自然数 ， 。 开始本题时，你可以先计算前几项，用手算或在 Lean 中。 同样，你可以在 Lean 中计算 4 的前几个幂次。 根据这有限的样本，看起来 在 处超过 。所以我们尝试从 4 开始归纳。 解法 我们证明这对所有自然数 成立。 对于 ，我们有 对于 ，我们有 设 是自然数并假设 且 。则 在 Lean 中，我们可以使用策略 来处理这种论证。 6.3.6. 练习 1. 考虑递归定义的数列 ： 证明对所有自然数 ， 。 2. 考虑递归定义的数列 ： 证明对所有自然数 ， 。 3. 考虑递归定义的数列 ： 证明对所有自然数 ， 。 4. 考虑递归定义的数列 ： 证明对所有自然数 ， 。 5. 考虑递归定义的数列 ： 证明对所有自然数 ， 模 5 同余于 2 或 3。 6. 考虑递归定义的数列 ： 证明对所有自然数 ， 模 7 同余于 2 或 3。 7. 考虑递归定义的数列 ： 证明对所有足够大的自然数 ， 。 8. 证明斐波那契数列 满足：对所有足够大的自然数 ， [^1] 本例改编自 Hammack，《Book of Proof》第 10.5 节。 6.4. 强归纳 6.4.1. 例 我们遇到的归纳原理越来越复杂，从例 6.1.1的“简单归纳”到例 6.3.5这种相当小众的“从指定起点开始的两步归纳”。与其随着问题变得更复杂而发展越来越奇特的归纳原理，不如解释一种更一般的方法： 强归纳法 。这种方法让我们逐个证明自然数的命题，每一步不仅可以依赖紧邻的前一步，还可以依赖 任何 之前的步骤。 让我们用强归纳法重新做例 6.3.3。差异在 Lean 中会更明显，但我们先从文本证明开始，其区别只是强调方式不同。 问题 证明对所有自然数 ， 。 解法 我们对 用强归纳法证明。设 是自然数，并假设对所有自然数 ，都有 。 我们按 是 0、1 还是某个自然数 对应的 来分情况。 对于 ，我们有 对于 ，我们有 对于 ，我们有 且 ，所以由归纳假设 ， 且 。因此 在 Lean 中，强归纳法几乎可以悄无声息地使用。我们先建立一个陈述我们想要证明的定理（这里是 对"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1. 归纳法",
+      "section": "正文",
+      "text": "6.1. 归纳法",
+      "anchor": "6-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.1. 例",
+      "section": "正文",
+      "text": "6.1.1. 例",
+      "anchor": "6-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.2. 例",
+      "section": "正文",
+      "text": "6.1.2. 例",
+      "anchor": "6-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.3. 例",
+      "section": "正文",
+      "text": "6.1.3. 例",
+      "anchor": "6-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.4. 例",
+      "section": "正文",
+      "text": "6.1.4. 例",
+      "anchor": "6-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.5. 例",
+      "section": "正文",
+      "text": "6.1.5. 例",
+      "anchor": "6-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.6. 例",
+      "section": "正文",
+      "text": "6.1.6. 例",
+      "anchor": "6-1-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.1.7. 练习",
+      "section": "正文",
+      "text": "6.1.7. 练习",
+      "anchor": "6-1-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2. 递推关系",
+      "section": "正文",
+      "text": "6.2. 递推关系",
+      "anchor": "6-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.1. 例",
+      "section": "正文",
+      "text": "6.2.1. 例",
+      "anchor": "6-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.2. 例",
+      "section": "正文",
+      "text": "6.2.2. 例",
+      "anchor": "6-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.3. 例",
+      "section": "正文",
+      "text": "6.2.3. 例",
+      "anchor": "6-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.4. 例",
+      "section": "正文",
+      "text": "6.2.4. 例",
+      "anchor": "6-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.5. 例",
+      "section": "正文",
+      "text": "6.2.5. 例",
+      "anchor": "6-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.6. 例",
+      "section": "正文",
+      "text": "6.2.6. 例",
+      "anchor": "6-2-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.2.7. 练习",
+      "section": "正文",
+      "text": "6.2.7. 练习",
+      "anchor": "6-2-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3. 两步归纳",
+      "section": "正文",
+      "text": "6.3. 两步归纳",
+      "anchor": "6-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.1. 例",
+      "section": "正文",
+      "text": "6.3.1. 例",
+      "anchor": "6-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.2. 例",
+      "section": "正文",
+      "text": "6.3.2. 例",
+      "anchor": "6-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.3. 例",
+      "section": "正文",
+      "text": "6.3.3. 例",
+      "anchor": "6-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.4. 例",
+      "section": "正文",
+      "text": "6.3.4. 例",
+      "anchor": "6-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.5. 例",
+      "section": "正文",
+      "text": "6.3.5. 例",
+      "anchor": "6-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.3.6. 练习",
+      "section": "正文",
+      "text": "6.3.6. 练习",
+      "anchor": "6-3-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.4. 强归纳",
+      "section": "正文",
+      "text": "6.4. 强归纳",
+      "anchor": "6-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.4.1. 例",
+      "section": "正文",
+      "text": "6.4.1. 例",
+      "anchor": "6-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.4.2. 例",
+      "section": "正文",
+      "text": "6.4.2. 例",
+      "anchor": "6-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.4.3. 练习",
+      "section": "正文",
+      "text": "6.4.3. 练习",
+      "anchor": "6-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.5. 帕斯卡三角形",
+      "section": "正文",
+      "text": "6.5. 帕斯卡三角形",
+      "anchor": "6-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.5.1. 定义",
+      "section": "正文",
+      "text": "6.5.1. 定义",
+      "anchor": "6-5-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.5.2. 例",
+      "section": "正文",
+      "text": "6.5.2. 例",
+      "anchor": "6-5-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.5.3. 例",
+      "section": "正文",
+      "text": "6.5.3. 例",
+      "anchor": "6-5-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.5.4. 练习",
+      "section": "正文",
+      "text": "6.5.4. 练习",
+      "anchor": "6-5-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6. 除法算法",
+      "section": "正文",
+      "text": "6.6. 除法算法",
+      "anchor": "6-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.1. 定义",
+      "section": "正文",
+      "text": "6.6.1. 定义",
+      "anchor": "6-6-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.2. 例",
+      "section": "正文",
+      "text": "6.6.2. 例",
+      "anchor": "6-6-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.3. 例",
+      "section": "正文",
+      "text": "6.6.3. 例",
+      "anchor": "6-6-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.4. 例",
+      "section": "正文",
+      "text": "6.6.4. 例",
+      "anchor": "6-6-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.5. 例",
+      "section": "正文",
+      "text": "6.6.5. 例",
+      "anchor": "6-6-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.6.6. 练习",
+      "section": "正文",
+      "text": "6.6.6. 练习",
+      "anchor": "6-6-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7. 欧几里得算法",
+      "section": "正文",
+      "text": "6.7. 欧几里得算法",
+      "anchor": "6-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.1. 定义",
+      "section": "正文",
+      "text": "6.7.1. 定义",
+      "anchor": "6-7-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.2. 例",
+      "section": "正文",
+      "text": "6.7.2. 例",
+      "anchor": "6-7-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.3. 例",
+      "section": "正文",
+      "text": "6.7.3. 例",
+      "anchor": "6-7-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.4. 定义",
+      "section": "正文",
+      "text": "6.7.4. 定义",
+      "anchor": "6-7-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.5. 例",
+      "section": "正文",
+      "text": "6.7.5. 例",
+      "anchor": "6-7-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.6. 例",
+      "section": "正文",
+      "text": "6.7.6. 例",
+      "anchor": "6-7-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/06_Induction.md",
+      "title": "第 6 章 归纳法 › 6.7.7. 练习",
+      "section": "正文",
+      "text": "6.7.7. 练习",
+      "anchor": "6-7-7"
     },
     {
       "kind": "chapter",
