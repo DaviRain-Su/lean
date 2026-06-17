@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T04:20:01.594Z",
+  "generatedAt": "2026-06-17T04:22:45.786Z",
   "books": [
     {
       "id": "tpil",
@@ -947,7 +947,7 @@
       "externalPdfUrl": null,
       "status": "首批 272 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 272,
+      "chapterCount": 276,
       "sections": [
         {
           "title": "官网入口",
@@ -1666,6 +1666,31 @@
               "title": "运行时代码",
               "path": "lean-reference/Reference/RunTimeCode.md",
               "summary": "runtime、内存管理、reference counting、task 与 primitive operator"
+            }
+          ]
+        },
+        {
+          "title": "运行时代码详解",
+          "chapters": [
+            {
+              "title": "Boxing",
+              "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+              "summary": "boxed/unboxed 值、最低位标记与多态容器中的装箱"
+            },
+            {
+              "title": "引用计数",
+              "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+              "summary": "内存复用、原地更新、`dbgTraceIfShared` 与 IR 观察"
+            },
+            {
+              "title": "多线程执行",
+              "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+              "summary": "task、task manager 与并行调度"
+            },
+            {
+              "title": "外部函数接口",
+              "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+              "summary": "`@[extern]`、`@[export]`、Lean ABI、borrowing 与初始化"
             },
             {
               "title": "Term",
@@ -3389,9 +3414,9 @@
       "subtitle": "NNG 风格 tactic 练习 · 同步自 learn_proof 项目",
       "originalUrl": null,
       "externalPdfUrl": null,
-      "status": "5 章 · 随 learn_proof/Basic.lean 自动同步",
+      "status": "6 章 · 随 learn_proof 自动同步",
       "indexPath": "learn-proof/INDEX.md",
-      "chapterCount": 5,
+      "chapterCount": 6,
       "sections": [
         {
           "title": "练习章节",
@@ -3420,6 +3445,11 @@
               "title": "归纳法：乘法",
               "path": "learn-proof/04-induction-multiplication.md",
               "summary": "示例 16–19：mul_one、zero_mul、succ_mul、mul_comm"
+            },
+            {
+              "title": "自然数：从零构造",
+              "path": "learn-proof/05-natural-numbers.md",
+              "summary": "MyNat：归纳定义、加法与乘法的递归定义"
             }
           ]
         }

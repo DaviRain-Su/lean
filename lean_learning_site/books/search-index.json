@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T04:20:41.296Z",
-  "entryCount": 3365,
+  "generatedAt": "2026-06-17T04:22:45.828Z",
+  "entryCount": 3400,
   "entries": [
     {
       "kind": "chapter",
@@ -12788,9 +12788,315 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing",
+      "section": "运行时代码详解",
+      "text": "Boxing 对应英文：Boxing，抓取日期：2026 06 16。 Lean 运行时里的值有两种表示方式： boxed unboxed boxed 值 boxed 值要么是： 指向堆对象的指针； 要么是经过位移/掩码编码的立即值。 Lean 用最低位来区分这两类： 最低位为 ：表示普通指针； 最低位为 ：表示立即值，此时真实值需右移一位解码。 unboxed 值 unboxed 值无需间接访问，运行时可直接使用。某些类型在编译器确信其具体类型时，会以原生 C 类型表示，例如： 枚举型归纳类型（如 ） 为什么有时还得装箱 即使某个类型“原则上可 unboxed”，在多态容器中仍可能被强制 boxing。例如： 的参数和返回值通常是 unboxed 的 但 中的每个 元素仍需 boxed 原因是：像 这样的通用容器在运行时要统一存放“任意 Lean 值”，因此需要 boxing 来抹平具体表示差异。 字段中的表现 若某个归纳类型构造子字段的类型本身可 unboxed，则该字段可用 unboxed 表示； 若该字段是某个多态位置的具体实例化，则它可能被 boxed。 使用建议 读性能问题时，要区分“类型本身支持 unboxed”与“当前上下文真的用 unboxed”； 多态容器常是 boxing 发生的热点； 、小整数等即便逻辑上简单，放进容器后也可能有不同运行时成本。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing › boxed 值",
+      "section": "运行时代码详解",
+      "text": "boxed 值",
+      "anchor": "boxed"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing › unboxed 值",
+      "section": "运行时代码详解",
+      "text": "unboxed 值",
+      "anchor": "unboxed"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing › 为什么有时还得装箱",
+      "section": "运行时代码详解",
+      "text": "为什么有时还得装箱",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing › 字段中的表现",
+      "section": "运行时代码详解",
+      "text": "字段中的表现",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/Boxing.md",
+      "title": "Boxing › 使用建议",
+      "section": "运行时代码详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数",
+      "section": "运行时代码详解",
+      "text": "引用计数 对应英文：Reference Counting，抓取日期：2026 06 16。 Lean 使用 reference counting 做内存管理。每个已分配对象都记录“有多少其他对象正引用它”。 基本机制 新增引用：计数加一 丢弃引用：计数减一 计数到零：对象不可再达，可被释放 释放一个对象时，它内部指向其他对象的引用也会一并递减，因此可能触发连锁回收。 它带来的好处 1. 内存复用 若某对象刚好在要分配同尺寸对象时变成不可达，其内存可直接复用。因此像 一类遍历，在“恰好只有一个引用”时常无需额外分配。 2. opportunistic in place update 数组、字符串等 primitive type 若发现自己是唯一引用，就可以直接原地更新；若被共享，则复制后更新。这让 Lean 在保持纯函数式接口的同时，获得接近可变数据结构的性能。 3. 资源释放更可预测 引用何时递减是相对可预测的，因此像文件句柄这类资源也能搭载在引用计数对象上管理。比如 不需要手工 close；失去可达性后就会及时关闭。 4. 更简单的 FFI 引用计数对象不会像 tracing GC 那样在回收时随意搬移位置，因此与 C 等外部语言交互更简单。 代价与优化 引用计数的传统问题有两个： 更新计数本身有开销 无法自动回收循环结构 Lean 通过几类优化减少前者： 基于 borrowing 的分析，省掉很多无必要的计数更新 把值区分为“只在单线程可达”和“跨线程可达” 单线程计数更新比多线程同步更新便宜得多 观察共享性 英文页给出一个实用调试工具： 它在值被共享时打印消息，但返回原值本身。适合诊断“为什么这段数组/字符串代码没走原地更新”。不过英文页也提醒：不要用 去判断它的行为，最好在真正编译运行的代码里观察。 编译器 IR 视角 打开： 可以看到编译器中间表示里，引用计数、分配与复用如何被显式编码。英文页列举了： 这对性能剖析非常有帮助。 使用建议 若性能异常，先看共享性，再怀疑算法； 数组/字符串代码要尽量保持“线性使用”以便触发原地更新； 只有在性能敏感热点里，才需要深入看 IR 和引用计数细节。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 基本机制",
+      "section": "运行时代码详解",
+      "text": "基本机制",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 它带来的好处",
+      "section": "运行时代码详解",
+      "text": "它带来的好处",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 1. 内存复用",
+      "section": "运行时代码详解",
+      "text": "1. 内存复用",
+      "anchor": "1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 2. opportunistic in-place update",
+      "section": "运行时代码详解",
+      "text": "2. opportunistic in-place update",
+      "anchor": "2-opportunistic-in-place-update"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 3. 资源释放更可预测",
+      "section": "运行时代码详解",
+      "text": "3. 资源释放更可预测",
+      "anchor": "3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 4. 更简单的 FFI",
+      "section": "运行时代码详解",
+      "text": "4. 更简单的 FFI",
+      "anchor": "4-ffi"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 代价与优化",
+      "section": "运行时代码详解",
+      "text": "代价与优化",
+      "anchor": "section-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 观察共享性",
+      "section": "运行时代码详解",
+      "text": "观察共享性",
+      "anchor": "section-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 编译器 IR 视角",
+      "section": "运行时代码详解",
+      "text": "编译器 IR 视角",
+      "anchor": "ir"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/ReferenceCounting.md",
+      "title": "引用计数 › 使用建议",
+      "section": "运行时代码详解",
+      "text": "使用建议",
+      "anchor": "section-9"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+      "title": "多线程执行",
+      "section": "运行时代码详解",
+      "text": "多线程执行 对应英文：Multi Threaded Execution，抓取日期：2026 06 16。 Lean 运行时提供并发与并行执行支持，核心抽象是 task 。 task task 用来表示： 一个未来会产生结果的计算； 可能与当前线程并发执行的工作； 可被等待、组合、调度的并发单元。 Lean 的 task API 让你能在保持高层函数式风格的同时，表达并发流程。 task manager Lean runtime 内置 task manager，用来： 给 task 分配硬件资源； 调度并发/并行执行； 管理任务之间的运行时协作。 因此，多线程执行不是“每次都手工创建原始线程”，而是建立在运行时统一调度之上的。 为什么单独列为运行时章节 并发执行的正确性和性能都深受运行时影响。例如： 多线程引用计数更新比单线程更贵； 是否共享对象会影响复制和同步成本； 某些任务是否值得拆成并行粒度，取决于调度开销。 使用建议 并发设计时，优先从 task API 而不是“底层线程对象”思考； 对性能敏感场景，要同时考虑任务粒度与共享数据带来的同步成本； 若遇到性能反常，记得把引用计数和跨线程共享也纳入分析。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+      "title": "多线程执行 › task",
+      "section": "运行时代码详解",
+      "text": "task",
+      "anchor": "task"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+      "title": "多线程执行 › task manager",
+      "section": "运行时代码详解",
+      "text": "task manager",
+      "anchor": "task-manager"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+      "title": "多线程执行 › 为什么单独列为运行时章节",
+      "section": "运行时代码详解",
+      "text": "为什么单独列为运行时章节",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/MultiThreadedExecution.md",
+      "title": "多线程执行 › 使用建议",
+      "section": "运行时代码详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口",
+      "section": "运行时代码详解",
+      "text": "外部函数接口 对应英文：Foreign Function Interface，抓取日期：2026 06 16。 Lean 提供与任何支持 C ABI 的语言高效互操作的能力。当前接口主要面向 Lean 内部与高级用户，英文页也明确说明它仍应视为不稳定接口。 两类关键 attribute 把某个 Lean 声明绑定到外部符号 。编译后的 Lean 代码会把该声明实现视为这个外部函数。 把某个 Lean 常量导出为名为 的未混淆符号，使外部 C 代码可直接调用它。 Lean ABI Lean 的 FFI 以 C ABI 为基础。某个 Lean 声明的类型会被翻译成对应的 C 声明： 若没有参数，则更像一个导出值/零参函数入口； 若有参数，则参数和返回值都按 Lean 类型映射到对应的 C 类型。 常见类型映射 英文页给出例如： … 、 → 对应 C 无符号整数类型 → → 、 → （可能是 boxed 大整数，也可能是标量编码） proposition / irrelevant 类型 → 运行时被擦除或映射到 Borrowing 默认情况下， 函数接收的 参数被视为 拥有权转移 。若想声明它只是借用，可在 Lean 侧参数类型前加： 这让外部代码知道： 该对象不可被消费掉； 如需长期持有，应显式 。 初始化 在外部程序中嵌入 Lean 代码时，不能直接跳过初始化。英文页给出了一整套初始化顺序，包括： 各模块的 函数 必要时的 / 这一步若做错，后续任何 Lean 声明调用都不可信。 使用建议 普通项目里，除非真的需要跨语言互操作，否则不必直接下探到这一层； 一旦涉及 / ，应同时理解 ABI、ownership、初始化和运行时表示； FFI 不只是“能调就行”，而是与 Lean 运行时模型紧密绑定的接口。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › 两类关键 attribute",
+      "section": "运行时代码详解",
+      "text": "两类关键 attribute",
+      "anchor": "attribute"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › `@[extern sym]`",
+      "section": "运行时代码详解",
+      "text": "`@[extern sym]`",
+      "anchor": "extern-sym"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › `@[export sym]`",
+      "section": "运行时代码详解",
+      "text": "`@[export sym]`",
+      "anchor": "export-sym"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › Lean ABI",
+      "section": "运行时代码详解",
+      "text": "Lean ABI",
+      "anchor": "lean-abi"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › 常见类型映射",
+      "section": "运行时代码详解",
+      "text": "常见类型映射",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › Borrowing",
+      "section": "运行时代码详解",
+      "text": "Borrowing",
+      "anchor": "borrowing"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › 初始化",
+      "section": "运行时代码详解",
+      "text": "初始化",
+      "anchor": "section-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/RuntimeDetails/FFI.md",
+      "title": "外部函数接口 › 使用建议",
+      "section": "运行时代码详解",
+      "text": "使用建议",
+      "anchor": "section-7"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "Term 对应英文：Terms，抓取日期：2026 06 16。 term 是在 Lean 中书写数学和程序的主要方式。elaborator 会把用户写下的 term 翻译为 Lean 的最小核心语言；随后，kernel 检查这些核心 term，compiler 再把可执行部分编译为运行时代码。 Lean 的 term syntax 可以任意扩展。本章记录 Lean 默认提供的 term syntax；库和用户代码还可以通过 notation、macro 和 elaborator 添加新的 term 语法。 本章覆盖范围 英文参考手册随后把本章展开为： 13.1 Identifiers 13.2 Function Types 13.3 Functions 13.4 Function Application 13.5 Numeric Literals 13.6 Structures and Constructors 13.7 Conditionals 13.8 Pattern Matching 13.9 Holes 13.10 Type Ascription 13.11 Quotation and Antiquotation 13.12 Notation 13.13 Proofs Identifier identifier 是最常见的 term 之一。它可以引用局部变量、section variable、namespace 中的 declaration、constructor、type class method、notation 展开的名称等。identifier 的解析依赖当前 namespace、opened namespace、local context 和可见的 declaration。 函数类型与函数 Lean 中的函数类型写作： 依赖函数类型可以写作： 函数值通常通过 构造： 函数应用使用空格： Lean 会根据函数类型、expected type、implicit parameter 和 type class instance synthesis 来 elaborates 应用表达式。 Literal、structure 与 constructor numeric literal 会通过 等 type class 解释，因此同一个数字语法可以在不同 type 中使用。structure 和 constructor syntax 则提供构造 inductive type 或 structure value 的方式。 条件、pattern matching 与 hole 可对 decidable proposition 或 boolean condition 分支。 则提供 pattern matching；elaborator 会把 pattern matching 翻译为核心语言中 recursor 和辅助 matcher function 的使用。 hole 允许暂时省略 term，例如 或 ，让 elaborator 推断或生成 goal。它们是交互式开发中非常重要的工具。 Type ascription 与 quotation type ascription 显式给 term 标注 type： 它可以帮助 elaborator 确定 expected type，也可以触发 coercion。 quotation 和 antiquotation 用于元编程，把 Lean syntax 作为数据构造和拼接。它们是定义 macro、syntax extension 和 custom elaborator 的基础工具。 notation 与 proof notation 为 monadic program 提供命令式外观。它会被 elaborated 为 bind、pure、let、match 等组合。proof 也是 term；tactic proof 最终同样会构造核心语言中的 proof term，并由 kernel 检查。"
     },
     {
@@ -12799,7 +13105,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › 本章覆盖范围",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "本章覆盖范围",
       "anchor": "section-0"
     },
@@ -12809,7 +13115,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › Identifier",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "Identifier",
       "anchor": "identifier"
     },
@@ -12819,7 +13125,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › 函数类型与函数",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "函数类型与函数",
       "anchor": "section-2"
     },
@@ -12829,7 +13135,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › Literal、structure 与 constructor",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "Literal、structure 与 constructor",
       "anchor": "literal-structure-constructor"
     },
@@ -12839,7 +13145,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › 条件、pattern matching 与 hole",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "条件、pattern matching 与 hole",
       "anchor": "pattern-matching-hole"
     },
@@ -12849,7 +13155,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › Type ascription 与 quotation",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "Type ascription 与 quotation",
       "anchor": "type-ascription-quotation"
     },
@@ -12859,7 +13165,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms.md",
       "title": "Term › `do` notation 与 proof",
-      "section": "Coercion 详解",
+      "section": "运行时代码详解",
       "text": "`do` notation 与 proof",
       "anchor": "do-notation-proof"
     },
@@ -33117,6 +33423,45 @@
       "section": "练习章节",
       "text": "示例 19：归纳法证明 mul_comm —— a * b = b * a",
       "anchor": "19-mul-comm-a-b-b-a"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "learn-proof",
+      "bookTitleZh": "证明练习笔记",
+      "path": "learn-proof/05-natural-numbers.md",
+      "title": "自然数：从零构造",
+      "section": "练习章节",
+      "text": "自然数：从零构造 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 归纳类型 自然数 只有两个构造子： ：起点，表示 0 ：后继，把任意自然数 n 变成「下一个」数 反复应用 就得到 1、2、3…… 例如： 就是 2。 递归定义加法 固定 ，在 上递归： 递归定义乘法 （即 ）"
+    },
+    {
+      "kind": "heading",
+      "bookId": "learn-proof",
+      "bookTitleZh": "证明练习笔记",
+      "path": "learn-proof/05-natural-numbers.md",
+      "title": "自然数：从零构造 › 归纳类型",
+      "section": "练习章节",
+      "text": "归纳类型",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "learn-proof",
+      "bookTitleZh": "证明练习笔记",
+      "path": "learn-proof/05-natural-numbers.md",
+      "title": "自然数：从零构造 › 递归定义加法",
+      "section": "练习章节",
+      "text": "递归定义加法",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "learn-proof",
+      "bookTitleZh": "证明练习笔记",
+      "path": "learn-proof/05-natural-numbers.md",
+      "title": "自然数：从零构造 › 递归定义乘法",
+      "section": "练习章节",
+      "text": "递归定义乘法",
+      "anchor": "section-2"
     }
   ]
 }
