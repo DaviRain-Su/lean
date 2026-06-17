@@ -56,6 +56,9 @@
 - [predicativity](Reference/TypeSystemDetails/Predicativity.md) — `Prop` 的 impredicativity、`Type` 的 predicativity 与非累积 universe
 - [universe polymorphism](Reference/TypeSystemDetails/UniversePolymorphism.md) — universe 参数、level expression 与 `universe` 命令
 - [universe lifting](Reference/TypeSystemDetails/UniverseLifting.md) — `PLift`、`ULift` 与跨 universe 搬运
+- [universe level 表达式](Reference/TypeSystemDetails/LevelExpressions.md) — `u + 1`、`max`、`imax` 与 level 组合
+- [universe 变量绑定](Reference/TypeSystemDetails/UniverseBindings.md) — `universe` 命令、显式 level 变量与作用域
+- [`PLift` 与 `ULift` 细节](Reference/TypeSystemDetails/LiftAPI.md) — `up` / `down`、命题提升与普通数据提升
 - [归纳类型](Reference/TypeSystemDetails/InductiveTypes.md) — constructor、recursor、参数与索引、良构性与运行时表示
 - [quotient](Reference/TypeSystemDetails/Quotients.md) — `Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障
 - [setoid 与等价关系](Reference/TypeSystemDetails/Setoids.md) — `Setoid`、`≈`、`Equivalence` 与 quotient 前置结构
@@ -71,6 +74,12 @@
 - [recursor](Reference/InductiveDetails/Recursors.md) — 消去原理、motive、ι-reduction 与高层模式匹配的底层形式
 - [归纳类型的良构性要求](Reference/InductiveDetails/WellFormedness.md) — universe、strict positivity、`Prop` vs `Type`
 - [互递归归纳类型](Reference/InductiveDetails/MutualInductives.md) — mutual declaration、参数一致性、positivity 与 recursor
+- [匿名构造子语法](Reference/InductiveDetails/AnonymousConstructors.md) — `⟨ … ⟩` 与单构造子归纳类型的表达/匹配
+- [structure 继承](Reference/InductiveDetails/StructureInheritance.md) — `extends`、字段并入与记录式复用
+- [subsingleton 消去](Reference/InductiveDetails/SubsingletonElimination.md) — subsingleton 场景下更强的 elimination 直觉
+- [strict positivity](Reference/InductiveDetails/StrictPositivity.md) — 正位置约束与一致性边界
+- [归纳类型的运行时表示](Reference/InductiveDetails/RuntimeRepresentation.md) — proof 擦除、trivial wrapper、FFI 与特殊表示
+- [嵌套归纳类型](Reference/InductiveDetails/NestedInductives.md) — nested inductive 的用途、风险与 mutual 区别
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
@@ -201,6 +210,13 @@
 - [`mvcgen` proof mode](Reference/Mvcgen/ProofMode.md) — `⊢ₛ` 目标、stateful context 与专用 tactic
 - [Functor、Monad 与 `do` 记法](Reference/FunctorsMonads.md) — `Functor`、`Applicative`、`Monad`、`Alternative` 与 sequencing
 - [基础命题](Reference/BasicPropositions.md) — `Prop` 中的逻辑 connective、quantifier 与 propositional equality
+
+### 命题详解
+
+- [真与假](Reference/PropositionDetails/Truth.md) — `True`、`False`、`False.elim` 与 subsingleton 直觉
+- [逻辑连接词](Reference/PropositionDetails/LogicalConnectives.md) — `And`、`Or`、`Not`、`Iff` 与对应构造/消去
+- [量词](Reference/PropositionDetails/Quantifiers.md) — `∀`、`Exists`、witness 与构造性限制
+- [命题相等](Reference/PropositionDetails/PropositionalEquality.md) — `Eq`、`rfl`、`subst`、`cast`、`HEq`
 - [基础类型](Reference/BasicTypes.md) — 数值、文本、collection、subtype 与 lazy computation
 
 ### 基础类型详解
