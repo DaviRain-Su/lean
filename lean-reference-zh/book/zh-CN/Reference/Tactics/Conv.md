@@ -119,3 +119,70 @@ conv in pat => cs
 - 要配合 `simp`、`unfold`、`change` 精确整理某个深层子项。
 
 若只是简单全局 rewrite，普通 `rw` / `simp` 往往更直接。
+
+## 示例 1：只改括号里的 `y + z`
+
+目标里有多处 `+`，`rw` 默认改最左最外层。用 `conv` 先导航到内层：
+
+```lean
+example (x y z : Nat) : x + (y + z) = x + z + y := by
+  conv =>
+    lhs
+    arg 2
+    rw [Nat.add_comm]
+  rw [Nat.add_assoc]
+```
+
+步骤解读：
+
+1. `lhs` — 进入等式左边 `x + (y + z)`；
+2. `arg 2` — 进入第二个参数，即 `y + z`；
+3. `rw [Nat.add_comm]` — 只在这里交换加数；
+4. 回到普通 goal 后用 `Nat.add_assoc` 整理括号。
+
+`enter` 可写成紧凑路径：`enter [1, 2]`（等价于 `arg 1` 再 `arg 2`，具体以当前目标形状为准）。
+
+## 示例 2：在 binder 下改写
+
+`rw` 无法直接改 `fun x y z => ...` 函数体里的子式，需 `conv` + `intro`：
+
+```lean
+example :
+    (fun (x y z : Nat) => x + (y + z))
+    = (fun x y z => (z + x) + y) := by
+  conv =>
+    lhs
+    intro x y z
+    conv =>
+      arg 2
+      rw [Nat.add_comm]
+    rw [← Nat.add_assoc]
+    arg 1
+    rw [Nat.add_comm]
+```
+
+内层 `conv` 改完子式后会回到外层位置；若子目标已是自反等式，`conv` 可自动关闭。
+
+## 示例 3：`pattern` 与 `conv in`
+
+只改第一个匹配 `y + z` 的子式：
+
+```lean
+example (x y z : Nat) : x + (y + z) + (y + z) = x + (z + y) + (z + y) := by
+  conv in y + z =>
+    rw [Nat.add_comm]
+  rfl
+```
+
+`pattern (occs := .pos [2]) (y + z)` 可指定第 2 个匹配（类似 `rw` 的 `occs`）。
+
+## 与普通 `rw` 的选型
+
+| 场景 | 优先 |
+| --- | --- |
+| 全局一处替换 | `rw` |
+| 等式只有一侧、或第 n 个 `+` | `conv` + `lhs`/`arg` |
+| `λ` / `∀` 内部 | `conv` + `intro` |
+| 学习站示例 10「只改第二个 2」 | `rw (occs := .pos [2])` 或 `conv` |
+
+更多交互式说明见 [Theorem Proving in Lean 4 — conv](https://lean-lang.org/theorem_proving_in_lean4/conv.html)。

@@ -2,28 +2,75 @@
 
 > 对应英文：[Structures and Constructors](https://lean-lang.org/doc/reference/latest/Terms/Structures-and-Constructors/)，抓取日期：2026-06-16。
 
-这一页本身非常短。它主要起导航作用：提醒读者，匿名构造子和 structure instance syntax 在各自专门章节中说明，而不是在这里展开。
+Lean 提供多种 **term 级**写法来构造归纳类型与 structure 值。它们最终都会 elaboration 成核心项（constructor 应用 + projection）。
 
-## 这意味着什么
+## 位置构造（构造子应用）
 
-如果你想了解：
+```lean
+inductive Color where | red | green | blue
 
-- 如何用匿名构造子快速构造某个 structure 或 inductive 值；
-- 如何使用 structure instance 语法按字段名构造值；
-- 这些语法如何与 elaboration、projection、field notation 互动；
+#check Color.red                    -- 构造子
+#check List.cons 1 (List.nil)       -- 前缀形式
+#check (1 :: [])                    -- 中缀记号（notation 展开后仍是构造子）
+```
 
-就应继续去对应的专门章节，而不是把这里当成完整说明页。
+多构造子类型按参数位置传入；notation（如 `::`、`⟨⟩`）只是 surface syntax。
 
-## 与 term 章节的关系
+## 匿名构造子 `⟨ … ⟩`
 
-之所以把它列在 `Terms` 下面，是因为：
+单构造子类型（含多数 `structure`）可用角括号：
 
-- 它们都属于用户可以直接写下的 term 语法；
-- 构造子和 structure instance 最终都会被 elaboration 成普通 Lean 核心项；
-- 这些语法对日常编程和证明都非常常见。
+```lean
+structure Point where
+  x y : Nat
 
-## 使用建议
+#check Point.mk 1 2
+#check ⟨1, 2⟩   -- 等价于 Point.mk 1 2（在 expected type 为 Point 时）
 
-- 需要按位置传参时，优先用普通构造子调用；
-- 需要按字段名组织值时，优先用 structure instance 语法；
-- 若某写法看起来像 term 语法糖，却不确定它最终展开为什么核心形式，可结合 `#print`、`#check` 和 elaboration 相关章节理解。
+example : Point := ⟨x := 1, y := 2⟩   -- 具名匿名构造子
+```
+
+详见 [匿名构造子语法](../InductiveDetails/AnonymousConstructors.md)。
+
+## Structure instance 语法
+
+按 **字段名** 构造（不要求字段顺序与声明一致）：
+
+```lean
+structure Config where
+  port : Nat
+  host : String
+
+def cfg : Config := { port := 8080, host := "localhost" }
+
+-- 在已有值上覆盖部分字段
+def cfg2 : Config := { cfg with port := 9090 }
+```
+
+`structure` 声明、字段继承见 [structure 声明](../InductiveDetails/Structures.md)、[structure 继承](../InductiveDetails/StructureInheritance.md)。
+
+## 与 projection、field notation
+
+构造后可读字段：
+
+```lean
+#check cfg.port
+#check cfg.host
+```
+
+`cfg.port` 是 **projection**（或 generalized field notation），不是新的构造方式。错误拼 field 名会触发 [invalidField](../Errors/InvalidField.md)。
+
+## 选型速查
+
+| 需求 | 写法 |
+| --- | --- |
+| 枚举变体 | `Color.red` |
+| 单构造子、参数少 | `⟨a, b⟩` |
+| 字段多、易读 | `{ f := v, ... }` |
+| 基于旧值改字段 | `{ old with f := v }` |
+| 不确定展开结果 | `#check`、`#print` |
+
+## 延伸阅读
+
+- [模式匹配](PatternMatching.md) — `match` / `cases` 消去构造子
+- [Structures and Constructors 英文页](https://lean-lang.org/doc/reference/latest/Terms/Structures-and-Constructors/) — 与 elaboration 交互的边界情况

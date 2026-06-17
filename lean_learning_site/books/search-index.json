@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T04:22:45.828Z",
-  "entryCount": 3400,
+  "generatedAt": "2026-06-17T04:23:07.423Z",
+  "entryCount": 3414,
   "entries": [
     {
       "kind": "chapter",
@@ -13581,27 +13581,47 @@
       "path": "lean-reference/Reference/Terms/Holes.md",
       "title": "Hole",
       "section": "Term 详解",
-      "text": "Hole 对应英文：Holes，抓取日期：2026 06 16。 hole 或 placeholder term 表示“这里没有给 elaborator 明确指令”。在 term 中，如果 surrounding context 只允许一个 type correct term，hole 可以自动填充；否则就是错误。在 pattern 中，hole 表示可匹配任意值的 universal pattern。 最基本的 hole 写作下划线： 它依赖上下文中的 type 和约束，由 unification 自动求解。 Synthetic hole 证明中有时希望显式引入未知值。这时可以使用 synthetic hole： synthetic hole 不会被普通 unification 自动求解，而且同一个 synthetic hole 名称可以出现在多个位置。它主要用于 tactic proof，与 proof 中的 metavariable 机制关系最密切。 使用建议 如果 Lean 明显能从上下文唯一确定值，普通 很方便。 如果想在交互式证明中留下待填目标，用 或具名 更合适。 如果 hole 太多，错误信息会变差；在库代码里，最终应把 hole 替换为显式 term。"
+      "text": "Hole 对应英文：Holes，抓取日期：2026 06 16。 hole（placeholder term）表示「此处尚未给出完整项」。在 term 位置，若上下文能唯一确定类型正确的填法，hole 可由 unification 自动求解；否则报错。在 pattern 位置，hole 表示可匹配任意值的 universal pattern。 （普通 hole） 机制： 会创建 fresh metavariable ，elaborator 在检查 definitional equality 时可为其赋值。这与自动隐式参数填充是同一套基础设施。 例外（不必解完所有 hole）： 模式里的 是 catch all； 部分 tactic（如 、 ）里未解的 placeholder 会变成新 goal。 Synthetic hole： / / 求解方式 unification 可自动填 opaque ，主要由 tactic 填 在 中 不一定产生 goal 产生新 goal 同名多次出现 各自独立 metavariable 可指同一 metavariable 创建自动命名的 synthetic hole； 引用已有或新建名为 的 metavariable。proof state 里的 goal 就是这类 synthetic opaque metavariable。 与 会把未实例化的隐式参数变成子 goal； 用你写的模板（含 ）更可控。 binder 下的 delayed assignment（进阶） 这类 synthetic hole 在 binder 下会走 delayed assignment ：为 在外层创建 ，先 elaboration 成 ，等 证完再赋值。这是 等 tactic 能正常工作的底层机制。写 macro / 自定义 tactic 时才需细究；日常证明知道 在 下会生成带假设的 goal 即可。 调试： 可打印 delayed metavariable。 使用建议 上下文唯一时，用 最省事； 交互式证明、分步构造项时用 + ； 库代码最终应无 hole；过多 hole 会让错误信息变差。"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/Holes.md",
-      "title": "Hole › `_`",
+      "title": "Hole › `_`（普通 hole）",
       "section": "Term 详解",
-      "text": "`_`",
-      "anchor": "section-0"
+      "text": "`_`（普通 hole）",
+      "anchor": "hole"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/Holes.md",
-      "title": "Hole › Synthetic hole",
+      "title": "Hole › Synthetic hole：`?x` / `?_`",
       "section": "Term 详解",
-      "text": "Synthetic hole",
-      "anchor": "synthetic-hole"
+      "text": "Synthetic hole：`?x` / `?_`",
+      "anchor": "synthetic-hole-x"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Holes.md",
+      "title": "Hole › `refine` 与 `apply`",
+      "section": "Term 详解",
+      "text": "`refine` 与 `apply`",
+      "anchor": "refine-apply"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Holes.md",
+      "title": "Hole › binder 下的 delayed assignment（进阶）",
+      "section": "Term 详解",
+      "text": "binder 下的 delayed assignment（进阶）",
+      "anchor": "binder-delayed-assignment"
     },
     {
       "kind": "heading",
@@ -13611,7 +13631,7 @@
       "title": "Hole › 使用建议",
       "section": "Term 详解",
       "text": "使用建议",
-      "anchor": "section-2"
+      "anchor": "section-4"
     },
     {
       "kind": "chapter",
@@ -13748,16 +13768,16 @@
       "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
       "title": "结构体与构造子",
       "section": "Term 详解",
-      "text": "结构体与构造子 对应英文：Structures and Constructors，抓取日期：2026 06 16。 这一页本身非常短。它主要起导航作用：提醒读者，匿名构造子和 structure instance syntax 在各自专门章节中说明，而不是在这里展开。 这意味着什么 如果你想了解： 如何用匿名构造子快速构造某个 structure 或 inductive 值； 如何使用 structure instance 语法按字段名构造值； 这些语法如何与 elaboration、projection、field notation 互动； 就应继续去对应的专门章节，而不是把这里当成完整说明页。 与 term 章节的关系 之所以把它列在 下面，是因为： 它们都属于用户可以直接写下的 term 语法； 构造子和 structure instance 最终都会被 elaboration 成普通 Lean 核心项； 这些语法对日常编程和证明都非常常见。 使用建议 需要按位置传参时，优先用普通构造子调用； 需要按字段名组织值时，优先用 structure instance 语法； 若某写法看起来像 term 语法糖，却不确定它最终展开为什么核心形式，可结合 、 和 elaboration 相关章节理解。"
+      "text": "结构体与构造子 对应英文：Structures and Constructors，抓取日期：2026 06 16。 Lean 提供多种 term 级 写法来构造归纳类型与 structure 值。它们最终都会 elaboration 成核心项（constructor 应用 + projection）。 位置构造（构造子应用） 多构造子类型按参数位置传入；notation（如 、 ）只是 surface syntax。 匿名构造子 单构造子类型（含多数 ）可用角括号： 详见 匿名构造子语法。 Structure instance 语法 按 字段名 构造（不要求字段顺序与声明一致）： 声明、字段继承见 structure 声明、structure 继承。 与 projection、field notation 构造后可读字段： 是 projection （或 generalized field notation），不是新的构造方式。错误拼 field 名会触发 invalidField。 选型速查 需求 写法 枚举变体 单构造子、参数少 字段多、易读 基于旧值改字段 不确定展开结果 、 延伸阅读 模式匹配 — / 消去构造子 Structures and Constructors 英文页 — 与 elaboration 交互的边界情况"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
-      "title": "结构体与构造子 › 这意味着什么",
+      "title": "结构体与构造子 › 位置构造（构造子应用）",
       "section": "Term 详解",
-      "text": "这意味着什么",
+      "text": "位置构造（构造子应用）",
       "anchor": "section-0"
     },
     {
@@ -13765,20 +13785,50 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
-      "title": "结构体与构造子 › 与 term 章节的关系",
+      "title": "结构体与构造子 › 匿名构造子 `⟨ … ⟩`",
       "section": "Term 详解",
-      "text": "与 term 章节的关系",
-      "anchor": "term"
+      "text": "匿名构造子 `⟨ … ⟩`",
+      "anchor": "section-1"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
-      "title": "结构体与构造子 › 使用建议",
+      "title": "结构体与构造子 › Structure instance 语法",
       "section": "Term 详解",
-      "text": "使用建议",
-      "anchor": "section-2"
+      "text": "Structure instance 语法",
+      "anchor": "structure-instance"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
+      "title": "结构体与构造子 › 与 projection、field notation",
+      "section": "Term 详解",
+      "text": "与 projection、field notation",
+      "anchor": "projection-field-notation"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
+      "title": "结构体与构造子 › 选型速查",
+      "section": "Term 详解",
+      "text": "选型速查",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/StructuresConstructors.md",
+      "title": "结构体与构造子 › 延伸阅读",
+      "section": "Term 详解",
+      "text": "延伸阅读",
+      "anchor": "section-5"
     },
     {
       "kind": "chapter",
@@ -13905,16 +13955,26 @@
       "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
       "title": "quotation 与 antiquotation",
       "section": "Term 详解",
-      "text": "quotation 与 antiquotation 对应英文：Quotation and Antiquotation，抓取日期：2026 06 16。 这一页本身很短，它主要起导航作用：quotation term 的详细说明放在专门的 quotation 章节，而不在这里重复展开。 它在 term 体系中的位置 quotation / antiquotation 之所以仍归到 下面，是因为： 用户可以直接把它们写成 term； 它们是元编程中构造和拼接语法对象的核心工具； 它们与 macro、custom elaborator、syntax extension 紧密相连。 该去哪里看细节 若你关心： 如何把 Lean 语法当作数据值构造； 如何在模板中插入已有 syntax； quotation 如何与 hygiene、macro expansion 交互； 就应去 quotation 的专门章节和 的相关小节继续看。 使用建议 普通证明和程序开发中，这一页更多是“知道它存在”； 真正写 macro、syntax extension、metaprogram 时，再深入 quotation / antiquotation 的细节。"
+      "text": "quotation 与 antiquotation 对应英文：Quotation and Antiquotation，抓取日期：2026 06 16。 quotation 把 Lean 语法 当作数据构造；antiquotation 在模板里插入已有的 片段。二者是 macro、notation、elaborator 扩展的核心工具。 最小示例 常见 antiquotation 片（在 / 规则里声明）： 片 含义 插入 term 语法 插入标识符 插入 tactic 语法 插入任意 Syntax 变量 在 term 里的位置 用户可在 term 位置写 quotation（经 macro 展开后生成 值）。因此它列在 Term 章节下，并与 Notation 与 Macro 衔接。 hygiene quotation 生成的标识符默认带 hygiene ：在 macro 展开处自动加 scope，避免与用户代码里的同名标识符意外捕获。需要故意引用用户名字时，用 antiquotation 插入的 ident 或 等机制（见 Macro）。 该继续读什么 目标 章节 定义 macro、 Macro 注册 elaborator Elaborator 扩展 parser / notation Notation、定义新语法 元编程 扩展 记法 使用建议 日常证明与编程可只了解「语法可引用、可生成」； 写 linter、命令、战术宏时再深入 quotation / antiquotation； 调试展开结果用 、trace / 或 。"
     },
     {
       "kind": "heading",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
-      "title": "quotation 与 antiquotation › 它在 term 体系中的位置",
+      "title": "quotation 与 antiquotation › 最小示例",
       "section": "Term 详解",
-      "text": "它在 term 体系中的位置",
+      "text": "最小示例",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
+      "title": "quotation 与 antiquotation › 在 term 里的位置",
+      "section": "Term 详解",
+      "text": "在 term 里的位置",
       "anchor": "term"
     },
     {
@@ -13922,10 +13982,20 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
-      "title": "quotation 与 antiquotation › 该去哪里看细节",
+      "title": "quotation 与 antiquotation › hygiene",
       "section": "Term 详解",
-      "text": "该去哪里看细节",
-      "anchor": "section-1"
+      "text": "hygiene",
+      "anchor": "hygiene"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/QuotationAntiquotation.md",
+      "title": "quotation 与 antiquotation › 该继续读什么",
+      "section": "Term 详解",
+      "text": "该继续读什么",
+      "anchor": "section-3"
     },
     {
       "kind": "heading",
@@ -13935,7 +14005,7 @@
       "title": "quotation 与 antiquotation › 使用建议",
       "section": "Term 详解",
       "text": "使用建议",
-      "anchor": "section-2"
+      "anchor": "section-4"
     },
     {
       "kind": "chapter",
@@ -14239,7 +14309,7 @@
       "path": "lean-reference/Reference/Tactics/Conv.md",
       "title": "用 `conv` 做定点重写",
       "section": "Tactic 详解",
-      "text": "用 做定点重写 对应英文：Targeted Rewriting with conv，抓取日期：2026 06 16。 （conversion tactic）允许在 goal 或 hypothesis 的 指定子表达式 上做重写。它适合两类场景： 重写只应发生在 goal 的某一部分，而不是全局 ； 需要在 binder 下方改写，而普通 不容易到达该位置。 使用一门与主 tactic 语言互操作的专用小语言：既能导航到某个子项，也能在那里执行 rewrite、simp、reduction 等操作。 基本形式 ：在当前 goal 上改写； ：改写假设 ； ：改写第一个匹配 的子表达式。 与普通 tactic 的关系 proof state 与普通 tactic proof state 很像： 有 main goal； tactic 可能成功或失败； 也支持组合子和 macro expansion。 区别在于， 的目标不是直接证明当前 goal，而是把目标改造成更适合后续普通 tactic 处理的形式。 goal 在显示时通常用竖线而不是 turnstile 表示。 控制结构 也支持类似主 tactic 语言的控制结构： / 这意味着可以写出复杂的 conversion script，而不只是单步 rewrite。 导航 的精髓在于导航。常见命令： / ：进入等式左右侧； ：进入函数位置； / ：按参数拆分； / ：进入第 个参数； ：用紧凑路径语法描述深入子项的路线； ：定位匹配某个模式的子项； / ：进入 binder； / ： / 的同义词。 其中 特别有用：它可以只重写第一个匹配项，或指定 occurrence 集合，从而精准控制 rewrite 发生的位置。 改变目标 在定位到子项后，常见操作分三类。 Reduction Simplification Rewriting 因此， 不是一个单一 tactic，而更像“在子表达式上运行小型 tactic 环境”。 嵌套 tactic 与普通 tactic 可以嵌套： 这让你能在 conversion 过程中临时切回普通 tactic，或在普通 goal 中嵌入 conversion block。 调试 ：打印当前 goal 状态。 何时优先用 要只重写等式一侧； 要在 lambda / forall / match 等 binder 下改写； 要避免 把多个相同模式一起改掉； 要配合 、 、 精确整理某个深层子项。 若只是简单全局 rewrite，普通 / 往往更直接。"
+      "text": "用 做定点重写 对应英文：Targeted Rewriting with conv，抓取日期：2026 06 16。 （conversion tactic）允许在 goal 或 hypothesis 的 指定子表达式 上做重写。它适合两类场景： 重写只应发生在 goal 的某一部分，而不是全局 ； 需要在 binder 下方改写，而普通 不容易到达该位置。 使用一门与主 tactic 语言互操作的专用小语言：既能导航到某个子项，也能在那里执行 rewrite、simp、reduction 等操作。 基本形式 ：在当前 goal 上改写； ：改写假设 ； ：改写第一个匹配 的子表达式。 与普通 tactic 的关系 proof state 与普通 tactic proof state 很像： 有 main goal； tactic 可能成功或失败； 也支持组合子和 macro expansion。 区别在于， 的目标不是直接证明当前 goal，而是把目标改造成更适合后续普通 tactic 处理的形式。 goal 在显示时通常用竖线而不是 turnstile 表示。 控制结构 也支持类似主 tactic 语言的控制结构： / 这意味着可以写出复杂的 conversion script，而不只是单步 rewrite。 导航 的精髓在于导航。常见命令： / ：进入等式左右侧； ：进入函数位置； / ：按参数拆分； / ：进入第 个参数； ：用紧凑路径语法描述深入子项的路线； ：定位匹配某个模式的子项； / ：进入 binder； / ： / 的同义词。 其中 特别有用：它可以只重写第一个匹配项，或指定 occurrence 集合，从而精准控制 rewrite 发生的位置。 改变目标 在定位到子项后，常见操作分三类。 Reduction Simplification Rewriting 因此， 不是一个单一 tactic，而更像“在子表达式上运行小型 tactic 环境”。 嵌套 tactic 与普通 tactic 可以嵌套： 这让你能在 conversion 过程中临时切回普通 tactic，或在普通 goal 中嵌入 conversion block。 调试 ：打印当前 goal 状态。 何时优先用 要只重写等式一侧； 要在 lambda / forall / match 等 binder 下改写； 要避免 把多个相同模式一起改掉； 要配合 、 、 精确整理某个深层子项。 若只是简单全局 rewrite，普通 / 往往更直接。 示例 1：只改括号里的 目标里有多处 ， 默认改最左最外层。用 先导航到内层： 步骤解读： 1. — 进入等式左边 ； 2. — 进入第二个参数，即 ； 3. — 只在这里交换加数； 4. 回到普通 goal 后用 整理括号。 可写成紧凑路径： （等价于 再 ，具体以当前目标形状为准）。 示例 2：在 binder 下改写 无法直接改 函数体里的子式，需 + ： 内层 改完子式后会回到外层位置；若子目标已是自反等式， 可自动关闭。 示例 3： 与 只改第一个匹配 的子式： 可指定第 2 个匹配（类似 的 ）。 与普通 的选型 场景 优先 全局一处替换 等式只有一侧、或第 n 个 + / / 内部 + 学习站示例 10「只改第二个 2」 或 更多交互式说明见 Theorem Proving in Lean 4 — conv。"
     },
     {
       "kind": "heading",
@@ -14350,6 +14420,46 @@
       "section": "Tactic 详解",
       "text": "何时优先用 `conv`",
       "anchor": "conv"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/Conv.md",
+      "title": "用 `conv` 做定点重写 › 示例 1：只改括号里的 `y + z`",
+      "section": "Tactic 详解",
+      "text": "示例 1：只改括号里的 `y + z`",
+      "anchor": "1-y-z"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/Conv.md",
+      "title": "用 `conv` 做定点重写 › 示例 2：在 binder 下改写",
+      "section": "Tactic 详解",
+      "text": "示例 2：在 binder 下改写",
+      "anchor": "2-binder"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/Conv.md",
+      "title": "用 `conv` 做定点重写 › 示例 3：`pattern` 与 `conv in`",
+      "section": "Tactic 详解",
+      "text": "示例 3：`pattern` 与 `conv in`",
+      "anchor": "3-pattern-conv-in"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Tactics/Conv.md",
+      "title": "用 `conv` 做定点重写 › 与普通 `rw` 的选型",
+      "section": "Tactic 详解",
+      "text": "与普通 `rw` 的选型",
+      "anchor": "rw"
     },
     {
       "kind": "chapter",
@@ -14881,7 +14991,7 @@
       "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
       "title": "simplifier 的重写规则",
       "section": "Simplifier 详解",
-      "text": "simplifier 的重写规则 对应英文：Rewrite Rules，抓取日期：2026 06 16。 simplifier 主要使用三类重写规则。 1. 要展开的声明 默认情况下，simplifier 只自动展开 定义。若显式把某个 semireducible 或 irreducible 定义加入 simp 规则，那么 也可展开它。 在 这类 definitional mode 中，展开只是把定义名替换成定义值；在普通 中，还会进一步使用 equation compiler 生成的 equational lemma。 2. 等式引理 可以把任意等式证明当作重写规则：把等式左边换成右边。等式引理可以带参数，simplifier 会： 先匹配目标中的左侧模式； 再尝试用 proof search 填补额外参数。 此外，由于 propositional extensionality，命题本身也能被改写成更简单但逻辑等价的命题。若 simplifier 把目标命题改写成 ，它会自动关闭该目标。 3. Simproc 除了方程式重写，Lean 还支持 simplification procedure，也就是 simproc 。它们用 Lean 元编程实现，适合那些“不易用等式高效表达”的简化。标准库为许多内建类型的重要运算提供了 simproc。 内建 reduction 即使 simp set 为空， 仍有若干内建 reduction 规则，例如： 把 绑定变量替换为其值； 对 constructor discriminant 的 做 reduction； 对 structure projection 做 reduction； 把 lambda 应用到参数上。 这些行为由配置项控制，因此“没有 lemma”并不等于“什么也不做”。 使用建议 若只是想展开某定义，可显式把它加入 参数； 若某种简化依赖复杂计算而不是纯等式，考虑 simproc； 写 simp lemma 时，优先让右侧更接近预期的 normal form。"
+      "text": "simplifier 的重写规则 对应英文：Rewrite Rules，抓取日期：2026 06 16。 simplifier 主要使用三类重写规则，此外还有内建 reduction（由 控制）。 1. 要展开的声明 默认情况下，simplifier 只自动展开 reducible 定义。若显式把某个 semireducible 或 irreducible 定义加入 simp 规则，那么 也可展开它。 ：只做 definitional unfolding，把定义名替换成定义体； 普通 ：展开后还会使用 equation compiler 生成的 equational lemma 继续化简。 2. 等式引理 可以把任意等式证明当作重写规则：把等式左边换成右边。等式引理可以带参数，simplifier 会： 1. 先匹配目标中的左侧模式； 2. 再尝试用 proof search 填补额外参数。 由于 propositional extensionality ，命题也能被改写成逻辑等价的更简单形式。若目标被改写成 ， 会自动关闭该目标。 非等式命题也可标记为 rewrite rule；预处理后会变成「把该命题重写为 」。 命题重写示例 对等式 ， 可能用 把它化成合取： 这类 injEq 引理在标准库 set 里很常见。 3. Simproc Simproc （simplification procedure）用 Lean 元编程实现，适合「难以用单条等式高效表达」的化简。标准库为许多内建类型的重要运算提供了 simproc。 若某种化简依赖复杂计算或特殊判别，而不是 ，应考虑 simproc 而非手写等式。 内建 reduction 即使 simp set 为空， 仍可能做下列 reduction（由 的 、 、 、 等开关控制）： 行为 典型例子 把 绑定变量替换为其值 归约为 对 constructor discriminant 的 求值 对 constructor 做 structure projection 化简 因此「没有 lemma」并不等于「什么也不做」。 写 simp lemma 的要点 右侧尽量接近你希望的 normal form ； 带 side condition 的引理， 会尝试 discharge 子目标； 用 加入默认 set，或只在单次 里使用； 若引理方向反了，用 或 时写好 版本。 调试 可查看 实际用了哪些规则。配合 可得到更小的 建议。"
     },
     {
       "kind": "heading",
@@ -14908,6 +15018,16 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
+      "title": "simplifier 的重写规则 › 命题重写示例",
+      "section": "Simplifier 详解",
+      "text": "命题重写示例",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
       "title": "simplifier 的重写规则 › 3. Simproc",
       "section": "Simplifier 详解",
       "text": "3. Simproc",
@@ -14928,10 +15048,20 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
-      "title": "simplifier 的重写规则 › 使用建议",
+      "title": "simplifier 的重写规则 › 写 simp lemma 的要点",
       "section": "Simplifier 详解",
-      "text": "使用建议",
-      "anchor": "section-4"
+      "text": "写 simp lemma 的要点",
+      "anchor": "simp-lemma"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/RewriteRules.md",
+      "title": "simplifier 的重写规则 › 调试",
+      "section": "Simplifier 详解",
+      "text": "调试",
+      "anchor": "section-6"
     },
     {
       "kind": "chapter",
@@ -15068,7 +15198,7 @@
       "path": "lean-reference/Reference/Simplifier/ConfiguringSimplification.md",
       "title": "配置 simplification",
       "section": "Simplifier 详解",
-      "text": "配置 simplification 对应英文：Configuring Simplification，抓取日期：2026 06 16。 主要通过命名参数 或简写配置项来调整行为。核心配置结构是 ； 使用相关的 。 常见配置项 英文页列出了大量字段，其中最常用、最值得记住的包括： ：最多访问多少子表达式。 ：在简化 时，把 暂时加入 simp set。 ：缓存子表达式的简化结果。 ：只做一轮简化，而不是反复迭代。 ：展开 / 。 ：化简 应用。 ：化简 constructor discriminant 的 。 ：化简结构体 projection。 ：尝试把 proposition 判成 或 。 ：启用简单算术简化。 ：更激进地展开函数定义， 会打开它。 ：若没有进展就失败。 ：展开局部定义。 ：让 调用库建议引擎。 ：允许展开当前文件中的定义。 相关选项和 trace 英文页还列出了一组与调试 simplifier 有关的 option： 这些选项有助于回答： 用了哪些规则？ 为什么 side condition 被 discharge / 没有被 discharge？ 某个 是否其实不必要？ 使用建议 只在需要时修改 config；默认行为通常已经是最佳折中。 若 变慢，先看 、 、 是否过于激进。 想调试 的行为时，优先开 trace，而不是盲目增加更多 lemma。"
+      "text": "配置 simplification 对应英文：Configuring Simplification，抓取日期：2026 06 16。 通过命名参数 或简写配置项调整行为。核心结构是 ； 使用 。 常见配置项 字段 作用 最多访问多少子表达式；过大易慢或栈溢出 简化 时，把 暂时加入 simp set 缓存子表达式的简化结果 只做一轮，不反复迭代 展开 / 化简 应用 化简 constructor discriminant 的 化简结构体 projection 尝试把命题判成 或 启用简单算术简化（ 族） 更激进展开定义； 会打开 若无进展则失败 展开局部定义 让 调用库建议引擎 允许展开当前文件中的定义 写法示例 提高步数上限： 关闭 contextual（避免在蕴含式里把前提当 simp 假设）： 只做 definitional 步骤（接近 ）： 等价于打开 的 ，适合需要多展开一层定义时；也可能更慢、更不可控。 调试 trace 与 linter 选项 用途 总体 trace 每条 rewrite side condition 如何 discharge simproc 参与情况 提示可简化的 使用建议 默认 config 对多数目标已是较好折中，只在卡死或太慢时改； 变慢时先查 、 、 ，再查是否加入了过多 引理； 调试优先开 trace + ，而不是盲目堆 lemma； 库代码里用 固定规则集，可减少对默认 simp set 变动的敏感。"
     },
     {
       "kind": "heading",
@@ -15085,10 +15215,20 @@
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Simplifier/ConfiguringSimplification.md",
-      "title": "配置 simplification › 相关选项和 trace",
+      "title": "配置 simplification › 写法示例",
       "section": "Simplifier 详解",
-      "text": "相关选项和 trace",
-      "anchor": "trace"
+      "text": "写法示例",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Simplifier/ConfiguringSimplification.md",
+      "title": "配置 simplification › 调试 trace 与 linter",
+      "section": "Simplifier 详解",
+      "text": "调试 trace 与 linter",
+      "anchor": "trace-linter"
     },
     {
       "kind": "heading",
@@ -15098,7 +15238,7 @@
       "title": "配置 simplification › 使用建议",
       "section": "Simplifier 详解",
       "text": "使用建议",
-      "anchor": "section-2"
+      "anchor": "section-3"
     },
     {
       "kind": "chapter",
