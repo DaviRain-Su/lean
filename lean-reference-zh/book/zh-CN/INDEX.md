@@ -42,6 +42,15 @@
 - [`Repr`](Reference/Interacting/Repr.md) — `#eval` 输出、值表示与 `ToString`/`Format` 的区别
 - [如何写 `Repr` instance](Reference/Interacting/ReprInstance.md) — `addAppParen`、`reprArg` 与括号策略
 - [`Repr` 的原子类型](Reference/Interacting/ReprAtomic.md) — `ReprAtom` 与原子项显示约定
+
+### Format 详解
+
+- [`Format` 文档块](Reference/FormatDetails/Documents.md) — `Std.Format`、`FlattenBehavior`、`fill` 与结构化文档思路
+- [空文档](Reference/FormatDetails/EmptyDocuments.md) — `isEmpty`、`isNil` 与空布局判定
+- [文档序列](Reference/FormatDetails/Sequences.md) — `join`、`joinSep`、`prefixJoin`、`joinSuffix`
+- [缩进](Reference/FormatDetails/Indentation.md) — `nestD`、`defIndent`、`indentD`
+- [括号与方括号](Reference/FormatDetails/Brackets.md) — `bracket`、`paren`、`sbracket`、`bracketFill`
+- [渲染 `Format`](Reference/FormatDetails/Rendering.md) — `pretty`、`defWidth`、`prettyM`、`MonadPrettyFormat`
 - [类型系统](Reference/TypeSystem.md) — term、definitional equality、reduction、conversion 与基础 type
 
 ### 类型系统详解
