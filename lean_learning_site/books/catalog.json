@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:04:02.408Z",
+  "generatedAt": "2026-06-17T00:05:46.082Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 206 篇已翻译",
+      "status": "首批 210 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 206,
+      "chapterCount": 210,
       "sections": [
         {
           "title": "官网入口",
@@ -1121,6 +1121,26 @@
               "title": "totality 与终止",
               "path": "lean-reference/Reference/TypeSystemDetails/TotalityTermination.md",
               "summary": "total function、`partial`、`unsafe` 与 panic 边界"
+            },
+            {
+              "title": "Predicativity",
+              "path": "lean-reference/Reference/TypeSystemDetails/Predicativity.md",
+              "summary": "predicative universe、impredicative `Prop`、strictly positive 约束"
+            },
+            {
+              "title": "Universe Polymorphism",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniversePolymorphism.md",
+              "summary": "level variables、`u+1`、level constraints、自动推断"
+            },
+            {
+              "title": "Universe Lifting",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniverseLifting.md",
+              "summary": "`PLift`、`ULift`、universe level 之间的升降"
+            },
+            {
+              "title": "Setoid",
+              "path": "lean-reference/Reference/TypeSystemDetails/Setoids.md",
+              "summary": "带证明的等价关系、`Quotient` 的接口与商类型"
             },
             {
               "title": "函数（类型系统层）",
@@ -2633,7 +2653,7 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–17 章已翻译 · 18–24 章待译",
+      "status": "第 1–18 章已翻译 · 19–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
       "chapterCount": 18,
       "sections": [
