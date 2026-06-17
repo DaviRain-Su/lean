@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T01:23:06.600Z",
-  "entryCount": 2976,
+  "generatedAt": "2026-06-17T01:48:23.383Z",
+  "entryCount": 3021,
   "entries": [
     {
       "kind": "chapter",
@@ -26212,6 +26212,455 @@
       "section": "正文",
       "text": "3.5.4 练习",
       "anchor": "3-5-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II",
+      "section": "正文",
+      "text": "第 4 章 结构化证明 II 本译文对应原书 Proofs with structure, II；英文 Sphinx 源： 。 在第 2 章中，我们学习了逻辑符号 、 和 ，它们使得复杂的数学陈述可以由更简单的陈述构造出来。对每一个这样的符号，我们学习了它的“语法”：当它出现在假设中时如何使用，当它出现在目标中时如何使用。这种语法称为自然演绎。 本章完成自第 2 章开始的工作。我们将学习其余逻辑符号的语法： 、 和 。我们还将学习另外两个逻辑符号 和 的语法，它们不那么基本，因为可以用其他符号定义。 4.1. “对所有”与蕴涵 4.1.1. 例 问题 设 是实数，且假设对所有实数 都有 。证明 。 !抛物线 图 4.1 抛物线 。 指明一个公式或谓词对所有变量 的值都成立，如上述问题中的 ，称为对变量 做 全称量化 。它用符号 表示。 要使用带有全称量词的假设，你可以把它“特殊化”到某个特定的变量。例如，在下面的解法中，我们使用假设在 取 1 时的特例。 解法 在 Lean 中，用 策略完成这种特殊化。 4.1.2. 例 问题 设 是自然数，且 是每个自然数 的因子。证明 。 解法 由于 是每个自然数的因子，它也是 的因子。又注意到 是正数。因此我们可以调用例 3.2.7和例 3.2.8中讨论的因子大小界： 且 。因此 。 在 Lean 证明中，我们回忆例 3.2.7中的界在 Lean 中名为 ，例 3.2.8中的界名为 。 4.1.3. 例 问题 设 和 是实数，假设每个实数 要么至少为 ，要么至多为 。证明 。 解法 考虑实数 。它要么至少为 ，要么至多为 。 情形 1： 。则 情形 2： 。则 4.1.4. 例 问题 设 是平方不超过 2 的实数，且 大于或等于任何平方不超过 2 的实数。 [^1] 设 是具有同样两个性质的另一个实数。证明 。 考虑本题中“ 大于或等于任何平方不超过 2 的实数”这一假设。它隐含有全称量化（“任何实数”），以及一个 蕴涵 。更啰嗦的版本是： 对所有实数 ，如果 ，那么 。 我们可以把这样的假设特殊化到任何特定的 ，只要其 前件 为真。 解法 由于 ，且 大于或等于任何平方不超过 2 的实数，所以 。 由于 ，且 大于或等于任何平方不超过 2 的实数，所以 。 因此 。 在 Lean 中，蕴涵用符号 表示。 策略也适用于带有蕴涵的假设。在下面的证明中，使用 之前的目标状态是 使用之后的目标状态是 假设 被应用于目标 ，留下 hopefully 更容易的目标 ：即证明蕴涵的前件。 请补全证明的第二部分。 4.1.5. 例 问题 证明存在实数 ，使得对每个实数 都有 。 注意本题的目标中出现了一个全称量词命题：“对每个实数 ，……”。 解法 我们证明 具有这个性质。事实上，设 是实数；则 我们通过形式上引入一个特定的、任意的实数 （“设 为实数”），并证明对该 的所需陈述来解决问题。在 Lean 中，这一论证由 策略完成。使用该策略之前，目标状态为 使用之后，目标状态为 4.1.6. 例 问题 证明存在实数 ，使得对所有实数 和 ，如果 ，则 。 这里目标包含对 和 的全称量化，以及一个蕴涵：“如果 ，那么 ……”。在解题时，我们形式上引入变量 和 ，以及它们被假设满足的条件 ： 解法 我们证明 具有这个性质。事实上，设 、 是实数且假设 。则 所以 （且也有 ）。 在 Lean 中，引入变量 、 以及假设 都由 策略完成。要从 推出 和 ，你需要使用引理 我们之前在例 2.4.2中见过它。 4.1.7. 例 定义 如果一个性质对所有足够大的整数 成立，即存在某个整数 ，使得该性质对所有 的整数都成立，则称该性质对所有 足够大的整数 成立。 对有理数、实数等类似。 问题 证明对所有足够大的整数 ，有 。 在下面的解法中，“对所有 ”是“设 是整数并假设 ”的简写。 解法 对所有 ， 我提供了记号 来表达这个以及类似的 Lean 问题。 4.1.8. 例 定义 自然数 是 素数 ，如果它至少为 2，且 的因子只有 和 。 问题 证明 2 是素数。 解法 显然 。设 是 2 的因子。由于 2 是正数，根据例 3.2.7和例 3.2.8讨论的因子大小界，有 且 。满足 且 的自然数只有 和 ，所以按要求 或 。 这个解法中使用了一个新技巧：从自然数的数值界（如这里的 和 ）看出只有有限多种可能（这里 或 ）。在 Lean 中，我们用 策略处理这类论证。它对整数也有效，但对有理数或实数无效——为什么？ 这个引理在 Lean 中以后以 的名字可用。 4.1.9. 例 你可能想知道如何证明一个自然数 不是 素数。思路是证明它可以表示为一个非平凡乘积。 问题 证明 6 不是素数。 解法 ，所以 。但 且 。 我们将在例 4.5.7中仔细证明这个判别法。现在可以随意使用它。在 Lean 中引理名为 。 4.1.10. 练习 1. 设 是有理数，假设对所有有理数 都有 。证明 。 2. 设 是整数，假设 1 到 5 之间的每个整数 都是 的因子。证明 15 是 的因子。（你可能需要复习3.5 节。） 3. 证明存在自然数 ，使得每个自然数 都至少为 。 4. 证明存在实数 ，使得对所有实数 ，存在实数 ，使得 。 5. 证明对所有足够大的实数 ，有 。 6. 证明 45 不是素数。 你可以像例 4.1.9那样使用 Lean 引理 。 [^1]: 也就是说， 是“平方不超过 2 的实数集合中的最大元”。 4.2. “当且仅当” 4.2.1. 例 问题 设 是有理数。证明 当且仅当 。 短语“当且仅当”的意思就是字面意思。在这个问题中，我们需要证明 (1) 如果 则 ；(2) 如果 则 。 解法 首先，假设 。则 反过来，假设 。则 在手写作业中，常用符号 和 分别标注两个方向： 解法 假设 。则 …… 假设 。则 …… 这在作业、考试、黑板书写等场合是推荐的。在更正式的写作（如本书）中，我们省略这些符号，改用“首先”和“反过来”等词来标示证明的不同部分。 在 Lean 中，“当且仅当”用双向蕴涵符号 表示。由于本质上“当且仅当”是一个“且”命题，我们对“且”型目标使用相同的策略 。 4.2.2. 例 让我们把例 3.5.1修改成一个“当且仅当”问题。现在有两件事要证明，其中一件我们之前已经做过。 问题 设 是整数。证明 当且仅当 。 解法 假设 。则存在整数 使得 。所以 因此 。 反过来，假设 。则存在整数 使得 。所以 因此 。 4.2.3. 例 问题 证明整数 是奇数当且仅当 模 2 同余于 1。 解法 首先，假设 是奇数。则存在整数 使得 。因此 ，所以 被 2 整除，即 。 反过来，假设 。则 ，所以存在整数 使得 。于是 ，所以 是奇数。 我们将这个例子命名为 供以后使用。 4.2.4. 例 现在对偶数做同样的刻画。 问题 证明整数 是偶数当且仅当 模 2 同余于 0。 4.2.5. 例 高中数学中“解方程”的概念就是一个“当且仅当”问题：要解一个方程，你列出一组数，并证明它们满足该方程，且没有其他数满足。 问题 设 是实数。证明 当且仅当 或 。 解法 首先，假设 。则 所以要么 ，要么 。若是前者， ；若是后者， 。 反过来，如果 ，则 如果 ，则 4.2.6. 例 问题 设 是整数。证明 当且仅当 是 2 或 3。 解法 首先，假设 。则 所以 。因此 ，即 ；类似地 ，即 。由于 ，所以 是 2 或 3。 反过来，如果 ，则 如果 ，则 4.2.7. 例 有些库引理具有“当且仅当”形式。这很方便，因为它们可以替代两个普通引理，每个方向一个。 问题 设 是整数，假设 。证明 是偶数。 解法 我们有 所以要么 ，要么 。若是前者，则 ，所以 是偶数；若是后者，则 ，所以 是偶数。 在这个问题中，我们需要把 这一事实转化为“ 或 ”。以前（如例 2.3.4），我们在 Lean 中会把这一事实直接代入引理 得到如下证明结构： （练习：补全证明。） 但 Lean 库中也有一个 形式的引理，它把 与其逆命题结合在一起： 我们可以在 Lean 中用 策略使用 引理；它把假设（或目标）中形如 左边的式子转化为右边的形式。 4.2.8. 例 上面在例 4.2.3中，我们证明了整数是奇数当且仅当它模 2 同余于 1，并把它记为 。现在它也是一个方便的“当且仅当”库引理，可用于用模算术解决奇偶性问题。例如，让我们重新做例 3.1.5中的问题。 问题 证明如果整数 和 都是奇数，则 是奇数。 解法 我们要证明如果 且 ，则 。事实上， 4.2.9. 例 我们还可以用模算术对奇偶性的刻画来证明例 3.1.9中我们跳过证明的那个定理。 定理 每个整数要么是偶数，要么是奇数。 证明 设 是整数。我们按 模 2 的余数分情况。 如果 ，则 是偶数，证毕。 如果 ，则 是奇数，证毕。 在 Lean 中，使用例 4.2.3和例 4.2.4中的引理 和 ，以及 策略。我已写好开头。 4.2.10. 练习 1. 设 是实数。证明 当且仅当 。 2. 设 是整数。证明 63 是 的因子当且仅当 7 和 9 都是。 3. 设 和 是整数。证明 是 的倍数当且仅当 。 4. 设 和 是整数且 。证明 。 注意这已经在3.2 节的练习中出现过。但现在，使用上一题证明的引理 ，这类问题变得容易得多。 5. 设 是自然数。证明 当且仅当 是 0、1 或 2。 4.3. “存在唯一” 4.3.1. 例 问题 证明存在唯一的实数 ，使得 。 解法 我们证明 2 是具有这个性质的唯一实数。 首先，证明 2 具有这个性质。事实上， 。 现在，设 是满足 的实数。则 4.3.2. 例 问题 证明存在唯一的有理数 ，使得对每个介于 1 和 3 之间的有理数 ，都有 。 解法 我们证明 2 是具有这个性质的唯一有理数。 首先，如果 是介于 1 和 3 之间的有理数，则 ，所以根据例 2.1.7（在 Lean 中结果为 ）， 现在，设 是有理数，使得对每个介于 1 和 3 之间的有理数 ，都有 。 由于 1 介于 1 和 3 之间，有 ；由于 3 也介于 1 和 3 之间，有 。 所以 又 ，因为平方非负。于是 ，所以 ，即 。 4.3.3. 例 问题 设 是有理数，假设存在唯一的有理数 使得 。证明 。 更通俗地说：唯一具有唯一平方根的有理数是 0。 解法 我们先证明 。事实上， 且由于 是唯一满足 的有理数，这意味着 。 于是 所以 也成立： 4.3.4. 例 下列是关于整数的一个重要定理，我们将在本书后面6.6 节的练习中证明它。 定理（带余除法） 设 、 是整数， 为正。则存在唯一的整数 ，满足 且 。 这个引理使我们能够按模 的同余类分情况讨论（Lean 中的 策略）。但它实际上更强大，因为陈述中的“唯一性”部分提供了额外信息。 在 Lean 库中，它以下列形式可用： 为了更好地理解这个定理，让我们证明它的无穷多个特例中的一个。 问题 证明存在唯一的整数 ，使得 且 。 解法 我们证明具有这个性质的唯一整数是 4。 首先，证明 4 具有这个性质。显然 ，且由于 ，所以 。 现在，设 是满足 且 的整数。则存在整数 使得 。 我们有 所以由于 5 是正数， 。类似地， 所以 。 因此 必为 2，即唯一严格介于 1 和 3 之间的整数。所以 。 4.3.5. 练习 1. 证明存在唯一的有理数 ，使得 。 2. 证明存在唯一的自然数 ，使得对所有自然数 都有 。 3. 证明存在唯一的整数 ，使得 且 。 4.4. 矛盾的假设 4.4.1. 例 有时，我们会遇到两个矛盾假设的情形。此时无需再证明任何东西。两个矛盾的假设意味着我们所假设的情形实际上不可能发生。 在用分情况证明时很常见：你可能把问题归结为若干情形，在某些情形中证明目标，并证明其他情形不可能。 下面是一个这类推理的例子。我故意写得很学究，以便把观点说清楚。 引理 设 、 是实数，"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1. “对所有”与蕴涵",
+      "section": "正文",
+      "text": "4.1. “对所有”与蕴涵",
+      "anchor": "4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.1. 例",
+      "section": "正文",
+      "text": "4.1.1. 例",
+      "anchor": "4-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.2. 例",
+      "section": "正文",
+      "text": "4.1.2. 例",
+      "anchor": "4-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.3. 例",
+      "section": "正文",
+      "text": "4.1.3. 例",
+      "anchor": "4-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.4. 例",
+      "section": "正文",
+      "text": "4.1.4. 例",
+      "anchor": "4-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.5. 例",
+      "section": "正文",
+      "text": "4.1.5. 例",
+      "anchor": "4-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.6. 例",
+      "section": "正文",
+      "text": "4.1.6. 例",
+      "anchor": "4-1-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.7. 例",
+      "section": "正文",
+      "text": "4.1.7. 例",
+      "anchor": "4-1-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.8. 例",
+      "section": "正文",
+      "text": "4.1.8. 例",
+      "anchor": "4-1-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.9. 例",
+      "section": "正文",
+      "text": "4.1.9. 例",
+      "anchor": "4-1-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.1.10. 练习",
+      "section": "正文",
+      "text": "4.1.10. 练习",
+      "anchor": "4-1-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2. “当且仅当”",
+      "section": "正文",
+      "text": "4.2. “当且仅当”",
+      "anchor": "4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.1. 例",
+      "section": "正文",
+      "text": "4.2.1. 例",
+      "anchor": "4-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.2. 例",
+      "section": "正文",
+      "text": "4.2.2. 例",
+      "anchor": "4-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.3. 例",
+      "section": "正文",
+      "text": "4.2.3. 例",
+      "anchor": "4-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.4. 例",
+      "section": "正文",
+      "text": "4.2.4. 例",
+      "anchor": "4-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.5. 例",
+      "section": "正文",
+      "text": "4.2.5. 例",
+      "anchor": "4-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.6. 例",
+      "section": "正文",
+      "text": "4.2.6. 例",
+      "anchor": "4-2-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.7. 例",
+      "section": "正文",
+      "text": "4.2.7. 例",
+      "anchor": "4-2-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.8. 例",
+      "section": "正文",
+      "text": "4.2.8. 例",
+      "anchor": "4-2-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.9. 例",
+      "section": "正文",
+      "text": "4.2.9. 例",
+      "anchor": "4-2-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.2.10. 练习",
+      "section": "正文",
+      "text": "4.2.10. 练习",
+      "anchor": "4-2-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3. “存在唯一”",
+      "section": "正文",
+      "text": "4.3. “存在唯一”",
+      "anchor": "4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3.1. 例",
+      "section": "正文",
+      "text": "4.3.1. 例",
+      "anchor": "4-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3.2. 例",
+      "section": "正文",
+      "text": "4.3.2. 例",
+      "anchor": "4-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3.3. 例",
+      "section": "正文",
+      "text": "4.3.3. 例",
+      "anchor": "4-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3.4. 例",
+      "section": "正文",
+      "text": "4.3.4. 例",
+      "anchor": "4-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.3.5. 练习",
+      "section": "正文",
+      "text": "4.3.5. 练习",
+      "anchor": "4-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4. 矛盾的假设",
+      "section": "正文",
+      "text": "4.4. 矛盾的假设",
+      "anchor": "4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.1. 例",
+      "section": "正文",
+      "text": "4.4.1. 例",
+      "anchor": "4-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.2. 例",
+      "section": "正文",
+      "text": "4.4.2. 例",
+      "anchor": "4-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.3. 例",
+      "section": "正文",
+      "text": "4.4.3. 例",
+      "anchor": "4-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.4. 例",
+      "section": "正文",
+      "text": "4.4.4. 例",
+      "anchor": "4-4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.5. 例",
+      "section": "正文",
+      "text": "4.4.5. 例",
+      "anchor": "4-4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.4.6. 练习",
+      "section": "正文",
+      "text": "4.4.6. 练习",
+      "anchor": "4-4-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5. 反证法",
+      "section": "正文",
+      "text": "4.5. 反证法",
+      "anchor": "4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.1. 例",
+      "section": "正文",
+      "text": "4.5.1. 例",
+      "anchor": "4-5-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.2. 例",
+      "section": "正文",
+      "text": "4.5.2. 例",
+      "anchor": "4-5-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.3. 例",
+      "section": "正文",
+      "text": "4.5.3. 例",
+      "anchor": "4-5-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.4. 例",
+      "section": "正文",
+      "text": "4.5.4. 例",
+      "anchor": "4-5-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.5. 例",
+      "section": "正文",
+      "text": "4.5.5. 例",
+      "anchor": "4-5-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.6. 例",
+      "section": "正文",
+      "text": "4.5.6. 例",
+      "anchor": "4-5-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.7. 例",
+      "section": "正文",
+      "text": "4.5.7. 例",
+      "anchor": "4-5-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/04_Proofs_with_Structure_II.md",
+      "title": "第 4 章 结构化证明 II › 4.5.8. 练习",
+      "section": "正文",
+      "text": "4.5.8. 练习",
+      "anchor": "4-5-8"
     },
     {
       "kind": "chapter",
