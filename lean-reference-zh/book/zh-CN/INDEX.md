@@ -64,6 +64,7 @@
 - [quotient reduction](Reference/TypeSystemDetails/QuotientReduction.md) — `Quot.sound` 后的 definitional reduction、合规性与限制
 - [底层 quotient API](Reference/TypeSystemDetails/LowLevelQuotientAPI.md) — `Quot` 原始构造子、`rec`、`lift` 与 kernel 层面
 - [quotient 与函数外延性](Reference/TypeSystemDetails/QuotientFunext.md) — 用 quotient 导出 `funext` 的证明思路
+- [squash 类型](Reference/TypeSystemDetails/SquashTypes.md) — 命题截断、`Squash` / `Trunc` 与不可区分值
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
