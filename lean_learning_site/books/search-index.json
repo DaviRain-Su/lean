@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T02:23:27.512Z",
-  "entryCount": 3187,
+  "generatedAt": "2026-06-17T02:30:46.289Z",
+  "entryCount": 3225,
   "entries": [
     {
       "kind": "chapter",
@@ -28314,6 +28314,383 @@
       "section": "正文",
       "text": "9.3.6. 练习",
       "anchor": "9-3-6"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系",
+      "section": "正文",
+      "text": "第 10 章 关系 本译文对应原书 Relations；英文 Sphinx 源： 。 正如集合为某个类型中对象的性质提供了便利的语言， 关系 （relations）则为该类型中 对象对 的性质提供了便利的语言。这听起来可能枯燥而抽象，但这类性质在数学中无处不在：一个实数小于另一个；一个整数模 5 与另一个同余；一个集合是另一个的子集；一个函数与另一个互为逆。 本章介绍关系本身可以具有的一些重要性质：关系可以是 自反的 （reflexive）、 对称的 （symmetric）、 反对称的 （antisymmetric）或 传递的 （transitive），也可以是这些性质的任意组合。 10.1. 自反、对称、反对称、传递 10.1.1. 例 定义 类型 上的关系 是 自反的 ，若对所有类型 的 ，都有 。 问题 证明 上的关系 （整除）是自反的。 解法 我们必须证明：对所有自然数 ，都有 。设 为自然数；则 。 定义 类型 上的关系 是 对称的 ，若对所有类型 的 与 ，若 ，则 。 问题 证明 上的关系 不是对称的。 解法 我们必须证明：存在自然数 与 ，使得 且 。事实上， ，故 ；又 ，故 。 定义 类型 上的关系 是 反对称的 ，若对所有类型 的 与 ，若 且 ，则 。 问题 证明 上的关系 是反对称的。 解法 我们首先注意以下事实（ ）：若 与 为自然数， 且 ，则 。事实上，由于 ，存在自然数 使得 ，于是 现在回到原问题。我们必须证明：对所有自然数 与 ，若 且 ，则 。设 与 为自然数，并设 且 。若 ，则由（ ）即得结论；若 同理。否则 ，由于 有 ；又 ，由于 有 。合起来得 。 定义 类型 上的关系 是 传递的 ，若对所有类型 的 、 与 ，若 且 ，则 。 问题 证明 上的关系 是传递的。 解法 我们必须证明：对所有自然数 、 与 ，若 且 ，则 。 设 、 与 为具有这些性质的自然数。由于 ，存在自然数 使得 ；由于 ，存在自然数 使得 。于是 故 。 10.1.2. 例 问题 判断 上的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 10.1.3. 例 问题 判断 上由「 当且仅当 」定义的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 10.1.4. 例 考虑如下有限归纳类型 。 考虑 类型上的如下关系 。 !石头剪刀布 问题 判断关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 10.1.5. 练习 1. 证明 上的关系 不是对称的。 2. 证明 上由「 当且仅当 」定义的关系 不是反对称的。 3. 考虑如下有限归纳类型 ，以及 类型上的如下关系 。判断关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 !Meg、Jo、Beth、Amy 4. 判断 上由「 当且仅当 」定义的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 并画出该关系（有代表性的部分）作为有向图的草图。 5. 判断 上由「 当且仅当 」定义的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 并画出该关系（有代表性的部分）作为有向图的草图。 6. 判断 （自然数集合的类型）上的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 并画出该关系（有代表性的部分）作为有向图的草图。 7. 判断 上由「 当且仅当 且 」定义的关系 具有下列哪些性质： 1. 自反； 2. 对称； 3. 反对称； 4. 传递。 10.2. 等价关系 10.2.1. 例 定义 一个关系是 等价关系 （equivalence relation），若它是自反、对称且传递的。 问题 设 为整数。证明 上由「 当且仅当 」定义的关系 是等价关系。 解法 由例题 3.3.10，关系 是自反的。 由第 3.3 节练习中的两条，关系 是对称且传递的。 让我们把这个关系画成有向图（画一部分），例如取 。 !模 3 同余（详图） 图很乱，但仍能辨认出一种模式：数字形成若干 团 （clique），例如 …、 、 、 、 、 、… 彼此相连，且不与任何其他数相连。我们对这类有向图引入如下视觉简写：当节点涂上不同颜色时，表示该有向图中，给定颜色的所有节点与该颜色所有节点（包括自身）双向相连，且不与任何其他节点相连。 !模 3 同余（着色简图） 10.2.2. 例 问题 证明 上由「 当且仅当 」定义的关系 是等价关系。 解法 对所有整数 ，有 ，故 。因此关系 是自反的。 对所有整数 与 ，若 ，则 ，故 ，从而 。因此关系 是对称的。 对所有整数 、 与 ，若 且 ，则 且 ，于是 故 。因此关系 是传递的。 若你尝试画出该关系的有向图，会发现它与上一个关系有相同的「团」行为。画完有向图后，再画多色「团」简图。 10.2.3. 例 你大概已经猜到：对任何等价关系，这种着色都可以一致地进行。让我们把这说得数学上严格一些。 设 为类型 上的关系，中缀记作 。 定义 对 中的 ， 的 等价类 （equivalence class，记作 ）是 。 定理 若关系 是对称且传递的，则对所有 与 ，若 ，则 。 证明 我们必须证明：对所有 中的 ， 当且仅当 。 首先，设 。由于 ，由对称性 ，再由传递性 。 反之，设 。则由于 ，由传递性 。 定理 若关系 是自反的，则每个 都是其自身等价类的元素： 。 证明 我们必须证明：对所有 ， 成立，而这正是自反性的定义。 10.2.4. 例 考虑 上的关系 。它是等价关系，见例 10.1.2。 练习 ：画出该关系：沿一条直线画出（一部分）底层类型 ，再用不同颜色标出每个等价类。 10.2.5. 例 问题 证明 上由「 当且仅当 」定义的关系 是等价关系。 解法 对所有 ，有 ，故 。因此 是自反的。 对所有 与 ，若 ，则 ，故 ，从而 。因此 是对称的。 对所有 、 与 ，若 且 ，则 且 。我们将证明 ，从而 ，这就证明了 的传递性。 由于 ，只需证明 。令 、 、 ：则已知 且 ，需证 。 事实上， 现在画出关系 ：在平面上画出（一部分）底层类型 ，再用不同颜色标出每个等价类。 10.2.6. 例 定理 0 级类型上由「 当且仅当存在双射 」定义的关系 是等价关系。 10.2.7. 练习 1. 考虑 上由「 当且仅当存在正整数 与 使得 」定义的关系 。 证明 是等价关系。 画出关系 ：沿一条直线画出（一部分）底层类型 ，再用不同颜色标出每个等价类。 2. 考虑 上由「 当且仅当 」定义的关系 。 证明 是等价关系。 画出关系 ：在平面上画出（一部分）底层类型 ，再用不同颜色标出每个等价类。 3. 考虑 上由「 当且仅当存在正整数 与 使得 」定义的关系 。 证明 是等价关系。 画出关系 ：在平面上画出（一部分）底层类型 ，再用不同颜色标出每个等价类。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1. 自反、对称、反对称、传递",
+      "section": "正文",
+      "text": "10.1. 自反、对称、反对称、传递",
+      "anchor": "10-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1.1. 例",
+      "section": "正文",
+      "text": "10.1.1. 例",
+      "anchor": "10-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1.2. 例",
+      "section": "正文",
+      "text": "10.1.2. 例",
+      "anchor": "10-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1.3. 例",
+      "section": "正文",
+      "text": "10.1.3. 例",
+      "anchor": "10-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1.4. 例",
+      "section": "正文",
+      "text": "10.1.4. 例",
+      "anchor": "10-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.1.5. 练习",
+      "section": "正文",
+      "text": "10.1.5. 练习",
+      "anchor": "10-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2. 等价关系",
+      "section": "正文",
+      "text": "10.2. 等价关系",
+      "anchor": "10-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.1. 例",
+      "section": "正文",
+      "text": "10.2.1. 例",
+      "anchor": "10-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.2. 例",
+      "section": "正文",
+      "text": "10.2.2. 例",
+      "anchor": "10-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.3. 例",
+      "section": "正文",
+      "text": "10.2.3. 例",
+      "anchor": "10-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.4. 例",
+      "section": "正文",
+      "text": "10.2.4. 例",
+      "anchor": "10-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.5. 例",
+      "section": "正文",
+      "text": "10.2.5. 例",
+      "anchor": "10-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.6. 例",
+      "section": "正文",
+      "text": "10.2.6. 例",
+      "anchor": "10-2-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/10_Relations.md",
+      "title": "第 10 章 关系 › 10.2.7. 练习",
+      "section": "正文",
+      "text": "10.2.7. 练习",
+      "anchor": "10-2-7"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引",
+      "section": "附录",
+      "text": "Lean 策略索引 本译文对应原书 Index of Lean tactics；英文 Sphinx 源： 。 标有 \\ 的策略是本书特有的，你无法通过谷歌或论坛等途径获得帮助。请重读书中相应部分，或向授课教师请教！ \\ （首次使用：第 1.5 节） 尝试通过把项从左端移到右端（或反之）来解决等式或不等式。 （首次使用：第 2.2 节；对 与 假设：第 4.1 节） 调用指定的引理或假设来修改目标。 （首次使用：第 5.2 节） 对给定陈述为真或为假进行分情形讨论。 \\ （首次使用：第 2.1 节） 消去等式/不等式左右两边的公因子，消去两边共同的指数运算等。 （首次使用：第 2.4 节；对 目标：第 4.2 节） 把「与」（ ）目标拆成左右两部分的子目标。 （首次使用：第 4.4 节） 若有两个互相矛盾的假设可用，则以此结束证明。 （首次使用：第 3.1 节） 展开定义。通常在证明过程中使用，而非出现在最终版本里；它有助于更仔细地检查目标或假设，但在多数情况下，删掉 那一行证明仍然成立。 \\ （首次使用：第 1.4 节；对同余：第 3.4 节） 用于不等式或其他关系（如同余）的比较策略：检查两边相差一个正量加法的不等式、两边相差 3 的倍数而模 3 同余的陈述等。 （首次使用：第 4.1 节） 对自然数或整数变量 ，在已知数值上下界时，为 的每个数值可能产生一个情形。 （首次使用：第 4.1 节；对 目标：第 4.5 节） 从目标中引入全称量词变量（ ）或蕴涵的前件（ ），或对否定（ ）目标（为反证）假设其肯定形式。 （首次使用：第 2.3 节） 选择「或」（ ）目标的左支。 （首次使用：第 2.1 节；配合引理：第 2.3 节；引入新目标：第 2.4 节） 记录一个事实（后接该事实的证明），随后可作为额外假设使用。 （首次使用：第 3.4 节） 按变量对指定数取模的余数引入情形。 \\ （首次使用：第 1.4 节；配合 用于矛盾：第 4.4 节） 证明数值事实，如 或 。 （对 首次使用：第 2.3 节；对 ：第 2.4 节；对 ：第 2.5 节） 拆开形如「或」（ ）、「与」（ ）或「存在」（ ）的假设。 （首次使用：第 5.3 节） 把假设或目标化为逻辑等价形式，并尽可能把否定向内推。 （首次使用：第 1.4 节；对同余：第 3.4 节；对逻辑等价：第 5.3 节） 类似「代入」的策略，用于不等式或其他关系（如同余）：在目标中寻找指定不等式（或同余等）事实的左端，若该替换是「显然」有效的不等式（或模算术等）推理，则将其替换为该事实的右端。可与 比较。 （首次使用：第 2.3 节） 选择「或」（ ）目标的右支。 （首次使用：第 1.2 节） 解决代数等式目标，如 ，当证明实质上就是「两边展开并重排」时。 （首次使用：第 1.2 节；对 假设/引理：第 4.2 节） 代入：在目标中寻找指定等式事实的左端，并将其替换为该事实的右端。 对 假设/引理，把指定 事实的左端替换为右端。 （首次使用：第 2.5 节） 为存在（ ）目标提供一个见证。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › \\* `addarith`（首次使用：[第 1.5 节](01_Proofs_by_Calculation.md#15-一种捷径)）",
+      "section": "附录",
+      "text": "\\* `addarith`（首次使用：[第 1.5 节](01_Proofs_by_Calculation.md#15-一种捷径)）",
+      "anchor": "addarith-1-5-01-proofs-by-calculation-md-15"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `apply`（首次使用：[第 2.2 节](02_Proofs_with_Structure.md#22-调用引理)；对 $\\forall$ 与 $\\to$ 假设：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)）",
+      "section": "附录",
+      "text": "`apply`（首次使用：[第 2.2 节](02_Proofs_with_Structure.md#22-调用引理)；对 $\\forall$ 与 $\\to$ 假设：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)）",
+      "anchor": "apply-2-2-02-proofs-with-structure-md-22-forall-to-4-1-04-proofs-with-structure-ii-md-41"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `by_cases`（首次使用：[第 5.2 节](05_Logic.md#52-排中律)）",
+      "section": "附录",
+      "text": "`by_cases`（首次使用：[第 5.2 节](05_Logic.md#52-排中律)）",
+      "anchor": "by-cases-5-2-05-logic-md-52"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › \\* `cancel`（首次使用：[第 2.1 节](02_Proofs_with_Structure.md#21-中间步骤)）",
+      "section": "附录",
+      "text": "\\* `cancel`（首次使用：[第 2.1 节](02_Proofs_with_Structure.md#21-中间步骤)）",
+      "anchor": "cancel-2-1-02-proofs-with-structure-md-21"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `constructor`（首次使用：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)；对 `↔` 目标：[第 4.2 节](04_Proofs_with_Structure_II.md#42-当且仅当)）",
+      "section": "附录",
+      "text": "`constructor`（首次使用：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)；对 `↔` 目标：[第 4.2 节](04_Proofs_with_Structure_II.md#42-当且仅当)）",
+      "anchor": "constructor-2-4-02-proofs-with-structure-md-24-land-4-2-04-proofs-with-structure-ii-md-42"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `contradiction`（首次使用：[第 4.4 节](04_Proofs_with_Structure_II.md#44-矛盾的假设)）",
+      "section": "附录",
+      "text": "`contradiction`（首次使用：[第 4.4 节](04_Proofs_with_Structure_II.md#44-矛盾的假设)）",
+      "anchor": "contradiction-4-4-04-proofs-with-structure-ii-md-44"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `dsimp`（首次使用：[第 3.1 节](03_Parity_and_Divisibility.md#31-定义奇偶)）",
+      "section": "附录",
+      "text": "`dsimp`（首次使用：[第 3.1 节](03_Parity_and_Divisibility.md#31-定义奇偶)）",
+      "anchor": "dsimp-3-1-03-parity-and-divisibility-md-31"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › \\* `extra`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；对同余：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)）",
+      "section": "附录",
+      "text": "\\* `extra`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；对同余：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)）",
+      "anchor": "extra-1-4-01-proofs-by-calculation-md-14-3-4-03-parity-and-divisibility-md-34"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `interval_cases`（首次使用：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)）",
+      "section": "附录",
+      "text": "`interval_cases`（首次使用：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)）",
+      "anchor": "interval-cases-4-1-04-proofs-with-structure-ii-md-41"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `intro`（首次使用：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)；对 $\\lnot$ 目标：[第 4.5 节](04_Proofs_with_Structure_II.md#45-反证法)）",
+      "section": "附录",
+      "text": "`intro`（首次使用：[第 4.1 节](04_Proofs_with_Structure_II.md#41-对所有与蕴涵)；对 $\\lnot$ 目标：[第 4.5 节](04_Proofs_with_Structure_II.md#45-反证法)）",
+      "anchor": "intro-4-1-04-proofs-with-structure-ii-md-41-lnot-4-5-04-proofs-with-structure-ii-md-45"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `left`（首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)）",
+      "section": "附录",
+      "text": "`left`（首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)）",
+      "anchor": "left-2-3-02-proofs-with-structure-md-23-lor"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `have`（首次使用：[第 2.1 节](02_Proofs_with_Structure.md#21-中间步骤)；配合引理：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)；引入新目标：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)）",
+      "section": "附录",
+      "text": "`have`（首次使用：[第 2.1 节](02_Proofs_with_Structure.md#21-中间步骤)；配合引理：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)；引入新目标：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)）",
+      "anchor": "have-2-1-02-proofs-with-structure-md-21-2-3-02-proofs-with-structure-md-23-lor-2-4-02-proofs-with-structure-md-24-land"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `mod_cases`（首次使用：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)）",
+      "section": "附录",
+      "text": "`mod_cases`（首次使用：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)）",
+      "anchor": "mod-cases-3-4-03-parity-and-divisibility-md-34"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › \\* `numbers`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；配合 `at` 用于矛盾：[第 4.4 节](04_Proofs_with_Structure_II.md#44-矛盾的假设)）",
+      "section": "附录",
+      "text": "\\* `numbers`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；配合 `at` 用于矛盾：[第 4.4 节](04_Proofs_with_Structure_II.md#44-矛盾的假设)）",
+      "anchor": "numbers-1-4-01-proofs-by-calculation-md-14-at-4-4-04-proofs-with-structure-ii-md-44"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `obtain`（对 $\\lor$ 首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)；对 $\\land$：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)；对 $\\exists$：[第 2.5 节](02_Proofs_with_Structure.md#25-存在exists证明)）",
+      "section": "附录",
+      "text": "`obtain`（对 $\\lor$ 首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)；对 $\\land$：[第 2.4 节](02_Proofs_with_Structure.md#24-与land)；对 $\\exists$：[第 2.5 节](02_Proofs_with_Structure.md#25-存在exists证明)）",
+      "anchor": "obtain-lor-2-3-02-proofs-with-structure-md-23-lor-land-2-4-02-proofs-with-structure-md-24-land-exists-2-5-02-proofs-with-structure-md-25-exists"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `push_neg`（首次使用：[第 5.3 节](05_Logic.md#53-否定的范式)）",
+      "section": "附录",
+      "text": "`push_neg`（首次使用：[第 5.3 节](05_Logic.md#53-否定的范式)）",
+      "anchor": "push-neg-5-3-05-logic-md-53"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `rel`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；对同余：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)；对逻辑等价：[第 5.3 节](05_Logic.md#53-否定的范式)）",
+      "section": "附录",
+      "text": "`rel`（首次使用：[第 1.4 节](01_Proofs_by_Calculation.md#14-证明不等式)；对同余：[第 3.4 节](03_Parity_and_Divisibility.md#34-模算术计算)；对逻辑等价：[第 5.3 节](05_Logic.md#53-否定的范式)）",
+      "anchor": "rel-1-4-01-proofs-by-calculation-md-14-3-4-03-parity-and-divisibility-md-34-5-3-05-logic-md-53"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `right`（首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)）",
+      "section": "附录",
+      "text": "`right`（首次使用：[第 2.3 节](02_Proofs_with_Structure.md#23-或lor与分情形证明)）",
+      "anchor": "right-2-3-02-proofs-with-structure-md-23-lor"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `ring`（首次使用：[第 1.2 节](01_Proofs_by_Calculation.md#12-在-lean-中证明等式)）",
+      "section": "附录",
+      "text": "`ring`（首次使用：[第 1.2 节](01_Proofs_by_Calculation.md#12-在-lean-中证明等式)）",
+      "anchor": "ring-1-2-01-proofs-by-calculation-md-12-lean"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `rw`（首次使用：[第 1.2 节](01_Proofs_by_Calculation.md#12-在-lean-中证明等式)；对 `↔` 假设/引理：[第 4.2 节](04_Proofs_with_Structure_II.md#42-当且仅当)）",
+      "section": "附录",
+      "text": "`rw`（首次使用：[第 1.2 节](01_Proofs_by_Calculation.md#12-在-lean-中证明等式)；对 `↔` 假设/引理：[第 4.2 节](04_Proofs_with_Structure_II.md#42-当且仅当)）",
+      "anchor": "rw-1-2-01-proofs-by-calculation-md-12-lean-4-2-04-proofs-with-structure-ii-md-42"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Index_of_Tactics.md",
+      "title": "Lean 策略索引 › `use`（首次使用：[第 2.5 节](02_Proofs_with_Structure.md#25-存在exists证明)）",
+      "section": "附录",
+      "text": "`use`（首次使用：[第 2.5 节](02_Proofs_with_Structure.md#25-存在exists证明)）",
+      "anchor": "use-2-5-02-proofs-with-structure-md-25-exists"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/Mainstream_Lean.md",
+      "title": "过渡到主流 Lean",
+      "section": "附录",
+      "text": "过渡到主流 Lean 本译文对应原书 Transitioning to mainstream Lean；英文 Sphinx 源： 。 若你喜欢本书，可能希望继续深入 Lean，例如通读 Mathematics in Lean（Lean 中的数学），或启动一个独立形式化项目。 你会发现本书使用的 Lean「方言」与库 mathlib 及其配套文献（如 Mathematics in Lean ）所使用的主流数学 Lean 有所不同。为帮助你过渡，本附录概述主要差异。 本书使用的某些策略是 mathlib 中对应策略的刻意弱化版本：我这样做是为了限制 Lean 的某些能力，因为本书层次的散文证明通常会把手算细节写全。这些刻意弱化的策略包括： mathlib 策略 本书弱化版本 差异 可完成本书要求读者手算的一些计算，包括模 化简、处理逻辑，以及检验整除性与素性 不要求你指明正在代入哪些假设 可对线性不等式取常数倍、加减常数，可合并多条线性不等式，且不要求指明所用假设 可处理含量词的逻辑任务，而不只是无量词的情形 本书使用的某些策略在 mathlib 中没有直接对应物。它们通常是对一小撮引理的封装；在 mathlib 中这些引理会按名称调用。 本书策略 封装的引理 、 、 等，配合策略 、 、 等，配合策略 <br <br <br 、 等，配合策略 或 本书许多题目在 mathlib 风格的 Lean 中会高效得多，因为有些步骤序列可被超出本书数学范围的进阶算法一步完成。需注意的这类策略包括： 算法 mathlib 策略 可替代的步骤类型 Fourier–Motzkin 消元 、 、 、 Gröbner 基 、 叠加演算 证明或子证明末尾的逻辑策略 本书未涉及的另一点是如何与库交互。mathlib 包含逾百万行 Lean 代码，要弄清你想要的引理是否已在库中并不总是容易！本书通过事先告诉你我期望你使用的引理名称来回避这一问题。 与库交互时需注意的几点： 在线文档 通常比源码更易读：可搜索，且有内部超链接。 引理常以极高一般性陈述……例如 被陈述为对 成立，而非对 。学完抽象代数与点集拓扑入门课后，你可能更容易与库打交道。 若能猜出引理的精确陈述，策略 会在库中找到它。 以上只是皮毛：Lean 还有许多功能可助你在数学探索中前进。 Mathematics in Lean 、社区网站与社区讨论板提供更多探索线索。祝玩得开心！"
     },
     {
       "kind": "chapter",

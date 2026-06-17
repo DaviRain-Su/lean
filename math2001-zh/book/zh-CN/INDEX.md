@@ -4,7 +4,7 @@
 
 ## 说明
 
-本科数学严格证明写作 + Lean 形式化。**前言与第 1–9 章已译**；正文与其余附录按章推进中。
+本科数学严格证明写作 + Lean 形式化。**全书已译**（前言 + 10 章正文 + 2 篇附录）。
 
 ### 前言
 
@@ -21,9 +21,9 @@
 - [第 7 章 数论](07_Number_Theory.md)
 - [第 8 章 函数](08_Functions.md)
 - [第 9 章 集合](09_Sets.md)
-- [第 10 章 关系](10_Relations.md) — 待翻译
+- [第 10 章 关系](10_Relations.md)
 
 ### 附录
 
-- [Lean 策略索引](Index_of_Tactics.md) — 待翻译
-- [过渡到主流 Lean](Mainstream_Lean.md) — 待翻译
+- [Lean 策略索引](Index_of_Tactics.md)
+- [过渡到主流 Lean](Mainstream_Lean.md)

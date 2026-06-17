@@ -103,7 +103,7 @@ const BOOKS = [
     subtitle: '本科严谨证明 + Lean',
     source: join(repoRoot, 'math2001-zh', 'book', 'zh-CN'),
     originalUrl: 'https://hrmacbeth.github.io/math2001/',
-    status: '前言 + 第 1–9 章已译',
+    status: '全书已译（前言 + 10 章 + 附录）',
   },
   {
     id: 'logic-and-proof',

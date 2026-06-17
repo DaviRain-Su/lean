@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T02:23:27.470Z",
+  "generatedAt": "2026-06-17T02:30:46.246Z",
   "books": [
     {
       "id": "tpil",
@@ -2845,9 +2845,9 @@
       "subtitle": "本科严谨证明 + Lean",
       "originalUrl": "https://hrmacbeth.github.io/math2001/",
       "externalPdfUrl": null,
-      "status": "前言 + 第 1–9 章已译",
+      "status": "全书已译（前言 + 10 章 + 附录）",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 10,
+      "chapterCount": 13,
       "sections": [
         {
           "title": "前言",
@@ -2905,6 +2905,26 @@
             {
               "title": "第 9 章 集合",
               "path": "math2001/09_Sets.md",
+              "summary": ""
+            },
+            {
+              "title": "第 10 章 关系",
+              "path": "math2001/10_Relations.md",
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "附录",
+          "chapters": [
+            {
+              "title": "Lean 策略索引",
+              "path": "math2001/Index_of_Tactics.md",
+              "summary": ""
+            },
+            {
+              "title": "过渡到主流 Lean",
+              "path": "math2001/Mainstream_Lean.md",
               "summary": ""
             }
           ]
