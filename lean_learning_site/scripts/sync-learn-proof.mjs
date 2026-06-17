@@ -26,7 +26,7 @@ function boxTableToMarkdown(lines) {
   return out;
 }
 
-const CHAPTERS = [
+const BASIC_CHAPTERS = [
   {
     file: 'Intro.md',
     title: '入门与调试工具',
@@ -70,6 +70,17 @@ const CHAPTERS = [
     },
   },
 ];
+
+const EXTRA_CHAPTERS = [
+  {
+    file: '05-natural-numbers.md',
+    title: '自然数：从零构造',
+    summary: 'MyNat：归纳定义、加法与乘法的递归定义',
+    source: 'Natural.lean',
+  },
+];
+
+const ALL_CHAPTERS = [...BASIC_CHAPTERS, ...EXTRA_CHAPTERS];
 
 function exampleNumber(heading) {
   if (!heading) return null;
@@ -174,7 +185,7 @@ function parseLeanSections(leanText) {
 }
 
 function chapterForSection(section) {
-  return CHAPTERS.find((chapter) => chapter.match(section.heading)) ?? CHAPTERS[0];
+  return BASIC_CHAPTERS.find((chapter) => chapter.match(section.heading)) ?? BASIC_CHAPTERS[0];
 }
 
 function buildChapterMarkdown(chapter, sections) {
@@ -207,20 +218,90 @@ function buildChapterMarkdown(chapter, sections) {
   return `${parts.join('\n').trimEnd()}\n`;
 }
 
+/**
+ * Convert a Lean file that uses `/-! ... -/` block comments for prose
+ * into a single-section markdown chapter.
+ */
+function buildExtraChapterMarkdown(chapter, leanText) {
+  const parts = [
+    `# ${chapter.title}`,
+    '',
+    `> 源文件：\`learn_proof/LearnProof/${chapter.source}\` · 在 VS Code 中打开 Lake 项目配合 InfoView 运行`,
+    '',
+  ];
+
+  const lines = leanText.split('\n');
+  let inBlock = false;
+  let blockBuffer = [];
+  let codeBuffer = [];
+
+  function flushCode() {
+    const code = codeBuffer.join('\n').trimEnd();
+    if (!code) return;
+    parts.push('```lean');
+    parts.push(code);
+    parts.push('```');
+    parts.push('');
+    codeBuffer.length = 0;
+  }
+
+  function flushBlock() {
+    if (!blockBuffer.length) return;
+    // Remove leading `/-!` marker from first line and trailing `-/` from last line;
+    // everything in between is already markdown prose.
+    const first = blockBuffer[0].replace(/^\s*\/!-\s?/, '');
+    const last = blockBuffer[blockBuffer.length - 1].replace(/\s?-\/\s*$/, '');
+    const body = [first, ...blockBuffer.slice(1, -1), last];
+    for (const line of body) {
+      parts.push(line);
+    }
+    parts.push('');
+    blockBuffer.length = 0;
+  }
+
+  for (const line of lines) {
+    const startMatch = line.match(/^(\s*)\/-!(.*)$/);
+    const endMatch = line.match(/^(.*)-\/\s*$/);
+
+    if (startMatch && !inBlock) {
+      flushCode();
+      inBlock = true;
+      blockBuffer.push(startMatch[2]);
+      continue;
+    }
+
+    if (inBlock) {
+      if (endMatch && line.includes('-/')) {
+        blockBuffer.push(endMatch[1]);
+        flushBlock();
+        inBlock = false;
+      } else {
+        blockBuffer.push(line);
+      }
+      continue;
+    }
+
+    codeBuffer.push(line);
+  }
+
+  flushCode();
+  return `${parts.join('\n').trimEnd()}\n`;
+}
+
 export function writeLearnProofBook({ repoRoot, dataRoot }) {
-  const leanPath = join(repoRoot, 'learn_proof', 'LearnProof', 'Basic.lean');
+  const basicPath = join(repoRoot, 'learn_proof', 'LearnProof', 'Basic.lean');
   const target = join(dataRoot, 'learn-proof');
   mkdirSync(target, { recursive: true });
 
-  const sections = parseLeanSections(readFileSync(leanPath, 'utf8'));
-  const grouped = new Map(CHAPTERS.map((chapter) => [chapter.file, []]));
+  const sections = parseLeanSections(readFileSync(basicPath, 'utf8'));
+  const grouped = new Map(BASIC_CHAPTERS.map((chapter) => [chapter.file, []]));
 
   for (const section of sections) {
     const chapter = chapterForSection(section);
     grouped.get(chapter.file).push(section);
   }
 
-  const allowed = new Set(CHAPTERS.map((chapter) => chapter.file));
+  const allowed = new Set(ALL_CHAPTERS.map((chapter) => chapter.file));
   allowed.add('INDEX.md');
   for (const entry of readdirSync(target)) {
     if (entry.endsWith('.md') && !allowed.has(entry)) {
@@ -228,10 +309,19 @@ export function writeLearnProofBook({ repoRoot, dataRoot }) {
     }
   }
 
-  for (const chapter of CHAPTERS) {
+  for (const chapter of BASIC_CHAPTERS) {
     writeFileSync(
       join(target, chapter.file),
       buildChapterMarkdown(chapter, grouped.get(chapter.file)),
+    );
+  }
+
+  for (const chapter of EXTRA_CHAPTERS) {
+    const sourcePath = join(repoRoot, 'learn_proof', 'LearnProof', chapter.source);
+    const leanText = readFileSync(sourcePath, 'utf8');
+    writeFileSync(
+      join(target, chapter.file),
+      buildExtraChapterMarkdown(chapter, leanText),
     );
   }
 
@@ -240,9 +330,9 @@ export function writeLearnProofBook({ repoRoot, dataRoot }) {
     '',
     '> Lake 项目：`learn_proof/` · 配合 Natural Number Game 与 TPIL 使用',
     '',
-    '## 基础 tactic',
+    '## 练习章节',
     '',
-    ...CHAPTERS.map((chapter) =>
+    ...ALL_CHAPTERS.map((chapter) =>
       `- [${chapter.title}](${chapter.file}) — ${chapter.summary}`),
     '',
   ];
@@ -256,13 +346,13 @@ export function writeLearnProofBook({ repoRoot, dataRoot }) {
     subtitle: 'NNG 风格 tactic 练习 · 同步自 learn_proof 项目',
     originalUrl: null,
     externalPdfUrl: null,
-    status: '5 章 · 随 learn_proof/Basic.lean 自动同步',
+    status: `${ALL_CHAPTERS.length} 章 · 随 learn_proof 自动同步`,
     indexPath: 'learn-proof/INDEX.md',
-    chapterCount: CHAPTERS.length,
+    chapterCount: ALL_CHAPTERS.length,
     sections: [
       {
         title: '练习章节',
-        chapters: CHAPTERS.map((chapter) => ({
+        chapters: ALL_CHAPTERS.map((chapter) => ({
           title: chapter.title,
           path: `learn-proof/${chapter.file}`,
           summary: chapter.summary,
