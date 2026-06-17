@@ -1,3 +1,6 @@
+import { enrichContent, renderMarkdown } from './render.js';
+import { mountSearch } from './search.js';
+
 const params = new URLSearchParams(window.location.search);
 const bookId = params.get('book') ?? 'tpil';
 const requestedPath = params.get('path');
@@ -73,7 +76,8 @@ async function loadChapter(path) {
     throw new Error(`无法加载 ${path}（${response.status}）`);
   }
   const markdown = await response.text();
-  readerContent.innerHTML = marked.parse(markdown);
+  readerContent.innerHTML = renderMarkdown(markdown);
+  enrichContent(readerContent);
   document.title = `${flatChapters[currentIndex]?.title ?? '阅读器'} · ${catalog.books.find((b) => b.id === bookId)?.titleZh ?? 'Lean 4'}`;
 }
 
@@ -135,6 +139,14 @@ window.addEventListener('popstate', (event) => {
   if (state?.path) {
     selectChapter(state.path, { pushState: false });
   }
+});
+
+mountSearch({
+  input: document.getElementById('reader-search'),
+  results: document.getElementById('reader-search-results'),
+  onNavigate: (href) => {
+    window.location.href = href;
+  },
 });
 
 init();

@@ -22,6 +22,7 @@
         <a href="#code">写代码</a>
         <a href="#proofs">证明</a>
         <a href="./books/index.html">中文教材</a>
+        <a href="./books/search.html">搜索</a>
         <a href="#deploy">部署</a>
       </div>
     </nav>
@@ -118,7 +119,11 @@ code .</code></pre>
       <div class="section-heading">
         <p class="eyebrow">03 · Proof notes</p>
         <h2>证明笔记：从计算到归纳</h2>
-        <p>Natural Number Game 的重点不是“Lean 会算”，而是把每一步改写暴露出来。</p>
+        <p>Natural Number Game 的重点不是“Lean 会算”，而是把每一步改写暴露出来。本站已将 <code>learn_proof</code> 练习笔记同步到教材库，可对照 NNG 逐步练习。</p>
+        <div class="hero-actions" style="margin-top: 1rem;">
+          <a class="button primary" href="./books/reader.html?book=learn-proof&path=learn-proof%2FBasic.md">阅读证明练习笔记</a>
+          <a class="button secondary" href="https://nng4.leanprover.cn" target="_blank" rel="noreferrer">打开 NNG4（中文）</a>
+        </div>
       </div>
 
       <div class="proof-grid">
@@ -165,7 +170,7 @@ code .</code></pre>
       <div class="section-heading">
         <p class="eyebrow">04 · Chinese books</p>
         <h2>中文教材库</h2>
-        <p>官方教程与 Lean-zh 社区译本的 Markdown 已接入本站，共 12 本书（含 LoVe、类型检查、Lean 初探、Math 2001、Logic and Proof）。</p>
+        <p>官方教程与 Lean-zh 社区译本的 Markdown 已接入本站，共 13 本书（含证明练习笔记、LoVe、类型检查、Lean 初探、Math 2001、Logic and Proof）。支持 LaTeX 公式、Lean 代码高亮与全文搜索。</p>
       </div>
       <div class="resource-list">
         <a href="./books/reader.html?book=faq">
@@ -182,7 +187,7 @@ code .</code></pre>
         </a>
         <a href="./books/reader.html?book=logic-and-proof">
           <strong>逻辑与证明（Logic and Proof）</strong>
-          <span>第 1–16 章已译 · 命题逻辑、自然演绎、Lean 证明、经典推理、语义、一阶逻辑、集合、关系、函数、数论。</span>
+          <span>第 1–17 章已译 · 命题逻辑、自然演绎、Lean 证明、经典推理、语义、一阶逻辑、集合、关系、函数、数论。</span>
         </a>
         <a href="./books/reader.html?book=fp-lean">
           <strong>Lean 函数式编程（FP in Lean）</strong>
@@ -208,9 +213,17 @@ code .</code></pre>
           <strong>Lean 初探（GlimpseOfLean）</strong>
           <span>短篇入门练习与解答。</span>
         </a>
+        <a href="./books/reader.html?book=learn-proof&path=learn-proof%2FBasic.md">
+          <strong>证明练习笔记</strong>
+          <span>同步自 learn_proof · rfl、rw、归纳法与 NNG 风格示例。</span>
+        </a>
+        <a href="./books/search.html">
+          <strong>搜索全部教材</strong>
+          <span>按标题或正文搜索 400+ 篇章节。</span>
+        </a>
         <a href="./books/index.html">
           <strong>查看全部教材</strong>
-          <span>进入教材库首页，含元编程等外部链接。</span>
+          <span>进入教材库首页，含交互式与社区资源。</span>
         </a>
       </div>
     </section>
@@ -219,15 +232,16 @@ code .</code></pre>
       <div class="section-heading">
         <p class="eyebrow">05 · Learning path</p>
         <h2>外部学习资源</h2>
+        <p>交互式教程无法导出为 Markdown，请在教材库「交互式学习」区查看完整列表；NNG4 建议配合本站证明练习笔记使用。</p>
       </div>
       <div class="resource-list">
         <a href="https://nng4.leanprover.cn" target="_blank" rel="noreferrer">
           <strong>自然数游戏 NNG4（中文）</strong>
-          <span>先练 tactic、rw、induction。</span>
+          <span>先练 tactic、rw、induction；配套阅读本站「证明练习笔记」。</span>
         </a>
-        <a href="https://adam.math.hhu.de/#/g/leanprover-community/NNG4" target="_blank" rel="noreferrer">
-          <strong>Natural Number Game（英文）</strong>
-          <span>NNG4 英文站。</span>
+        <a href="./books/index.html#interactive-grid">
+          <strong>更多交互式与社区资源</strong>
+          <span>教材库中的 NNG 英文站、Lean-zh 社区站点等。</span>
         </a>
         <a href="https://lean-lang.org/theorem_proving_in_lean4/" target="_blank" rel="noreferrer">
           <strong>Theorem Proving in Lean 4</strong>

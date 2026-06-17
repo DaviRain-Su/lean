@@ -21,13 +21,19 @@
       <div class="nav-links">
         <a href="../index.html">首页</a>
         <a href="./index.html">中文教材</a>
+        <a href="./search.html">搜索</a>
       </div>
     </nav>
 
     <header class="books-hero">
       <p class="eyebrow">Chinese translations</p>
       <h1>Lean 4 中文教材库</h1>
-      <p class="lead">官方教程与工具文档的 Markdown 译文集中在此阅读。代码块保持英文原样，可直接复制到 VS Code 中运行。建议顺序：FAQ / VS Code 手册 → 定理证明 → 函数式编程 → 数学形式化 → LoVe。</p>
+      <p class="lead">官方教程与工具文档的 Markdown 译文集中在此阅读。支持 LaTeX 公式、Lean 代码高亮与全文搜索。建议顺序：FAQ / VS Code 手册 → 定理证明 → 函数式编程 → 数学形式化 → LoVe。</p>
+      <div class="search-bar-wrap search-bar-inline">
+        <label class="search-label" for="catalog-search">全文搜索</label>
+        <input id="catalog-search" class="search-input" type="search" placeholder="搜索 400+ 篇教材章节…" autocomplete="off" spellcheck="false">
+        <div id="catalog-search-results" class="search-results" hidden></div>
+      </div>
     </header>
 
     <div id="book-grid" class="book-grid" aria-live="polite">
@@ -35,14 +41,23 @@
     </div>
 
     <header class="books-hero external-hero">
-      <p class="eyebrow">External · 社区译本</p>
-      <h2>更多学习资源</h2>
-      <p class="lead">以下链接指向 Lean-zh 或英文在线资源，尚未纳入本站 Markdown 同步。</p>
+      <p class="eyebrow">Interactive · 交互式</p>
+      <h2>交互式学习</h2>
+      <p class="lead">无法导出为 Markdown 的在线教程与游戏，建议与本站「证明练习笔记」配合使用。</p>
     </header>
 
-    <div id="external-grid" class="book-grid external-grid" aria-live="polite"></div>
+    <div id="interactive-grid" class="book-grid external-grid" aria-live="polite"></div>
+
+    <header class="books-hero external-hero">
+      <p class="eyebrow">Community · 社区站点</p>
+      <h2>社区在线资源</h2>
+      <p class="lead">Lean-zh 等社区维护的 Sphinx / 在线站点，作为补充参考。</p>
+    </header>
+
+    <div id="community-grid" class="book-grid external-grid" aria-live="polite"></div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js"></script>
   <script type="module" src="./index.js"></script>
 </body>
 </html>

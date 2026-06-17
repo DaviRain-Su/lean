@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeLearnProofBook } from './sync-learn-proof.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteRoot = join(__dirname, '..');
@@ -126,11 +127,37 @@ const BOOKS = [
 
 const EXTERNAL_LINKS = [
   {
+    kind: 'interactive',
     title: 'Natural Number Game (NNG4)',
-    titleZh: '自然数游戏 NNG4',
-    description: '交互式入门：tactic、rw、induction。',
+    titleZh: '自然数游戏 NNG4（中文）',
+    description: '交互式入门：tactic、rw、induction。建议配合本站「证明练习笔记」一起用。',
     url: 'https://nng4.leanprover.cn',
     originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
+    relatedPath: 'learn-proof/Basic.md',
+  },
+  {
+    kind: 'interactive',
+    title: 'Natural Number Game (NNG4)',
+    titleZh: 'Natural Number Game（英文）',
+    description: 'NNG4 英文站，与中文版关卡一致。',
+    url: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
+    originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
+  },
+  {
+    kind: 'community',
+    title: 'Theorem Proving in Lean (Lean 3, Chinese)',
+    titleZh: 'Lean 3 定理证明（Lean-zh 社区版）',
+    description: 'Sphinx 站点，适合对照 Lean 3 历史资料；Lean 4 请优先读本站 TPIL。',
+    url: 'https://www.leanprover.cn/tp-lean-zh/',
+    originalUrl: 'https://leanprover.github.io/theorem_proving_in_lean/',
+  },
+  {
+    kind: 'community',
+    title: 'GlimpseOfLean (Lean-zh)',
+    titleZh: 'Lean 初探（Lean-zh 在线站）',
+    description: '社区原版 Sphinx 站点；本站已同步 Markdown 译文与解答。',
+    url: 'https://leanprover.cn/GlimpseOfLean/',
+    originalUrl: 'https://leanprover-community.github.io/GlimpseOfLean/',
   },
 ];
 
@@ -244,20 +271,68 @@ function syncBook(book) {
   };
 }
 
+function stripMarkdown(text) {
+  return text
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]+`/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/[#*_>|-]/g, ' ')
+    .replace(/\$\$?[^$]+\$\$?/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildSearchIndex(books) {
+  const entries = [];
+
+  for (const book of books) {
+    for (const section of book.sections) {
+      for (const chapter of section.chapters) {
+        const filePath = join(dataRoot, chapter.path);
+        if (!existsSync(filePath)) continue;
+        const raw = readFileSync(filePath, 'utf8');
+        const title = raw.match(/^#\s+(.+)$/m)?.[1]?.trim() ?? chapter.title;
+        entries.push({
+          bookId: book.id,
+          bookTitleZh: book.titleZh,
+          path: chapter.path,
+          title,
+          section: section.title,
+          text: stripMarkdown(raw).slice(0, 5000),
+        });
+      }
+    }
+  }
+
+  return {
+    generatedAt: new Date().toISOString(),
+    entryCount: entries.length,
+    entries,
+  };
+}
+
 function main() {
   mkdirSync(dataRoot, { recursive: true });
   const books = BOOKS.map(syncBook);
+  mkdirSync(join(dataRoot, 'learn-proof'), { recursive: true });
+  books.push(writeLearnProofBook({ repoRoot, dataRoot }));
+
   const catalog = {
     generatedAt: new Date().toISOString(),
     books,
     externalLinks: EXTERNAL_LINKS,
   };
 
+  const searchIndex = buildSearchIndex(books);
+
   writeFileSync(join(siteRoot, 'books', 'catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
+  writeFileSync(join(siteRoot, 'books', 'search-index.json'), `${JSON.stringify(searchIndex, null, 2)}\n`);
   console.log(`Synced ${books.length} books into books/data/`);
   for (const book of books) {
     console.log(`  · ${book.titleZh}: ${book.chapterCount} chapters`);
   }
+  console.log(`Built search index with ${searchIndex.entryCount} entries`);
 }
 
 main();
