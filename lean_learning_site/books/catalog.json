@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:26:26.068Z",
+  "generatedAt": "2026-06-17T00:31:51.902Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 216 篇已翻译",
+      "status": "首批 222 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 216,
+      "chapterCount": 222,
       "sections": [
         {
           "title": "官网入口",
@@ -1196,6 +1196,36 @@
               "title": "squash 类型",
               "path": "lean-reference/Reference/TypeSystemDetails/SquashTypes.md",
               "summary": "命题截断、`Squash` / `Trunc` 与不可区分值"
+            },
+            {
+              "title": "归纳类型声明",
+              "path": "lean-reference/Reference/InductiveDetails/Declarations.md",
+              "summary": "`inductive`、constructor、`deriving` 与匿名构造子"
+            },
+            {
+              "title": "参数与索引",
+              "path": "lean-reference/Reference/InductiveDetails/ParametersIndices.md",
+              "summary": "parameter/index 区分与 `inductive.autoPromoteIndices`"
+            },
+            {
+              "title": "structure 声明",
+              "path": "lean-reference/Reference/InductiveDetails/Structures.md",
+              "summary": "单构造子记录类型、字段、继承与实例语法"
+            },
+            {
+              "title": "recursor",
+              "path": "lean-reference/Reference/InductiveDetails/Recursors.md",
+              "summary": "消去原理、motive、ι-reduction 与高层模式匹配的底层形式"
+            },
+            {
+              "title": "归纳类型的良构性要求",
+              "path": "lean-reference/Reference/InductiveDetails/WellFormedness.md",
+              "summary": "universe、strict positivity、`Prop` vs `Type`"
+            },
+            {
+              "title": "互递归归纳类型",
+              "path": "lean-reference/Reference/InductiveDetails/MutualInductives.md",
+              "summary": "mutual declaration、参数一致性、positivity 与 recursor"
             },
             {
               "title": "源文件与模块",
@@ -2241,7 +2271,7 @@
       "subtitle": "逻辑验证研究生课程 · 第 1–8 章 PDF 提取",
       "originalUrl": "https://github.com/lean-forward/logical_verification_2025",
       "externalPdfUrl": "https://github.com/Lean-zh/LoVe-zh",
-      "status": "第 1–4 章已校对 · 5–8 章已提取 · 9–14 待 PDF",
+      "status": "前言 + 第 1–5 章已校对 · 6–8 章待校对 · 9–14 待 PDF",
       "indexPath": "love/INDEX.md",
       "chapterCount": 16,
       "sections": [
