@@ -1,7 +1,30 @@
 import { mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const BOX_COMMENT = /^--\s*[│┌├└┴┬┤─]/;
+const BOX_COMMENT = /^--\s*[│┌├└┴┬┤─=]/;
+
+function parseBoxTableRow(line) {
+  const inner = line.replace(/^--\s*/, '').trim();
+  if (!inner.startsWith('│')) return null;
+  return inner
+    .slice(1, inner.endsWith('│') ? -1 : undefined)
+    .split('│')
+    .map((cell) => cell.trim());
+}
+
+function boxTableToMarkdown(lines) {
+  const rows = lines.map(parseBoxTableRow).filter(Boolean);
+  if (rows.length < 2) return null;
+  const header = rows[0];
+  const body = rows.slice(1);
+  const out = [
+    `| ${header.join(' | ')} |`,
+    `| ${header.map(() => '---').join(' | ')} |`,
+    ...body.map((row) => `| ${row.join(' | ')} |`),
+    '',
+  ];
+  return out;
+}
 
 const CHAPTERS = [
   {
@@ -95,7 +118,31 @@ function parseLeanSections(leanText) {
     sections.push({ heading, parts: [] });
   }
 
+  let boxBuffer = [];
+
+  function flushBox(parts) {
+    if (!boxBuffer.length) return false;
+    const table = boxTableToMarkdown(boxBuffer);
+    boxBuffer = [];
+    if (table) {
+      parts.push(...table);
+      return true;
+    }
+    return false;
+  }
+
   for (const line of lines) {
+    if (BOX_COMMENT.test(line)) {
+      flushCode(codeBuffer, current().parts);
+      flushComments(commentBuffer, current().parts);
+      boxBuffer.push(line);
+      continue;
+    }
+
+    if (boxBuffer.length) {
+      flushBox(current().parts);
+    }
+
     if (isSectionHeading(line)) {
       flushCode(codeBuffer, current().parts);
       flushComments(commentBuffer, current().parts);
@@ -120,6 +167,7 @@ function parseLeanSections(leanText) {
     codeBuffer.push(line);
   }
 
+  flushBox(current().parts);
   flushCode(codeBuffer, current().parts);
   flushComments(commentBuffer, current().parts);
   return sections;

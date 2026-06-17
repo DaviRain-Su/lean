@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T04:17:54.333Z",
-  "entryCount": 3342,
+  "generatedAt": "2026-06-17T04:18:11.291Z",
+  "entryCount": 3349,
   "entries": [
     {
       "kind": "chapter",
@@ -13314,7 +13314,57 @@
       "path": "lean-reference/Reference/Terms/Proofs.md",
       "title": "证明",
       "section": "Term 详解",
-      "text": "证明 对应英文：Proofs，抓取日期：2026 06 16。 在 Lean 中，proof 本身也是 term。也就是说，证明命题与构造某个 type 的 inhabitant 在语言层面是同一件事。命题对应 中的 type，而 proof 是该 type 的 inhabitant。 本页本身很短。它主要提示：使用 调用 tactic 的语法，见证明章节说明。也就是说，term 语言中的 proof 与 tactic proof 章节是相互连接的： term 角度：proof 是表达式； tactic 角度： 会逐步构造这个表达式。 因此，理解 Lean 证明可以从两条线索进入： 1. 把 proof 当作普通 term，例如函数、pair、constructor 和 match； 2. 把 proof 当作 tactic 脚本生成的核心 proof term。 当需要交互式证明体验时，应继续阅读 章节。"
+      "text": "证明 对应英文：Proofs，抓取日期：2026 06 16。 在 Lean 中，proof 本身也是 term 。证明命题与构造某个 type 的 inhabitant 在语言层面是同一件事：命题是 中的 type，proof 是该 type 的 inhabitant。 两条进入路径 理解 Lean 证明通常有两条线索，它们最终生成同一个核心 proof term： 1. Term 角度 ：proof 是普通表达式，例如函数、pair、constructor、 、对已证定理的应用。 2. Tactic 角度 ： 会逐步构造这个表达式；你在 InfoView 里看到的是中间状态，内核检查的是最终 term。 因此「手写 term 证明」与「策略脚本证明」不是两套系统，而是同一对象的两种写法。 与 tactic 证明 调用 tactic 的语法是 ` by tac by rw rw by by h Eq.symm And ⟨ , ⟩ Prop Prop by by show exact` 对齐 交互式证明的语法、proof state 与 goal 管理见 策略证明 与 Tactic 详解。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Proofs.md",
+      "title": "证明 › 两条进入路径",
+      "section": "Term 详解",
+      "text": "两条进入路径",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Proofs.md",
+      "title": "证明 › `by` 与 tactic 证明",
+      "section": "Term 详解",
+      "text": "`by` 与 tactic 证明",
+      "anchor": "by-tactic"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Proofs.md",
+      "title": "证明 › Term 证明示例",
+      "section": "Term 详解",
+      "text": "Term 证明示例",
+      "anchor": "term"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Proofs.md",
+      "title": "证明 › 与 `Prop`、proof irrelevance 的关系",
+      "section": "Term 详解",
+      "text": "与 `Prop`、proof irrelevance 的关系",
+      "anchor": "prop-proof-irrelevance"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Terms/Proofs.md",
+      "title": "证明 › 何时用哪种风格",
+      "section": "Term 详解",
+      "text": "何时用哪种风格",
+      "anchor": "section-4"
     },
     {
       "kind": "chapter",
@@ -22201,7 +22251,7 @@
       "path": "lean-reference/Reference/Errors/SynthInstanceFailed.md",
       "title": "synthInstanceFailed",
       "section": "错误解释详解",
-      "text": "synthInstanceFailed 对应英文：About: synthInstanceFailed，抓取日期：2026 06 16。 错误码： 含义：type class instance synthesis 失败。 严重性：Error。起始版本：4.26.0。 type class 是 Lean 处理 overloaded operation 的机制。处理某个 overloaded operation 的代码是一个 type class instance；为具体操作选择要用哪个 instance 的过程称为 instance synthesis。 例如，Lean 遇到 且 时，需要查找如何给两个 做加法，以及结果 type 是什么。这可以描述为合成某个 instance。 常见原因 使用了错误的 operator。例如 string append 应使用 ，而不是 。 参数 type 不对。例如把 当成可 append 的值。 缺少 instance。例如自定义 inductive type 没有 、 、 、 等 instance。 instance 依赖其他 instance，递归搜索失败。 调试方式 可打开 trace： 这会显示 instance synthesis 的搜索过程，适合诊断复杂失败。 修复方向 换正确 operator 或函数。 补充 type annotation，帮助 Lean 确定要合成哪个 class。 用 自动生成 instance： 或手写 instance。"
+      "text": "synthInstanceFailed 对应英文：About: synthInstanceFailed，抓取日期：2026 06 16。 错误码： 含义：type class instance synthesis 失败。 严重性：Error。起始版本：4.26.0。 type class 是 Lean 处理 overloaded operation 的机制。处理某个 overloaded operation 的代码是一个 type class instance；为具体操作选择要用哪个 instance 的过程称为 instance synthesis。 例如，Lean 遇到 且 时，需要查找如何给两个 做加法，以及结果 type 是什么。这可以描述为合成某个 instance。 常见原因 使用了错误的 operator。例如 string append 应使用 ，而不是 。 参数 type 不对。例如把 当成可 append 的值。 缺少 instance。例如自定义 inductive type 没有 、 、 、 等 instance。 instance 依赖其他 instance，递归搜索失败。 调试方式 可打开 trace： 这会显示 instance synthesis 的搜索过程，适合诊断复杂失败。 修复方向 换正确 operator 或函数。 补充 type annotation，帮助 Lean 确定要合成哪个 class。 用 自动生成 instance： 或手写 instance。 示例 自定义类型忘记 时： 加上 或手写 即可。"
     },
     {
       "kind": "heading",
@@ -22234,13 +22284,23 @@
       "anchor": "section-2"
     },
     {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/SynthInstanceFailed.md",
+      "title": "synthInstanceFailed › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-3"
+    },
+    {
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Errors/UnknownIdentifier.md",
       "title": "unknownIdentifier",
       "section": "错误解释详解",
-      "text": "unknownIdentifier 对应英文：About: unknownIdentifier，抓取日期：2026 06 16。 错误码： 含义：identifier 无法解析为 variable 或 constant。 严重性：Error。起始版本：4.23.0。 这个错误表示 Lean 无法找到与给定名称匹配的 variable 或 constant。更精确地说，该名称无法解析为 local/section variable、已声明的 global constant，或这些名称的 projection。 错误消息通常只显示某一种可能解析失败，但这个错误意味着所有可能解释都失败。例如，若打开了 namespace 和 ，输入 后报 unknown identifier，说明 、 、 都找不到，或者找到的是 protected declaration，不能这样引用。 常见原因 忘记 import 定义该 constant 的 module。 namespace 没有打开，也没有写限定名。 local variable 已经离开 scope。 constructor 名没有加 type namespace 前缀，例如写 而实际名称是 。 protected declaration 即使 namespace 已 open，也不能直接用短名引用。 dotted identifier notation 根据 expected type 推断出不存在的名称。 项目关闭了 或 ，未知 identifier 不再自动变成 implicit parameter。 修复方向 添加缺失 import。 使用完整限定名，例如 。 对应 namespace，或使用 restricted opening。 检查变量是否仍在 scope 中；必要时把 binding 移到外层。 对 protected 名称至少写出最内层 namespace。 对自动隐式变量问题，显式添加 implicit parameter，或调整 / 选项。 支持 code action 的编辑器通常会给出相似 constant 名称和可导入 module 的建议。"
+      "text": "unknownIdentifier 对应英文：About: unknownIdentifier，抓取日期：2026 06 16。 错误码： 含义：identifier 无法解析为 variable 或 constant。 严重性：Error。起始版本：4.23.0。 这个错误表示 Lean 无法找到与给定名称匹配的 variable 或 constant。更精确地说，该名称无法解析为 local/section variable、已声明的 global constant，或这些名称的 projection。 错误消息通常只显示某一种可能解析失败，但这个错误意味着所有可能解释都失败。例如，若打开了 namespace 和 ，输入 后报 unknown identifier，说明 、 、 都找不到，或者找到的是 protected declaration，不能这样引用。 常见原因 忘记 import 定义该 constant 的 module。 namespace 没有打开，也没有写限定名。 local variable 已经离开 scope。 constructor 名没有加 type namespace 前缀，例如写 而实际名称是 。 protected declaration 即使 namespace 已 open，也不能直接用短名引用。 dotted identifier notation 根据 expected type 推断出不存在的名称。 项目关闭了 或 ，未知 identifier 不再自动变成 implicit parameter。 修复方向 添加缺失 import。 使用完整限定名，例如 。 对应 namespace，或使用 restricted opening。 检查变量是否仍在 scope 中；必要时把 binding 移到外层。 对 protected 名称至少写出最内层 namespace。 对自动隐式变量问题，显式添加 implicit parameter，或调整 / 选项。 支持 code action 的编辑器通常会给出相似 constant 名称和可导入 module 的建议。 示例 constructor 未加类型前缀： protected 名称即使 了也不能省略外层 namespace；至少写出最内层限定名，例如 而不是单独的 （当 受保护时）。"
     },
     {
       "kind": "heading",
@@ -22261,6 +22321,16 @@
       "section": "错误解释详解",
       "text": "修复方向",
       "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Errors/UnknownIdentifier.md",
+      "title": "unknownIdentifier › 示例",
+      "section": "错误解释详解",
+      "text": "示例",
+      "anchor": "section-2"
     },
     {
       "kind": "chapter",
@@ -32560,7 +32630,7 @@
       "path": "learn-proof/Intro.md",
       "title": "入门与调试工具",
       "section": "练习章节",
-      "text": "入门与调试工具 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 如何使用 1. 在仓库根目录执行 打开练习项目。 2. 阅读各章示例，把代码复制到 或新建文件练习。 3. 光标放在 后的 tactic 行，右侧 InfoView 会显示当前目标。 调试与查看工具速查"
+      "text": "入门与调试工具 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 如何使用 1. 在仓库根目录执行 打开练习项目。 2. 阅读各章示例，把代码复制到 或新建文件练习。 3. 光标放在 后的 tactic 行，右侧 InfoView 会显示当前目标。 调试与查看工具速查 方法 作用 trace state 打印当前目标 ⊢ ...（运行 lake build 可在终端看到） dbg trace 打印自定义文字，如 dbg trace \"执行 rw 之前\" show 确认当前目标形状；类型不对会报错，相当于「断言」 have 给中间结果起名，如 have h := ...，便于查看和复用 calc 把每一步等式写进证明，过程本身可见 sorry 故意留空，暂停在该步；Infoview 显示剩余目标（学完删掉） check 查看表达式/引理的类型 eval 计算表达式的值（如 eval 1 + 1 得 2） reduce 查看定义展开/化简后的结果 Infoview 光标放在 tactic 行，右侧看 Goals，无需运行 build"
     },
     {
       "kind": "heading",
@@ -32589,7 +32659,7 @@
       "path": "learn-proof/01-rw-and-rfl.md",
       "title": "rfl、rw 与 calc",
       "section": "练习章节",
-      "text": "rfl、rw 与 calc 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 1：rfl 战术 rfl（reflexivity）用于证明「两边完全相同」的等式，即 X = X 的形式。 示例 2：rw 战术（用假设改写目标） rw [h] 会把目标里出现的 h 左边，替换成 h 右边。 rw 方向速查（h : a = b 时） 提示：键盘可输入 ←（Mac：输入 2190 后按 Option+Enter），或直接写 < 。 辅助引理（Natural Number Game 风格） 在浏览器教程里，1 和 2 不能直接使用 succ 形式，需要先证明这两个等式。 示例 3a：浏览器第二步——把 succ 1 中的 1 改写为 succ 0 示例 3b：证明 2 = succ (succ 0)（正向改写，从左边的 2 出发） 浏览器中的证法 rw [two eq succ one] 2 = succ (succ 0) → succ 1 = succ (succ 0) rw [one eq succ zero] succ 1 = succ (succ 0) → succ (succ 0) = succ (succ 0) rfl 示例 3c：calc 写法（把中间等式写进证明里，过程一目了然） 示例 4：从右边往回改写（反向 rw） 浏览器中的证法 rw [← one eq succ zero] 2 = succ (succ 0) → 2 = succ 1 rw [← two eq succ one] 2 = succ 1 → 2 = 2 rfl 示例 5：调试工具演示（show / dbg trace / have） 示例 6：在证明外查看类型和值（ check / eval / reduce） 示例 7：sorry 暂停观察（仅学习时用，提交前必须删掉） 用法：在某一步后写 sorry，光标停在该行，Infoview 显示还没证完的目标。 example : 2 = Nat.succ (Nat.succ 0) := by rw [two eq succ one] sorry 停在这里：浏览器中此时目标为 ⊢ succ 1 = succ (succ 0)"
+      "text": "rfl、rw 与 calc 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 1：rfl 战术 rfl（reflexivity）用于证明「两边完全相同」的等式，即 X = X 的形式。 示例 2：rw 战术（用假设改写目标） rw [h] 会把目标里出现的 h 左边，替换成 h 右边。 rw 方向速查（h : a = b 时） 写法 含义 rw [h] 用 h 从左改到右（h : a = b 时把 a 换成 b） rw [← h] 反向，把 b 换成 a 提示：键盘可输入 ←（Mac：输入 2190 后按 Option+Enter），或直接写 < 。 辅助引理（Natural Number Game 风格） 在浏览器教程里，1 和 2 不能直接使用 succ 形式，需要先证明这两个等式。 示例 3a：浏览器第二步——把 succ 1 中的 1 改写为 succ 0 示例 3b：证明 2 = succ (succ 0)（正向改写，从左边的 2 出发） 浏览器中的证法 rw [two eq succ one] 2 = succ (succ 0) → succ 1 = succ (succ 0) rw [one eq succ zero] succ 1 = succ (succ 0) → succ (succ 0) = succ (succ 0) rfl 示例 3c：calc 写法（把中间等式写进证明里，过程一目了然） 示例 4：从右边往回改写（反向 rw） 浏览器中的证法 rw [← one eq succ zero] 2 = succ (succ 0) → 2 = succ 1 rw [← two eq succ one] 2 = succ 1 → 2 = 2 rfl 示例 5：调试工具演示（show / dbg trace / have） 示例 6：在证明外查看类型和值（ check / eval / reduce） 示例 7：sorry 暂停观察（仅学习时用，提交前必须删掉） 用法：在某一步后写 sorry，光标停在该行，Infoview 显示还没证完的目标。 example : 2 = Nat.succ (Nat.succ 0) := by rw [two eq succ one] sorry 停在这里：浏览器中此时目标为 ⊢ succ 1 = succ (succ 0)"
     },
     {
       "kind": "heading",
@@ -32718,7 +32788,7 @@
       "path": "learn-proof/02-lemmas-and-equality.md",
       "title": "引理与等式改写",
       "section": "练习章节",
-      "text": "引理与等式改写 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 8：add zero —— 依赖类型的引理（定理是「函数」） 引理签名：Nat.add zero (a : Nat) : a + 0 = a add zero a 是「a + 0 = a」的一个证明。 摘要： add zero 实际上是一个函数：接收一个自然数 a，返回关于 a 的定理证明。 例如 Nat.add zero 37 是 37 + 0 = 37 的证明。 rw 与省略参数： rw [Nat.add zero] 时不必手写 a，Lean 会根据目标里出现的 a + 0 自动推断该填哪个数。 详细理解（数学家视角）： add zero 也可以看作「一件事」——∀ n ∈ ℕ, n + 0 = n 的证明。 等价地说：对任意 n，都能拿出一个 n + 0 = n 的证明；所以它是一个 Nat → Prop 的函数（依赖类型：输入 n，输出类型为 n + 0 = n 这个命题的证明）。 同一目标的两种证法（结论相同，写法侧重不同） 改写顺序可以互换（先 b 后 c，或先 c 后 b），因为两个 + 0 互不依赖。 示例 8a：两次省略参数（Lean 自动推断） 示例 8b：显式传参 + 省略参数（先 c 后 b） 示例 9：证明 succ n = n + 1 浏览器 NNG 证法（你的思路，逻辑正确）： rw [one eq succ zero] succ n = n + 1 → succ n = n + succ 0 rw [Nat.add succ] succ n = n + succ 0 → succ n = succ (n + 0) rw [Nat.add zero] succ n = succ (n + 0) → succ n = succ n rfl 本地 Lean 4 为何报错「No goals to be solved」？ 执行完第一步 rw [one eq succ zero] 后，Lean 会把 n + succ 0 立刻化简为 succ n， 目标已经证完，后面的 rw [Nat.add succ] 就没有目标可改了。 这不是你思路错了，而是本地环境自动化简比浏览器更激进。 引理方向提醒： one eq succ zero : 1 = succ 0 → rw 会把 1 换成 succ 0 Nat.add succ n m : n + succ m = succ (n + m) Nat.add zero n : n + 0 = n 9a：浏览器风格 rw 证法（在 NNG 里逐步执行；本地勿直接跑，第一步后目标已自动关闭） theorem succ eq add one (n : Nat) : Nat.succ n = n + 1 := by rw [one eq succ zero] rw [Nat.add succ] rw [Nat.add zero] rfl 9b：本地可逐步看到过程的 calc 证法（symm 后从 n + 1 一侧推到 succ n） 示例 10：证明 2 + 2 = 4 浏览器 NNG 证法： nth rewrite 2 [two eq succ one] 只改第二个 2 → succ 1 rw [add succ] rw [one eq succ zero] rw [add succ, add zero] rw [← three eq succ two] rw [← four eq succ three] rfl 本地修复要点： 1. nth rewrite 在标准 Lean 4 不可用 → 用 rw (occs := .pos [2]) 或 conv 2. add succ / add zero → Nat.add succ / Nat.add zero 3. 需补充 three eq succ two、four eq succ three 4. 本地会自动化简，rw 链可能第一步就结束；calc 可逐步看到过程 10a：浏览器 rw 链（NNG 里逐步执行；本地第一步后常已证完） example : 2 + 2 = 4 := by rw (occs := .pos [2]) [two eq succ one] 等价于 nth rewrite 2 rw [Nat.add succ] rw [one eq succ zero] rw [Nat.add succ, Nat.add zero] rw [← three eq succ two] rw [← four eq succ three] rfl 10b：本地可编译的 calc 证法（对应 NNG 每一步）"
+      "text": "引理与等式改写 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 8：add zero —— 依赖类型的引理（定理是「函数」） 引理签名：Nat.add zero (a : Nat) : a + 0 = a add zero a 是「a + 0 = a」的一个证明。 摘要： add zero 实际上是一个函数：接收一个自然数 a，返回关于 a 的定理证明。 例如 Nat.add zero 37 是 37 + 0 = 37 的证明。 rw 与省略参数： rw [Nat.add zero] 时不必手写 a，Lean 会根据目标里出现的 a + 0 自动推断该填哪个数。 详细理解（数学家视角）： add zero 也可以看作「一件事」——∀ n ∈ ℕ, n + 0 = n 的证明。 等价地说：对任意 n，都能拿出一个 n + 0 = n 的证明；所以它是一个 Nat → Prop 的函数（依赖类型：输入 n，输出类型为 n + 0 = n 这个命题的证明）。 同一目标的两种证法（结论相同，写法侧重不同） 证法 说明 8a 两次都省略参数，Lean 自动推断先改 b + 0、再改 c + 0 8b 先显式写 Nat.add zero c，再省略参数改 b + 0 适合理解「定理是函数」：先看清函数调用，再练习自动推断 改写顺序可以互换（先 b 后 c，或先 c 后 b），因为两个 + 0 互不依赖。 示例 8a：两次省略参数（Lean 自动推断） 示例 8b：显式传参 + 省略参数（先 c 后 b） 示例 9：证明 succ n = n + 1 浏览器 NNG 证法（你的思路，逻辑正确）： rw [one eq succ zero] succ n = n + 1 → succ n = n + succ 0 rw [Nat.add succ] succ n = n + succ 0 → succ n = succ (n + 0) rw [Nat.add zero] succ n = succ (n + 0) → succ n = succ n rfl 本地 Lean 4 为何报错「No goals to be solved」？ 执行完第一步 rw [one eq succ zero] 后，Lean 会把 n + succ 0 立刻化简为 succ n， 目标已经证完，后面的 rw [Nat.add succ] 就没有目标可改了。 这不是你思路错了，而是本地环境自动化简比浏览器更激进。 引理方向提醒： one eq succ zero : 1 = succ 0 → rw 会把 1 换成 succ 0 Nat.add succ n m : n + succ m = succ (n + m) Nat.add zero n : n + 0 = n 9a：浏览器风格 rw 证法（在 NNG 里逐步执行；本地勿直接跑，第一步后目标已自动关闭） theorem succ eq add one (n : Nat) : Nat.succ n = n + 1 := by rw [one eq succ zero] rw [Nat.add succ] rw [Nat.add zero] rfl 9b：本地可逐步看到过程的 calc 证法（symm 后从 n + 1 一侧推到 succ n） 示例 10：证明 2 + 2 = 4 浏览器 NNG 证法： nth rewrite 2 [two eq succ one] 只改第二个 2 → succ 1 rw [add succ] rw [one eq succ zero] rw [add succ, add zero] rw [← three eq succ two] rw [← four eq succ three] rfl 本地修复要点： 1. nth rewrite 在标准 Lean 4 不可用 → 用 rw (occs := .pos [2]) 或 conv 2. add succ / add zero → Nat.add succ / Nat.add zero 3. 需补充 three eq succ two、four eq succ three 4. 本地会自动化简，rw 链可能第一步就结束；calc 可逐步看到过程 10a：浏览器 rw 链（NNG 里逐步执行；本地第一步后常已证完） example : 2 + 2 = 4 := by rw (occs := .pos [2]) [two eq succ one] 等价于 nth rewrite 2 rw [Nat.add succ] rw [one eq succ zero] rw [Nat.add succ, Nat.add zero] rw [← three eq succ two] rw [← four eq succ three] rfl 10b：本地可编译的 calc 证法（对应 NNG 每一步）"
     },
     {
       "kind": "heading",
@@ -32787,7 +32857,7 @@
       "path": "learn-proof/03-induction-addition.md",
       "title": "归纳法：加法",
       "section": "练习章节",
-      "text": "归纳法：加法 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 11：归纳法证明 zero add —— 0 + n = n Nat.add succ n m : n + succ m = succ (n + m) 它改写的是「n + succ m」这种形状，要用在当前目标上，不是随便用在假设上。 常见错误：rw [Nat.add succ] at hd hd 的类型是 0 + d = d，左边是 0 + d（d 不一定是 succ 形式）， 匹配不到 ?n + Nat.succ ?m，所以报错。 正确思路（succ 步）： 目标：0 + (d + 1) = d + 1 rw [Nat.add succ] → succ (0 + d) = d + 1 rw [hd] → 用归纳假设 0 + d = d rfl 示例 12：归纳法证明 succ add —— succ a + b = succ (a + b) 浏览器 NNG 写法（对 b 归纳）： induction b with zero = rw [add zero, add zero]; rfl succ d hd = rw [add succ] 改左边：succ a + (d+1) → succ (succ a + d) rw [add succ] 改右边：a + (d+1) → succ (a + d) rw [hd] 用归纳假设 succ a + d = succ (a + d) rfl 两种本地写法等价，差别只在 succ 步「先改哪边」： 12a：浏览器风格（推荐，与 NNG 一致） 12b：等价证法（先归纳假设，再反向展开右边） 示例 13：归纳法证明 add comm —— a + b = b + a 依赖前面证过的 zero add、succ add（浏览器里先证 add succ 再证 add comm）。 基础步 b = 0：a + 0 = 0 + a rw [Nat.add zero, zero add] a + 0 → a，0 + a → a succ 步（hd : a + d = d + a）： rw [Nat.add succ] a + (d+1) → succ (a + d) rw [hd] succ (a + d) → succ (d + a) rw [succ add] 右边 d+1+a 里的 succ d + a 与左边对齐 （本地 rw [succ add] 后常已自动完成，无需 rfl；浏览器里可能要写 rfl） 常见报错：最后 rfl 报「No goals to be solved」→ 删掉 rfl 即可，不是证法错了。 示例 14：归纳法证明 add assoc —— (a + b) + c = a + (b + c) Lean 里 a + b + c 表示 (a + b) + c（左结合）。 对 c 归纳；等式两边最外层同步展开 (d + 1)。 基础步 c = 0： (a + b) + 0 = a + (b + 0) → rw [add zero, add zero] → a + b = a + b succ 步（hd : (a + b) + d = a + (b + d)）： rw [add succ, add succ, add succ] 两边各展开一次 d+1 rw [hd] 用归纳假设对齐内层 示例 15：add right comm —— a + b + c = a + c + b（右边 b、c 可交换） 不直接对 b、c 归纳，而是复用已证的 add assoc、add comm： ① add assoc 把左边 (a+b)+c 括号改成 a+(b+c) ② add comm b c 把中间的 b+c 换成 c+b ③ ← add assoc 把右边 a+c+b 括号改成 a+(c+b)，与左边一致 三步对应目标变化： a + b + c = a + c + b → a + (b + c) = a + c + b → a + (c + b) = a + c + b → a + (c + b) = a + (c + b)"
+      "text": "归纳法：加法 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 11：归纳法证明 zero add —— 0 + n = n Nat.add succ n m : n + succ m = succ (n + m) 它改写的是「n + succ m」这种形状，要用在当前目标上，不是随便用在假设上。 常见错误：rw [Nat.add succ] at hd hd 的类型是 0 + d = d，左边是 0 + d（d 不一定是 succ 形式）， 匹配不到 ?n + Nat.succ ?m，所以报错。 正确思路（succ 步）： 目标：0 + (d + 1) = d + 1 rw [Nat.add succ] → succ (0 + d) = d + 1 rw [hd] → 用归纳假设 0 + d = d rfl 示例 12：归纳法证明 succ add —— succ a + b = succ (a + b) 浏览器 NNG 写法（对 b 归纳）： induction b with zero = rw [add zero, add zero]; rfl succ d hd = rw [add succ] 改左边：succ a + (d+1) → succ (succ a + d) rw [add succ] 改右边：a + (d+1) → succ (a + d) rw [hd] 用归纳假设 succ a + d = succ (a + d) rfl 两种本地写法等价，差别只在 succ 步「先改哪边」： 12a 浏览器风格：两次正向 add succ（左一次、右一次），再 rw [hd] 12b 先 add succ + hd，再用 ← add succ 对齐右边（多一步反向改写） 12a：浏览器风格（推荐，与 NNG 一致） 12b：等价证法（先归纳假设，再反向展开右边） 示例 13：归纳法证明 add comm —— a + b = b + a 依赖前面证过的 zero add、succ add（浏览器里先证 add succ 再证 add comm）。 基础步 b = 0：a + 0 = 0 + a rw [Nat.add zero, zero add] a + 0 → a，0 + a → a succ 步（hd : a + d = d + a）： rw [Nat.add succ] a + (d+1) → succ (a + d) rw [hd] succ (a + d) → succ (d + a) rw [succ add] 右边 d+1+a 里的 succ d + a 与左边对齐 （本地 rw [succ add] 后常已自动完成，无需 rfl；浏览器里可能要写 rfl） 常见报错：最后 rfl 报「No goals to be solved」→ 删掉 rfl 即可，不是证法错了。 示例 14：归纳法证明 add assoc —— (a + b) + c = a + (b + c) Lean 里 a + b + c 表示 (a + b) + c（左结合）。 对 c 归纳；等式两边最外层同步展开 (d + 1)。 基础步 c = 0： (a + b) + 0 = a + (b + 0) → rw [add zero, add zero] → a + b = a + b succ 步（hd : (a + b) + d = a + (b + d)）： rw [add succ, add succ, add succ] 两边各展开一次 d+1 rw [hd] 用归纳假设对齐内层 示例 15：add right comm —— a + b + c = a + c + b（右边 b、c 可交换） 不直接对 b、c 归纳，而是复用已证的 add assoc、add comm： ① add assoc 把左边 (a+b)+c 括号改成 a+(b+c) ② add comm b c 把中间的 b+c 换成 c+b ③ ← add assoc 把右边 a+c+b 括号改成 a+(c+b)，与左边一致 三步对应目标变化： a + b + c = a + c + b → a + (b + c) = a + c + b → a + (c + b) = a + c + b → a + (c + b) = a + (c + b)"
     },
     {
       "kind": "heading",
@@ -32846,7 +32916,7 @@
       "path": "learn-proof/04-induction-multiplication.md",
       "title": "归纳法：乘法",
       "section": "练习章节",
-      "text": "归纳法：乘法 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 16：mul one —— m 1 = m 思路：先把 1 展开成 succ 0，再用乘法引理化成加法，最后用 zero add。 目标变化： m 1 = m → m succ 0 = m （one eq succ zero） → m 0 + m = m （mul succ） → 0 + m = m （mul zero） → m = m （zero add） 示例 17：归纳法证明 zero mul —— 0 m = 0 浏览器 NNG 证法（对 m 归纳）： zero = rw [mul zero]; rfl succ d hd = rw [mul succ] 0 (d+1) = 0 d + 0 rw [hd] 0 + 0 = 0 rw [add zero] 0 = 0 ← 浏览器需要，本地常可省略 rfl ← 浏览器需要，本地常可省略 本地 vs 浏览器： 17a：本地版（浏览器 succ 步的 add zero、rfl 在这里通常可省略） 17b：浏览器完整版（NNG 里逐步执行；本地勿直接跑，add zero/rfl 会报 No goals） theorem zero mul (m : Nat) : 0 m = 0 := by induction m with zero = rw [Nat.mul zero]; rfl succ d hd = rw [Nat.mul succ] rw [hd] rw [Nat.add zero] rfl 示例 18：归纳法证明 succ mul —— succ a b = a b + b 对 b 归纳（NNG 乘法世界标准证法）： 基础步 b = 0： succ a 0 = 0，a 0 + 0 = 0 + 0 = 0 → mul zero + zero add succ 步（hd : succ a d = a d + d）目标：succ a (d+1) = a (d+1) + (d+1) ① mul succ ×2 两边展开 (d+1) ② rw [hd] 左边 succ a d 换成 a d + d ③ add assoc ×2 调整括号，把 d+a.succ 凑在一起 ④ add succ d + succ a → succ (d + a) ⑤ add comm d a d + a → a + d ⑥ ← add succ a + (d+1) 展开，与右边对齐 更简写法（18b）：succ 步一行 rw 写完 ②–⑥ 18a：分步版（便于 trace state 观察） 18b：简洁版（逻辑与 18a 相同） 示例 19：归纳法证明 mul comm —— a b = b a 对 b 归纳，复用 zero mul、succ mul： 基础步 b = 0： a 0 = 0 = 0 a → rw [mul zero, zero mul] succ 步（hd : a d = d a）： rw [mul succ] a (d+1) = a d + a rw [hd] a d → d a，得 d a + a = (d+1) a rw [succ mul] (d+1) a = d a + a（Lean 推断 succ mul d a） 更简写法（19b）：succ 步 rw [mul succ, hd, succ mul] 19b：简洁版 ============================================================================ 简写速查：本地 Lean 4 可编译的紧凑证法 ============================================================================ 说明：带 trace state 的分步版用于学习；下面是与之一致的「能短则短」写法。 浏览器 NNG 里往往还要多写 rfl / add zero，见各示例的浏览器注释。 8c：add zero 练习简写 9c：本地一行（浏览器需 9a 注释中的 rw 链） 11b 12c：succ add 浏览器风格简写（succ 步一行） 13b 14b 15b 16b 17c"
+      "text": "归纳法：乘法 源文件： · 在 VS Code 中打开 Lake 项目配合 InfoView 运行 示例 16：mul one —— m 1 = m 思路：先把 1 展开成 succ 0，再用乘法引理化成加法，最后用 zero add。 目标变化： m 1 = m → m succ 0 = m （one eq succ zero） → m 0 + m = m （mul succ） → 0 + m = m （mul zero） → m = m （zero add） 示例 17：归纳法证明 zero mul —— 0 m = 0 浏览器 NNG 证法（对 m 归纳）： zero = rw [mul zero]; rfl succ d hd = rw [mul succ] 0 (d+1) = 0 d + 0 rw [hd] 0 + 0 = 0 rw [add zero] 0 = 0 ← 浏览器需要，本地常可省略 rfl ← 浏览器需要，本地常可省略 本地 vs 浏览器： 浏览器多出的步骤 原因 基础步 rfl NNG 里 rw [mul zero] 后目标为 0 = 0，需 rfl 收尾 rw [add zero] rw [hd] 后得 0 + 0 = 0，浏览器需再化简为 0 = 0 succ 步 rfl add zero 后 0 = 0，浏览器需 rfl 17a：本地版（浏览器 succ 步的 add zero、rfl 在这里通常可省略） 17b：浏览器完整版（NNG 里逐步执行；本地勿直接跑，add zero/rfl 会报 No goals） theorem zero mul (m : Nat) : 0 m = 0 := by induction m with zero = rw [Nat.mul zero]; rfl succ d hd = rw [Nat.mul succ] rw [hd] rw [Nat.add zero] rfl 示例 18：归纳法证明 succ mul —— succ a b = a b + b 对 b 归纳（NNG 乘法世界标准证法）： 基础步 b = 0： succ a 0 = 0，a 0 + 0 = 0 + 0 = 0 → mul zero + zero add succ 步（hd : succ a d = a d + d）目标：succ a (d+1) = a (d+1) + (d+1) ① mul succ ×2 两边展开 (d+1) ② rw [hd] 左边 succ a d 换成 a d + d ③ add assoc ×2 调整括号，把 d+a.succ 凑在一起 ④ add succ d + succ a → succ (d + a) ⑤ add comm d a d + a → a + d ⑥ ← add succ a + (d+1) 展开，与右边对齐 更简写法（18b）：succ 步一行 rw 写完 ②–⑥ 18a：分步版（便于 trace state 观察） 18b：简洁版（逻辑与 18a 相同） 示例 19：归纳法证明 mul comm —— a b = b a 对 b 归纳，复用 zero mul、succ mul： 基础步 b = 0： a 0 = 0 = 0 a → rw [mul zero, zero mul] succ 步（hd : a d = d a）： rw [mul succ] a (d+1) = a d + a rw [hd] a d → d a，得 d a + a = (d+1) a rw [succ mul] (d+1) a = d a + a（Lean 推断 succ mul d a） 更简写法（19b）：succ 步 rw [mul succ, hd, succ mul] 19b：简洁版 简写速查：本地 Lean 4 可编译的紧凑证法 说明：带 trace state 的分步版用于学习；下面是与之一致的「能短则短」写法。 浏览器 NNG 里往往还要多写 rfl / add zero，见各示例的浏览器注释。 定理 简写 示例 8 rw [Nat.add zero, Nat.add zero] succ eq add one rfl（本地定义相等；浏览器用 rw 链，见 9b） 示例 10 calc 五步（已是最短可读形式） zero add induction n <; first rw [Nat.add zero] rw [Nat.add succ, hd] succ add 见 12c（浏览器风格一行 succ 步） add comm 见 13b add assoc 见 14b add right comm rw [add assoc, add comm b c, ← add assoc] mul one rw [one eq succ zero, Nat.mul succ, Nat.mul zero, zero add] zero mul induction m <; first rw [Nat.mul zero] rw [Nat.mul succ, hd] succ mul 见 18b mul comm 见 19b 8c：add zero 练习简写 9c：本地一行（浏览器需 9a 注释中的 rw 链） 11b 12c：succ add 浏览器风格简写（succ 步一行） 13b 14b 15b 16b 17c"
     },
     {
       "kind": "heading",
