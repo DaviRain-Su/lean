@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:19:04.547Z",
+  "generatedAt": "2026-06-17T00:23:13.848Z",
   "books": [
     {
       "id": "tpil",
@@ -945,7 +945,7 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 215 篇已翻译",
+      "status": "首批 216 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
       "chapterCount": 216,
       "sections": [
@@ -2683,9 +2683,9 @@
       "subtitle": "经典逻辑、自然演绎与 Lean 形式化",
       "originalUrl": "https://leanprover.github.io/logic_and_proof/",
       "externalPdfUrl": null,
-      "status": "第 1–19 章已翻译 · 20–24 章待译",
+      "status": "第 1–20 章已翻译 · 公理化基础与附录待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 19,
+      "chapterCount": 20,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2874,6 +2874,16 @@
               "title": "实数",
               "path": "logic-and-proof/the_real_numbers.md",
               "summary": "实数构造、柯西序列、戴德金分割、完备性、练习"
+            }
+          ]
+        },
+        {
+          "title": "第 20 章：无穷",
+          "chapters": [
+            {
+              "title": "无穷",
+              "path": "logic-and-proof/the_infinite.md",
+              "summary": "等势、可数无穷集、Cantor 定理、Cantor-Bernstein 定理、练习"
             }
           ]
         }

@@ -87,83 +87,11 @@
 
 - [实数](the_real_numbers.md) — 实数构造、柯西序列、戴德金分割、完备性、练习
 
-## 待翻译章节
-
 ### 第 20 章：无穷
 
-- [无穷](the_infinite.md) — 可数与不可数集合、基数、选择公理、练习
+- [无穷](the_infinite.md) — 等势、可数无穷集、Cantor 定理、Cantor-Bernstein 定理、练习
 
-### 第 5 章：经典推理
-
-- [经典推理](classical_reasoning.md) — 反证法、若干经典原则、`contradiction` 策略、练习
-
-### 第 6 章：命题逻辑的语义
-
-- [命题逻辑的语义](semantics_of_propositional_logic.md) — 真值与赋值、真值表、可靠性与完全性、练习
-
-### 第 7 章：一阶逻辑
-
-- [一阶逻辑](first_order_logic.md) — 函数、谓词与关系、全称量词、存在量词、相对化与类、相等、练习
-
-### 第 8 章：一阶逻辑的自然演绎
-
-- [一阶逻辑的自然演绎](natural_deduction_for_first_order_logic.md) — 推理规则、全称量词、存在量词、相等、反例与相对化量词、练习
-
-### 第 9 章：Lean 中的一阶逻辑
-
-- [Lean 中的一阶逻辑](first_order_logic_in_lean.md) — 函数、谓词与关系、使用全称量词、使用存在量词、相等、策略模式、计算式证明、练习
-
-### 第 10 章：一阶逻辑的语义
-
-- [一阶逻辑的语义](semantics_of_first_order_logic.md) — 解释、模型中的真、示例、有效性与逻辑后承、可靠性与完全性、练习
-
-### 第 11 章：集合
-
-- [集合](sets.md) — 初等集合论、集合运算、指标集族、笛卡尔积与幂集、练习
-
-### 第 12 章：Lean 中的集合
-
-- [Lean 中的集合](sets_in_lean.md) — 基础、若干恒等式、指标集族、幂集、练习
-
-### 第 13 章：关系
-
-- [关系](relations.md) — 序关系、序关系进阶、等价关系与相等、练习
-
-### 第 14 章：Lean 中的关系
-
-- [Lean 中的关系](relations_in_lean.md) — 序关系、数上的序、等价关系、练习
-
-### 第 15 章：函数
-
-- [函数](functions.md) — 函数概念、单射、满射与双射、函数与定义域子集、函数与关系、练习
-
-### 第 16 章：Lean 中的函数
-
-- [Lean 中的函数](functions_in_lean.md) — 函数与符号逻辑、二阶与高阶逻辑、Lean 中的函数、经典地定义逆、Lean 中的函数与集合、练习
-
-### 第 17 章：自然数与归纳法
-
-- [自然数与归纳法](the_natural_numbers_and_induction.md) — 归纳原理、归纳变体、递归定义、定义算术运算、自然数上的算术、整数、练习
-
-### 第 18 章：Lean 中的自然数与归纳法
-
-- [Lean 中的自然数与归纳法](the_natural_numbers_and_induction_in_lean.md) — Lean 中的归纳与递归、Lean 中定义算术运算、练习
-
-### 第 19 章：初等数论
-
-- [初等数论](elementary_number_theory.md) — 商-余定理、整除性、素数、模算术、平方数的性质、练习
-
-### 第 20 章：组合数学
-
-- [组合数学](combinatorics.md) — 有限集与基数、计数原理、有序选取、组合与二项式系数、容斥原理、练习
-
-### 第 21 章：实数
-
-- [实数](the_real_numbers.md) — 数系、商构造、构造实数、实数的完全性、另一种构造、练习
-
-### 第 22 章：无穷
-
-- [无穷](the_infinite.md) — 等势、可数无穷集、Cantor 定理、有限性的另一种定义、Cantor-Bernstein 定理、练习
+## 待翻译章节
 
 ### 第 23 章：公理化基础
 
