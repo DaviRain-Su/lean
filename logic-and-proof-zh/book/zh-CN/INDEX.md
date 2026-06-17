@@ -79,11 +79,15 @@
 
 - [数论基础](elementary_number_theory.md) — 带余除法、整除、GCD、素数、模算术、平方的性质、练习
 
+### 第 18 章：组合数学
+
+- [组合数学](combinatorics.md) — 计数原理、排列组合、二项式系数、容斥原理、练习
+
 ## 待翻译章节
 
-### 第 18 章：Lean 中的数论
+### 第 19 章：Lean 中的组合数学
 
-- [Lean 中的数论](elementary_number_theory_in_lean.md) — `Int` 上的整除、欧几里得算法、素数与同余、练习
+- [Lean 中的组合数学](combinatorics_in_lean.md) — 形式化组合数学、练习
 
 ### 第 5 章：经典推理
 
