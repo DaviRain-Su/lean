@@ -48,9 +48,25 @@ function normalizeCodeLanguage(block) {
 function highlightCodeBlocks(root) {
   if (typeof hljs === 'undefined') return;
   registerLeanLanguage();
+
   for (const block of root.querySelectorAll('pre code')) {
+    const source = block.textContent ?? '';
+    if (!source.trim()) continue;
+
     normalizeCodeLanguage(block);
-    hljs.highlightElement(block);
+
+    try {
+      if (block.classList.contains('hljs')) {
+        block.classList.remove('hljs');
+      }
+      hljs.highlightElement(block);
+      if (!(block.textContent ?? '').trim()) {
+        block.textContent = source;
+      }
+    } catch {
+      block.textContent = source;
+      block.classList.remove('hljs');
+    }
   }
 }
 

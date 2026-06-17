@@ -41,7 +41,10 @@ code, pre {
   font-family: var(--mono);
 }
 
-pre {
+.hero pre,
+.proof-card pre,
+.card pre,
+.deploy-panel pre {
   margin: 1rem 0 0;
   overflow-x: auto;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -52,7 +55,10 @@ pre {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-pre code {
+.hero pre code,
+.proof-card pre code,
+.card pre code,
+.deploy-panel pre code {
   display: block;
   font-size: 0.9rem;
   line-height: 1.65;

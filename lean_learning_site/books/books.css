@@ -487,8 +487,10 @@
   border-radius: 16px;
   margin: 1.1rem 0;
   padding: 1rem 1.1rem;
+  color: #1b2638;
   background: #f6f8fc;
   border: 1px solid var(--line);
+  box-shadow: none;
 }
 
 .reader-content pre.has-copy {
@@ -496,9 +498,16 @@
 }
 
 .reader-content pre code {
+  display: block;
   font-family: var(--mono);
   font-size: 0.86rem;
   line-height: 1.6;
+  color: inherit;
+  background: transparent;
+}
+
+.reader-content pre code.hljs {
+  color: #24292e;
   background: transparent;
 }
 
