@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T02:15:20.816Z",
-  "entryCount": 3113,
+  "generatedAt": "2026-06-17T02:18:44.619Z",
+  "entryCount": 3159,
   "entries": [
     {
       "kind": "chapter",
@@ -27576,6 +27576,465 @@
       "section": "正文",
       "text": "7.3. 根号 2",
       "anchor": "7-3-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数",
+      "section": "正文",
+      "text": "第 8 章 函数 本译文对应原书 Functions；英文 Sphinx 源： 。 到目前为止，本书研究的是数的性质（一个数是奇数、正数、素数；一个数是否能被另一个数整除）以及数的运算（加法、最大公因子）。 本章我们上升一个抽象层次，研究函数的性质与运算。这些新性质包括：函数是否是 单射 、 满射 、 双射 ；一个函数是否是另一个函数的 逆 ；以及 复合 运算。 我们还将视野扩展到本书早期使用的数值类型（ 、 、 、 ）之外，开始处理更广泛的类型，包括函数类型、有限归纳类型和积类型。 8.1. 单射与满射 8.1.1. 例 我们之前研究过一些具体的函数。例如，例 6.3.3中的斐波那契数列就是一个从 到 的函数：它接受一个自然数，比如 5，并输出一个整数，这里是 8（数列的第 5 项）。 函数的 定义域 是函数接受输入值的类型，函数的 codomain 是函数输出值的类型。例如，斐波那契数列的定义域是 ，codomain 是 。定义域为 、codomain 为 的函数类型记作 。Lean 会确认斐波那契数列 具有这个类型： 定义函数的另一种方式是使用显式公式。例如，“设 是由 定义的函数。”在 Lean 中可以写成： 这个函数的定义域是 ，codomain 也是 ——我在定义它时甚至已经说明了 的类型是 。让我们检查一下这个 Lean 对象确实具有这个类型： 定义函数的第三种方式是使用记号 ：如果我们只想用一次，不想浪费一个名字，可以称“从 到 的函数 ”。下面是 Lean 中的相同记号： 8.1.2. 定义 现在我们有了 表示“从 到 的函数类型”的记号，就可以像之前引入数的性质（如“奇数”、“素数”）一样引入函数的性质。这是第一个。 定义 函数 是 单射 （injective），如果对 中所有 、 ，若 ，则 。 8.1.3. 例 问题 证明例 8.1.1中的函数 是单射。 解法 设 、 是实数，假设 。则 ，所以 。 下面是该解法在 Lean 中的写法。注意，用命令 展开“单射”定义后，目标状态显示为 这就是针对当前问题的“单射”定义。 8.1.4. 例 问题 证明从 到 的函数 不是单射。 解法 我们必须证明存在实数 、 使得 且 。事实上， 和 就具有这些性质。 证明的第一句话是否定归约：我展开了“单射”定义，并将其否定重新表述为一个逻辑等价但更方便的形式。回忆一下，在 Lean 中我们使用 策略来完成这件事。使用 后的目标状态为 下面是完整的 Lean 证明。 8.1.5. 定义 定义 函数 是 满射 （surjective），如果对 中所有 ，存在 中的 使得 。 8.1.6. 例 问题 考虑函数 ，定义为 。证明 是满射。 解法 设 是有理数。则 下面是该解法在 Lean 中的写法。展开“满射”定义后的目标状态为 这确认了我们需证明什么，以及为什么上面文本证明中的写法足够。 8.1.7. 例 问题 证明从 到 的函数 不是满射。 解法 我们将证明存在实数 ，使得对所有实数 都有 。 事实上，我们证明 具有这个性质。设 是实数。则 所以 。 与例 8.1.4一样，第一句话构成了本情境下“满射”定义的否定归约。实际上，我们陈述的就是 Lean 证明中 之后的目标状态。 下面是完整的 Lean 证明。 8.1.8. 例 到目前为止，我们见过数值类型，如整数 和实数 ，以及函数类型，如 （从 到 的函数）。 构造类型的另一种方式是作为一个有限选项集合。有限类型对概念性例子很有用，因为一切都是显式且可检查的。 下面是如何定义一个定义域为给定有限归纳类型的函数。 问题 证明函数 不是单射。 !musketeer1a 这里 策略是新的。在使用它的地方，目标状态是 也就是逻辑上等价于 的命题。 策略可以做这种命题逻辑推理，无论复杂度如何。 特别地， 可以证明归纳类型中任何（为真的）无变量陈述。本章我们将这样使用它。我们在第 9 章开始更认真地使用 。 8.1.9. 例 问题 证明例 8.1.8中定义的函数 不是满射。 !musketeer1b 我们可以用 策略对有限归纳类型中的变量 进行分情况检查。 这种证明可能变得重复，你可能希望使用我们之前见过的技巧（例如例 4.4.4、例 4.5.9、例 6.6.2、例 6.7.2）：当 等策略产生多个目标，且这些目标都可以用同一个策略证明时，你可以写 把该策略应用到所有这些目标上。 你也可以验证 这一行是必要的； 不能单独关闭目标。如例 8.1.8中所讨论， 可以证明归纳类型中任何（为真的） 无变量 陈述，但在 之前目标状态是 其中包含一个变量 。 8.1.10. 例 设 是从 Musketeer 类型到自身的如下函数： !musketeer2 问题 证明函数 是单射。 这个证明中有很多情况——准确地说， 种。幸运的是 可以证明所有情况！ 8.1.11. 例 问题 证明例 8.1.10中定义的函数 是满射。 8.1.12. 例 我们以一个相对较难的例子结束本节。这里的证明高效且自洽，但动机不太明显。另一种（可能更直观的）方法，是把本节最后一个练习（关于 严格单调 函数的那个）与例 2.1.8中的想法结合起来。 问题 证明从 到 的函数 是单射。 解法 设 、 是实数，假设 。则 所以要么 （此时已证毕），要么 （以下假设此情形）。 我们进一步按 是否为 0 分情况。 情形 1 （ ）：则 所以 。于是 ，如所要求。 情形 2 （ ）：则 矛盾。 8.1.13. 练习 1. 证明或反驳：从 到 的函数 是单射。 （若你认为为真，证明第一个版本；若认为为假，证明第二个版本。） 2. 证明或反驳：从 到 的函数 是单射。 3. 证明或反驳：从 到 的函数 是单射。 4. 证明或反驳：从 到 的函数 是单射。 5. 证明或反驳：从 到 的函数 是满射。 6. 证明或反驳：从 到 的函数 是满射。 7. 证明或反驳：从 到 的函数 是满射。 8. 考虑如下有限归纳类型 White，以及从 Musketeer 类型（见例 8.1.8）到 White 类型的函数 。证明或反驳 是单射。 9. 证明或反驳上一例子中的函数 是满射。 10. 考虑如下从 White 类型（见前两个问题）到 Musketeer 类型（见例 8.1.8）的函数 。证明或反驳 是单射。 11. 证明或反驳上一例子中的函数 是满射。 12. 设 是函数。证明 是单射当且仅当对 中所有 、 ，若 则 。 你需要使用能处理更微妙否定的策略（如 或 ）。 13. 证明或反驳：对所有函数 ，若 是单射，则从 到 的函数 也是单射。 14. 证明或反驳：对所有函数 ，若 是单射，则从 到 的函数 也是单射。 15. 证明或反驳：对所有函数 ，若 是满射，则从 到 的函数 也是满射。 16. 证明或反驳：对所有实数 ，从 到 的函数 是满射。 17. 设 是 严格单调 函数；即对所有满足 的实数 、 ，都有 。证明 是单射。 你可能希望使用引理 ： 它对两个实数的大小关系给出了一种情况划分。 18. 设 是函数， 是 中满足 的元素， 是满足对所有 都有 的函数。证明 是满射。我建议用归纳法。 我们以 的名字记录这个定理供以后使用。 8.2. 双射 8.2.1. 定义 定义 函数是 双射 （bijective），如果它既是单射又是满射。 8.2.2. 例 问题 设 是由 定义的函数。证明 是双射。 解法 我们必须证明 既是单射又是满射。 对于单射性，设 、 是实数并假设 。这意味着 。所以 对于满射性，设 是实数。则 8.2.3. 例 问题 设 是由 定义的函数。证明 不是双射。 解法 我们证明 不是单射。事实上，注意到 但 8.2.4. 例 考虑如下有限归纳类型 Celestial 和 Subatomic： 考虑如下从 Celestial 类型到 Subatomic 类型的函数 。 问题 证明函数 不是双射。 !celestial subatomic 8.2.5. 例 定理 函数 是双射，当且仅当对 中所有 ，存在唯一的 中 使得 。 证明 首先，假设 是双射。设 是 中元素。由于 是满射，存在 中 使得 。我们将证明这个 是唯一的。事实上，对任何其他满足 的 ，有 所以由 的单射性， 。 反过来，假设对 中所有 ，存在唯一的 中 使得 。 我们必须证明 是单射和满射。 对于单射性，设 、 是 中元素，假设 。将 应用于 ，存在唯一的 中 使得 。所以由唯一性， ；又由于 ，也有 。综合得 。 对于满射性，设 是 中元素。由 ，存在（唯一的） 中 使得 。 8.2.6. 例 问题 证明对所有从 Celestial 类型（例 8.2.4）到自身的函数 ，若 是单射则它是双射。 我们通过对所有从 Celestial 类型到自身的函数 进行穷举分析来证明这一点。这样的函数共有四个。我在下面处理了前两种情况；请你自己补全后两种情况。 8.2.7. 例 问题 证明并非对所有函数 ，若 是单射则它是双射。 解法 我们必须证明存在函数 ，它是单射但不是双射。 事实上，考虑函数 。这个函数是单射，因为对所有自然数 、 ，若 则 。 然而，这个函数不是满射，因此也不是双射。要看到这一点，注意到对所有自然数 ，有 ，因此 。 8.2.8. 练习 1. 证明或反驳：从 到 的函数 是双射。 2. 证明或反驳：从 到 的函数 是双射。 3. 考虑如下有限归纳类型 Element，以及从 Element 类型到自身的函数 。证明或反驳 是双射。 4. 证明对所有从 Subatomic 类型（例 8.2.4）到自身的函数 ，若 是单射则它是双射。 这类似于例 8.2.6，但要检查更多情况。 5. 考虑前面练习中的有限归纳类型 Element。证明对所有从 Element 类型到自身的函数 ，若 是单射则它是双射。 这类似于例 8.2.6和上一练习，但要检查的情况更多（老实说，太多了……）。 8.3. 函数的复合 8.3.1. 定义 定义 函数 与函数 的 复合 是从 到 的函数，它把 映到 。 与 的复合记作 （在 Lean 中是 ）。 8.3.2. 例 问题 设 是由 定义的函数， 是由 定义的函数， 是由 定义的函数。 证明 。 解法 设 是实数。则 在 Lean 证明中，注意新策略 。要证明两个函数相等，我们必须证明它们在每个输入上都相等。这就是 策略所做的。（名称代表“外延性”（extensionality）。）使用它之前，目标状态是 使用之后，目标状态是 下面是完整的 Lean 证明。 8.3.3. 定义 定义 恒等函数 是把 中每个 映到自身的函数。 8.3.4. 例 问题 设 是由 定义的函数。 证明 。 解法 设 是实数。我们必须证明 ，这是成立的。 8.3.5. 定义 定义 函数 是 的 逆 ，如果 且 。 8.3.6. 例 考虑如下有限归纳类型 Humour： 考虑如下从 Humour 类型到自身的函数 。 !humour 问题 定义一个从 Humour 类型到自身的函数 ，使其成为 的逆，并证明这一点。 8.3.7. 例 命题 设 是双射函数。则存在函数 是 的逆。 证明 如下定义函数 ：给定 中 ，由 的满射性，存在 中 使得 ，我们令 就是这个 。于是对所有 ，都有 。 这立即表明 。要证明 ，设 是 中元素。由 ，有 所以由 的单射性， 。 要在 Lean 中写出这个证明，我们需要一个策略 [^1]，本书其他地方不会使用它。这个策略按上述文本证明第一段描述的方式构造函数 。更准确地说，给定假设 策略调用 会创建一个函数，它为每个 “选择”一个 ： 下面是完整的 Lean 证明。 8.3.8. 例 命题 设 和 是函数，且 是 的逆。则 是双射。 证明 我们首先证明 是单射。事实上，设 、 是 中元素，假设 。则 现在我们证明 是满射。事实上，设 是 中元素。则 8.3.9. 例 定理 设 是函数。则 是双射，当且仅当存在"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1. 单射与满射",
+      "section": "正文",
+      "text": "8.1. 单射与满射",
+      "anchor": "8-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.1. 例",
+      "section": "正文",
+      "text": "8.1.1. 例",
+      "anchor": "8-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.2. 定义",
+      "section": "正文",
+      "text": "8.1.2. 定义",
+      "anchor": "8-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.3. 例",
+      "section": "正文",
+      "text": "8.1.3. 例",
+      "anchor": "8-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.4. 例",
+      "section": "正文",
+      "text": "8.1.4. 例",
+      "anchor": "8-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.5. 定义",
+      "section": "正文",
+      "text": "8.1.5. 定义",
+      "anchor": "8-1-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.6. 例",
+      "section": "正文",
+      "text": "8.1.6. 例",
+      "anchor": "8-1-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.7. 例",
+      "section": "正文",
+      "text": "8.1.7. 例",
+      "anchor": "8-1-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.8. 例",
+      "section": "正文",
+      "text": "8.1.8. 例",
+      "anchor": "8-1-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.9. 例",
+      "section": "正文",
+      "text": "8.1.9. 例",
+      "anchor": "8-1-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.10. 例",
+      "section": "正文",
+      "text": "8.1.10. 例",
+      "anchor": "8-1-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.11. 例",
+      "section": "正文",
+      "text": "8.1.11. 例",
+      "anchor": "8-1-11"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.12. 例",
+      "section": "正文",
+      "text": "8.1.12. 例",
+      "anchor": "8-1-12"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.1.13. 练习",
+      "section": "正文",
+      "text": "8.1.13. 练习",
+      "anchor": "8-1-13"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2. 双射",
+      "section": "正文",
+      "text": "8.2. 双射",
+      "anchor": "8-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.1. 定义",
+      "section": "正文",
+      "text": "8.2.1. 定义",
+      "anchor": "8-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.2. 例",
+      "section": "正文",
+      "text": "8.2.2. 例",
+      "anchor": "8-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.3. 例",
+      "section": "正文",
+      "text": "8.2.3. 例",
+      "anchor": "8-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.4. 例",
+      "section": "正文",
+      "text": "8.2.4. 例",
+      "anchor": "8-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.5. 例",
+      "section": "正文",
+      "text": "8.2.5. 例",
+      "anchor": "8-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.6. 例",
+      "section": "正文",
+      "text": "8.2.6. 例",
+      "anchor": "8-2-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.7. 例",
+      "section": "正文",
+      "text": "8.2.7. 例",
+      "anchor": "8-2-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.2.8. 练习",
+      "section": "正文",
+      "text": "8.2.8. 练习",
+      "anchor": "8-2-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3. 函数的复合",
+      "section": "正文",
+      "text": "8.3. 函数的复合",
+      "anchor": "8-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.1. 定义",
+      "section": "正文",
+      "text": "8.3.1. 定义",
+      "anchor": "8-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.2. 例",
+      "section": "正文",
+      "text": "8.3.2. 例",
+      "anchor": "8-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.3. 定义",
+      "section": "正文",
+      "text": "8.3.3. 定义",
+      "anchor": "8-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.4. 例",
+      "section": "正文",
+      "text": "8.3.4. 例",
+      "anchor": "8-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.5. 定义",
+      "section": "正文",
+      "text": "8.3.5. 定义",
+      "anchor": "8-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.6. 例",
+      "section": "正文",
+      "text": "8.3.6. 例",
+      "anchor": "8-3-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.7. 例",
+      "section": "正文",
+      "text": "8.3.7. 例",
+      "anchor": "8-3-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.8. 例",
+      "section": "正文",
+      "text": "8.3.8. 例",
+      "anchor": "8-3-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.9. 例",
+      "section": "正文",
+      "text": "8.3.9. 例",
+      "anchor": "8-3-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.3.10. 练习",
+      "section": "正文",
+      "text": "8.3.10. 练习",
+      "anchor": "8-3-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4. 积类型",
+      "section": "正文",
+      "text": "8.4. 积类型",
+      "anchor": "8-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.1. 例",
+      "section": "正文",
+      "text": "8.4.1. 例",
+      "anchor": "8-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.2. 例",
+      "section": "正文",
+      "text": "8.4.2. 例",
+      "anchor": "8-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.3. 例",
+      "section": "正文",
+      "text": "8.4.3. 例",
+      "anchor": "8-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.4. 例",
+      "section": "正文",
+      "text": "8.4.4. 例",
+      "anchor": "8-4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.5. 例",
+      "section": "正文",
+      "text": "8.4.5. 例",
+      "anchor": "8-4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.6. 例",
+      "section": "正文",
+      "text": "8.4.6. 例",
+      "anchor": "8-4-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.7. 例",
+      "section": "正文",
+      "text": "8.4.7. 例",
+      "anchor": "8-4-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.8. 例",
+      "section": "正文",
+      "text": "8.4.8. 例",
+      "anchor": "8-4-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.9. 例",
+      "section": "正文",
+      "text": "8.4.9. 例",
+      "anchor": "8-4-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/08_Functions.md",
+      "title": "第 8 章 函数 › 8.4.10. 练习",
+      "section": "正文",
+      "text": "8.4.10. 练习",
+      "anchor": "8-4-10"
     },
     {
       "kind": "chapter",

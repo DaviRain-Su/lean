@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T02:15:20.768Z",
+  "generatedAt": "2026-06-17T02:18:44.530Z",
   "books": [
     {
       "id": "tpil",
@@ -2845,9 +2845,9 @@
       "subtitle": "本科严谨证明 + Lean",
       "originalUrl": "https://hrmacbeth.github.io/math2001/",
       "externalPdfUrl": null,
-      "status": "前言 + 第 1–7 章已译",
+      "status": "前言 + 第 1–8 章已译",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 8,
+      "chapterCount": 9,
       "sections": [
         {
           "title": "前言",
@@ -2895,6 +2895,11 @@
             {
               "title": "第 7 章 数论",
               "path": "math2001/07_Number_Theory.md",
+              "summary": ""
+            },
+            {
+              "title": "第 8 章 函数",
+              "path": "math2001/08_Functions.md",
               "summary": ""
             }
           ]
