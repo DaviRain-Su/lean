@@ -50,6 +50,8 @@
 - [Currying](Reference/TypeSystemDetails/Currying.md) — 多参数函数的单参数嵌套编码
 - [函数外延性](Reference/TypeSystemDetails/FunctionExtensionality.md) — intensional equality、η-equivalence、`funext`
 - [totality 与终止](Reference/TypeSystemDetails/TotalityTermination.md) — total function、`partial`、`unsafe` 与 panic 边界
+- [Predicativity](Reference/TypeSystemDetails/Predicativity.md) —  predicative universe、impredicative `Prop`、strictly positive 约束
+- [Universe Polymorphism](Reference/TypeSystemDetails/UniversePolymorphism.md) — level variables、`u+1`、level constraints、自动推断
 - [函数（类型系统层）](Reference/TypeSystemDetails/Functions.md) — 依赖函数、currying、β/η、外延性与 totality
 - [命题（类型系统层）](Reference/TypeSystemDetails/Propositions.md) — `Prop`、proof irrelevance、run-time irrelevance、`propext`
 - [universe](Reference/TypeSystemDetails/Universes.md) — `Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`
