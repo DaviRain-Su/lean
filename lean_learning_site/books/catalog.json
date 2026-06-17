@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:41:03.037Z",
+  "generatedAt": "2026-06-17T00:49:19.967Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 226 篇已翻译",
+      "status": "首批 235 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 226,
+      "chapterCount": 235,
       "sections": [
         {
           "title": "官网入口",
@@ -1153,6 +1153,21 @@
               "summary": "`PLift`、`ULift` 与跨 universe 搬运"
             },
             {
+              "title": "universe level 表达式",
+              "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+              "summary": "`u + 1`、`max`、`imax` 与 level 组合"
+            },
+            {
+              "title": "universe 变量绑定",
+              "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+              "summary": "`universe` 命令、显式 level 变量与作用域"
+            },
+            {
+              "title": "`PLift` 与 `ULift` 细节",
+              "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+              "summary": "`up` / `down`、命题提升与普通数据提升"
+            },
+            {
               "title": "归纳类型",
               "path": "lean-reference/Reference/TypeSystemDetails/InductiveTypes.md",
               "summary": "constructor、recursor、参数与索引、良构性与运行时表示"
@@ -1226,6 +1241,36 @@
               "title": "互递归归纳类型",
               "path": "lean-reference/Reference/InductiveDetails/MutualInductives.md",
               "summary": "mutual declaration、参数一致性、positivity 与 recursor"
+            },
+            {
+              "title": "匿名构造子语法",
+              "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+              "summary": "`⟨ … ⟩` 与单构造子归纳类型的表达/匹配"
+            },
+            {
+              "title": "structure 继承",
+              "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+              "summary": "`extends`、字段并入与记录式复用"
+            },
+            {
+              "title": "subsingleton 消去",
+              "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+              "summary": "subsingleton 场景下更强的 elimination 直觉"
+            },
+            {
+              "title": "strict positivity",
+              "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+              "summary": "正位置约束与一致性边界"
+            },
+            {
+              "title": "归纳类型的运行时表示",
+              "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+              "summary": "proof 擦除、trivial wrapper、FFI 与特殊表示"
+            },
+            {
+              "title": "嵌套归纳类型",
+              "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+              "summary": "nested inductive 的用途、风险与 mutual 区别"
             },
             {
               "title": "源文件与模块",
@@ -2715,9 +2760,9 @@
       "subtitle": "本科严谨证明 + Lean",
       "originalUrl": "https://hrmacbeth.github.io/math2001/",
       "externalPdfUrl": null,
-      "status": "目录已建 · 正文待译",
+      "status": "前言 + 第 1 章已译",
       "indexPath": "math2001/INDEX.md",
-      "chapterCount": 1,
+      "chapterCount": 2,
       "sections": [
         {
           "title": "前言",
@@ -2725,7 +2770,17 @@
             {
               "title": "前言与说明",
               "path": "math2001/00_Introduction.md",
-              "summary": "待翻译"
+              "summary": ""
+            }
+          ]
+        },
+        {
+          "title": "正文",
+          "chapters": [
+            {
+              "title": "第 1 章 计算式证明",
+              "path": "math2001/01_Proofs_by_Calculation.md",
+              "summary": ""
             }
           ]
         }

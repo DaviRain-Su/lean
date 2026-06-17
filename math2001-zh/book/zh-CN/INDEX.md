@@ -4,15 +4,15 @@
 
 ## 说明
 
-本科数学严格证明写作 + Lean 形式化。**全书待翻译**，下列章节为计划目录。
+本科数学严格证明写作 + Lean 形式化。**前言已译**；正文与附录按章推进中。
 
 ### 前言
 
-- [前言与说明](00_Introduction.md) — 待翻译
+- [前言与说明](00_Introduction.md)
 
 ### 正文
 
-- [第 1 章 计算式证明](01_Proofs_by_Calculation.md) — 待翻译
+- [第 1 章 计算式证明](01_Proofs_by_Calculation.md)
 - [第 2 章 结构化证明](02_Proofs_with_Structure.md) — 待翻译
 - [第 3 章 奇偶与整除](03_Parity_and_Divisibility.md) — 待翻译
 - [第 4 章 结构化证明 II](04_Proofs_with_Structure_II.md) — 待翻译

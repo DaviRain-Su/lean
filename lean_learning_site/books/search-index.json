@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T00:41:03.129Z",
-  "entryCount": 2720,
+  "generatedAt": "2026-06-17T00:49:20.005Z",
+  "entryCount": 2815,
   "entries": [
     {
       "kind": "chapter",
@@ -6782,6 +6782,193 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式",
+      "section": "类型系统详解",
+      "text": "universe level 表达式 对应英文：Level Expressions，抓取日期：2026 06 16。 universe 参数并不只是“某个抽象整数变量”。Lean 允许把 universe level 组合成表达式，用来精确描述类型应落在哪一层。 常见形式 英文页列出的典型 level expression 包括： 最常见用途是表达“某个类型的类型”在更高一层。例如： 若 那么“以 为成员的某种普通数据结构”通常会落在不低于 的层 而“ 这个类型本身”的类型则要落在 表示“至少和 、 一样大”的最小 universe。它常出现在： product / sum / structure 把两个不同层级类型打包在一起时； 函数类型需要同时容纳参数和结果 universe 时。 是专门服务 impredicativity 规则的组合器。直觉上，它在处理“如果结果在 中，则整体也可落在 ”这类情况时，比普通 更精细。 为什么要显式关心它们 调试 universe mismatch 时，错误信息经常直接显示这些表达式； 写 universe polymorphic 库时，你需要知道“这个类型为什么在 ，而不是在 ”； 读 Lean 自动生成的 recursor、结构体类型和高阶抽象时，经常会看到它们。 使用建议 普通应用层代码里通常不用手写复杂 level expression； 一旦开始写 universe polymorphic 抽象，就应把 、 、 看成基础工具，而不是异常符号。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 常见形式",
+      "section": "类型系统详解",
+      "text": "常见形式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `u + 1`",
+      "section": "类型系统详解",
+      "text": "`u + 1`",
+      "anchor": "u-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `max`",
+      "section": "类型系统详解",
+      "text": "`max`",
+      "anchor": "max"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › `imax`",
+      "section": "类型系统详解",
+      "text": "`imax`",
+      "anchor": "imax"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 为什么要显式关心它们",
+      "section": "类型系统详解",
+      "text": "为什么要显式关心它们",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LevelExpressions.md",
+      "title": "universe level 表达式 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定",
+      "section": "类型系统详解",
+      "text": "universe 变量绑定 对应英文：Universe Variable Bindings，抓取日期：2026 06 16。 Lean 支持显式绑定 universe 变量。除了把 level 直接写在名字后，如 ，也可以先声明一组 universe 名称，再在后续定义中复用。 命令 它会把 、 、 作为当前作用域中的 universe 变量引入。之后你就可以在： 类型签名 level expression 显式 universe 参数 中使用这些名字。 为什么需要显式绑定 自动 universe 推断大多数时候够用，但在以下场景中经常需要显式绑定： 定义右侧用了某个 universe 变量，而左侧 header 没显式出现它； 希望控制多个定义共享同一组 universe 参数； 想让代码更明确表达“这是一个 universe polymorphic 构造”。 与 automatic implicit parameter 的区别 绑定的是 level variable ，不是普通 term 变量。它不会出现在值级别的局部上下文里，也不参与普通参数推断；它只影响类型所在 universe。 作用域 和普通名字绑定类似， 命令引入的变量也受作用域控制。若在某个局部块中声明 universe 名称，离开该块后它们就不再可见。 使用建议 只要 universe 参数已经开始出现在错误消息里，通常就值得把它们显式命名； 若某定义明显面向多 universe 复用，优先写清楚 ，比完全依赖推断更可维护。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › `universe` 命令",
+      "section": "类型系统详解",
+      "text": "`universe` 命令",
+      "anchor": "universe"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 为什么需要显式绑定",
+      "section": "类型系统详解",
+      "text": "为什么需要显式绑定",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 与 automatic implicit parameter 的区别",
+      "section": "类型系统详解",
+      "text": "与 automatic implicit parameter 的区别",
+      "anchor": "automatic-implicit-parameter"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 作用域",
+      "section": "类型系统详解",
+      "text": "作用域",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/UniverseBindings.md",
+      "title": "universe 变量绑定 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节",
+      "section": "类型系统详解",
+      "text": "与 细节 对应英文：PLift / ULift，抓取日期：2026 06 16。 和 都是“改变 universe 外壳，但不改变底层值/信息”的工具。它们最常见的接口分别是： 适用于任意类型，包括 proposition。它非常适合“把 proof 搬进普通数据世界”这一类问题。 核心直觉： 里仍是一个 只是它现在被包装到更高 universe 层级里 则专门针对非 proposition 类型，允许把某个普通数据类型抬升到任意更高 universe。 / ：把底层值装进 lifted 版本 ：把 lifted 值还原回底层值 它们不是“转换数据内容”，而只是“改变外层宇宙壳”。 何时直接看这些 API 大多数时候，知道 / 的概念就够了；但当你： 真正手写 universe polymorphic library 在定理陈述里来回搬运类型 读到底层 recursor / 内建定义中显式出现 / 时，理解这些 API 细节会更重要。 使用建议 需要 proposition 也被提升时，用 ； 只处理普通数据 universe 时，优先 ； 若发现自己频繁显式写 / ，可以考虑上层 API 是否该重新设计，以减少使用者负担。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `PLift`",
+      "section": "类型系统详解",
+      "text": "`PLift`",
+      "anchor": "plift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `ULift`",
+      "section": "类型系统详解",
+      "text": "`ULift`",
+      "anchor": "ulift"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › `up` / `down`",
+      "section": "类型系统详解",
+      "text": "`up` / `down`",
+      "anchor": "up-down"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › 何时直接看这些 API",
+      "section": "类型系统详解",
+      "text": "何时直接看这些 API",
+      "anchor": "api"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/TypeSystemDetails/LiftAPI.md",
+      "title": "`PLift` 与 `ULift` 细节 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystemDetails/InductiveTypes.md",
       "title": "归纳类型",
       "section": "类型系统详解",
@@ -7659,6 +7846,330 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/InductiveDetails/MutualInductives.md",
       "title": "互递归归纳类型 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法",
+      "section": "类型系统详解",
+      "text": "匿名构造子语法 对应英文：Anonymous Constructor Syntax，抓取日期：2026 06 16。 如果某个归纳类型只有一个构造子，那么 Lean 允许使用匿名构造子语法，而不必显式写出构造子名。 基本写法 这会把显式参数按顺序传给该类型唯一的构造子。 适用范围 匿名构造子语法可用于： expression 位置 pattern 位置 因此它既适合构造值，也适合在模式匹配中拆开值。 限制 若你需要： 按字段名提供参数 使用 把隐式参数显式化 明确指明是哪个构造子 那就必须回到普通构造子语法。 与 structure 的关系 经常只有一个构造子，因此匿名构造子在结构体中尤其常见。但它本质上仍是单构造子归纳类型的通用语法糖，而不只是 structure 专属功能。 使用建议 只关心“按顺序把值塞进去”时，匿名构造子最简洁； 若值有多个同类型字段、顺序不易读，优先显式构造子或 structure instance 语法； 公共 API 示例里，若匿名构造子会降低可读性，不妨写出完整构造子名。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法 › 基本写法",
+      "section": "类型系统详解",
+      "text": "基本写法",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法 › 适用范围",
+      "section": "类型系统详解",
+      "text": "适用范围",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法 › 限制",
+      "section": "类型系统详解",
+      "text": "限制",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法 › 与 structure 的关系",
+      "section": "类型系统详解",
+      "text": "与 structure 的关系",
+      "anchor": "structure"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/AnonymousConstructors.md",
+      "title": "匿名构造子语法 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+      "title": "structure 继承",
+      "section": "类型系统详解",
+      "text": "structure 继承 对应英文：Structure Inheritance，抓取日期：2026 06 16。 支持 ，用来把父结构的字段并入当前结构。它更像“字段复用”和“投影重用”，而不是面向对象语言里的运行时子类型机制。 基本形式 也可以同时继承多个结构。 继承带来的结果 父结构字段会成为子结构可用字段； 子结构会生成相应 projection； structure instance 语法和 更新语法也会把继承字段纳入考虑。 逻辑视角 从类型论角度看，子结构仍是一个新的单构造子归纳类型。 不会让 自动成为“等同于” 的值；它只是让 具备足够信息，可投影回 的各字段。 使用建议 若只是想复用字段组织， 很方便； 若结构层级过深，应警惕字段名冲突和可读性下降； 若真正需要的是抽象接口与实例搜索，优先考虑 type class，而不是滥用 structure 继承。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+      "title": "structure 继承 › 基本形式",
+      "section": "类型系统详解",
+      "text": "基本形式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+      "title": "structure 继承 › 继承带来的结果",
+      "section": "类型系统详解",
+      "text": "继承带来的结果",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+      "title": "structure 继承 › 逻辑视角",
+      "section": "类型系统详解",
+      "text": "逻辑视角",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StructureInheritance.md",
+      "title": "structure 继承 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+      "title": "subsingleton 消去",
+      "section": "类型系统详解",
+      "text": "subsingleton 消去 对应英文：Subsingleton Elimination，抓取日期：2026 06 16。 通常来说，命题层对象不能随意消去到普通数据类型；但如果某个归纳类型是 subsingleton，那么情况会有所不同。 直觉 subsingleton 的含义是：该类型中任意两个值都相等。因此，从这种类型的值中“取出哪一个分支”不会泄露有意义的计算信息。 这就是为什么某些看似命题层的对象，仍可安全地参与更一般的消去。 为什么重要 这条规则解释了： 为什么 / 等某些命题构造在实践中更灵活； 为什么部分 recursor 在 情况下仍能产生有用的结果； 为什么 Lean 会区分普通命题消去和 subsingleton elimination。 与 / 的关系 中的归纳类型若是 subsingleton，Lean 对其 elimination 通常比一般命题更宽松；但若该命题有多个不可区分但“构造上不同”的 proof 选择，就不能这样做。 使用建议 看到某个命题对象能被消去到更一般类型时，先检查它是否本质上是 subsingleton； 若某个 elimination 被拒绝，常见原因就是 Lean 认为该类型并非 subsingleton。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+      "title": "subsingleton 消去 › 直觉",
+      "section": "类型系统详解",
+      "text": "直觉",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+      "title": "subsingleton 消去 › 为什么重要",
+      "section": "类型系统详解",
+      "text": "为什么重要",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+      "title": "subsingleton 消去 › 与 `Prop` / `Type` 的关系",
+      "section": "类型系统详解",
+      "text": "与 `Prop` / `Type` 的关系",
+      "anchor": "prop-type"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/SubsingletonElimination.md",
+      "title": "subsingleton 消去 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+      "title": "strict positivity",
+      "section": "类型系统详解",
+      "text": "strict positivity 对应英文：Strict Positivity，抓取日期：2026 06 16。 Lean 要求归纳类型在其构造子参数中满足 strict positivity 。这是保持逻辑一致性的核心限制之一。 基本直觉 被定义的归纳类型： 可以出现在“正位置”； 不能出现在“负位置”，尤其是不能出现在函数参数左边那种位置。 形象地说，若某构造子参数要求“先给我一个从 到别处的函数，我再构造 ”，那往往就是危险的负位置。 为什么必须如此 若允许负位置自引用，就可能构造出类似悖论的对象，破坏类型论一致性。 因此，strict positivity 不是语法洁癖，而是内核安全边界的一部分。 常见判断经验 作为普通字段、子节点、列表元素、树分支：通常是正位置； 出现在 这样的函数 domain 中：通常是负位置； 嵌套在复杂类型里时，要递归分析其位置是否仍保持正向。 使用建议 设计递归数据结构时，优先使用“显式子节点”而不是“接受消费者函数”； 若 positivity 检查失败，通常说明建模方式需要重写，而不是 Lean 太保守。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+      "title": "strict positivity › 基本直觉",
+      "section": "类型系统详解",
+      "text": "基本直觉",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+      "title": "strict positivity › 为什么必须如此",
+      "section": "类型系统详解",
+      "text": "为什么必须如此",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+      "title": "strict positivity › 常见判断经验",
+      "section": "类型系统详解",
+      "text": "常见判断经验",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/StrictPositivity.md",
+      "title": "strict positivity › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示",
+      "section": "类型系统详解",
+      "text": "归纳类型的运行时表示 对应英文：Run Time Representation，抓取日期：2026 06 16。 归纳类型在运行时的表示并不总是“每个值都变成同一种通用盒子”。Lean 编译器会根据归纳类型的具体形状，为不同情况选择更高效的表示策略。 英文页强调的几个方面 exceptions relevance trivial wrappers other inductive types FFI relevance proof 与其他命题层字段在编译后会被擦除，因此某些归纳类型在运行时比逻辑模型看起来更精简。 trivial wrappers 若某个归纳类型本质上只是“一个非 proof 字段外加若干 proof 字段”或类似轻量包装，它在运行时常可退化成与底层值相同或近似相同的表示。 这也是为什么像： 某些单字段结构 一些轻量 wrapper 往往几乎没有额外运行时成本。 exceptions 与其他特殊情况 某些归纳类型还会获得额外的运行时特殊支持，例如异常机制或与外部接口互通的场景。 FFI 归纳类型的运行时表示还会影响它们与外部语言或 FFI 的交互方式。若某类型准备暴露给外部系统使用，除了逻辑定义外，还必须考虑运行时布局与可传递性。 使用建议 证明里看到的归纳类型结构，不一定等于运行时代码里的真实布局； 性能敏感代码设计时，要留意 proof 擦除、trivial wrapper 和特殊表示带来的优化机会； 与 FFI 交互时，不能只看高层逻辑模型，还要看运行时表示约束。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › 英文页强调的几个方面",
+      "section": "类型系统详解",
+      "text": "英文页强调的几个方面",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › relevance",
+      "section": "类型系统详解",
+      "text": "relevance",
+      "anchor": "relevance"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › trivial wrappers",
+      "section": "类型系统详解",
+      "text": "trivial wrappers",
+      "anchor": "trivial-wrappers"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › exceptions 与其他特殊情况",
+      "section": "类型系统详解",
+      "text": "exceptions 与其他特殊情况",
+      "anchor": "exceptions"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › FFI",
+      "section": "类型系统详解",
+      "text": "FFI",
+      "anchor": "ffi"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/RuntimeRepresentation.md",
+      "title": "归纳类型的运行时表示 › 使用建议",
+      "section": "类型系统详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+      "title": "嵌套归纳类型",
+      "section": "类型系统详解",
+      "text": "嵌套归纳类型 对应英文：Nested Inductive Types，抓取日期：2026 06 16。 Lean 允许某些 nested inductive types ，也就是归纳类型在其构造子里嵌套出现在其他类型构造子内部，而不是只直接作为字段出现。 为什么会需要它 有些数据结构自然长这样： 子节点包在别的容器里； 语法树里夹杂列表、可选值或其它结构； 某层结构递归地嵌入到更复杂外壳中。 若只能写“直接递归字段”，很多自然模型就会变得很别扭。 为什么又危险 嵌套归纳类型比普通递归字段更复杂，因为： positivity 检查更难； recursor 生成更复杂； 终止与规约行为要更谨慎分析。 因此 Lean 并不是对所有嵌套形态都开放，而是只接受符合其安全条件的那部分。 与 mutual inductive 的关系 mutual inductive：多个归纳类型彼此直接互递归； nested inductive：递归出现被包在别的类型构造子之中。 这两者都比普通单一归纳定义更强，但关注点不同。 使用建议 先问自己：能否用普通字段递归或 mutual inductive 更清晰地表达； 只有在嵌套模型明显更自然时，再追求 nested inductive； 若 Lean 拒绝某个嵌套定义，优先回头检查 positivity 和整体建模方式。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+      "title": "嵌套归纳类型 › 为什么会需要它",
+      "section": "类型系统详解",
+      "text": "为什么会需要它",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+      "title": "嵌套归纳类型 › 为什么又危险",
+      "section": "类型系统详解",
+      "text": "为什么又危险",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+      "title": "嵌套归纳类型 › 与 mutual inductive 的关系",
+      "section": "类型系统详解",
+      "text": "与 mutual inductive 的关系",
+      "anchor": "mutual-inductive"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/InductiveDetails/NestedInductives.md",
+      "title": "嵌套归纳类型 › 使用建议",
       "section": "类型系统详解",
       "text": "使用建议",
       "anchor": "section-3"
@@ -23676,9 +24187,438 @@
       "bookId": "math2001",
       "bookTitleZh": "证明的机制（Math 2001）",
       "path": "math2001/00_Introduction.md",
-      "title": "前言与说明",
+      "title": "前言",
       "section": "前言",
-      "text": "前言与说明 待翻译 本课程配套书 The Mechanics of Proof 介绍如何书写严谨数学证明，并配合 Lean 代码练习。 请先阅读英文版：00 Introduction"
+      "text": "前言 本译文对应原书 Preface；英文 Sphinx 源： 。 关于本书 本书讲授如何书写严谨、有条理的数学证明，并配套计算机形式化语言 Lean 中的代码。 本书侧重 技巧 而非 理论建构 ：证明的定理并不多，也很少在后面反复引用。核心在于 例题 ——正文中有两百多道带解答的例题，还有数百道留作读者练习。每道题及其解答都以标准数学文字和 Lean 两种形式呈现（阅读时应打开电脑，打开对应的 Lean 源文件）。对初学证明的学生而言，这两种「语言」几乎同样陌生，因此多数解答都附有非形式化的旁注说明。 为什么用 Lean？ 人们用语言文字表达数学论证已有数千年，数学语言如今也已高度标准化，诸多约定让数学家能高效、无歧义地交流。本书的首要目标是教会你阅读与书写 标准数学英文散文 （standard mathematical English prose）。 称为 交互式定理证明器 （interactive theorem provers，亦称 证明助手 proof assistants 或 形式化 formalization 系统）的计算机系统，提供了表达数学论证的另一种方式。Lean 是自 2013 年起在 Microsoft Research 等地开发的开源项目，但这类系统自计算机早期就已存在。 像 Lean 这样的交互式定理证明系统这些年越来越易用，但还谈不上真正 容易 ：它们和任何编程语言一样挑剔、不容差错。那为什么本书建议你在 第一次 接触证明时就使用这样的系统？ 第一 ，名副其实——在交互式定理证明器中写证明是 交互 的。证明的每一步，你都能看到 证明状态 （proof state）的可视化：已知什么（ 假设 hypotheses）、当前要证什么（ 目标 goal(s)）。若你刚学写数学证明，可能会惊讶：在纸上交替使用前向与后向推理几步之后，就很难分清假设与目标；分情况讨论时也很容易丢掉某个分支。Lean 实时更新的证明状态可视化，让你不必把这些都记在脑子里。 第二 ，形式化系统毕竟是挑剔的编程语言，一旦出错就会报语法错误。反馈是即时的，你可以反复修改直到通过。在 Lean 中写出的解答保证 完全正确 ：不会在减号下误代不等式、不会除以零、不会在代数中漏项。这对基于证明的数学尤其有用：微积分题做到一半犯个小错，后面解答往往变化不大；证明做到一半犯个小错，后面可能就全废了。 第三 ，你与 Lean 的交互通过 策略 （tactics）进行，每个策略对应某种推理模式中的单一步骤。本书讲授的策略（部分为本书定制）在本书所构建的推理世界里，各自构成一个允许的推理「原子」。这使原本在纯文字教材中往往主观的问题变得客观： 什么算充分详细的证明 。此外，这些「原子」的设计会引导你采用标准数学散文中常见、但学生往往学得较慢的论证结构[^1]。 这是一本 以 Lean 为工具的数学书 。设计上让 Lean 的学习曲线比数学更平缓[^2]——一部分靠精心选题，一部分靠使用我为本书写的 Lean「方言」，词汇有限[^3]，又刚好够本书数学之需。（与常规 Lean 的主要差异见附录 过渡到主流 Lean。）我希望你在解题时把主要智力投入放在数学上，而不是 Lean 的实现细节或语法怪癖。 内容与预备知识 若你（1）熟练掌握高中代数，且（2）有过学习并执行复杂数学算法的经验，就可以阅读本书。典型读者是刚修完微积分 II 的一、二年级大学生，但本书 并不使用 微积分。 本书的主要新意是「双语」呈现：数学散文与 Lean 代码并列。为配合这种呈现方式而做的设计选择，也影响了全书的其他安排。 第 1 章 计算式证明 对「计算式证明」（calculational proofs）的处理格外细致。这类证明是全书自然的起点（因为它们容易翻译成 Lean），本身也是这一层次学生常感困难的专题[^4]。 第 2 章 结构化证明 与 第 4 章 结构化证明 II 缓慢推进自然演绎规则，在关于 、 、 、 的题目中逐步引入更多逻辑连接词与量词。必须把一切翻译成 Lean，使这些章节保持严格诚实——典型的入门证明教材没有这道护栏，常会在这里略有滥用，例如给出分情况证明的好例子，却隐含使用了尚未讲过的技巧（如为存在量词填见证）。 逻辑直到 第 5 章 逻辑 才显式讲授；到那时读者已熟悉各种连接词/量词，并能在文字与符号之间来回翻译。这使逻辑章可以相对简短，侧重 逻辑等价 （主要用自然演绎呈现，与第 2、4 章衔接，而非真值表）[^5]。 其余章节更接近常见入门证明课的主题。此时读者已具备足够的 Lean 熟练度，数学呈现不再受形式化约束。 第 3 章 奇偶与整除 涵盖初等数论的基本概念。本章只用有限的推理工具箱，以便放在第 2 章与第 4 章之间作缓冲。数论定义与定理在后续章节仍作为例题出现；该主题的完整呈现则在 第 7 章 数论，包括素数无穷、欧几里得引理、 的无理性等希腊数学的重要结果。 第 6 章 归纳法 涵盖归纳法，处理相当全面，包括在 、 、 上相对于各种非平凡良基关系的归纳与递归。 最后，第 8 章 函数、第 9 章 集合、第 10 章 关系 依次讨论函数、集合与关系——我们采用类型论观点：函数是原始概念，集合与关系定义为取值于 的函数。 致教师 本书基于我 2023 年春季在 Fordham University 讲授的课程讲义。班上有 20 名学生，多为一、二年级，数学背景中位数约为微积分 II；不少人还修过一门计算机编程入门课。 课程每周两次、每次 75 分钟，共 13 周，期间覆盖了本书约 80% 的内容。典型课堂结构可能是： 25 分钟传统黑板讲授； 5 分钟屏幕共享，在 Lean 中做同样题目； 20 分钟两人一组在 Lean 中练习，教师巡视； 25 分钟传统黑板讲授，可能比第一段更偏理论。 课程作业可应要求提供。作业量相对较少（每周 5–7 题），但要求学生几乎每题都同时交书面版与 Lean 版。多数学生需要 office hour 或邮件支持才能完成作业。 课程还在第 5、10 周进行口试：20 分钟一对一，考查 Lean 熟练度——学生当场解答未见过的 Lean 练习（每人题目不同），并口头说明推理。成绩构成：作业 25%、口试 20%、传统笔试 55%（期中期末均完全不使用 Lean）。 显然，课内巡视、作业辅导与口试加起来，需要大量与单个学生（或小组）互动的时间。20:1 的师生比是可持续的。若比例更高，可能需要基础很强的学生，或经验丰富、热情的助教。 学生在云开发环境中运行 Lean，以免在本机安装。我使用 Gitpod（亦可选用 GitHub Codespaces）——见本书代码仓库 README 中如何启动 Gitpod 的简要说明。Lean 作业通过 Gradescope 自动批改（亦可选用 GitHub Classroom）。Lean 社区的教学建议页面 提供搭建此类课程基础设施的说明与排错指引。 致谢 衷心感谢： Microsoft Research 的资助，支持了本书写作； Fordham 我所在的院系，允许我讲授这门实验课程，本书由此生长； 该课程 Math 2001 L01 Spring 2023 的勇敢学生们，热情与机智令人难忘； Matthew Hertz，搭建本书 Sphinx 基础设施并排版最初几章； mathlib 社区，尤其 Mario Carneiro、Gabriel Ebner、Scott Morrison、Thomas Murrills、David Renshaw，在 2022 秋与 2023 冬优先移植课程所需的 Lean 3 → Lean 4 库部分； Mario Carneiro（再次）在马拉松式 hacking 中实现了本书最有趣的定制策略； Jeremy Avigad、Rob Lewis、Patrick Massot，分享基于 Lean 课程的技术基础设施，并就「用 Lean 教数学」的梦想进行了许多对话。 脚注 [^1]: 例如，大部分代数推理使用 calculation 块，并偏好前向而非后向推理。 [^2]: 若你想要相反方向，Mathematics in Lean 是数学 Lean 的标准入门。但那一本期望的数学经验比本书更多：要写地道的 Lean 代码，即便证明初等命题，也需要一定的数学成熟度。 [^3]: 代数推理的策略词汇 、 、 （即 ）、 （本书定制，现已在 mathlib 中）、 （本书定制）与 （本书定制），足以处理整数上几乎所有代数推理，包括非线性不等式。第 1 章中从「在 Lean 中证明等式」到「策略模式」的训练，使后续不必按名调用无穷无尽的引理，例如 、 、 。其他定制自动化轻量处理了归纳原理、良基性论证、积类型与集合。全书按名调用的引理不到五十条。 [^4]: 许多入门证明课可以在不真正掌握这一模式的情况下完成以 等式 为主的推理，但要推理 不等式 几乎不可能不掌握计算式证明；入门课没学好这项技能的人，学到实分析时还会再碰到它。 [^5]: 专业读者或可欣赏 第 5 章 中引入经典推理的一节习题：据我所知这些题目是新的，且比常见教材例子更初等。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 关于本书",
+      "section": "前言",
+      "text": "关于本书",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 为什么用 Lean？",
+      "section": "前言",
+      "text": "为什么用 Lean？",
+      "anchor": "lean"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 内容与预备知识",
+      "section": "前言",
+      "text": "内容与预备知识",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 致教师",
+      "section": "前言",
+      "text": "致教师",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 致谢",
+      "section": "前言",
+      "text": "致谢",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/00_Introduction.md",
+      "title": "前言 › 脚注",
+      "section": "前言",
+      "text": "脚注",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明",
+      "section": "正文",
+      "text": "第 1 章 计算式证明 本译文对应原书 Proofs by calculation；英文 Sphinx 源： 。 本书从熟悉的数的世界开始： （自然数，本书中包括 0）、 （整数）、 （有理数）和 （实数）。我们要解决的问题很像高中代数——从已知等式/不等式推出新的等式/不等式——但会用到高中代数里通常不教的一种技巧：构造一条从左边表达式连到右边表达式的 计算链 （chain of expressions）。 1.1 证明等式 1.1.1 例题 我们从证明等式开始。下面是前述技巧的一个典型例子。 问题 设 、 为有理数，且 、 。证明 。 解 我们把上面的证明称为 计算式证明 （proof by calculation）。目标是证明 ，做法是把一串等式写下来：从表达式 （左上）出发，到 （右下）结束。这个证明隐含三步： 1. ：纯代数变形——展开并化简后，两边都是 。 2. ：纯代入步骤，用到已知 和 。 3. ：又一次纯代数步骤。 这是高等数学教材与研究论文中最常见的等式证明写法。权衡在于：用这种风格组织证明，作者往往要多费些功夫，但读者读起来短而易于核对——这是对读者的礼貌。 在 第 1.3 节 我们会讨论如何想出这种风格的证明。眼下先专注于如何读懂它们。 1.1.2 例题 问题 设 、 为实数，且 、 。证明 。 解 这个证明隐含四步，逐步把左边 变成右边 ： 1. ：纯代数变形。 2. ：纯代入，用到 。 3. ：纯代入，用到 。 4. ：纯代数步骤。 你可能会问：这种写法有多大灵活性？常见做法是把证明中每个表达式单独占一行，这样第一个表达式不会孤零零地留在左边。这完全可以接受；若表达式很长、需要额外空间，这样写尤其有用。 解 有时学生会想省略等号，或把等号放在右边。这非常不规范；不要这样做！ 最后注意，计算以句号结束。整段计算被视为一个句子，句号收尾。 1.1.3 例题 下一个例子仍是「代数、代入、代数」的模式。请在脑中逐步核对。 问题 设 、 、 、 为整数，且 、 。证明 。 解 此例第一步所需的代数 相当繁复。（该恒等式称为 婆罗摩笈多恒等式（Brahmagupta's identity），由约公元 628 年发现它的印度数学家命名。）你可选地多写几步中间等式，让读者用更简单的代数逐步核对。 解 1.1.4 例题 再举一个例子。请在脑中逐步核对。注意：你可能会想先对 、 「解出」 、 ，但这会引入关于 、 的不必要分情况，反而更麻烦。直接计算式证明可以避免这些分情况。 问题 设 、 、 、 、 、 为整数，且 、 。证明 。 解 1.2 在 Lean 中证明等式 本书中，每个证明都要写两遍：用文字——人类几千年来的方式——以及用称为 证明助手 （proof assistant）的计算机系统；后者自 20 世纪 60 年代 起有人尝试，至今仍不常见。我们使用自 2014 年起在 Microsoft Research 等地由 Leonardo de Moura 领导的团队开发的证明助手 Lean 4，及其标准数学库 Mathlib。 本书后续每一节都有对应的 Lean 文件；阅读时请同时打开并动手实验。请前往 GitHub 仓库 https://github.com/hrmacbeth/math2001，按说明把代码下载到本机，或在 Gitpod 云端打开。初学者推荐 Gitpod——注册账号即可开始，无需本地安装 Lean。 Lean 代码应在 交互式开发环境 （interactive development environment，IDE）中编写，以便实时获得反馈。本书假定你使用 IDE Visual Studio Code ——启动 Gitpod 时会自动打开。 入门时，在 Visual Studio Code 中打开与本节对应的文件 。打开后可能出现名为「Lean Infoview」的第二面板；暂时可忽略甚至关闭。我们将在 第 2 章 开始使用 Lean Infoview。 1.2.1 例题 文件中前两行重要代码如下： 这是 例题 1.1.1 的 Lean 表述： 问题 设 、 为有理数，且 、 。证明 。 代码 声明两个变量 、 ，类型为 ，即有理数的标准记号（助记：\"quotients\"，商）。 代码 给出两个 假设 （hypotheses），对应题设中的 和 。Lean 中假设有名字，这里是 、 ，以便后面引用。注意乘法必须显式写出，用符号 ；纸上则常把两变量并写为 。 冒号 之后是 目标 （goal），即要证的命题： ，即 。Lean 用 表示乘方。 Lean 的核心特点是边写边检查证明，即时反馈是否正确。上一节纸面解答是一段计算： 在 Lean 中可用关键字 写成「计算块」（calculation block）。计算各步的写法与纸上类似；每行末尾要给出该步有效的理由。上一节已说明三步各自为何成立： 1. ：代数变形 2. ：代入，用到 和 3. ：代数变形 在 Lean 中，代数变形用 策略 （tactic） 表示；代入用策略 （rewrite 的缩写）。代入时必须指明所用假设的名字。 1.2.2 例题 下面是 例题 1.1.2 的 Lean 表述及其证明；纸面上为： 在四个标有 Lean 占位符 [^1] 处，填入合适的 Lean 理由（ 或带假设的 ）。 填写理由时，你大概已发现 Lean 出错时会出现红色下划线。例如下列情况都会在某处出现红线下划线——不妨试一下！ 拼写错误，如把 写成 标点错误，如 而不是 理由策略用错，如该用 却写了 给策略的信息错误，如实际应代入 却写了 计算中数学错误，如写成 而不是 若处处无红线下划线，则证明正确。有时红线很细，请仔细看。还可查看 VS Code 底部蓝色状态栏：符号「⊗」旁的数字表示文件中错误数；无错误时还会有勾号。 1.2.3 例题 下面是 例题 1.1.3 的 Lean 表述；纸面证明为： 与之前一样，在三处 填入合适的 Lean 理由。 1.2.4 例题 最后是 例题 1.1.4 的 Lean 表述。纸面证明为： 请把完整证明敲进 Lean，并填好每步理由。注意 Lean 对运算顺序非常敏感：例如 、 、 在 Lean 中含义不同[^2]。请仔细对照纸面每一步；重写（rewrite）时，括号必须恰好包住你要代入的那一小段表达式。 1.2.5 练习 下一节 第 1.3 节 有许多计算式证明例题。暂不必细读该节数学，请先把其中一些例题按纸面证明敲成 Lean。下一节对应文件为 。 [^1]: 你是在向 Lean「道歉」——尚未给出该断言的证明！ [^2]: 若无括号，如 ，Lean 会贪婪地从前方结合： 。 1.3 技巧与窍门 1.3.1 例题 本节介绍如何实际构造计算式证明的一些技巧。 问题 设 、 为整数，且 、 。证明 。 目标是 ，解的大致形状已知： 环顾假设， 左边正好是 ，故把它作为计算第一步，其余步骤自然跟上。 解 1.3.2 例题 更常见的情况是：没有哪个假设的左端或右端恰好出现在目标里。例如： 问题 设 为整数，且 。证明 。 目标是 ，解形如： 唯一假设左边是 ，于是在目标里「造出」 ：对 加 4 再减 4，即 ，其余就容易了。 解 1.3.3 例题 有时要在目标里「造出」假设的一边，且不止一次。 问题 设 、 为实数，且 、 。证明 。 解的第一步「造出」 ；第三步再「造出」 。 解 1.3.4 例题 「造出」假设一边时，可能既要加减又要乘除。 问题 设 为有理数，且 。证明 。 解 1.3.5 例题 这一技巧也适用于经典代数 I 型方程。例如： 问题 设 为整数，且 。证明 。 你可能学过通过移项变形来解： 但也可写成计算式证明：在目标里「造出」 。 解 1.3.6 例题 联立方程组也类似。例如： 问题 设 、 为整数，且 、 。证明 。 你可能学过通过加减方程消元，再解一元方程： 同一论证也可写成计算式证明，好处是无需神秘的「把 (1) 与 (2) 相加」一行及其说明。 解 1.3.7 例题 再举一个通过巧妙组合假设解联立方程的例子。 问题 设 、 为有理数，且 、 。证明 。 解 1.3.8 例题 再一例——需结合前两例的技巧：给假设乘不同系数以消去 ，再除以剩下的 的系数。 问题 设 、 为实数，且 、 。证明 。 解 1.3.9 例题 最后看几个次数高于 1 的方程。 问题 设 、 为有理数，且 。证明 。 解 上面证明步数略多，是为了说明如何想出证明：先处理 ，引入 并加减多余项；化简；再处理 ；再化简；再代入并化简。也可合并连续的纯代数步，尽量缩短：一大步代数、一步代入、再一步代数。 解 1.3.10 例题 又一个高次项的例子。 问题 设 为实数，且 。证明 。 解 似乎太「巧」了？我在草稿里用你可能学过的 多项式长除（polynomial long division）： 除以 得商 、余数 。但在证明里，发现 用了什么方法并不重要——这是纯代数恒等式，展开化简即可核对，故可直接陈述结果而不写发现过程。 1.3.11 练习 对下列各题给出计算式证明。 1. 设 、 为实数，且 、 。证明 。 2. 设 、 为整数，且 。证明 。 3. 设 、 为整数，且 、 。证明 。 4. 设 、 为有理数，且 、 。证明 。 5. 设 、 为有理数，且 、 。证明 。 6. 设 、 为整数，且 、 。证明 。 7. 设 、 、 为实数，且 、 、 。证明 。 8. 设 、 为有理数，且 、 。证明 。 9. 设 为有理数，且 。证明 。 10. 设 为实数，且 。证明 。 11. 设 、 为整数，且 、 。证明 。 12. 设 、 为实数，且 、 。证明 。 13. 设 、 为实数，且 。证明 。 14. 设 为有理数，且 。证明 。 15. 设 、 为实数，且 、 。证明 。 16. 设 、 、 为有理数，且 、 。证明 。 1.4 证明不等式 1.4.1 例题 计算式证明也适合证不等式，即含 、 、 或 的命题。请看下面完整例题： 问题 设 、 为整数，且 、 。证明 。 解 目标是 ：写下一串不等式，从 （左上）到 （右下）。证明隐含五步： 1. ：代数变形。 2. ：用到 ，以及一般规则：不等式在两边同减一数时保持（ 推出 ）。 3. ：代数变形。 4. ：用到 ，以及：不等式乘以正数时保持（若 ，则 推出 ）；不等式被减去时反向（ 推出 ）。 5. ：可直接计算比较的数值事实。 请仔细想第 2、4 步。它们很像等式计算式证明里的「代入步」（Lean 中用 ）。例如： 第 2 步像把不等式 「代入」 得到 ； 第 4 步像把 「代入」 得到 。 但它们不完全是代入，而是用到关于加减乘除下不等式保持或反向的全部规则。有些情形没有适用规则：例如由 一般既不能推出 ，也不能推出 。 还要注意每一步所用的 关系符号 ：第一步是 ，第二步 ，第三步 ，第四步 ，最后 。每步反映建立该步的推理。最终结果是 ，因为 相对 和 更「强」（且 强于 ）。即若 且 ，则传递得 。 下面在 Lean 中解同一题。 代数变形步仍用 。 类「代入」步用策略 ，指明所「代入」的不等式——若没有关于相关运算下不等式保持/反向的规则，则会失败。 「数值事实」用策略 。（它也可证等式型数值事实，如 ，此前我们用 。） 1.4.2 例题 再一个不等式计算式证明的完整例题。 问题 设 、 为有理数，且 、 。证明 。 解 目标是 ；证明隐含三步： 1. ：代数变形。 2. ：「代入」已知 与 ，用到加法保持不等式、正数除法保持不等式（且隐含 2 为正）。 3. ：代数变形。 此次第一步为 ，第二步 ，第三步 ；「净结果」为 。 练习 ：在下列 Lean 解答中把 换成正确理由。 1.4.3 例题 再一类似题目： 问题 设 、 为实数，且 、 。证明 。 解 练习 ：把该解写成 Lean 证明。 1.4.4 例题 下面题目用到简写，如 "
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.1 证明等式",
+      "section": "正文",
+      "text": "1.1 证明等式",
+      "anchor": "1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.1.1 例题",
+      "section": "正文",
+      "text": "1.1.1 例题",
+      "anchor": "1-1-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.1.2 例题",
+      "section": "正文",
+      "text": "1.1.2 例题",
+      "anchor": "1-1-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.1.3 例题",
+      "section": "正文",
+      "text": "1.1.3 例题",
+      "anchor": "1-1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.1.4 例题",
+      "section": "正文",
+      "text": "1.1.4 例题",
+      "anchor": "1-1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2 在 Lean 中证明等式",
+      "section": "正文",
+      "text": "1.2 在 Lean 中证明等式",
+      "anchor": "1-2-lean"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2.1 例题",
+      "section": "正文",
+      "text": "1.2.1 例题",
+      "anchor": "1-2-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2.2 例题",
+      "section": "正文",
+      "text": "1.2.2 例题",
+      "anchor": "1-2-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2.3 例题",
+      "section": "正文",
+      "text": "1.2.3 例题",
+      "anchor": "1-2-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2.4 例题",
+      "section": "正文",
+      "text": "1.2.4 例题",
+      "anchor": "1-2-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.2.5 练习",
+      "section": "正文",
+      "text": "1.2.5 练习",
+      "anchor": "1-2-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3 技巧与窍门",
+      "section": "正文",
+      "text": "1.3 技巧与窍门",
+      "anchor": "1-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.1 例题",
+      "section": "正文",
+      "text": "1.3.1 例题",
+      "anchor": "1-3-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.2 例题",
+      "section": "正文",
+      "text": "1.3.2 例题",
+      "anchor": "1-3-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.3 例题",
+      "section": "正文",
+      "text": "1.3.3 例题",
+      "anchor": "1-3-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.4 例题",
+      "section": "正文",
+      "text": "1.3.4 例题",
+      "anchor": "1-3-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.5 例题",
+      "section": "正文",
+      "text": "1.3.5 例题",
+      "anchor": "1-3-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.6 例题",
+      "section": "正文",
+      "text": "1.3.6 例题",
+      "anchor": "1-3-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.7 例题",
+      "section": "正文",
+      "text": "1.3.7 例题",
+      "anchor": "1-3-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.8 例题",
+      "section": "正文",
+      "text": "1.3.8 例题",
+      "anchor": "1-3-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.9 例题",
+      "section": "正文",
+      "text": "1.3.9 例题",
+      "anchor": "1-3-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.10 例题",
+      "section": "正文",
+      "text": "1.3.10 例题",
+      "anchor": "1-3-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.3.11 练习",
+      "section": "正文",
+      "text": "1.3.11 练习",
+      "anchor": "1-3-11"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4 证明不等式",
+      "section": "正文",
+      "text": "1.4 证明不等式",
+      "anchor": "1-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.1 例题",
+      "section": "正文",
+      "text": "1.4.1 例题",
+      "anchor": "1-4-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.2 例题",
+      "section": "正文",
+      "text": "1.4.2 例题",
+      "anchor": "1-4-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.3 例题",
+      "section": "正文",
+      "text": "1.4.3 例题",
+      "anchor": "1-4-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.4 例题",
+      "section": "正文",
+      "text": "1.4.4 例题",
+      "anchor": "1-4-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.5 例题",
+      "section": "正文",
+      "text": "1.4.5 例题",
+      "anchor": "1-4-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.6 例题",
+      "section": "正文",
+      "text": "1.4.6 例题",
+      "anchor": "1-4-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.7 例题",
+      "section": "正文",
+      "text": "1.4.7 例题",
+      "anchor": "1-4-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.8 例题",
+      "section": "正文",
+      "text": "1.4.8 例题",
+      "anchor": "1-4-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.9 例题",
+      "section": "正文",
+      "text": "1.4.9 例题",
+      "anchor": "1-4-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.10 例题",
+      "section": "正文",
+      "text": "1.4.10 例题",
+      "anchor": "1-4-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.4.11 练习",
+      "section": "正文",
+      "text": "1.4.11 练习",
+      "anchor": "1-4-11"
+    },
+    {
+      "kind": "heading",
+      "bookId": "math2001",
+      "bookTitleZh": "证明的机制（Math 2001）",
+      "path": "math2001/01_Proofs_by_Calculation.md",
+      "title": "第 1 章 计算式证明 › 1.5 一种捷径",
+      "section": "正文",
+      "text": "1.5 一种捷径",
+      "anchor": "1-5"
     },
     {
       "kind": "chapter",
