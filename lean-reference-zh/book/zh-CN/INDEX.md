@@ -55,7 +55,10 @@
 - [universe](Reference/TypeSystemDetails/Universes.md) — `Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`
 - [predicativity](Reference/TypeSystemDetails/Predicativity.md) — `Prop` 的 impredicativity、`Type` 的 predicativity 与非累积 universe
 - [universe polymorphism](Reference/TypeSystemDetails/UniversePolymorphism.md) — universe 参数、level expression 与 `universe` 命令
+- [universe bindings](Reference/TypeSystemDetails/UniverseBindings.md) — `universe` 命令、level 参数绑定与作用域
+- [level expressions](Reference/TypeSystemDetails/LevelExpressions.md) — `max`、`imax`、`+1`、level 变量与约束
 - [universe lifting](Reference/TypeSystemDetails/UniverseLifting.md) — `PLift`、`ULift` 与跨 universe 搬运
+- [lift API](Reference/TypeSystemDetails/LiftAPI.md) — `PLift`、`ULift` 的函数与实例接口
 - [universe level 表达式](Reference/TypeSystemDetails/LevelExpressions.md) — `u + 1`、`max`、`imax` 与 level 组合
 - [universe 变量绑定](Reference/TypeSystemDetails/UniverseBindings.md) — `universe` 命令、显式 level 变量与作用域
 - [`PLift` 与 `ULift` 细节](Reference/TypeSystemDetails/LiftAPI.md) — `up` / `down`、命题提升与普通数据提升
@@ -72,6 +75,11 @@
 - [参数与索引](Reference/InductiveDetails/ParametersIndices.md) — parameter/index 区分与 `inductive.autoPromoteIndices`
 - [structure 声明](Reference/InductiveDetails/Structures.md) — 单构造子记录类型、字段、继承与实例语法
 - [recursor](Reference/InductiveDetails/Recursors.md) — 消去原理、motive、ι-reduction 与高层模式匹配的底层形式
+- [recursor 类型](Reference/InductiveDetails/RecursorTypes.md) — 依赖 recursor 签名、 motive 与归纳假设类型
+- [终止检查](Reference/InductiveDetails/TerminationChecking.md) — structural recursion、well-founded recursion、部分定义与 `partial`
+- [Prop vs Type](Reference/InductiveDetails/PropVsType.md) — 大规模消除、proof irrelevance 与数据/证明分离
+- [FFI 与归纳类型](Reference/InductiveDetails/FFI.md) — 外部函数接口、`extern`、primitive 与运行时映射
+- [trivial wrapper](Reference/InductiveDetails/TrivialWrappers.md) — 单构造子包装类型、`casesOn` 优化与 eta
 - [归纳类型的良构性要求](Reference/InductiveDetails/WellFormedness.md) — universe、strict positivity、`Prop` vs `Type`
 - [互递归归纳类型](Reference/InductiveDetails/MutualInductives.md) — mutual declaration、参数一致性、positivity 与 recursor
 - [匿名构造子语法](Reference/InductiveDetails/AnonymousConstructors.md) — `⟨ … ⟩` 与单构造子归纳类型的表达/匹配
@@ -80,6 +88,11 @@
 - [strict positivity](Reference/InductiveDetails/StrictPositivity.md) — 正位置约束与一致性边界
 - [归纳类型的运行时表示](Reference/InductiveDetails/RuntimeRepresentation.md) — proof 擦除、trivial wrapper、FFI 与特殊表示
 - [嵌套归纳类型](Reference/InductiveDetails/NestedInductives.md) — nested inductive 的用途、风险与 mutual 区别
+- [recursor 类型](Reference/InductiveDetails/RecursorTypes.md) — motive、分支参数与依赖消去的类型结构
+- [`Prop` 与 `Type`](Reference/InductiveDetails/PropVsType.md) — proposition 与数据型归纳定义的差异
+- [终止检查辅助构造](Reference/InductiveDetails/TerminationChecking.md) — `SizeOf` 与递归 elaboration 的支持结构
+- [trivial wrapper](Reference/InductiveDetails/TrivialWrappers.md) — 逻辑包装与运行时零/低开销表示
+- [归纳类型与 FFI](Reference/InductiveDetails/FFI.md) — 逻辑模型与外部接口布局之间的边界
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
