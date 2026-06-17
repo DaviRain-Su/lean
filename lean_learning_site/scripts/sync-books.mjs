@@ -73,7 +73,7 @@ const BOOKS = [
     subtitle: '逻辑验证研究生课程 · 第 1–8 章 PDF 提取',
     source: join(repoRoot, 'love-zh', 'book', 'zh-CN'),
     originalUrl: 'https://github.com/lean-forward/logical_verification_2025',
-    status: '前言 + 第 1–5 章已校对 · 6–8 章待校对 · 9–14 待 PDF',
+    status: '前言 + 第 1–8 章已校对 · 9–14 章待 PDF',
     externalPdfUrl: 'https://github.com/Lean-zh/LoVe-zh',
     preSync: join(repoRoot, 'love-zh', 'scripts', 'extract-from-pdf.mjs'),
     preSyncOptional: true,
