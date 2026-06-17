@@ -16,31 +16,31 @@
 
 我们证明：对任意给定的自然数 $N$，存在素数 $p \ge N$。
 
-考虑 $N!$，即 $N$ 的阶乘。由[6.2 节](06_Induction.md#62-递推关系)的一个练习，$0 < N!$，所以 $2 \le N! + 1$。因此，由[例 6.4.2](06_Induction.md#例-642)，存在素数 $p$ 是 $N! + 1$ 的因子。
+考虑 $N!$，即 $N$ 的阶乘。由[6.2 节](06_Induction.md#62-递推关系)的一个练习，$0 < N!$，所以 $2 \le N! + 1$。因此，由[例 6.4.2](06_Induction.md#642-例)，存在素数 $p$ 是 $N! + 1$ 的因子。
 
 设 $k$ 是自然数使得 $N! + 1 = pk$。这个 $k$ 不能为零，因为若为零，则
 
 $$
-\begin{split} 0 &\u003c N! + 1 \\ &= p \cdot 0 \\ &= 0, \end{split}
+\begin{split} 0 &< N! + 1 \\ &= p \cdot 0 \\ &= 0, \end{split}
 $$
 
 矛盾。因此 $k > 0$，所以 $k$ 具有 $l + 1$ 的形式（$l$ 为某个自然数），且 $N! + 1 = p(l + 1)$。
 
-现在我们证明 $p$ 不是 $N!$ 的因子，方法是证明 $N!$ 落在 $p$ 的两个相邻倍数 $pl$ 和 $p(l+1)$ 之间。（这就是[例 4.5.8](04_Proofs_with_Structure_II.md#例-458)中的判别法。）事实上，
+现在我们证明 $p$ 不是 $N!$ 的因子，方法是证明 $N!$ 落在 $p$ 的两个相邻倍数 $pl$ 和 $p(l+1)$ 之间。（这就是[例 4.5.8](04_Proofs_with_Structure_II.md#458-练习)中的判别法。）事实上，
 
 $$
-\begin{split} pl + p &= p(l + 1) \\ &= N! + 1 \\ &\u003c N! + p, \end{split}
+\begin{split} pl + p &= p(l + 1) \\ &= N! + 1 \\ &< N! + p, \end{split}
 $$
 
 所以 $pl < N!$；且
 
 $$
-\begin{split} N! &\u003c N! + 1 \\ &= p(l + 1). \end{split}
+\begin{split} N! &< N! + 1 \\ &= p(l + 1). \end{split}
 $$
 
-如果 $p \le N$，则由[例 6.2.5](06_Induction.md#例-625)，$p$ 将是 $N!$ 的因子，这与我们刚才证明的相矛盾。因此 $p > N$。这就给出了所要求的大于等于 $N$ 的素数。
+如果 $p \le N$，则由[例 6.2.5](06_Induction.md#625-例)，$p$ 将是 $N!$ 的因子，这与我们刚才证明的相矛盾。因此 $p > N$。这就给出了所要求的大于等于 $N$ 的素数。
 
-在 Lean 中，[6.2 节](06_Induction.md#62-递推关系)练习中的引理名为 `factorial_pos`，[例 6.4.2](06_Induction.md#例-642)名为 `exists_prime_factor`，[例 4.5.8](04_Proofs_with_Structure_II.md#例-458)名为 `Nat.not_dvd_of_exists_lt_and_lt`，[例 6.2.5](06_Induction.md#例-625)名为 `dvd_factorial`。
+在 Lean 中，[6.2 节](06_Induction.md#62-递推关系)练习中的引理名为 `factorial_pos`，[例 6.4.2](06_Induction.md#642-例)名为 `exists_prime_factor`，[例 4.5.8](04_Proofs_with_Structure_II.md#458-练习)名为 `Nat.not_dvd_of_exists_lt_and_lt`，[例 6.2.5](06_Induction.md#625-例)名为 `dvd_factorial`。
 
 ```lean
 example (N : ℕ) : ∃ p ≥ N, Prime p := by
@@ -91,11 +91,11 @@ example (N : ℕ) : ∃ p ≥ N, Prime p := by
 
 设 $a$、$b$、$d$ 是整数。假设 $ab$ 是 $d$ 的倍数，且 $\operatorname{gcd}(a,d) = 1$。则 $b$ 是 $d$ 的倍数。
 
-这个引理是我们在[例 3.5.1](03_Parity_and_Divisibility.md#例-351)、[例 3.5.2](03_Parity_and_Divisibility.md#例-352)等特殊情形中反复使用的论证的“最终形式”。和这些特殊情形一样，技巧是找到联系 $a$ 和 $d$ 的“贝祖恒等式”：$a$ 和 $d$ 的倍数相差 1。在特殊情形中我们可以显式找到这样的倍数；在一般情形中，这样的倍数的存在性由[例 6.7.6](06_Induction.md#例-676)保证。
+这个引理是我们在[例 3.5.1](03_Parity_and_Divisibility.md#例-351)、[例 3.5.2](03_Parity_and_Divisibility.md#例-352)等特殊情形中反复使用的论证的“最终形式”。和这些特殊情形一样，技巧是找到联系 $a$ 和 $d$ 的“贝祖恒等式”：$a$ 和 $d$ 的倍数相差 1。在特殊情形中我们可以显式找到这样的倍数；在一般情形中，这样的倍数的存在性由[例 6.7.6](06_Induction.md#676-例)保证。
 
 **证明**
 
-由[例 6.7.6](06_Induction.md#例-676)（贝祖恒等式），存在整数 $x$、$y$ 使得 $xa + yd = \operatorname{gcd}(a, d)$。由于 $ab$ 是 $d$ 的倍数，存在整数 $z$ 使得 $ab = dz$。于是
+由[例 6.7.6](06_Induction.md#676-例)（贝祖恒等式），存在整数 $x$、$y$ 使得 $xa + yd = \operatorname{gcd}(a, d)$。由于 $ab$ 是 $d$ 的倍数，存在整数 $z$ 使得 $ab = dz$。于是
 
 $$
 \begin{split} b &= b \cdot 1 \\ &= b \cdot \operatorname{gcd}(a, d) \\ &= b(xa + yd) \\ &= x(ab) + byd \\ &= x(dz) + byd \\ &= d(xz + by), \end{split}
@@ -124,9 +124,9 @@ theorem gauss_lemma {d a b : ℤ} (h1 : d ∣ a * b) (h2 : gcd a d = 1) : d ∣ 
 
 **证明**
 
-由[例 6.7.2](06_Induction.md#例-672)，$\operatorname{gcd}(a,p) \ge 0$，所以 $\operatorname{gcd}(a,p)$（先验是一个整数）可以视为自然数。我们把这个自然数记为 $d$。则
+由[例 6.7.2](06_Induction.md#672-例)，$\operatorname{gcd}(a,p) \ge 0$，所以 $\operatorname{gcd}(a,p)$（先验是一个整数）可以视为自然数。我们把这个自然数记为 $d$。则
 
-* 由[例 6.7.3](06_Induction.md#例-673)，$d \mid a$ 且 $d \mid p$；
+* 由[例 6.7.3](06_Induction.md#673-例)，$d \mid a$ 且 $d \mid p$；
 * $(\star)$ 由高斯引理，若 $p \mid ab$ 且 $d = 1$，则 $p \mid b$。
 
 这些可整除性陈述先验都是关于 $a$、$b$、$p$、$d$ 作为整数的陈述，但它们与关于自然数的相应可整除性陈述等价。
@@ -213,7 +213,7 @@ theorem euclid_lemma_pow (a k p : ℕ) (hp : Prime p) (hk : 1 ≤ k) (H : p ∣ 
 
 设 $a$、$b$ 是自然数，并假设对所有满足 $s < b$ 且 $s \ne 0$ 的自然数 $r$、$s$，都有 $r^2 \ne 2s^2$。
 
-假设 $a^2 = 2b^2$。则 $a^2$ 是偶数，所以由[6.1 节](06_Induction.md#61-引言)的一个练习，$a$ 是偶数。设 $k$ 是自然数使得 $a = 2k$。则
+假设 $a^2 = 2b^2$。则 $a^2$ 是偶数，所以由[6.1 节](06_Induction.md#61-归纳法)的一个练习，$a$ 是偶数。设 $k$ 是自然数使得 $a = 2k$。则
 
 $$
 \begin{split} 2 b^2 &= a^2 \\ &= (2k)^2 \\ &= 2(2k^2), \end{split}
@@ -222,7 +222,7 @@ $$
 所以 $b^2 = 2k^2$。于是
 
 $$
-\begin{split} 0 &\u003c b^2 \\ &= 2k^2 \\ &= k(2k), \end{split}
+\begin{split} 0 &< b^2 \\ &= 2k^2 \\ &= k(2k), \end{split}
 $$
 
 所以 $k > 0$，即 $k \ne 0$。
@@ -230,12 +230,12 @@ $$
 因此我们对 $r = b$、$s = k$ 调用归纳假设。（注意
 
 $$
-\begin{split} k^2 &\u003c k^2 + k^2 \\ &= 2k^2 \\ &= b^2, \end{split}
+\begin{split} k^2 &< k^2 + k^2 \\ &= 2k^2 \\ &= b^2, \end{split}
 $$
 
 所以 $k < b$，归纳是良基的。）归纳假设给出 $b^2 \ne 2k^2$，矛盾。所以不可能有 $a^2 = 2b^2$。
 
-在 Lean 中，我们把这一论证拆成三部分。引理 `irrat_aux_wf` 是强归纳法良基性的依据。和[例 6.7.1](06_Induction.md#例-671)一样，我们用 `@[decreasing]` 标记这个良基性引理，以便后续强归纳法使用。
+在 Lean 中，我们把这一论证拆成三部分。引理 `irrat_aux_wf` 是强归纳法良基性的依据。和[定义 6.7.1](06_Induction.md#671-定义)一样，我们用 `@[decreasing]` 标记这个良基性引理，以便后续强归纳法使用。
 
 ```lean
 @[decreasing] theorem irrat_aux_wf (b k : ℕ) (hb : k ≠ 0) (hab : b ^ 2 = 2 * k ^ 2) :
@@ -247,7 +247,7 @@ $$
   cancel 2 at h
 ```
 
-引理 `irrat_aux` 是用强归纳法证明的结论，包含证明的核心论证。在 Lean 中，[6.1 节](06_Induction.md#61-引言)中本步使用的练习名为 `Nat.even_of_pow_even`。
+引理 `irrat_aux` 是用强归纳法证明的结论，包含证明的核心论证。在 Lean 中，[6.1 节](06_Induction.md#61-归纳法)中本步使用的练习名为 `Nat.even_of_pow_even`。
 
 ```lean
 theorem irrat_aux (a b : ℕ) (hb : b ≠ 0) : a ^ 2 ≠ 2 * b ^ 2 := by
@@ -294,9 +294,9 @@ example : ¬ ∃ a b : ℕ, b ≠ 0 ∧ a ^ 2 = 2 * b ^ 2 := by
 
 假设存在整数 $a$、$b$ 满足 $b \ne 0$ 且 $a^2 = 2b^2$。
 
-令 $d = \operatorname{gcd}(a,b)$。由[例 6.7.3](06_Induction.md#例-673)，$d \mid a$ 且 $d \mid b$。设 $k$、$l$ 是整数使得 $a = dk$、$b = dl$。
+令 $d = \operatorname{gcd}(a,b)$。由[例 6.7.3](06_Induction.md#673-例)，$d \mid a$ 且 $d \mid b$。设 $k$、$l$ 是整数使得 $a = dk$、$b = dl$。
 
-又由[例 6.7.6](06_Induction.md#例-676)（贝祖恒等式），存在整数 $x$、$y$ 使得 $xa + yb = d$。
+又由[例 6.7.6](06_Induction.md#676-例)（贝祖恒等式），存在整数 $x$、$y$ 使得 $xa + yb = d$。
 
 关键计算如下（$\dagger$）：
 
@@ -316,9 +316,9 @@ $$
 (2ky + lx)^2 = 2.
 $$
 
-但由[例 2.3.5](02_Proofs_with_Structure.md#例-235)，没有整数的平方等于 2，所以这是不可能的。
+但由[例 2.3.5](02_Proofs_with_Structure.md#235-例题)，没有整数的平方等于 2，所以这是不可能的。
 
-注意上述关键计算中间使用了婆罗摩笈多恒等式（Brahmagupta’s identity，见[例 1.1.3](01_Proofs_by_Calculation.md#例-113)）。
+注意上述关键计算中间使用了婆罗摩笈多恒等式（Brahmagupta’s identity，见[例 1.1.3](01_Proofs_by_Calculation.md#113-例题)）。
 
 ```lean
 example : ¬ ∃ a b : ℤ, b ≠ 0 ∧ b ^ 2 = 2 * a ^ 2 := by
