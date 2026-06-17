@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T02:30:46.289Z",
-  "entryCount": 3225,
+  "generatedAt": "2026-06-17T02:33:33.174Z",
+  "entryCount": 3260,
   "entries": [
     {
       "kind": "chapter",
@@ -5983,9 +5983,353 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块",
+      "section": "Format 详解",
+      "text": "文档块 对应英文：Documents，抓取日期：2026 06 16。 不是普通字符串，而是结构化文档表示。它的基本思想是：先描述“文本块之间如何组合”，再由渲染器根据宽度决定换行和缩进。 为什么不用直接字符串 若直接拼字符串： 很难根据终端宽度重排； 很难统一控制缩进、括号和折行； 错误消息或 pretty printer 输出会迅速失去可读性。 而 把这些布局信息保留下来。 它可以表示： 原子文本 文档序列 可缩进块 括号 / 方括号包裹 可折叠的 group 换行提示 某些文档块既可以多行显示，也可以在“空间足够时”压平成一行。 就是控制这类“压平”策略的内部机制之一。 用于“尽量把一组文档填进当前行”，空间不够时再换行。它特别适合： 参数列表 结构化子项并列 既希望紧凑又要自动折行的输出 使用建议 需要结构化消息时，优先构造 ，最后再渲染； 只有输出极其简单、永远单行时，才考虑直接字符串。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块 › 为什么不用直接字符串",
+      "section": "Format 详解",
+      "text": "为什么不用直接字符串",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块 › `Std.Format`",
+      "section": "Format 详解",
+      "text": "`Std.Format`",
+      "anchor": "std-format"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块 › `FlattenBehavior`",
+      "section": "Format 详解",
+      "text": "`FlattenBehavior`",
+      "anchor": "flattenbehavior"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块 › `fill`",
+      "section": "Format 详解",
+      "text": "`fill`",
+      "anchor": "fill"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Documents.md",
+      "title": "`Format` 文档块 › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/EmptyDocuments.md",
+      "title": "空文档",
+      "section": "Format 详解",
+      "text": "空文档 对应英文：Empty Documents，抓取日期：2026 06 16。 在 世界里，空文档不是小事。很多复杂 pretty printer 都需要先判断：某个子块到底有没有内容，决定要不要加分隔符、缩进或换行。 常见判定 英文页列出的两个名字是： 它们都用于测试某个 是否为空，但服务的内部语义略有差异。对使用者来说，重要的是：空文档可以被显式识别，而不必依赖把它先渲染成字符串再检查。 为什么重要 若不处理空文档，常见问题包括： 多余逗号 多余空格或空行 左右括号中间出现奇怪布局 某些“只有内容存在时才应显示”的区块被错误打印 使用建议 组合一组子文档前，先决定空文档该如何处理； 复杂 pretty printer 中，空文档判定通常应比字符串长度判断更早发生。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/EmptyDocuments.md",
+      "title": "空文档 › 常见判定",
+      "section": "Format 详解",
+      "text": "常见判定",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/EmptyDocuments.md",
+      "title": "空文档 › 为什么重要",
+      "section": "Format 详解",
+      "text": "为什么重要",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/EmptyDocuments.md",
+      "title": "空文档 › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列",
+      "section": "Format 详解",
+      "text": "文档序列 对应英文：Sequences，抓取日期：2026 06 16。 多数 pretty printer 的工作，本质上都是“把一串小文档按某种规则拼起来”。 提供一组专门的序列组合器来做这件事。 常见组合器 英文页列出： 它们分别解决什么问题 把若干子文档直接连起来，适合那些中间没有额外分隔符的场景。 按统一分隔符拼接，适合： 参数列表 项列表 逗号分隔的结构 适合“每一项前都有统一前缀”的场景，例如： 多行 bullet 统一前导标记 适合“每一项后都可能带统一后缀”的场景，例如： 逐项补逗号 行尾附加固定标记 使用建议 优先用现成序列组合器，而不是手工字符串拼接； 当输出结构本质是“列表”，就让 API 层面也保持列表，而不是提前折叠成一个大文档。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › 常见组合器",
+      "section": "Format 详解",
+      "text": "常见组合器",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › 它们分别解决什么问题",
+      "section": "Format 详解",
+      "text": "它们分别解决什么问题",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › `join`",
+      "section": "Format 详解",
+      "text": "`join`",
+      "anchor": "join"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › `joinSep`",
+      "section": "Format 详解",
+      "text": "`joinSep`",
+      "anchor": "joinsep"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › `prefixJoin`",
+      "section": "Format 详解",
+      "text": "`prefixJoin`",
+      "anchor": "prefixjoin"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › `joinSuffix`",
+      "section": "Format 详解",
+      "text": "`joinSuffix`",
+      "anchor": "joinsuffix"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+      "title": "文档序列 › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-6"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+      "title": "缩进",
+      "section": "Format 详解",
+      "text": "缩进 对应英文：Indentation，抓取日期：2026 06 16。 缩进是让多行错误消息、证明状态和嵌套结构保持可读的关键。 为此提供了专门 API，而不是要求用户手工往字符串前塞空格。 常见工具 英文页列出： 直观理解 ：把某块文档在换行后整体右移若干层。 ：给出系统默认缩进量，方便整体风格统一。 ：在默认缩进规则上构造新的缩进文档。 为什么不用手工空格 手工空格的问题在于： 只有真正换行渲染后才知道哪些行需要缩进； 压平成单行时，多余空格可能变成噪音； 与括号和 group 组合时很难统一控制。 的缩进 API 把这些决策延迟到渲染阶段。 使用建议 想让嵌套结构更清晰时，优先用缩进组合器； 设计自定义 / 时，先决定层次，再决定缩进。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+      "title": "缩进 › 常见工具",
+      "section": "Format 详解",
+      "text": "常见工具",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+      "title": "缩进 › 直观理解",
+      "section": "Format 详解",
+      "text": "直观理解",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+      "title": "缩进 › 为什么不用手工空格",
+      "section": "Format 详解",
+      "text": "为什么不用手工空格",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+      "title": "缩进 › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+      "title": "括号与方括号",
+      "section": "Format 详解",
+      "text": "括号与方括号 对应英文：Brackets and Parentheses，抓取日期：2026 06 16。 很多结构化输出都需要“外围符号 + 内部内容”的组合。 对这种模式提供了一组专门工具，而不只是让用户手写字符串拼接。 常见工具 英文页列出： 它们的用途 ：用圆括号包裹内容； ：用方括号包裹内容； ：更一般的“用一对符号包裹”； ：在有多个子项时，配合填充/折行策略一起打印括号结构。 为什么它们重要 括号并不只是字面字符，还隐含： 若内容一行放得下，是否压成一行； 若需要换行，内部内容如何缩进； 结束括号是否独占一行还是跟随最后一项。 这些正是 专门建模的布局信息。 使用建议 打印列表、参数组、tuple、结构化表达式时，优先用这些工具； 若你已经在手工管理括号和换行，往往说明应回退到更高层的 API。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+      "title": "括号与方括号 › 常见工具",
+      "section": "Format 详解",
+      "text": "常见工具",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+      "title": "括号与方括号 › 它们的用途",
+      "section": "Format 详解",
+      "text": "它们的用途",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+      "title": "括号与方括号 › 为什么它们重要",
+      "section": "Format 详解",
+      "text": "为什么它们重要",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+      "title": "括号与方括号 › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format`",
+      "section": "Format 详解",
+      "text": "渲染 对应英文：Rendering，抓取日期：2026 06 16。 在构造阶段只是结构化文档；真正把它变成可显示文本，需要进入 渲染 阶段。 常见入口 英文页列出： 负责把一个文档在给定宽度下排版成字符串/文本。它会综合考虑： 哪些块能压成一行； 哪些地方必须换行； 缩进该如何传播。 给出默认渲染宽度。许多“看起来像默认终端宽度”的排版效果，都以它为基准。 与 有些渲染工作不只是纯函数，还需要额外上下文或 monadic 资源。 和 提供了这种能力，使 pretty printing 能在 monad 里完成。 为什么单独区分构造与渲染 把“构造文档”与“渲染成字符串”分开，有几个好处： 同一文档可在不同宽度下重排； 上层 API 专注结构，而非输出设备细节； 更适合错误消息、IDE 输出、终端和日志等多场景复用。 使用建议 尽量让中间层都保留 ，最后一步再统一渲染； 若输出效果不理想，优先调文档结构和宽度，而不是直接改字符串。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › 常见入口",
+      "section": "Format 详解",
+      "text": "常见入口",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › `pretty`",
+      "section": "Format 详解",
+      "text": "`pretty`",
+      "anchor": "pretty"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › `defWidth`",
+      "section": "Format 详解",
+      "text": "`defWidth`",
+      "anchor": "defwidth"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › `prettyM` 与 `MonadPrettyFormat`",
+      "section": "Format 详解",
+      "text": "`prettyM` 与 `MonadPrettyFormat`",
+      "anchor": "prettym-monadprettyformat"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › 为什么单独区分构造与渲染",
+      "section": "Format 详解",
+      "text": "为什么单独区分构造与渲染",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+      "title": "渲染 `Format` › 使用建议",
+      "section": "Format 详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "类型系统 对应英文：The Type System，抓取日期：2026 06 16。 term，也称为 expression，是 Lean 核心语言中意义的基本单位。用户写下的语法会由 elaborator 转换成 term。Lean 的类型系统把 term 与它们的 type 关联起来，而 type 本身也是 term。可以把 type 理解为表示集合，把 term 理解为这些集合中的单个元素。如果一个 term 在 Lean 类型论规则下拥有某个 type，那么它就是 well typed。只有 well typed term 才有意义。 Lean 的 term 构成一个依赖类型 λ calculus：它们包括函数抽象、函数应用、变量和 绑定。除了绑定变量，term language 中的变量还可以指向 constructor、type constructor、recursor、已定义常量或 opaque constant。constructor、type constructor、recursor 和 opaque constant 不会被替换；已定义常量则可以被它们的定义替换。 一个 derivation 通过明确指出所用推理规则，展示某个 term 是 well typed 的。隐含地，well typed term 可以代替展示其 well typedness 的 derivation。Lean 的类型论足够显式，可以从 well typed term 重构 derivation；这大幅降低了存储完整 derivation 的开销，同时仍有足够表达力表示现代研究数学。这意味着 proof term 足以作为定理为真的证据，并且适合独立验证。 除了拥有 type，term 之间还通过 definitional equality 关联。definitional equality 是一种机械可检查的关系，它根据 term 的计算行为，在语法上把 term 视为相等。definitional equality 包括以下 reduction 形式： β（beta） 把函数抽象应用到实参时，用实参替换绑定变量。 δ（delta） 把已定义常量的出现替换为其定义值。 ι（iota） 对目标是 constructor 的 recursor 进行规约，也就是 primitive recursion。 ζ（zeta） 把 绑定的变量替换为其定义值。 quotient reduction 当 quotient type 的函数 lifting operator 应用于 quotient 的元素时进行规约。 所有可能 reduction 都已经执行完的 term 处于 normal form。 η 等价与证明无关性 definitional equality 包括函数和单构造子归纳类型的 η equivalence。也就是说， 与 definitionally equal；如果 是一个有字段 和 的结构，那么 与 definitionally equal。 它还具有 proof irrelevance：同一 proposition 的任意两个 proof 都 definitionally equal。definitional equality 是 reflexive 和 symmetric 的，但不是 transitive 的。 conversion conversion 使用 definitional equality：如果两个 term definitionally equal，而某个 term 的 type 是其中一个，那么它也可以拥有另一个作为 type。因为 definitional equality 包括 reduction，所以 type 可以由对数据的计算产生。 可计算的类型 Lean 中的基本 type 包括 universe、function type、quotient former ，以及 inductive type 的 type constructor。和任意其他 type 中的 term 一样，已定义常量、recursor 应用、函数应用、公理或 opaque constant 也可以产生 type。 后续小节 英文参考手册随后把本章展开为： 4.1 Functions 4.2 Propositions 4.3 Universes 4.4 Inductive Types 4.5 Quotients"
     },
     {
@@ -5994,7 +6338,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › β（beta）",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "β（beta）",
       "anchor": "beta"
     },
@@ -6004,7 +6348,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › δ（delta）",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "δ（delta）",
       "anchor": "delta"
     },
@@ -6014,7 +6358,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › ι（iota）",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "ι（iota）",
       "anchor": "iota"
     },
@@ -6024,7 +6368,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › ζ（zeta）",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "ζ（zeta）",
       "anchor": "zeta"
     },
@@ -6034,7 +6378,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › quotient reduction",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "quotient reduction",
       "anchor": "quotient-reduction"
     },
@@ -6044,7 +6388,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › η 等价与证明无关性",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "η 等价与证明无关性",
       "anchor": "section-5"
     },
@@ -6054,7 +6398,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › conversion",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "conversion",
       "anchor": "conversion"
     },
@@ -6064,7 +6408,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › 可计算的类型",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "可计算的类型",
       "anchor": "section-7"
     },
@@ -6074,7 +6418,7 @@
       "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/TypeSystem.md",
       "title": "类型系统 › 后续小节",
-      "section": "与 Lean 交互详解",
+      "section": "Format 详解",
       "text": "后续小节",
       "anchor": "section-8"
     },

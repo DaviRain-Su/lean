@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T02:30:46.246Z",
+  "generatedAt": "2026-06-17T02:33:33.130Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 252 篇已翻译",
+      "status": "首批 258 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 252,
+      "chapterCount": 258,
       "sections": [
         {
           "title": "官网入口",
@@ -1091,6 +1091,41 @@
               "title": "`Repr` 的原子类型",
               "path": "lean-reference/Reference/Interacting/ReprAtomic.md",
               "summary": "`ReprAtom` 与原子项显示约定"
+            }
+          ]
+        },
+        {
+          "title": "Format 详解",
+          "chapters": [
+            {
+              "title": "`Format` 文档块",
+              "path": "lean-reference/Reference/FormatDetails/Documents.md",
+              "summary": "`Std.Format`、`FlattenBehavior`、`fill` 与结构化文档思路"
+            },
+            {
+              "title": "空文档",
+              "path": "lean-reference/Reference/FormatDetails/EmptyDocuments.md",
+              "summary": "`isEmpty`、`isNil` 与空布局判定"
+            },
+            {
+              "title": "文档序列",
+              "path": "lean-reference/Reference/FormatDetails/Sequences.md",
+              "summary": "`join`、`joinSep`、`prefixJoin`、`joinSuffix`"
+            },
+            {
+              "title": "缩进",
+              "path": "lean-reference/Reference/FormatDetails/Indentation.md",
+              "summary": "`nestD`、`defIndent`、`indentD`"
+            },
+            {
+              "title": "括号与方括号",
+              "path": "lean-reference/Reference/FormatDetails/Brackets.md",
+              "summary": "`bracket`、`paren`、`sbracket`、`bracketFill`"
+            },
+            {
+              "title": "渲染 `Format`",
+              "path": "lean-reference/Reference/FormatDetails/Rendering.md",
+              "summary": "`pretty`、`defWidth`、`prettyM`、`MonadPrettyFormat`"
             },
             {
               "title": "类型系统",
