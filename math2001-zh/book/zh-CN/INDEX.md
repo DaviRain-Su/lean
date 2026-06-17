@@ -19,7 +19,7 @@
 - [第 5 章 逻辑](05_Logic.md)
 - [第 6 章 归纳法](06_Induction.md)
 - [第 7 章 数论](07_Number_Theory.md)
-- [第 8 章 函数](08_Functions.md) — 待翻译
+- [第 8 章 函数](08_Functions.md)
 - [第 9 章 集合](09_Sets.md) — 待翻译
 - [第 10 章 关系](10_Relations.md) — 待翻译
 
