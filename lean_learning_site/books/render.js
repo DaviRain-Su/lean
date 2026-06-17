@@ -1,3 +1,5 @@
+import { slugifyHeading } from './slug.js';
+
 const LEAN_KEYWORDS = [
   'import', 'open', 'namespace', 'section', 'end', 'variable', 'variables',
   'theorem', 'lemma', 'def', 'abbrev', 'example', 'axiom', 'opaque',
@@ -91,7 +93,21 @@ function addCopyButtons(root) {
   }
 }
 
+function addHeadingIds(root) {
+  const used = new Set();
+  root.querySelectorAll('h2, h3').forEach((heading, index) => {
+    if (heading.id) return;
+    let id = slugifyHeading(heading.textContent ?? '', index);
+    while (used.has(id)) {
+      id = `${id}-${index}`;
+    }
+    used.add(id);
+    heading.id = id;
+  });
+}
+
 export function enrichContent(root) {
+  addHeadingIds(root);
   highlightCodeBlocks(root);
   renderMath(root);
   addCopyButtons(root);

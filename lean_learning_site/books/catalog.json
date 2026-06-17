@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T00:00:51.119Z",
+  "generatedAt": "2026-06-17T00:04:02.408Z",
   "books": [
     {
       "id": "tpil",
@@ -2635,7 +2635,7 @@
       "externalPdfUrl": null,
       "status": "第 1–17 章已翻译 · 18–24 章待译",
       "indexPath": "logic-and-proof/INDEX.md",
-      "chapterCount": 17,
+      "chapterCount": 18,
       "sections": [
         {
           "title": "第 1 章：引言",
@@ -2806,6 +2806,16 @@
               "summary": "带余除法、整除、GCD、素数、模算术、平方的性质、练习"
             }
           ]
+        },
+        {
+          "title": "第 18 章：组合数学",
+          "chapters": [
+            {
+              "title": "组合数学",
+              "path": "logic-and-proof/combinatorics.md",
+              "summary": "计数原理、排列组合、二项式系数、容斥原理、练习"
+            }
+          ]
         }
       ]
     },
@@ -2929,17 +2939,37 @@
       "subtitle": "NNG 风格 tactic 练习 · 同步自 learn_proof 项目",
       "originalUrl": null,
       "externalPdfUrl": null,
-      "status": "随 learn_proof/Basic.lean 自动同步",
+      "status": "5 章 · 随 learn_proof/Basic.lean 自动同步",
       "indexPath": "learn-proof/INDEX.md",
-      "chapterCount": 1,
+      "chapterCount": 5,
       "sections": [
         {
-          "title": "练习",
+          "title": "练习章节",
           "chapters": [
             {
-              "title": "证明练习笔记",
-              "path": "learn-proof/Basic.md",
-              "summary": "rfl、rw、calc、归纳法与乘法练习"
+              "title": "入门与调试工具",
+              "path": "learn-proof/Intro.md",
+              "summary": "如何使用练习项目、trace_state 与 InfoView"
+            },
+            {
+              "title": "rfl、rw 与 calc",
+              "path": "learn-proof/01-rw-and-rfl.md",
+              "summary": "示例 1–7：基础 tactic 与调试命令"
+            },
+            {
+              "title": "引理与等式改写",
+              "path": "learn-proof/02-lemmas-and-equality.md",
+              "summary": "示例 8–10：add_zero、显式传参与 2+2=4"
+            },
+            {
+              "title": "归纳法：加法",
+              "path": "learn-proof/03-induction-addition.md",
+              "summary": "示例 11–15：zero_add、succ_add、交换律与结合律"
+            },
+            {
+              "title": "归纳法：乘法",
+              "path": "learn-proof/04-induction-multiplication.md",
+              "summary": "示例 16–19：mul_one、zero_mul、succ_mul、mul_comm"
             }
           ]
         }
@@ -2954,7 +2984,7 @@
       "description": "交互式入门：tactic、rw、induction。建议配合本站「证明练习笔记」一起用。",
       "url": "https://nng4.leanprover.cn",
       "originalUrl": "https://adam.math.hhu.de/#/g/leanprover-community/NNG4",
-      "relatedPath": "learn-proof/Basic.md"
+      "relatedPath": "learn-proof/01-rw-and-rfl.md"
     },
     {
       "kind": "interactive",

@@ -32,8 +32,16 @@
     </header>
 
     <div class="search-page-panel">
-      <label class="search-label" for="global-search">关键词</label>
-      <input id="global-search" class="search-input search-input-large" type="search" placeholder="例如：归纳法、rw、type class、集合…" autocomplete="off" spellcheck="false" autofocus>
+      <div class="search-controls search-controls-page">
+        <div class="search-field">
+          <label class="search-label" for="global-search">关键词</label>
+          <input id="global-search" class="search-input search-input-large" type="search" placeholder="例如：归纳法、rw、type class、集合…" autocomplete="off" spellcheck="false" autofocus>
+        </div>
+        <div class="search-field search-field-filter">
+          <label class="search-label" for="global-search-filter">教材</label>
+          <select id="global-search-filter" class="search-filter"></select>
+        </div>
+      </div>
       <div id="global-search-results" class="search-results search-results-page"></div>
     </div>
   </div>
@@ -42,9 +50,13 @@
   <script type="module">
     import { mountSearch } from './search.js';
 
+    const params = new URLSearchParams(window.location.search);
+
     mountSearch({
       input: document.getElementById('global-search'),
       results: document.getElementById('global-search-results'),
+      filter: document.getElementById('global-search-filter'),
+      defaultBookId: params.get('book') ?? '',
     });
 
     document.getElementById('global-search').addEventListener('input', (event) => {

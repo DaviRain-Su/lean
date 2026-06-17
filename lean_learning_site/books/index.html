@@ -30,8 +30,16 @@
       <h1>Lean 4 中文教材库</h1>
       <p class="lead">官方教程与工具文档的 Markdown 译文集中在此阅读。支持 LaTeX 公式、Lean 代码高亮与全文搜索。建议顺序：FAQ / VS Code 手册 → 定理证明 → 函数式编程 → 数学形式化 → LoVe。</p>
       <div class="search-bar-wrap search-bar-inline">
-        <label class="search-label" for="catalog-search">全文搜索</label>
-        <input id="catalog-search" class="search-input" type="search" placeholder="搜索 400+ 篇教材章节…" autocomplete="off" spellcheck="false">
+        <div class="search-controls">
+          <div class="search-field">
+            <label class="search-label" for="catalog-search">全文搜索</label>
+            <input id="catalog-search" class="search-input" type="search" placeholder="搜索 400+ 篇教材章节与文内标题…" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="search-field search-field-filter">
+            <label class="search-label" for="catalog-search-filter">教材</label>
+            <select id="catalog-search-filter" class="search-filter"></select>
+          </div>
+        </div>
         <div id="catalog-search-results" class="search-results" hidden></div>
       </div>
     </header>

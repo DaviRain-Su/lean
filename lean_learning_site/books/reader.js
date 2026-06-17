@@ -8,6 +8,8 @@ const requestedPath = params.get('path');
 const sidebarTitle = document.getElementById('sidebar-title');
 const bookSwitch = document.getElementById('book-switch');
 const readerToc = document.getElementById('reader-toc');
+const readerHeadingsWrap = document.getElementById('reader-headings-wrap');
+const readerHeadings = document.getElementById('reader-headings');
 const crumbs = document.getElementById('crumbs');
 const readerContent = document.getElementById('reader-content');
 const prevBtn = document.getElementById('prev-btn');
@@ -55,6 +57,33 @@ function renderToc(book) {
   `).join('');
 }
 
+function renderHeadingNav(root) {
+  const headings = [...root.querySelectorAll('h2, h3')];
+  if (!headings.length) {
+    readerHeadingsWrap.hidden = true;
+    readerHeadings.innerHTML = '';
+    return;
+  }
+
+  readerHeadingsWrap.hidden = false;
+  readerHeadings.innerHTML = headings.map((heading) => {
+    const level = heading.tagName === 'H3' ? 'depth-2' : 'depth-1';
+    const active = window.location.hash === `#${heading.id}` ? 'active' : '';
+    return `<a class="${level} ${active}" href="#${heading.id}">${heading.textContent}</a>`;
+  }).join('');
+}
+
+function scrollToHash({ behavior = 'smooth' } = {}) {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const target = readerContent.querySelector(hash);
+  if (!target) return;
+  target.scrollIntoView({ behavior, block: 'start' });
+  for (const link of readerHeadings.querySelectorAll('a')) {
+    link.classList.toggle('active', link.getAttribute('href') === hash);
+  }
+}
+
 function updateNavButtons() {
   prevBtn.disabled = currentIndex <= 0;
   nextBtn.disabled = currentIndex < 0 || currentIndex >= flatChapters.length - 1;
@@ -78,7 +107,9 @@ async function loadChapter(path) {
   const markdown = await response.text();
   readerContent.innerHTML = renderMarkdown(markdown);
   enrichContent(readerContent);
+  renderHeadingNav(readerContent);
   document.title = `${flatChapters[currentIndex]?.title ?? '阅读器'} · ${catalog.books.find((b) => b.id === bookId)?.titleZh ?? 'Lean 4'}`;
+  window.requestAnimationFrame(() => scrollToHash({ behavior: 'auto' }));
 }
 
 function selectChapter(path, { pushState = true } = {}) {
@@ -141,9 +172,24 @@ window.addEventListener('popstate', (event) => {
   }
 });
 
+readerHeadings?.addEventListener('click', (event) => {
+  const link = event.target.closest('a');
+  if (!link) return;
+  event.preventDefault();
+  const hash = link.getAttribute('href');
+  if (!hash) return;
+  history.replaceState(history.state, '', `${chapterHref(flatChapters[currentIndex]?.path ?? '')}${hash}`);
+  scrollToHash();
+});
+
+window.addEventListener('hashchange', () => scrollToHash());
+
 mountSearch({
   input: document.getElementById('reader-search'),
   results: document.getElementById('reader-search-results'),
+  filter: document.getElementById('reader-search-filter'),
+  scopeHint: document.getElementById('reader-search-hint'),
+  defaultBookId: bookId,
   onNavigate: (href) => {
     window.location.href = href;
   },

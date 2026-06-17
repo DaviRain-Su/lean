@@ -28,8 +28,17 @@
     </nav>
 
     <div class="search-bar-wrap">
-      <label class="search-label" for="reader-search">搜索教材</label>
-      <input id="reader-search" class="search-input" type="search" placeholder="搜索章节标题或正文…" autocomplete="off" spellcheck="false">
+      <div class="search-controls">
+        <div class="search-field">
+          <label class="search-label" for="reader-search">搜索教材</label>
+          <input id="reader-search" class="search-input" type="search" placeholder="搜索章节标题、正文或文内标题…" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="search-field search-field-filter">
+          <label class="search-label" for="reader-search-filter">范围</label>
+          <select id="reader-search-filter" class="search-filter"></select>
+        </div>
+      </div>
+      <p id="reader-search-hint" class="search-scope-hint" hidden></p>
       <div id="reader-search-results" class="search-results" hidden></div>
     </div>
 
@@ -38,6 +47,10 @@
         <h2 id="sidebar-title">目录</h2>
         <div id="book-switch" class="book-switch"></div>
         <nav id="reader-toc" class="reader-toc" aria-label="当前书籍目录"></nav>
+        <div id="reader-headings-wrap" class="reader-headings-wrap" hidden>
+          <h3>本章导航</h3>
+          <nav id="reader-headings" class="reader-headings" aria-label="本章标题导航"></nav>
+        </div>
       </aside>
 
       <article class="reader-main">

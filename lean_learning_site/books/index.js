@@ -85,6 +85,7 @@ async function main() {
 mountSearch({
   input: document.getElementById('catalog-search'),
   results: document.getElementById('catalog-search-results'),
+  filter: document.getElementById('catalog-search-filter'),
   onNavigate: (href) => {
     window.location.href = href;
   },

@@ -1,7 +1,58 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BOX_COMMENT = /^--\s*[│┌├└┴┬┤─]/;
+
+const CHAPTERS = [
+  {
+    file: 'Intro.md',
+    title: '入门与调试工具',
+    summary: '如何使用练习项目、trace_state 与 InfoView',
+    match: (heading) => !heading,
+  },
+  {
+    file: '01-rw-and-rfl.md',
+    title: 'rfl、rw 与 calc',
+    summary: '示例 1–7：基础 tactic 与调试命令',
+    match: (heading) => {
+      const n = exampleNumber(heading);
+      return n !== null && n <= 7;
+    },
+  },
+  {
+    file: '02-lemmas-and-equality.md',
+    title: '引理与等式改写',
+    summary: '示例 8–10：add_zero、显式传参与 2+2=4',
+    match: (heading) => {
+      const n = exampleNumber(heading);
+      return n !== null && n >= 8 && n <= 10;
+    },
+  },
+  {
+    file: '03-induction-addition.md',
+    title: '归纳法：加法',
+    summary: '示例 11–15：zero_add、succ_add、交换律与结合律',
+    match: (heading) => {
+      const n = exampleNumber(heading);
+      return n !== null && n >= 11 && n <= 15;
+    },
+  },
+  {
+    file: '04-induction-multiplication.md',
+    title: '归纳法：乘法',
+    summary: '示例 16–19：mul_one、zero_mul、succ_mul、mul_comm',
+    match: (heading) => {
+      const n = exampleNumber(heading);
+      return n !== null && n >= 16;
+    },
+  },
+];
+
+function exampleNumber(heading) {
+  if (!heading) return null;
+  const match = heading.match(/示例\s*(\d+)/);
+  return match ? Number.parseInt(match[1], 10) : null;
+}
 
 function isSectionHeading(line) {
   return /^--\s*示例\s/.test(line);
@@ -30,57 +81,79 @@ function flushComments(buffer, parts) {
   buffer.length = 0;
 }
 
-export function leanFileToMarkdown(leanText) {
+function parseLeanSections(leanText) {
   const lines = leanText.split('\n');
-  const parts = [
-    '# 证明练习笔记',
-    '',
-    '> 源文件：`learn_proof/LearnProof/Basic.lean`。在 VS Code 中打开 Lake 项目，配合 InfoView 逐步运行；代码块可直接复制。',
-    '',
-    '## 如何使用',
-    '',
-    '1. 在仓库根目录执行 `cd learn_proof && code .` 打开练习项目。',
-    '2. 在本页阅读说明，把对应示例复制到 `LearnProof/Basic.lean` 或新建文件练习。',
-    '3. 光标放在 `by` 后的 tactic 行，右侧 InfoView 会显示当前目标。',
-    '',
-  ];
-
+  const sections = [{ heading: null, parts: [] }];
   let commentBuffer = [];
   let codeBuffer = [];
-  let sectionStarted = false;
+
+  function current() {
+    return sections[sections.length - 1];
+  }
+
+  function pushSection(heading) {
+    sections.push({ heading, parts: [] });
+  }
 
   for (const line of lines) {
     if (isSectionHeading(line)) {
-      flushCode(codeBuffer, parts);
-      flushComments(commentBuffer, parts);
-      parts.push(`## ${line.replace(/^--\s*/, '')}`);
-      parts.push('');
-      sectionStarted = true;
+      flushCode(codeBuffer, current().parts);
+      flushComments(commentBuffer, current().parts);
+      pushSection(line.replace(/^--\s*/, ''));
       continue;
     }
 
     if (isProseComment(line)) {
-      flushCode(codeBuffer, parts);
+      flushCode(codeBuffer, current().parts);
       const prose = line.replace(/^--\s?/, '');
       if (commentBuffer.length === 0 && prose.endsWith('：')) {
-        flushComments(commentBuffer, parts);
-        parts.push(`## ${prose.replace(/：$/, '')}`);
-        parts.push('');
+        flushComments(commentBuffer, current().parts);
+        current().parts.push(`## ${prose.replace(/：$/, '')}`);
+        current().parts.push('');
       } else {
         commentBuffer.push(line);
       }
       continue;
     }
 
-    flushComments(commentBuffer, parts);
+    flushComments(commentBuffer, current().parts);
     codeBuffer.push(line);
   }
 
-  flushCode(codeBuffer, parts);
-  flushComments(commentBuffer, parts);
+  flushCode(codeBuffer, current().parts);
+  flushComments(commentBuffer, current().parts);
+  return sections;
+}
 
-  if (!sectionStarted) {
-    parts.splice(4, 0, '## 完整源码', '');
+function chapterForSection(section) {
+  return CHAPTERS.find((chapter) => chapter.match(section.heading)) ?? CHAPTERS[0];
+}
+
+function buildChapterMarkdown(chapter, sections) {
+  const parts = [
+    `# ${chapter.title}`,
+    '',
+    '> 源文件：`learn_proof/LearnProof/Basic.lean` · 在 VS Code 中打开 Lake 项目配合 InfoView 运行',
+    '',
+  ];
+
+  if (chapter.file === 'Intro.md') {
+    parts.push(
+      '## 如何使用',
+      '',
+      '1. 在仓库根目录执行 `cd learn_proof && code .` 打开练习项目。',
+      '2. 阅读各章示例，把代码复制到 `LearnProof/Basic.lean` 或新建文件练习。',
+      '3. 光标放在 `by` 后的 tactic 行，右侧 InfoView 会显示当前目标。',
+      '',
+    );
+  }
+
+  for (const section of sections) {
+    if (section.heading) {
+      parts.push(`## ${section.heading}`);
+      parts.push('');
+    }
+    parts.push(...section.parts);
   }
 
   return `${parts.join('\n').trimEnd()}\n`;
@@ -89,19 +162,44 @@ export function leanFileToMarkdown(leanText) {
 export function writeLearnProofBook({ repoRoot, dataRoot }) {
   const leanPath = join(repoRoot, 'learn_proof', 'LearnProof', 'Basic.lean');
   const target = join(dataRoot, 'learn-proof');
-  const markdown = leanFileToMarkdown(readFileSync(leanPath, 'utf8'));
+  mkdirSync(target, { recursive: true });
 
-  writeFileSync(join(target, 'Basic.md'), markdown);
-  writeFileSync(join(target, 'INDEX.md'), `# 证明练习笔记
+  const sections = parseLeanSections(readFileSync(leanPath, 'utf8'));
+  const grouped = new Map(CHAPTERS.map((chapter) => [chapter.file, []]));
 
-> Lake 项目：\`learn_proof/\` · 配合 Natural Number Game 与 TPIL 使用
+  for (const section of sections) {
+    const chapter = chapterForSection(section);
+    grouped.get(chapter.file).push(section);
+  }
 
-## 练习
+  const allowed = new Set(CHAPTERS.map((chapter) => chapter.file));
+  allowed.add('INDEX.md');
+  for (const entry of readdirSync(target)) {
+    if (entry.endsWith('.md') && !allowed.has(entry)) {
+      unlinkSync(join(target, entry));
+    }
+  }
 
-### 基础与归纳
+  for (const chapter of CHAPTERS) {
+    writeFileSync(
+      join(target, chapter.file),
+      buildChapterMarkdown(chapter, grouped.get(chapter.file)),
+    );
+  }
 
-- [证明练习笔记](Basic.md) — rfl、rw、calc、归纳法、乘法等 NNG 风格示例
-`);
+  const indexLines = [
+    '# 证明练习笔记',
+    '',
+    '> Lake 项目：`learn_proof/` · 配合 Natural Number Game 与 TPIL 使用',
+    '',
+    '## 基础 tactic',
+    '',
+    ...CHAPTERS.map((chapter) =>
+      `- [${chapter.title}](${chapter.file}) — ${chapter.summary}`),
+    '',
+  ];
+
+  writeFileSync(join(target, 'INDEX.md'), `${indexLines.join('\n')}\n`);
 
   return {
     id: 'learn-proof',
@@ -110,19 +208,17 @@ export function writeLearnProofBook({ repoRoot, dataRoot }) {
     subtitle: 'NNG 风格 tactic 练习 · 同步自 learn_proof 项目',
     originalUrl: null,
     externalPdfUrl: null,
-    status: '随 learn_proof/Basic.lean 自动同步',
+    status: '5 章 · 随 learn_proof/Basic.lean 自动同步',
     indexPath: 'learn-proof/INDEX.md',
-    chapterCount: 1,
+    chapterCount: CHAPTERS.length,
     sections: [
       {
-        title: '练习',
-        chapters: [
-          {
-            title: '证明练习笔记',
-            path: 'learn-proof/Basic.md',
-            summary: 'rfl、rw、calc、归纳法与乘法练习',
-          },
-        ],
+        title: '练习章节',
+        chapters: CHAPTERS.map((chapter) => ({
+          title: chapter.title,
+          path: `learn-proof/${chapter.file}`,
+          summary: chapter.summary,
+        })),
       },
     ],
   };

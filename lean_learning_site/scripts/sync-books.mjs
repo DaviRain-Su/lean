@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { extractHeadings } from './markdown-utils.mjs';
 import { writeLearnProofBook } from './sync-learn-proof.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -133,7 +134,7 @@ const EXTERNAL_LINKS = [
     description: '交互式入门：tactic、rw、induction。建议配合本站「证明练习笔记」一起用。',
     url: 'https://nng4.leanprover.cn',
     originalUrl: 'https://adam.math.hhu.de/#/g/leanprover-community/NNG4',
-    relatedPath: 'learn-proof/Basic.md',
+    relatedPath: 'learn-proof/01-rw-and-rfl.md',
   },
   {
     kind: 'interactive',
@@ -294,6 +295,7 @@ function buildSearchIndex(books) {
         const raw = readFileSync(filePath, 'utf8');
         const title = raw.match(/^#\s+(.+)$/m)?.[1]?.trim() ?? chapter.title;
         entries.push({
+          kind: 'chapter',
           bookId: book.id,
           bookTitleZh: book.titleZh,
           path: chapter.path,
@@ -301,6 +303,19 @@ function buildSearchIndex(books) {
           section: section.title,
           text: stripMarkdown(raw).slice(0, 5000),
         });
+
+        for (const heading of extractHeadings(raw)) {
+          entries.push({
+            kind: 'heading',
+            bookId: book.id,
+            bookTitleZh: book.titleZh,
+            path: chapter.path,
+            title: `${title} › ${heading.title}`,
+            section: section.title,
+            text: heading.title,
+            anchor: heading.anchor,
+          });
+        }
       }
     }
   }

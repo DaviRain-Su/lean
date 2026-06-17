@@ -1,8 +1,11 @@
 let searchIndex = null;
 let fuse = null;
+let catalogBooks = null;
 
 function chapterHref(entry) {
-  return `./reader.html?book=${encodeURIComponent(entry.bookId)}&path=${encodeURIComponent(entry.path)}`;
+  let href = `./reader.html?book=${encodeURIComponent(entry.bookId)}&path=${encodeURIComponent(entry.path)}`;
+  if (entry.anchor) href += `#${entry.anchor}`;
+  return href;
 }
 
 function escapeHtml(text) {
@@ -27,6 +30,9 @@ function highlightMatch(text, query) {
 
 function buildSnippet(entry, query) {
   const text = entry.text ?? '';
+  if (entry.kind === 'heading') {
+    return `<span class="search-kind">章节内标题</span> ${highlightMatch(entry.text, query)}`;
+  }
   if (!query) return escapeHtml(text.slice(0, 140));
   const lower = text.toLowerCase();
   const needle = query.toLowerCase();
@@ -37,6 +43,15 @@ function buildSnippet(entry, query) {
   const prefix = start > 0 ? '…' : '';
   const suffix = end < text.length ? '…' : '';
   return highlightMatch(`${prefix}${text.slice(start, end)}${suffix}`, query);
+}
+
+async function loadCatalogBooks() {
+  if (catalogBooks) return catalogBooks;
+  const response = await fetch('./catalog.json');
+  if (!response.ok) return [];
+  const catalog = await response.json();
+  catalogBooks = catalog.books ?? [];
+  return catalogBooks;
 }
 
 async function loadSearchIndex() {
@@ -60,24 +75,32 @@ async function loadSearchIndex() {
   return searchIndex;
 }
 
-function searchEntries(query) {
+function filterEntries(entries, bookId) {
+  if (!bookId) return entries;
+  return entries.filter((entry) => entry.bookId === bookId);
+}
+
+function searchEntries(query, bookId = '') {
   const trimmed = query.trim();
   if (!trimmed) return [];
+
+  let results = [];
   if (fuse) {
-    return fuse.search(trimmed, { limit: 24 }).map((result) => result.item);
-  }
-  const lower = trimmed.toLowerCase();
-  return searchIndex.entries
-    .filter((entry) =>
+    results = fuse.search(trimmed, { limit: 40 }).map((result) => result.item);
+  } else {
+    const lower = trimmed.toLowerCase();
+    results = searchIndex.entries.filter((entry) =>
       entry.title.toLowerCase().includes(lower)
       || entry.bookTitleZh.toLowerCase().includes(lower)
-      || entry.text.toLowerCase().includes(lower))
-    .slice(0, 24);
+      || entry.text.toLowerCase().includes(lower));
+  }
+
+  return filterEntries(results, bookId).slice(0, 24);
 }
 
 function renderResults(container, query, results) {
   if (!query.trim()) {
-    container.innerHTML = '<p class="search-hint">输入关键词搜索全部教材章节。</p>';
+    container.innerHTML = '<p class="search-hint">输入关键词搜索全部教材章节与文内标题。</p>';
     return;
   }
   if (!results.length) {
@@ -87,22 +110,49 @@ function renderResults(container, query, results) {
   container.innerHTML = results.map((entry) => `
     <a class="search-result" href="${chapterHref(entry)}">
       <strong>${highlightMatch(entry.title, query)}</strong>
-      <span class="search-meta">${escapeHtml(entry.bookTitleZh)} · ${escapeHtml(entry.section)}</span>
+      <span class="search-meta">${escapeHtml(entry.bookTitleZh)} · ${escapeHtml(entry.section)}${entry.kind === 'heading' ? ' · 文内标题' : ''}</span>
       <span class="search-snippet">${buildSnippet(entry, query)}</span>
     </a>
   `).join('');
 }
 
-export function mountSearch({ input, results, onNavigate } = {}) {
+export async function populateBookFilter(select, { includeAll = true, defaultBookId = '' } = {}) {
+  if (!select) return;
+  const books = await loadCatalogBooks();
+  select.innerHTML = [
+    includeAll ? '<option value="">全部教材</option>' : '',
+    ...books.map((book) => `<option value="${escapeHtml(book.id)}">${escapeHtml(book.titleZh)}</option>`),
+  ].join('');
+  if (defaultBookId) select.value = defaultBookId;
+}
+
+export function mountSearch({
+  input,
+  results,
+  filter,
+  onNavigate,
+  defaultBookId = '',
+  scopeHint,
+} = {}) {
   if (!input || !results) return;
 
   let active = false;
+
+  if (filter) {
+    populateBookFilter(filter, { defaultBookId });
+  }
+
+  if (scopeHint && defaultBookId) {
+    scopeHint.hidden = false;
+    scopeHint.textContent = '默认仅搜索当前书籍；可切换为「全部教材」。';
+  }
 
   async function runSearch() {
     try {
       await loadSearchIndex();
       const query = input.value;
-      const matches = searchEntries(query);
+      const bookId = filter ? filter.value : (defaultBookId ?? '');
+      const matches = searchEntries(query, bookId);
       renderResults(results, query, matches);
       results.hidden = !query.trim();
     } catch (error) {
@@ -115,6 +165,12 @@ export function mountSearch({ input, results, onNavigate } = {}) {
     active = true;
     runSearch();
   });
+
+  if (filter) {
+    filter.addEventListener('change', () => {
+      if (input.value.trim()) runSearch();
+    });
+  }
 
   input.addEventListener('focus', () => {
     if (input.value.trim()) {
@@ -141,7 +197,8 @@ export function mountSearch({ input, results, onNavigate } = {}) {
 
   document.addEventListener('click', (event) => {
     if (!active) return;
-    if (event.target === input || results.contains(event.target)) return;
+    const inFilter = filter && (event.target === filter || filter.contains(event.target));
+    if (event.target === input || results.contains(event.target) || inFilter) return;
     results.hidden = true;
   });
 
