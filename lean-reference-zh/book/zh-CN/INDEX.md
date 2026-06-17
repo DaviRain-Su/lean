@@ -46,6 +46,10 @@
 
 ### 类型系统详解
 
+- [函数抽象](Reference/TypeSystemDetails/FunctionAbstractions.md) — lambda、β-reduction 与高层语法到核心 abstraction 的映射
+- [Currying](Reference/TypeSystemDetails/Currying.md) — 多参数函数的单参数嵌套编码
+- [函数外延性](Reference/TypeSystemDetails/FunctionExtensionality.md) — intensional equality、η-equivalence、`funext`
+- [totality 与终止](Reference/TypeSystemDetails/TotalityTermination.md) — total function、`partial`、`unsafe` 与 panic 边界
 - [函数（类型系统层）](Reference/TypeSystemDetails/Functions.md) — 依赖函数、currying、β/η、外延性与 totality
 - [命题（类型系统层）](Reference/TypeSystemDetails/Propositions.md) — `Prop`、proof irrelevance、run-time irrelevance、`propext`
 - [universe](Reference/TypeSystemDetails/Universes.md) — `Prop`、`Type u`、predicativity、polymorphism、`PLift` / `ULift`
