@@ -4,7 +4,7 @@
 
 ## 说明
 
-阿姆斯特丹自由大学《逻辑验证》课程教材。**全书 14 章已译完**：第 1–8 章对照 Lean-zh 中文版 PDF 校对；第 9–14 章对照英文原版 PDF 翻译并多轮润色（`node scripts/proofread-compare.mjs` 可拉取英文参照、比对节结构）。Lean-zh 第三、四部分中文版 PDF 尚未发布，发布后可 `node scripts/extract-from-pdf.mjs` 重新对齐。已校对章节在重新提取时会自动跳过。
+阿姆斯特丹自由大学《逻辑验证》课程教材。**全书 14 章已译完**：第 1–8 章对照 Lean-zh 中文版 PDF 校对；第 9–14 章对照英文原版 PDF 翻译并多轮润色（`proofread-compare.mjs` 比对节结构，`tag-code-fences.mjs` 标注 `lean`/`text` 代码块）。Lean-zh 第三、四部分中文版 PDF 尚未发布，发布后可 `node scripts/extract-from-pdf.mjs` 重新对齐。已校对章节在重新提取时会自动跳过。
 
 ### 前言
 

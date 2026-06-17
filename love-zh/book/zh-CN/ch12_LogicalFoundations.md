@@ -26,7 +26,7 @@ Prop : Type
 
 `Type` 的类型又是什么？最简单的做法或许是令 `Type : Type`，但这一选择会导致**吉拉尔悖论**（Girard's paradox）——类型论版本的罗素悖论。为避免不一致性，我们需要一个更大的新类型来容纳 `Type`，我们称之为 `Type 1`。`Type 1` 本身的类型是 `Type 2`，依此类推：
 
-```
+```text
 Type   : Type 1
 Type 1 : Type 2
 Type 2 : Type 3
@@ -35,7 +35,7 @@ Type 2 : Type 3
 
 事实上，不带参数的 `Type` 是 `Type 0` 的缩写。若要将 `Prop` 纳入这一层级，可使用语法 `Sort u`，其中 `Sort 0` 是 `Prop` 的别名，`Sort (u + 1)` 是 `Type u` 的别名。该层级由下列类型判断刻画：
 
-```
+```text
 ————————————————————————— Sort
 C ⊢ Sort u : Sort (u + 1)
 ```
@@ -73,7 +73,7 @@ universe u v
 
 从其他类型构造新类型时（例如从 `α : Type u` 和 `β : Type v` 构造 `α → β`），新构造的类型比其每个分量都更复杂，自然应将其放入所涉及的最大宇宙中（例如 `α → β : Type (max u v)`）。Lean 正是这样做的。下列类型规则对依赖类型一般地表达了这一思想：
 
-```
+```text
 C ⊢ σ : Type u    C, x : σ ⊢ τ[x] : Type v
 ——————————————————————————————————————————— Arrow-Type
 C ⊢ (x : σ) → τ[x] : Type (max u v)
@@ -83,13 +83,13 @@ C ⊢ (x : σ) → τ[x] : Type (max u v)
 
 然而，让 `Prop` 表现不同会很方便。我们希望表达式 `∀a : Prop, a → a` 的类型为 `Prop`——毕竟它是一个命题。展开 `∀` 的语法糖，该表达式与 `(a : Prop) → a → a` 相同。若此处是 `Type u` 而非 `Prop`，上述类型规则将给出
 
-```
+```text
 (a : Type u) → a → a : Type (u + 1)
 ```
 
 因为 `Type u : Type (u + 1)` 且 `max (u + 1) (max u u) = u + 1`。于是，对该表达式进行类型检查时宇宙层级会加一。为强制像 `∀a : Prop, a → a` 这样的表达式仍具有类型 `Prop`，我们需要一条针对 `Prop` 体量的 `∀` 表达式的特殊类型规则：
 
-```
+```text
 C ⊢ σ : Sort u    C, x : σ ⊢ τ[x] : Prop
 —————————————————————————————————————— Arrow-Prop
 C ⊢ (∀x : σ, τ[x]) : Prop
@@ -97,13 +97,13 @@ C ⊢ (∀x : σ, τ[x]) : Prop
 
 该规则给出
 
-```
+```text
 ∀a : Prop, a → a : Prop
 ```
 
 正如所愿。上述两条类型规则可概括为单条规则：
 
-```
+```text
 C ⊢ σ : Sort u    C, x : σ ⊢ τ[x] : Sort v
 ——————————————————————————————————————————— Arrow
 C ⊢ (x : σ) → τ[x] : Sort (imax u v)
@@ -130,7 +130,7 @@ theorem proof_irrel {a : Prop} (h₁ h₂ : a) :
 
 在[第 6.3 节](ch06_InductivePredicates.md#63-规则归纳)中，我们看到了一张并排描述 `Bool` 与 `Prop` 解释的图。该图未考虑证明无关性，为同一命题显示了多个证明。我们现在知道这不准确。以下是修订后的图：
 
-```
+```text
 Bool:                    Prop:
 ┌─────────┐              ┌─────────┐
 │ false ● │              │ False ● │
@@ -166,7 +166,7 @@ def unsquare (i : ℤ) (hsq : ∃j, i = j * j) : ℤ :=
 
 函数 `unsquare` 接受一个平方数 `i` 以及 `i` 确为平方数的证明 `hsq`，并返回平方前的数 `j`，从证明中提取。Lean 会报错：
 
-```
+```text
 tactic 'induction' failed, recursor 'Exists.casesOn' can
 only eliminate into Prop
 ```
@@ -264,7 +264,7 @@ noncomputable def arbitraryNat : ℕ :=
 
 下图描绘了一个子类型：从基类型的五个元素中保留了两个。
 
-```
+```text
 基类型          子类型
 ·               ·
 ···             ·
@@ -292,7 +292,7 @@ Finset.insert 1 (Finset.insert 1 (Finset.insert 2 Finset.empty))
 
 相反，我们可以将有限集定义为（可能无限的）集合的子类型，且这些集合是有限的。一般而言，子类型的语法为
 
-```
+```text
 {variable : base-type // property-applied-to-variable}
 ```
 
@@ -403,7 +403,7 @@ theorem FullTree.mirror_mirror {α : Type}
 
 应用定理 `Subtype.eq` 并展开 `FullTree.mirror` 的定义，得到子目标
 
-```
+```lean
 mirror (mirror (Subtype.val t)) = Subtype.val t
 ```
 
@@ -455,7 +455,7 @@ theorem Vector.neg_neg (n : ℕ) (v : Vector ℤ n) :
 
 **商**（quotient）是数学中强大的构造，用于定义 `ℤ`、`ℝ` 及许多其他集合。Lean 支持**商类型**，即类型上的对应物。与子类型化类似，商化从现有类型构造新类型。与子类型不同，商类型包含基类型的所有元素，只是基类型中不同的某些元素在商类型中可能被视为相等。用数学术语说，商类型与基类型的一个划分同构。下图展示了一个三分划构造的商类型：
 
-```
+```text
 基类型              商类型
 ·                   ○
 ···                 ○
@@ -502,7 +502,7 @@ Quotient.exact {a b : τ} : ⟦a⟧ = ⟦b⟧ → a ≈ b
 
 最后，可以将类型 `τ → υ` 的函数（`υ` 为任意类型）提升到 `Quotient τ.Setoid → υ`，使用 `Quotient.lift`，它满足直至计算为止的下列语法相等。给定某个 `f : τ → υ` 以及 `h : ∀a b, a ≈ b → f a = f b`，对所有 `a : τ` 有
 
-```
+```lean
 Quotient.lift f h ⟦a⟧ = f a
 ```
 
@@ -583,7 +583,7 @@ theorem Int.zero_Eq (m : ℕ) :
 
 加法可定义为自然数对的分量逐对相加。然后须提供证明，说明这可以提升到商上的函数，即证明 `pn₁ ≈ pn₁'` 与 `pn₂ ≈ pn₂'` 蕴含
 
-```
+```text
 ⟦(Prod.fst pn₁ + Prod.fst pn₂, Prod.snd pn₁ + Prod.snd pn₂)⟧
 = ⟦(Prod.fst pn₁' + Prod.fst pn₂', Prod.snd pn₁' + Prod.snd pn₂')⟧
 ```

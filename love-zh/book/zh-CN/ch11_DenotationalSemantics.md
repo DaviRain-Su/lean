@@ -12,7 +12,7 @@
 
 指称语义将每个程序的含义定义为一个数学对象。抽象地看，它可以被视为一个函数
 
-```
+```text
 ⟦ ⟧ : syntax → semantics
 ```
 
@@ -29,7 +29,7 @@
 
 完全组合性的定义使我们能够对方程方式进行程序推理，这通常比使用 `⟹` 的引入、消去和反转规则更为方便。本质上，我们希望得到如下形式的结构递归方程：
 
-```
+```text
 ⟦S; T⟧               = … ⟦S⟧ … ⟦T⟧ …
 ⟦if B then S else T⟧ = … ⟦S⟧ … ⟦T⟧ …
 ⟦while B do S⟧       = … ⟦S⟧ …
@@ -39,7 +39,7 @@
 
 算术表达式上的求值函数
 
-```
+```text
 eval : AExp → (String → ℤ) → ℤ
        \_________/   \_______/
          syntax        semantics
@@ -95,6 +95,8 @@ def restrict {α : Type} (r : Set (α × α)) (p : α → Prop) : Set (α × α)
 infixl:90 " ⇃ " => restrict
 ```
 
+更直观的写法是 `{(a, b) | (a, b) ∈ r ∧ P a}`，但 Lean 同样不支持；因此书中与代码采用上式。
+
 注意两个退化情形：若 `P := (fun _ ↦ True)`，则 `r ⇃ P = r`；若 `P := (fun _ ↦ False)`，则 `r ⇃ P = ∅`。
 
 当我们试图定义 `while` 循环的语义时，困难出现了。我们本想写成
@@ -106,7 +108,7 @@ infixl:90 " ⇃ " => restrict
 
 但这在对 `Stmt.whileDo B S` 的递归调用上是**非良基的**（ill-founded）。我们需要别的办法。我们在右端寻找的是满足方程
 
-```
+```lean
 X = ((denote S ◯ X) ⇃ B) ∪ (Id ⇃ (fun s ↦ ¬ B s))
 ```
 
@@ -122,7 +124,7 @@ X = ((denote S ◯ X) ⇃ B) ∪ (Id ⇃ (fun s ↦ ¬ B s))
 
 `f` 的**不动点**（或**固定点**）是方程
 
-```
+```text
 X = f X
 ```
 
@@ -130,13 +132,13 @@ X = f X
 
 考虑如下不动点方程，其中 `X : ℕ → Prop`：
 
-```
+```text
 X = (fun n : ℕ ↦ n = 0 ∨ (∃m : ℕ, n = m + 2 ∧ X m))
 ```
 
 该方程是右端具有正确格式的方程的 β-归约变体：
 
-```
+```text
 X = (fun (P : ℕ → Prop) (n : ℕ) ↦ n = 0 ∨ (∃m : ℕ, n = m + 2 ∧ P m)) X
 ```
 
@@ -150,7 +152,7 @@ theorem Even_Iff (n : ℕ) :
 
 事实证明，`Even` 是唯一的不动点。一般而言，最小不动点和最大不动点可能不同。考虑方程
 
-```
+```text
 X = (fun P ↦ P) X
 ```
 
@@ -239,7 +241,7 @@ instance Set.CompleteLattice {α : Type} :
 
 借助完备格，我们可以定义最小不动点算子：
 
-```
+```text
 lfp f = Inf {x | f x ≤ x}
 ```
 

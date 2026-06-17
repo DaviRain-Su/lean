@@ -146,7 +146,7 @@ instance List.AddMonoid {α : Type} : AddMonoid (List α) :=
 
 下图说明了部分类型类之间的关系。在本章及后续图中，从 `X` 指向 `Y` 的箭头表示「`X` 继承 `Y` 的全部常量与性质」。
 
-```
+```text
 Semigroup ──→ Monoid ──→ Group
     │             │           │
     ↓             ↓           ↓
@@ -295,7 +295,7 @@ instance Int2.Field : Field Int2 :=
 
 下图说明了这些类型类之间的关系。
 
-```
+```text
 Semiring ──→ Ring ──→ DivisionRing
     │          │            │
     ↓          ↓            ↓
@@ -329,7 +329,7 @@ theorem neg_mul_neg_Nat (n : ℕ) (z : ℤ) :
 
 诊断命令 `#check neg_mul_neg_Nat` 告诉我们发生了什么：
 
-```
+```text
 neg_mul_neg_Nat : ∀ (n : ℕ) (z : ℤ), -z * -↑n = z * ↑n
 ```
 
@@ -380,14 +380,14 @@ theorem Nat_coe_Int_add_eq_add_Nat_coe_Int (m n : ℕ) :
 
 **`ring`** — 通过在交换环与半环（如 `ℕ`、`ℤ`、`ℚ`、`ℝ`）上归一化表达式并语法比较结果，证明相等式。
 
-```
+```text
 ring
 ring at 位置
 ```
 
 **`norm_cast`** — 将强制类型转换推向表达式外侧，作为一种简化形式。
 
-```
+```text
 norm_cast
 norm_cast at 位置
 ```
@@ -508,7 +508,7 @@ theorem list.length.Preorder_example :
 
 我们在[第 11 章](ch11_DenotationalSemantics.md)讨论过的**完备格**（complete lattice）被形式化为另一类型类 `CompleteLattice`，它继承自 `PartialOrder`。
 
-```
+```lean
 Preorder ──→ PartialOrder ──→ LinearOrder
                   │
                   ↓
