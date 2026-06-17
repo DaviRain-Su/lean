@@ -4,7 +4,7 @@
 
 ## 说明
 
-阿姆斯特丹自由大学《逻辑验证》课程教材。前言与第 1–8 章、参考文献已人工校对；第 9–14 章 PDF 尚未发布，保留占位与 Lean 练习。重新提取：`node scripts/extract-from-pdf.mjs`（已校对章节会自动跳过）。
+阿姆斯特丹自由大学《逻辑验证》课程教材。**全书 14 章已译完**：第 1–8 章对照 Lean-zh 中文版 PDF 校对；第 9–14 章对照英文原版 PDF 翻译校对（Lean-zh 第三、四部分中文版 PDF 尚未发布，发布后可 `node scripts/extract-from-pdf.mjs` 重新对齐）。已校对章节在重新提取时会自动跳过。
 
 ### 前言
 
@@ -24,17 +24,17 @@
 - [第 7 章 带作用的编程](ch07_EffectfulProgramming.md)
 - [第 8 章 元编程](ch08_Metaprogramming.md)
 
-### 第三部分 程序语义（待 PDF）
+### 第三部分 程序语义
 
-- [第 9 章 操作语义](ch09_OperationalSemantics.md) — 占位
-- [第 10 章 Hoare 逻辑](ch10_HoareLogic.md) — 占位
+- [第 9 章 操作语义](ch09_OperationalSemantics.md) — 大步/小步语义、WHILE 语言
+- [第 10 章 Hoare 逻辑](ch10_HoareLogic.md) — Hoare 三元组、验证条件
 
-### 第四部分 数学（待 PDF）
+### 第四部分 数学
 
-- [第 11 章 指称语义](ch11_DenotationalSemantics.md) — 占位
-- [第 12 章 数学的逻辑基础](ch12_LogicalFoundations.md) — 占位
-- [第 13 章 基本数学结构](ch13_BasicStructures.md) — 占位
-- [第 14 章 有理数与实数](ch14_RealNumbers.md) — 占位
+- [第 11 章 指称语义](ch11_DenotationalSemantics.md) — 不动点、程序等价
+- [第 12 章 数学的逻辑基础](ch12_LogicalFoundations.md) — 宇宙、子类型、商类型
+- [第 13 章 基本数学结构](ch13_BasicStructures.md) — 群、域、序类型类
+- [第 14 章 有理数与实数](ch14_RealNumbers.md) — ℚ、ℝ 的构造
 
 ### 附录
 

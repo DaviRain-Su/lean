@@ -25,6 +25,17 @@ const CHAPTERS = [
   { file: 'References.md', title: '参考文献', from: 8053, to: 8155 },
 ];
 
+/** 1-based line ranges from pdftotext of 2025 English desktop PDF (ch 9–14).
+ *  Chinese 2026 PDF parts III–IV are not published yet; use for reference only. */
+export const CHAPTERS_EN = [
+  { file: 'ch09_OperationalSemantics.md', title: '第 9 章 操作语义', from: 6849, to: 7481 },
+  { file: 'ch10_HoareLogic.md', title: '第 10 章 Hoare 逻辑', from: 7482, to: 8099 },
+  { file: 'ch11_DenotationalSemantics.md', title: '第 11 章 指称语义', from: 8100, to: 8555 },
+  { file: 'ch12_LogicalFoundations.md', title: '第 12 章 数学的逻辑基础', from: 8562, to: 9376 },
+  { file: 'ch13_BasicStructures.md', title: '第 13 章 基本数学结构', from: 9377, to: 10060 },
+  { file: 'ch14_RealNumbers.md', title: '第 14 章 有理数与实数', from: 10061, to: 10489 },
+];
+
 function cleanLines(lines) {
   const out = [];
   for (let i = 0; i < lines.length; i++) {
@@ -45,9 +56,32 @@ function cleanLines(lines) {
   return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
+function cleanLinesEn(lines) {
+  const out = [];
+  for (const line of lines) {
+    const t = line.replace(/\f/g, '').trimEnd().trim();
+    if (!t) {
+      out.push('');
+      continue;
+    }
+    if (/^Chapter \d+\./.test(t)) continue;
+    if (/^Part (III|IV)$/i.test(t)) continue;
+    if (/^(Program Semantics|Mathematics)$/i.test(t)) continue;
+    if (/^[ivxlc]+$/i.test(t)) continue;
+    if (/^\d{1,3}$/.test(t)) continue;
+    if (/^\.{2,}/.test(t)) continue;
+    out.push(line.replace(/\f/g, '').trimEnd());
+  }
+  return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
 function main() {
-  const pdfPath = process.argv[2]
-    ?? join(repoRoot, 'pdf', '逻辑验证漫游指南-2026-桌面版.pdf');
+  const useEnglish = process.argv.includes('--english');
+  const pdfPath = process.argv.find((a) => a.endsWith('.pdf'))
+    ?? (useEnglish
+      ? join(repoRoot, 'pdf', 'hitchhikers_guide_2025_en.pdf')
+      : join(repoRoot, 'pdf', '逻辑验证漫游指南-2026-桌面版.pdf'));
+  const chapters = useEnglish ? CHAPTERS_EN : CHAPTERS;
 
   if (!existsSync(pdfPath)) {
     console.error(`PDF not found: ${pdfPath}`);
@@ -58,7 +92,7 @@ function main() {
   const lines = txt.split('\n');
   mkdirSync(outDir, { recursive: true });
 
-  for (const ch of CHAPTERS) {
+  for (const ch of chapters) {
     const outPath = join(outDir, ch.file);
     if (existsSync(outPath)) {
       const existing = readFileSync(outPath, 'utf8');
@@ -68,8 +102,11 @@ function main() {
       }
     }
     const slice = lines.slice(ch.from - 1, ch.to);
-    const body = cleanLines(slice);
-    const md = `# ${ch.title}\n\n> 由 Lean-zh PDF 自动提取（${ch.from}–${ch.to} 行），代码块与公式尚需人工校对。\n\n${body}\n`;
+    const body = useEnglish ? cleanLinesEn(slice) : cleanLines(slice);
+    const note = useEnglish
+      ? `> 由英文原版 PDF 自动提取（${ch.from}–${ch.to} 行），待译为中文并对照 Demo.lean 校对。中文版 PDF 第三部分尚未发布。`
+      : `> 由 Lean-zh PDF 自动提取（${ch.from}–${ch.to} 行），代码块与公式尚需人工校对。`;
+    const md = `# ${ch.title}\n\n${note}\n\n${body}\n`;
     writeFileSync(outPath, md);
     console.log(`  ${ch.file}: ${body.length} chars`);
   }
