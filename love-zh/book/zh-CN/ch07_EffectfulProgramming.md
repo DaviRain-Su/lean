@@ -159,7 +159,7 @@ bind {α β : Type} : m α → (α → m β) → m β
 
 单子除了是一个有用的计算机科学概念外，还提供了一个公理化推理的好例子。通常 `bind` 和 `pure` 操作需要遵守三条定律。`bind` 操作用于组合两个程序。如果其中任何一个程序是纯程序，我们可以将其内联并消除 `bind`。这引出了前两条定律：
 
-```
+```text
 do
   let a' ← pure a
   f a'
@@ -169,7 +169,7 @@ f a
 
 以及
 
-```
+```text
 do
   let a ← ma
   pure a
@@ -179,7 +179,7 @@ ma
 
 第三条定律是 `bind` 的**结合律**（associativity）。它允许我们展平一个嵌套计算：
 
-```
+```text
 do
   let b ←
     do
@@ -428,7 +428,7 @@ def increasingly : List ℕ → Action ℕ (List ℕ)
 
 产生如下输出：
 
-```
+```text
 ([1, 2, 3], 3)
 ([1, 2, 3, 4, 5], 5)
 ```
@@ -470,7 +470,7 @@ instance Set.LawfulMonad : LawfulMonad Set :=
 
 请注意，在这三个证明中，我们都展开了通用 `pure` 和 `bind` 常量的定义，随后是 `Set.pure` 和 `Set.bind` 的定义。最后一个证明依赖于 `aesop` 策略。目标的目的是：
 
-```
+```text
 ∀x, {b | ∃a, (∃a_1 ∈ ma, a ∈ f a_1) ∧ b ∈ g a}
   = {b | ∃a ∈ ma, ∃a_1 ∈ f a, b ∈ g a_1}
 ```

@@ -54,7 +54,7 @@ theorem repeat'_example :
 
 在第一个 `repeat'` 行之后，证明状态包含四个目标：
 
-```
+```text
 ⊢ Even 4
 ⊢ Even 7
 ⊢ Even 3
@@ -63,7 +63,7 @@ theorem repeat'_example :
 
 请注意，所有的合取项都消失了。第二个 `repeat'` 重复应用定理 `Even.add_two : ∀k, Even k → Even (k + 2)`，留下了这些目标：
 
-```
+```text
 ⊢ Even 0
 ⊢ Even 1
 ⊢ Even 1
@@ -86,7 +86,7 @@ theorem repeat'_first_example :
 
 策略组合子 `first | tactic₁ | ⋯ | tacticₙ` 首先尝试执行其第一个参数 `tactic₁`。如果失败，则尝试 `tactic₂`，依此类推。如果所有指定的策略都失败，则整个组合子也会失败。在上面的示例中，我们还剩两个无法证明的目标：
 
-```
+```text
 ⊢ Even 1
 ⊢ Even 1
 ```
@@ -117,7 +117,7 @@ theorem all_goals_try_example :
 
 结果状态为
 
-```
+```text
 ⊢ Even 2
 ⊢ Even 5
 ⊢ Even 1
@@ -139,7 +139,7 @@ theorem any_goals_example :
 
 结果状态为
 
-```
+```text
 ⊢ Even 2
 ⊢ Even 5
 ⊢ Even 1
@@ -166,7 +166,7 @@ theorem any_goals_solve_repeat_first_example :
 
 第一个和第四个目标已被证明，剩下的两个无法证明的目标与定理陈述中的完全一致：
 
-```
+```text
 ⊢ Even 7
 ⊢ Even 3
 ```
@@ -231,7 +231,7 @@ theorem intro_and_even_example :
 
 这会产生子目标
 
-```
+```text
 ⊢ Even 7
 ⊢ Even 3
 ```
@@ -291,7 +291,7 @@ theorem Even_18_and_Even_20 (α : Type) (a : α) :
 
 将鼠标悬停在 `trace_goals` 上，可见输出如下：
 
-```
+```text
 Lean version v4.24.0
 All goals:
 [case left
@@ -309,7 +309,7 @@ Even 18
 
 虽然 Lean 使用熟悉的 `Γ ⊢ P` 语法显示目标，但它们实际上是元变量。上述程序中使用的常量具有以下类型：
 
-```
+```lean
 logInfo : MessageData → TacticM Unit
 getUnsolvedGoals : TacticM (List MVarId)
 getMainTarget : TacticM Expr
@@ -359,7 +359,7 @@ theorem hypothesis_example {α : Type} {p : α → Prop} {a : α}
 
 该示例使用了以下新常量：
 
-```
+```lean
 getLCtx : TacticM LocalContext
 LocalDecl.isImplementationDetail : LocalDecl → Bool
 isDefEq : Expr → Expr → TacticM Bool
@@ -617,7 +617,7 @@ theorem abc_ac (a b c : Prop) (h : a ∧ b ∧ c) :
 
 上述元程序中使用了以下新常量：
 
-```
+```lean
 inferType : Expr → TacticM Expr
 Expr.and? : Expr → Option (Expr × Expr)
 mkAppM : Name → Array Expr → TacticM Expr
@@ -752,7 +752,7 @@ theorem List.reverse_twice_apply? (xs : List ℕ) :
 
 以下是本示例中出现的新常量列表：
 
-```
+```lean
 mkConstWithFreshMVarLevels : Name → TacticM Expr
 liftMetaTactic : (MVarId → MetaM (List MVarId)) → TacticM Unit
 MVarId.apply : MVarId → Expr → MetaM (List MVarId)

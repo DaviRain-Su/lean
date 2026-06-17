@@ -33,7 +33,7 @@ inductive Nat : Type where
 
 **结构归纳**（structural induction）是数学归纳法向任意归纳类型的推广。为了通过对 `n` 的结构归纳证明目标 `n : ℕ ⊢ P[n]`，只需证明两个子目标，传统上称为**基本情况**（base case）和**归纳步骤**（induction step）：
 
-```
+```text
 ⊢ P[0]
 k : ℕ, ih : P[k] ⊢ P[k + 1]
 ```
@@ -42,13 +42,13 @@ k : ℕ, ih : P[k] ⊢ P[k + 1]
 
 通常情况下，情况会更复杂。目标可能包含一些不依赖于 `n` 的额外假设（例如 `Q`），以及一些依赖于 `n` 的假设（例如 `R[n]`）。若我们每种假设各有一个，初始目标为：
 
-```
+```text
 hQ : Q, n : ℕ, hR : R[n] ⊢ S[n]
 ```
 
 对 `n` 进行结构归纳会产生两个子目标：
 
-```
+```text
 hQ : Q, hR : R[0] ⊢ S[0]
 hQ : Q, k : ℕ, ih : R[k] → S[k], hR : R[k + 1] ⊢ S[k + 1]
 ```
@@ -57,7 +57,7 @@ hQ : Q, k : ℕ, ih : R[k] → S[k], hR : R[k + 1] ⊢ S[k + 1]
 
 对于列表，给定目标 `xs : List α ⊢ P[xs]`，对 `xs` 进行结构归纳得到：
 
-```
+```text
 ⊢ P[[]]
 y : α, ys : List α, ih : P[ys] ⊢ P[y :: ys]
 ```
@@ -66,14 +66,14 @@ y : α, ys : List α, ih : P[ys] ⊢ P[y :: ys]
 
 对于算术表达式，基本情况是：
 
-```
+```text
 i : ℤ ⊢ P[AExp.num i]
 x : String ⊢ P[AExp.var x]
 ```
 
 归纳步骤是：
 
-```
+```text
 e₁ e₂ : AExp, ih₁ : P[e₁], ih₂ : P[e₂] ⊢ P[AExp.add e₁ e₂]
 e₁ e₂ : AExp, ih₁ : P[e₁], ih₂ : P[e₂] ⊢ P[AExp.sub e₁ e₂]
 e₁ e₂ : AExp, ih₁ : P[e₁], ih₂ : P[e₂] ⊢ P[AExp.mul e₁ e₂]
@@ -178,7 +178,7 @@ theorem proof_of_False :
 
 模式匹配不仅可以在 `def` 命令的顶层进行，还可以通过 `match` 表达式深入到项的内部。通用语法为：
 
-```
+```text
 match 项₁, …, 项ₘ with
 | 模式₁₁, …, 模式₁ₘ => 结果₁
   ⋮
@@ -251,7 +251,7 @@ structure RGBA extends RGB where
 
 定义结构体的通用语法为：
 
-```
+```lean
 structure 结构体名 (参数₁ : 类型₁) … (参数ₖ : 类型ₖ)
   [extends 结构体₁, …, 结构体ₘ] where
   字段名₁ : 字段类型₁
@@ -392,7 +392,7 @@ instance Commutative_add : Std.Commutative ℕ add :=
 
 定义类型类的通用语法：
 
-```
+```lean
 class 类名 (参数₁ : 类型₁) … (参数ₖ : 类型ₖ)
   [extends 结构体₁, …, 结构体ₘ] where
   常量名₁ : 常量类型₁
@@ -405,7 +405,7 @@ class 类名 (参数₁ : 类型₁) … (参数ₖ : 类型ₖ)
 
 实例化类型类：
 
-```
+```lean
 instance 实例名 : 类型类 参数 :=
   { 常量₁ := 定义₁,
     ⋮
@@ -523,7 +523,7 @@ def headOpt {α : Type} : List α → Option α
 
 `Option α` 有两个构造子：`Option.none` 和 `Option.some a`。要检索存储的值必须进行模式匹配：
 
-```
+```text
 match headOpt xs with
 | Option.none   => handleTheError
 | Option.some x => doSomethingWithValue x
@@ -641,7 +641,7 @@ inductive Tree (α : Type) : Type where
 
 对 `t : Tree α ⊢ P[t]` 进行结构归纳需展示：
 
-```
+```text
 ⊢ P[Tree.nil]
 a : α, l r : Tree α, ih_l : P[l], ih_r : P[r] ⊢ P[Tree.node a l r]
 ```
@@ -707,12 +707,10 @@ theorem mirror_Eq_nil_Iff {α : Type} :
 
 ### `cases` 策略
 
-```
 cases 项 with
 | 构造子₁ 名称列表₁ => 策略₁
   ⋮
 | 构造子ₙ 名称列表ₙ => 策略ₙ
-```
 
 `cases` 对指定项进行分情况讨论，产生与类型构造子数量相同的子目标。与 `induction` 类似，但不产生归纳假设，并自动排除不可能的情况。
 
@@ -720,11 +718,9 @@ cases 项 with
 
 对命题分情况讨论：
 
-```
 cases Classical.em (命题) with
 | inl 为真时的名称 => 为真时的策略
 | inr 为假时的名称 => 为假时的策略
-```
 
 ## 5.9 依值归纳类型（选读）
 
@@ -767,7 +763,7 @@ theorem length_listOfVec {α : Type} :
 
 依值类型的模式匹配很微妙。给定 `v : Vec α n`，不能只写：
 
-```
+```text
 match v with
 | Vec.nil      => …
 | Vec.cons a u => …
@@ -775,7 +771,7 @@ match v with
 
 还须对 `n` 进行模式匹配：
 
-```
+```text
 match n, v with
 | 0,       Vec.nil      => …
 | m + 1,   Vec.cons a u => …

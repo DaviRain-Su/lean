@@ -29,7 +29,7 @@
 
 相比之下，计算机科学家可能会使用一个由两个**推导规则**（derivation rule）组成的形式系统来指定相同的集合：
 
-```
+```text
   ───────
   0 ∈ E        Zero
 
@@ -40,7 +40,7 @@
 
 那么证明就是一棵**推导树**（derivation tree）：
 
-```
+```text
   0 ∈ E
   ─────── AddTwo₀
   2 ∈ E
@@ -188,7 +188,7 @@ theorem no_Step_to_0_0 (s : Score) :
 
 下图总结了哪些比分可以从哪些比分到达：
 
-```
+```text
 0 – 0 ──→ 15 – 0 ──→ 30 – 0 ──→ 40 – 0 ──→ Score.gameServ
   │         │           │           │
   ↓         ↓           ↓           ↓
@@ -207,7 +207,7 @@ theorem no_Step_to_0_0 (s : Score) :
 
 归纳谓词一个特别有用的应用是二元**关系**（relation）`R` 的**自反传递闭包**（reflexive transitive closure）`Star R`。非形式地，`Star R` 是表示 `R` 的零次或多次步骤的关系。例如，如果 `R` 对应于在迁移系统中（如自动机）执行一次迁移，那么 `Star R` 则对应于执行任意步数（包括零步）。作为一个更具体的例子，请考虑以下情况：
 
-```
+```text
 R   = {(1, 2), (2, 4), (4, 8)}
 R*  = {(n, n) | n ∈ ℕ}
     ∪ {(1, 2), (1, 4), (1, 8), (2, 4), (2, 8), (4, 8)}
@@ -215,7 +215,7 @@ R*  = {(n, n) | n ∈ ℕ}
 
 星号（`∗`）算子通常被严格地定义为一个形式系统：
 
-```
+```text
   R a b
   ─────────    Base        a : α
   Star R a b   ─────       Star R a a    Refl
@@ -253,7 +253,7 @@ where
 
 归纳谓词的一般格式如下：
 
-```
+```lean
 inductive 谓词名称 (参数₁ : 类型₁) … (参数ₖ : 类型ₖ) :
     类型ₖ₊₁ → ⋯ → 类型ₖ₊ₚ → Prop where
 | 规则名称₁ (参数₁₁ : 类型₁₁) … (参数₁ₘ₁ : 类型₁ₘ₁) : 命题₁
@@ -292,7 +292,7 @@ inductive Illegal : Prop where
 
 如果 Lean 接受了这个定义，我们就可以用它来证明等价性 `Illegal ↔ ¬ Illegal`，从而很容易推导出 `False`。幸运的是，Lean 拒绝了这个定义：
 
-```
+```text
 arg #1 of 'Illegal.intro' has a non positive occurrence of the datatypes being declared
 ```
 
@@ -364,7 +364,7 @@ theorem mod_two_Eq_zero_of_Even (n : ℕ) (h : Even n) :
 
 PAT 原理为我们提供了另一种看待规则归纳的有效方式。其核心思想是，在形如 `h : Even n ⊢ P[h]` 的目标中对 `h` 进行规则归纳，完全类似于在**依值归纳类型**（dependent inductive type）（例如 `Vec α n`，见[第 5.9 节](ch05_FunctionalProgramming.md#59-依值归纳类型选读)）的值上进行结构归纳。将 `P[ ]` 中 `n` 被替换为项 `u` 的变体记作 `Pᵤ[ ]`，我们得到以下子目标：
 
-```
+```text
 ⊢ P₀[Even.zero : Even 0]
 k : ℕ, hk : Even k, ih : Pₖ[hk] ⊢ Pₖ₊₂[Even.add_two k hk : Even (k + 2)]
 ```
@@ -381,7 +381,7 @@ k : ℕ, hk : Even k, ih : Pₖ[hk] ⊢ Pₖ₊₂[Even.add_two k hk : Even (k +
 
 在几乎所有的实际情况中，`h` 不会出现在 `P[h]` 中。我们可以简单地写作：
 
-```
+```text
 ⊢ P₀
 k : ℕ, hk : Even k, ih : Pₖ ⊢ Pₖ₊₂
 ```
@@ -390,7 +390,7 @@ k : ℕ, hk : Even k, ih : Pₖ ⊢ Pₖ₊₂
 
 接下来，我们考虑自反传递闭包 `Star R`。给定目标 `h : Star R x y ⊢ P`，对 `h` 进行规则归纳会产生以下子目标，其中 `Pₜ,ᵤ` 表示将 `P` 中的 `x` 和 `y` 分别替换为 `t` 和 `u` 的变体：
 
-```
+```text
 a b : α, hab : R a b ⊢ Pₐ,ᵦ
 a : α ⊢ Pₐ,ₐ
 a b c : α, hab : Star R a b, hbc : Star R b c, ihab : Pₐ,ᵦ, ihbc : Pᵦ,ᶜ ⊢ Pₐ,ᶜ
@@ -449,7 +449,7 @@ theorem Star_Star_Iff_Star {α : Type} (R : α → α → Prop)
 
 在[第 5.4 节](ch05_FunctionalProgramming.md#54-模式匹配表达式)中，我们看到了一张并排的描述 `Bool` 和 `Prop` 解释的图表。该图表暗示存在无限数量的命题，但我们目前知道的恰好有两个命题：`False` 和 `True`。以下是修订后的图表：
 
-```
+```text
 Bool:                    Prop:
 ┌─────────┐              ┌─────────────────────────┐
 │ false ● │              │ False ●                 │
@@ -477,13 +477,13 @@ theorem linarith_example (i : Int) (hi : i > 5) :
 
 第一个惯用法是当 `h` 的形式为 `l = r` 时——即 `Eq l r`（第 6.2 节）。假设目标是 `h : l = r ⊢ P[h]`。第 6.3 节中介绍的步骤会产生子目标
 
-```
+```text
 a : α ⊢ Pₐ,ₐ[Eq.refl a : a = a]
 ```
 
 其中 `Pₜ,ᵤ[ ]` 代表 `P[ ]` 的变体，其中 `l` 和 `r` 分别被 `t` 和 `u` 替换。（严格来说，无用的假设 `h : a = a` 也会出现在子目标中。）在实践中，`P[h]` 可能并不依赖于 `h`。此外，`cases` 会重用名称 `l`，而不会使用像 `a` 这样不同的名称。因此，我们会得到
 
-```
+```text
 l : α ⊢ Pₗ,ₗ
 ```
 
@@ -500,14 +500,14 @@ theorem cases_Eq_example {α : Type} (l r : α) (h : l = r)
 
 第二个惯用法是策略 `cases Classical.em Q`，其中 `Q` 是一个命题。`Classical.em Q` 部分是 `Q ∨ ¬ Q`（即 `Or Q (¬ Q)`，见第 6.2 节）的一个证明项。然后应用 `cases` 来消去 `∨` 联结词。假设目标是 `⊢ P[Classical.em Q]`。根据 `Or` 谓词的定义，新的子目标是
 
-```
+```text
 hQ : Q ⊢ P[Or.inl hQ : Q ∨ ¬ Q]
 hnQ : ¬ Q ⊢ P[Or.inr hnQ : Q ∨ ¬ Q]
 ```
 
 不需要修改 `P`，因为 `Or.inl hQ` 和 `Or.inr hnQ` 具有与 `Classical.em Q` 相同的类型——即 `Q ∨ ¬ Q`。在实践中，目标通常不包含 `Classical.em Q`，而仅仅是 `⊢ P`，这样我们就得到子目标
 
-```
+```text
 hQ : Q ⊢ P
 hnQ : ¬ Q ⊢ P
 ```
@@ -530,13 +530,13 @@ theorem cases_Classical_em_example {α : Type} (a : α)
 
 展开形如 `Q (c …)` 的假设通常很有用，其中 `c` 是一个**构造子**（constructor）或某些其他常量。我们可以陈述并证明一个**反转规则**（inversion rule）来支持这种消去推理。典型的反转规则具有以下形式：
 
-```
+```text
 ∀x₁ … xₙ, Q (c x₁ … xₙ) → (∃…, ⋯ ∧ ⋯) ∨ ⋯ ∨ (∃…, ⋯ ∧ ⋯)
 ```
 
 将引入和消去合并为一个定理也很有用，这可以用于重写假设和子目标的目的。除了中间的联结词 `↔` 之外，格式是相同的：
 
-```
+```text
 ∀x₁ … xₙ, Q (c x₁ … xₙ) ↔ (∃…, ⋯ ∧ ⋯) ∨ ⋯ ∨ (∃…, ⋯ ∧ ⋯)
 ```
 
@@ -835,7 +835,7 @@ inductive Even : ℕ → Prop where
 
 如果目标的格式为 `h : Even n ⊢ P n`，对 `h` 应用 `induction` 将产生以下子目标：
 
-```
+```text
 ⊢ P 0
 k : ℕ, hk : P k ⊢ P (k + 2)
 ```
@@ -844,7 +844,7 @@ k : ℕ, hk : P k ⊢ P (k + 2)
 
 问题出现在 `Even` 的参数不是变量时。在目标 `hev : Even (2 * n + 1) ⊢ False` 中对假设 `hev` 应用 `induction` 会失败并报错：
 
-```
+```text
 index in target's type is not a variable (consider using the `cases` tactic instead)
 ```
 
@@ -852,13 +852,13 @@ index in target's type is not a variable (consider using the `cases` tactic inst
 
 为了解决这个问题，我们需要用变量 `m` 替换 `2 * n + 1`，并添加等式 `m = 2 * n + 1` 作为假设：
 
-```
+```text
 m : ℕ, hm : m = 2 * n + 1, hev : Even m ⊢ False
 ```
 
 这个目标在逻辑上是等价的，但现在 `induction` 会产生两个子目标：
 
-```
+```text
 m n : ℕ, hm : 0 = 2 * n + 1 ⊢ False
 m : ℕ, hm : m + 2 = 2 * n + 1, ih : m = 2 * n + 1 → False ⊢ False
 ```
@@ -867,7 +867,7 @@ m : ℕ, hm : m + 2 = 2 * n + 1, ih : m = 2 * n + 1 → False ⊢ False
 
 解决方案是什么？我们需要对 `n` 进行全称量化，以便能够在归纳假设中实例化它。这可以通过在 `induction h` 之后指定 `generalizing n` 来实现。现在我们得到如下子目标：
 
-```
+```text
 m n : ℕ, hm : 0 = 2 * n + 1 ⊢ False
 m : ℕ, hm : m + 2 = 2 * n + 1, ih : ∀n, m = 2 * n + 1 → False ⊢ False
 ```
