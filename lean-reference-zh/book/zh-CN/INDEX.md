@@ -60,6 +60,7 @@
 - [quotient](Reference/TypeSystemDetails/Quotients.md) — `Setoid`、`Quotient.mk`、`lift`、`sound` 与抽象屏障
 - [setoid 与等价关系](Reference/TypeSystemDetails/Setoids.md) — `Setoid`、`≈`、`Equivalence` 与 quotient 前置结构
 - [quotient API](Reference/TypeSystemDetails/QuotientAPI.md) — `mk`、`lift`、`sound`、`ind` 与 `recOn`
+- [quotient 替代方案](Reference/TypeSystemDetails/QuotientAlternatives.md) — 不用 `Quotient` 的编码策略与选择理由
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
