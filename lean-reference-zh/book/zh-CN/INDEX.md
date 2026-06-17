@@ -309,6 +309,17 @@
 - [`lake lint`](Reference/Lake/Cli/Lint.md) — lint driver、builtin linter 与 `check-lint`
 - [`lake update`](Reference/Lake/Cli/Update.md) — 依赖同步、manifest 更新与可复现性
 - [`lake cache`](Reference/Lake/Cli/Cache.md) — get/put/add/clean/services 与远程 artifact cache
+- [`lake check-build`](Reference/Lake/Cli/CheckBuild.md) — 默认 target 配置的轻量检查
+- [`lake query`](Reference/Lake/Cli/Query.md) — 构建 target 并输出结果值/路径
+- [`lake env`](Reference/Lake/Cli/Env.md) — 打印或复用 Lake 环境运行外部命令
+- [`lake lean`](Reference/Lake/Cli/Lean.md) — 构建 imports 后在 Lake 环境里直接运行 Lean
+- [`lake serve`](Reference/Lake/Cli/Serve.md) — 启动 language server 并注入 `moreServerArgs`
+- [`lake translate-config`](Reference/Lake/Cli/TranslateConfig.md) — 在 Lean/TOML 配置之间做有损转换
+- [`lake exe`](Reference/Lake/Cli/Exe.md) — 构建并运行 executable target
+- [`lake clean`](Reference/Lake/Cli/Clean.md) — 清理 package 构建目录
+- [`lake shake`](Reference/Lake/Cli/Shake.md) — 检查未使用 import 并支持自动修复
+- [`lake script`](Reference/Lake/Cli/Scripts.md) — 列表、运行与查看脚本文档
+- [`lake upload` / `pack` / `unpack`](Reference/Lake/Cli/Packaging.md) — 发布 release 产物与归档/恢复 build 目录
 - [使用 Elan 管理工具链](Reference/Elan.md) — toolchain 选择、`lean-toolchain`、override 与常用命令
 
 ### Elan 详解
