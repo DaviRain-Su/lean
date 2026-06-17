@@ -65,6 +65,12 @@
 - [底层 quotient API](Reference/TypeSystemDetails/LowLevelQuotientAPI.md) — `Quot` 原始构造子、`rec`、`lift` 与 kernel 层面
 - [quotient 与函数外延性](Reference/TypeSystemDetails/QuotientFunext.md) — 用 quotient 导出 `funext` 的证明思路
 - [squash 类型](Reference/TypeSystemDetails/SquashTypes.md) — 命题截断、`Squash` / `Trunc` 与不可区分值
+- [归纳类型声明](Reference/InductiveDetails/Declarations.md) — `inductive`、constructor、`deriving` 与匿名构造子
+- [参数与索引](Reference/InductiveDetails/ParametersIndices.md) — parameter/index 区分与 `inductive.autoPromoteIndices`
+- [structure 声明](Reference/InductiveDetails/Structures.md) — 单构造子记录类型、字段、继承与实例语法
+- [recursor](Reference/InductiveDetails/Recursors.md) — 消去原理、motive、ι-reduction 与高层模式匹配的底层形式
+- [归纳类型的良构性要求](Reference/InductiveDetails/WellFormedness.md) — universe、strict positivity、`Prop` vs `Type`
+- [互递归归纳类型](Reference/InductiveDetails/MutualInductives.md) — mutual declaration、参数一致性、positivity 与 recursor
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
