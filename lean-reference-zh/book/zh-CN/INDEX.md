@@ -62,6 +62,8 @@
 - [quotient API](Reference/TypeSystemDetails/QuotientAPI.md) — `mk`、`lift`、`sound`、`ind` 与 `recOn`
 - [quotient 替代方案](Reference/TypeSystemDetails/QuotientAlternatives.md) — 不用 `Quotient` 的编码策略与选择理由
 - [quotient reduction](Reference/TypeSystemDetails/QuotientReduction.md) — `Quot.sound` 后的 definitional reduction、合规性与限制
+- [底层 quotient API](Reference/TypeSystemDetails/LowLevelQuotientAPI.md) — `Quot` 原始构造子、`rec`、`lift` 与 kernel 层面
+- [quotient 与函数外延性](Reference/TypeSystemDetails/QuotientFunext.md) — 用 quotient 导出 `funext` 的证明思路
 - [源文件与模块](Reference/SourceFilesModules.md) — 文件名、导入名、UTF-8、注释、标识符和模块结构
 
 ### 源文件与模块详解
