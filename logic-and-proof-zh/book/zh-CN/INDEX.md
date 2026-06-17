@@ -75,11 +75,15 @@
 
 - [Lean 中的函数](functions_in_lean.md) — 函数与符号逻辑、二阶/高阶逻辑、Lean 中的函数、经典逆、函数与集合、练习
 
-## 待翻译章节
-
 ### 第 17 章：数论基础
 
-- [数论基础](elementary_number_theory.md) — 整除、素数与合数、GCD、同余、练习
+- [数论基础](elementary_number_theory.md) — 带余除法、整除、GCD、素数、模算术、平方的性质、练习
+
+## 待翻译章节
+
+### 第 18 章：Lean 中的数论
+
+- [Lean 中的数论](elementary_number_theory_in_lean.md) — `Int` 上的整除、欧几里得算法、素数与同余、练习
 
 ### 第 5 章：经典推理
 
