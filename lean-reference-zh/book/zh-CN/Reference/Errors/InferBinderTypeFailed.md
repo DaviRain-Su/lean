@@ -33,3 +33,23 @@
 - 使用 `def` 或 `theorem` 命名 declaration，不要命名 `example`。
 - 多个常量分开声明。
 - structure field 多个同类型字段要按支持的语法写，或分行写。
+
+## 示例
+
+```lean
+-- 错误：x 的类型无法推断
+def identity x := x
+
+-- 修复
+def identity (x : α) : α := x
+```
+
+加了返回类型后，参数也要写全：
+
+```lean
+-- 错误：有 `: Nat` 后，Lean 不再用 body 推断 x
+def plusTwo x : Nat := x + 2
+
+-- 修复
+def plusTwo (x : Nat) : Nat := x + 2
+```

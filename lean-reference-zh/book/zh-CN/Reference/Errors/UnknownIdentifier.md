@@ -32,3 +32,23 @@
 - 对自动隐式变量问题，显式添加 implicit parameter，或调整 `autoImplicit` / `relaxedAutoImplicit` 选项。
 
 支持 code action 的编辑器通常会给出相似 constant 名称和可导入 module 的建议。
+
+## 示例
+
+```lean
+-- 未 import Mathlib 时
+#check Nat.Prime   -- unknown identifier
+
+-- 补上 import 或使用限定名（取决于项目配置）
+import Mathlib.Data.Nat.Prime
+#check Nat.Prime
+```
+
+constructor 未加类型前缀：
+
+```lean
+inductive Color where | rgb (r g b : Nat)
+example : Color := rgb 255 0 0   -- 可能 unknown：应为 Color.rgb
+```
+
+protected 名称即使 `open` 了也不能省略外层 namespace；至少写出最内层限定名，例如 `Submodule.span` 而不是单独的 `span`（当 `span` 受保护时）。

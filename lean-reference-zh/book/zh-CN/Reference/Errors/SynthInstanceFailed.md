@@ -42,3 +42,23 @@ inductive MyColor where
 ```
 
 - 或手写 instance。
+
+## 示例
+
+```lean
+-- 错误：字符串不能用 +
+#check "hello" + "world"
+
+-- 正确
+#check "hello" ++ "world"
+```
+
+自定义类型忘记 `deriving` 时：
+
+```lean
+inductive Color where | red | green
+-- 下面会报 synthInstanceFailed：没有 Inhabited Color
+#check (default : Color)
+```
+
+加上 `deriving Inhabited` 或手写 `instance : Inhabited Color where default := .red` 即可。
