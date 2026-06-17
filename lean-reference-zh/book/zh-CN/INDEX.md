@@ -177,6 +177,13 @@
 - [coercion 到函数类型](Reference/CoercionDetails/ToFunctions.md) — `CoeFun`、`⇑` 与“对象可调用”语义
 - [coercion 的实现细节](Reference/CoercionDetails/ImplementationDetails.md) — unfolding、chaining 与 `CoeTC` / `CoeHTCT`
 - [运行时代码](Reference/RunTimeCode.md) — runtime、内存管理、reference counting、task 与 primitive operator
+
+### 运行时代码详解
+
+- [Boxing](Reference/RuntimeDetails/Boxing.md) — boxed/unboxed 值、最低位标记与多态容器中的装箱
+- [引用计数](Reference/RuntimeDetails/ReferenceCounting.md) — 内存复用、原地更新、`dbgTraceIfShared` 与 IR 观察
+- [多线程执行](Reference/RuntimeDetails/MultiThreadedExecution.md) — task、task manager 与并行调度
+- [外部函数接口](Reference/RuntimeDetails/FFI.md) — `@[extern]`、`@[export]`、Lean ABI、borrowing 与初始化
 - [Term](Reference/Terms.md) — identifier、函数、应用、literal、pattern matching、hole 与 `do` notation
 
 ### Term 详解

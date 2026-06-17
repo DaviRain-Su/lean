@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T04:22:45.786Z",
+  "generatedAt": "2026-06-17T04:23:07.381Z",
   "books": [
     {
       "id": "tpil",
@@ -945,7 +945,7 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 272 篇已翻译",
+      "status": "首批 276 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
       "chapterCount": 276,
       "sections": [
