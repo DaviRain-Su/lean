@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T03:02:59.755Z",
+  "generatedAt": "2026-06-17T04:17:54.290Z",
   "books": [
     {
       "id": "tpil",
@@ -945,9 +945,9 @@
       "subtitle": "Lean 4 语言、模块、策略、Lake 与工具链参考",
       "originalUrl": "https://lean-lang.org/doc/reference/latest/",
       "externalPdfUrl": null,
-      "status": "首批 261 篇已翻译",
+      "status": "首批 272 篇已翻译",
       "indexPath": "lean-reference/INDEX.md",
-      "chapterCount": 261,
+      "chapterCount": 272,
       "sections": [
         {
           "title": "官网入口",
@@ -2216,6 +2216,61 @@
               "title": "`lake cache`",
               "path": "lean-reference/Reference/Lake/Cli/Cache.md",
               "summary": "get/put/add/clean/services 与远程 artifact cache"
+            },
+            {
+              "title": "`lake check-build`",
+              "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+              "summary": "默认 target 配置的轻量检查"
+            },
+            {
+              "title": "`lake query`",
+              "path": "lean-reference/Reference/Lake/Cli/Query.md",
+              "summary": "构建 target 并输出结果值/路径"
+            },
+            {
+              "title": "`lake env`",
+              "path": "lean-reference/Reference/Lake/Cli/Env.md",
+              "summary": "打印或复用 Lake 环境运行外部命令"
+            },
+            {
+              "title": "`lake lean`",
+              "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+              "summary": "构建 imports 后在 Lake 环境里直接运行 Lean"
+            },
+            {
+              "title": "`lake serve`",
+              "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+              "summary": "启动 language server 并注入 `moreServerArgs`"
+            },
+            {
+              "title": "`lake translate-config`",
+              "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+              "summary": "在 Lean/TOML 配置之间做有损转换"
+            },
+            {
+              "title": "`lake exe`",
+              "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+              "summary": "构建并运行 executable target"
+            },
+            {
+              "title": "`lake clean`",
+              "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+              "summary": "清理 package 构建目录"
+            },
+            {
+              "title": "`lake shake`",
+              "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+              "summary": "检查未使用 import 并支持自动修复"
+            },
+            {
+              "title": "`lake script`",
+              "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+              "summary": "列表、运行与查看脚本文档"
+            },
+            {
+              "title": "`lake upload` / `pack` / `unpack`",
+              "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+              "summary": "发布 release 产物与归档/恢复 build 目录"
             },
             {
               "title": "使用 Elan 管理工具链",

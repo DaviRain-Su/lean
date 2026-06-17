@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T03:02:59.804Z",
-  "entryCount": 3282,
+  "generatedAt": "2026-06-17T04:17:54.333Z",
+  "entryCount": 3342,
   "entries": [
     {
       "kind": "chapter",
@@ -19659,6 +19659,595 @@
       "kind": "chapter",
       "bookId": "lean-reference",
       "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake check build，抓取日期：2026 06 16。 是一个非常轻量的诊断命令。它只检查：根 package 是否配置了至少一个默认 target。 退出码语义 退出码 ：根 package 配置了默认 target。 退出码 ：没有配置默认 target，或配置检查失败。 它 不会 做什么 并不会验证： 这些默认 target 是否真实存在； target 是否能成功构建； target 的依赖是否完整； 当前缓存、配置和 toolchain 是否一致。 它只回答一个更窄的问题： “是否至少声明了一个默认 target？” 何时有用 调试新 package 的骨架时； 区分“构建失败”与“连默认目标都没配”； 在脚本或 CI 里先做一次低成本结构检查。 与 的区别 ：真正解析依赖、回放缓存并执行构建。 ：只看配置层面有没有默认 target。 使用建议 项目刚初始化好时，可先跑一次 看配置是否完整； 一旦需要验证真实可构建性，仍要回到 。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build` › 退出码语义",
+      "section": "Lake CLI 详解",
+      "text": "退出码语义",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build` › 它**不会**做什么",
+      "section": "Lake CLI 详解",
+      "text": "它**不会**做什么",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build` › 何时有用",
+      "section": "Lake CLI 详解",
+      "text": "何时有用",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build` › 与 `lake build` 的区别",
+      "section": "Lake CLI 详解",
+      "text": "与 `lake build` 的区别",
+      "anchor": "lake-build"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/CheckBuild.md",
+      "title": "`lake check-build` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake query，抓取日期：2026 06 16。 会构建一组 target，并把这些 target 的“查询结果”输出到标准输出。 输出形式 默认：按原始字符串输出，每个结果末尾带换行。 ：以 JSON 形式输出。 结果顺序与命令行里给出的 target 顺序一致。 若 target 没有输出 某些 target 没有配置输出结果。在这种情况下： 文本模式下通常输出空字符串； JSON 模式下通常是 。 对于 executable target，输出通常是构建后可执行文件的路径。 target 语法 使用和 相同的 target 指定语法。因此： 可以查询 package / library / module / facet； 也可配合模块文件名与 facet 使用。 何时有用 想脚本化获取某个 target 的产物路径； 想让外部工具读取构建结果，而不是手工解析 输出； 想在自动化流程中拿到“这个 target 对应的具体文件或值”。 与 的区别 偏“把东西构建出来”。 偏“构建后把关心的结果值吐出来”。 因此， 更适合机器消费。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query` › 输出形式",
+      "section": "Lake CLI 详解",
+      "text": "输出形式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query` › 若 target 没有输出",
+      "section": "Lake CLI 详解",
+      "text": "若 target 没有输出",
+      "anchor": "target"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query` › target 语法",
+      "section": "Lake CLI 详解",
+      "text": "target 语法",
+      "anchor": "target"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query` › 何时有用",
+      "section": "Lake CLI 详解",
+      "text": "何时有用",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Query.md",
+      "title": "`lake query` › 与 `lake build` 的区别",
+      "section": "Lake CLI 详解",
+      "text": "与 `lake build` 的区别",
+      "anchor": "lake-build"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake env，抓取日期：2026 06 16。 的作用是：在 Lake 计算出的构建环境中运行某个命令；若不给命令，则直接把该环境打印出来。 两种模式 1. 打印环境 Lake 会输出它为工具运行准备的环境变量。这个输出和平台有关。 2. 在 Lake 环境中运行命令 此时 会在 Lake 的环境里执行，继承： 正确的 以及其它和当前 workspace / toolchain 对齐的环境变量 为什么它重要 很多“本地 shell 跑不通，但编辑器/构建里能跑”的问题，本质上就是环境不同。 适合： 调试某命令在 Lean/Lake 语境下看到的环境； 让外部工具在 Lake 配置好的路径里执行； 复现编辑器或 CI 中的构建环境。 与 / 的区别 ：泛化的“在该环境里跑命令”。 ：专门在该环境里运行 Lean，并先处理 import 构建。 ：专门构建并运行某 executable target。 使用建议 调试环境问题时，先试 ； 若只是想运行外部命令并确保它看到正确 Lean 工具链， 往往最直接。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 两种模式",
+      "section": "Lake CLI 详解",
+      "text": "两种模式",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 1. 打印环境",
+      "section": "Lake CLI 详解",
+      "text": "1. 打印环境",
+      "anchor": "1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 2. 在 Lake 环境中运行命令",
+      "section": "Lake CLI 详解",
+      "text": "2. 在 Lake 环境中运行命令",
+      "anchor": "2-lake"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 为什么它重要",
+      "section": "Lake CLI 详解",
+      "text": "为什么它重要",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 与 `lake lean` / `lake exe` 的区别",
+      "section": "Lake CLI 详解",
+      "text": "与 `lake lean` / `lake exe` 的区别",
+      "anchor": "lake-lean-lake-exe"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Env.md",
+      "title": "`lake env` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-5"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+      "title": "`lake lean`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake lean，抓取日期：2026 06 16。 会先构建目标文件依赖的 imports，再在 Lake 环境中直接运行 Lean 处理这个文件。 它做了什么 1. 找到该文件所需的 imports。 2. 构建这些 imports。 3. 在 root package 配置的额外 Lean 参数基础上，再附加命令行提供的参数。 4. 在 Lake 环境中执行 。 参数顺序 传给 的参数顺序是： 1. workspace root package 的额外 Lean 参数 2. 后面显式提供的参数 这意味着项目配置和临时 CLI 参数可以叠加。 何时有用 想对单个 Lean 文件做更底层调用； 想显式传一些 参数，而不是只走 ； 想在正确 workspace / toolchain 环境里直接运行编译器。 与 的区别 只是在 Lake 环境里直接跑 Lean；而 还会先处理该文件的 imports 构建，因此更适合面向项目文件的常规使用。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+      "title": "`lake lean` › 它做了什么",
+      "section": "Lake CLI 详解",
+      "text": "它做了什么",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+      "title": "`lake lean` › 参数顺序",
+      "section": "Lake CLI 详解",
+      "text": "参数顺序",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+      "title": "`lake lean` › 何时有用",
+      "section": "Lake CLI 详解",
+      "text": "何时有用",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Lean.md",
+      "title": "`lake lean` › 与 `lake env lean` 的区别",
+      "section": "Lake CLI 详解",
+      "text": "与 `lake env lean` 的区别",
+      "anchor": "lake-env-lean"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+      "title": "`lake serve`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake serve，抓取日期：2026 06 16。 会在 root package 的环境中运行 Lean language server，并把 package 配置中的 与命令行参数一起传给它。 主要用途 它通常不是给人手动敲的日常命令，而是供： 编辑器 IDE 插件 其它开发工具 调用，用来启动或复用项目的语言服务器。 为什么需要它 语言服务器不仅要找到 本体，还要看到： 正确的 toolchain workspace 的库路径 项目的 package 配置 把这些上下文统一准备好。 与直接启动 language server 的区别 如果你绕过 Lake 直接启动语言服务器，常见问题包括： 依赖路径不对； package 特有参数没带上； toolchain 与项目要求不匹配。 使用建议 工具集成时优先经由 ； 手工调试 language server 问题时，也可以显式运行它来复现编辑器行为。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+      "title": "`lake serve` › 主要用途",
+      "section": "Lake CLI 详解",
+      "text": "主要用途",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+      "title": "`lake serve` › 为什么需要它",
+      "section": "Lake CLI 详解",
+      "text": "为什么需要它",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+      "title": "`lake serve` › 与直接启动 language server 的区别",
+      "section": "Lake CLI 详解",
+      "text": "与直接启动 language server 的区别",
+      "anchor": "language-server"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Serve.md",
+      "title": "`lake serve` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+      "title": "`lake translate-config`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake translate config，抓取日期：2026 06 16。 用来在 Lake 支持的两种配置语言之间做自动转换： 输出位置 若给了 ，结果写到该文件； 否则，Lake 会基于当前配置文件路径和目标语言扩展名自动决定输出路径。 如果目标文件已经存在，Lake 会报错，而不是静默覆盖。 重要限制：转换是有损的 英文页明确强调：translation is lossy。 不会保留： 注释 原格式排版 非声明式配置逻辑 因此： 从 转到 TOML 时，动态逻辑可能被丢弃； 转回去也无法恢复原有注释和结构风格。 何时有用 把简单项目从 Lean 配置改成 TOML 配置； 把 TOML 配置迁移到 Lean 格式以便进一步扩展； 快速生成“另一种格式的大致骨架”，再手工修正。 使用建议 把它当成迁移辅助工具，不要期待完全无损 round trip； 对复杂 ，转换后务必人工检查是否丢失关键逻辑； 若项目高度依赖自定义 target / facet / script，通常仍应继续保留 Lean 格式。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+      "title": "`lake translate-config` › 输出位置",
+      "section": "Lake CLI 详解",
+      "text": "输出位置",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+      "title": "`lake translate-config` › 重要限制：转换是有损的",
+      "section": "Lake CLI 详解",
+      "text": "重要限制：转换是有损的",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+      "title": "`lake translate-config` › 何时有用",
+      "section": "Lake CLI 详解",
+      "text": "何时有用",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/TranslateConfig.md",
+      "title": "`lake translate-config` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+      "title": "`lake exe`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake exe，抓取日期：2026 06 16。 会在当前 workspace 中查找某个 executable target，若它过期则先构建，再带上给定参数运行。 别名 它与 的关系 内部仍依赖 Lake 的构建机制： 先解析 target 规格； 检查它是否过期； 必要时重建； 最后在 Lake 环境中执行构建出的程序。 因此它适合“我就是想跑这个可执行目标”，而不必分两步写成： 1. 2. 再手工去构建目录找二进制运行。 参数 会在 executable 构建完成后直接传给它。 使用建议 日常开发中，要运行项目可执行文件时优先 ； 若只是想拿到可执行文件路径供脚本使用，优先考虑 。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+      "title": "`lake exe` › 别名",
+      "section": "Lake CLI 详解",
+      "text": "别名",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+      "title": "`lake exe` › 它与 `lake build` 的关系",
+      "section": "Lake CLI 详解",
+      "text": "它与 `lake build` 的关系",
+      "anchor": "lake-build"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+      "title": "`lake exe` › 参数",
+      "section": "Lake CLI 详解",
+      "text": "参数",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Exe.md",
+      "title": "`lake exe` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+      "title": "`lake clean`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake clean，抓取日期：2026 06 16。 用于删除构建目录。 基本行为 不带参数：删除 workspace 中 每个 package 的构建目录。 带 ：只删除指定 package 的构建目录。 它清什么 面向的是“构建产物”，而不是源码、manifest 或依赖声明。因此它通常用于： 清掉旧 / 中间产物； 迫使 Lake 重新构建某些 package； 排查“是不是 build 目录里残留旧结果”的问题。 它不做什么 不会修改 不会改 不会主动重新解析依赖 不等于删除整个 依赖副本 使用建议 构建异常但怀疑只是产物脏了时，先试 ； 若问题更像依赖版本或下载状态异常，再考虑 或更激进的手工清理。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+      "title": "`lake clean` › 基本行为",
+      "section": "Lake CLI 详解",
+      "text": "基本行为",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+      "title": "`lake clean` › 它清什么",
+      "section": "Lake CLI 详解",
+      "text": "它清什么",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+      "title": "`lake clean` › 它不做什么",
+      "section": "Lake CLI 详解",
+      "text": "它不做什么",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Clean.md",
+      "title": "`lake clean` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake command: lake shake，抓取日期：2026 06 16。 用于检查项目里 未使用的 import 。它通过分析生成的 文件来推断真正需要的依赖，从而判断哪些 import 没有贡献任何常量或 elaboration 依赖。 作用范围 若指定 ，则检查该模块及其传递可达模块； 否则，检查 package 的默认 target roots。 源文件中的控制注释 英文页列出三种特殊注释： 它们分别用于： 保留某模块在下游中的 import 影响； 保留该模块现有所有 import； 保留某条特定 import。 常见选项 ：跳过 的 sanity check 其中： 说明某个 import 是被哪些常量需要的； 会把建议直接写回源文件； 适合 GitHub problem matcher。 何时有用 清理过度导入； 减少 API 面污染； 缩短编译依赖链； 在大工程里做 import hygiene。 使用建议 先用普通模式查看建议，再决定是否 ； 若项目很在意 API 稳定性，检查 / 等选项含义后再自动修改。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake` › 作用范围",
+      "section": "Lake CLI 详解",
+      "text": "作用范围",
+      "anchor": "section-0"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake` › 源文件中的控制注释",
+      "section": "Lake CLI 详解",
+      "text": "源文件中的控制注释",
+      "anchor": "section-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake` › 常见选项",
+      "section": "Lake CLI 详解",
+      "text": "常见选项",
+      "anchor": "section-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake` › 何时有用",
+      "section": "Lake CLI 详解",
+      "text": "何时有用",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Shake.md",
+      "title": "`lake shake` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-4"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+      "title": "`lake script`",
+      "section": "Lake CLI 详解",
+      "text": "对应英文：Lake Scripts，抓取日期：2026 06 16。 Lake 把脚本当作一类“项目内置命令”。CLI 里与脚本相关的三个高频命令是： 别名： 作用：列出当前 workspace 中可用的脚本。 别名： 作用：运行某个脚本，并把后续参数传给它。 若直接写裸的 ，则会运行 root package 的默认脚本（不带额外参数）。 作用：打印该脚本的 documentation comment。它适合在不读源码的情况下快速查看脚本的用途。 何时用脚本而不是 target 脚本更适合： 管理任务； 生成辅助文件； 运行开发工具； 包装多步工作流。 若目标是产出某个可缓存 build artifact，则通常更应考虑 target / facet。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+      "title": "`lake script` › `lake script list`",
+      "section": "Lake CLI 详解",
+      "text": "`lake script list`",
+      "anchor": "lake-script-list"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+      "title": "`lake script` › `lake script run`",
+      "section": "Lake CLI 详解",
+      "text": "`lake script run`",
+      "anchor": "lake-script-run"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+      "title": "`lake script` › `lake script doc`",
+      "section": "Lake CLI 详解",
+      "text": "`lake script doc`",
+      "anchor": "lake-script-doc"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Scripts.md",
+      "title": "`lake script` › 何时用脚本而不是 target",
+      "section": "Lake CLI 详解",
+      "text": "何时用脚本而不是 target",
+      "anchor": "target"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+      "title": "`lake upload` / `lake pack` / `lake unpack`",
+      "section": "Lake CLI 详解",
+      "text": "/ / 对应英文：Packaging and Distribution，抓取日期：2026 06 16。 Lake 还提供面向发布与归档的命令： 作用：把 root package 的 打包成 ，然后用 上传到指定 tag 对应的 GitHub release。 要求： 本机已安装 已存在目标 GitHub release 适用场景：给下游用户发布预构建产物。 作用：把 root package 的 build directory 打包成一个 gzipped tar archive。 注意：它 不会主动构建 任何东西，只会归档当前已经存在的产物。因此在运行前，应先确认需要的 artifact 已经被构建出来。 若未指定归档路径，则会根据 package 的 设置，默认放在 目录下。 作用：把前述打包好的 archive 解到 root package 的 build directory 中。 若未指定路径，则同样基于 设定和 目录约定来找文件。 使用建议 需要把构建产物发给别人或放进 release 时，用 ； 需要本地/离线保存一个完整 build 结果时，用 ； 需要恢复某次已打包构建时，用 。 这些命令偏“分发和搬运产物”，而不是日常开发。"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+      "title": "`lake upload` / `lake pack` / `lake unpack` › `lake upload`",
+      "section": "Lake CLI 详解",
+      "text": "`lake upload`",
+      "anchor": "lake-upload"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+      "title": "`lake upload` / `lake pack` / `lake unpack` › `lake pack`",
+      "section": "Lake CLI 详解",
+      "text": "`lake pack`",
+      "anchor": "lake-pack"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+      "title": "`lake upload` / `lake pack` / `lake unpack` › `lake unpack`",
+      "section": "Lake CLI 详解",
+      "text": "`lake unpack`",
+      "anchor": "lake-unpack"
+    },
+    {
+      "kind": "heading",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
+      "path": "lean-reference/Reference/Lake/Cli/Packaging.md",
+      "title": "`lake upload` / `lake pack` / `lake unpack` › 使用建议",
+      "section": "Lake CLI 详解",
+      "text": "使用建议",
+      "anchor": "section-3"
+    },
+    {
+      "kind": "chapter",
+      "bookId": "lean-reference",
+      "bookTitleZh": "Lean 语言参考手册",
       "path": "lean-reference/Reference/Elan.md",
       "title": "使用 Elan 管理工具链",
       "section": "Lake CLI 详解",
@@ -22539,7 +23128,7 @@
       "path": "love/ch03_BackwardProofs.md",
       "title": "第 3 章 逆向证明",
       "section": "第一部分 基础",
-      "text": "第 3 章 逆向证明 已对照 Lean zh PDF 与 人工校对（原 PDF 1714–2650 行）。 策略 （tactic）是在 目标 （goal，即要证明的 命题 proposition）上操作的过程，要么完全证明它，要么产生新的子目标，或者失败。当我们陈述一个定理时，定理的陈述就是初始目标。一旦使用合适的策略消除了所有（子）目标，证明就完成了。此处介绍的大多数策略在 [《Lean 4 定理证明》][12] 第 5 章中有更详细的说明。 策略是一种 逆向 （backward）证明机制。它们从目标出发，向前推进到已证明的定理。考虑定理 、 、 以及目标 。与类型判断类似，目标用符号 标识。一个非形式的逆向证明如下： 为了证明 ，由 可知，只需证明 即可。 为了证明 ，由 可知，只需证明 即可。 为了证明 ，我们直接使用 。 逆向证明的显著特征是使用了「只需证明」这一短语。请注意我们是如何从一个目标变换到另一个目标（ 、 、 ），直到没有目标需要证明为止的。相比之下， 正向证明 （forward proof）会从定理 开始，每次处理一个定理，最终推导出所需的定理 ： 由 与 可得 。 由 与 可得 ，正如预期。 正向证明只操作定理，不操作目标。我们将在第 4 章深入学习正向证明。 非形式化的证明有时会混合使用这两种风格。只要能通过「为了证明……，只需证明……」之类的措辞清晰地识别出逆向步骤，这种混合就是可行的。在目标前面加上 符号有助于提醒这些断言尚未被证明。 你可能熟悉的另一种表达证明的格式是 自然演绎 （natural deduction）。下面给出了对应于上述证明的自然演绎推导： 从上往下读时，该推导对应于正向证明；从下往上读时，它对应于逆向证明。 3.1 策略模式 在第 2 章中，每当需要证明时，我们只是简单地使用了 占位符。对于 策略证明 （tactical proof），我们现在将写下 来进入 策略模式 （tactic mode）。在此模式下，我们可以调用一系列策略。 策略在目标上操作，目标由我们想要证明的命题 和 局部语境 （local context） 组成。局部语境由形如 的变量声明和形如 的 假设 （hypothesis）组成。我们用 表示一个目标，其中 是变量和假设的列表，而 是目标的 目的 （target）。 为了让事情更具体，请考虑以下 Lean 示例： 请注意，蕴含箭头 是右结合的；这意味着 与 相同。直观地说，该陈述的意思是「 蕴含了 蕴含 」，或者等价地，「 和 蕴含 」。 我们将逐行审阅这个证明。 关键字 表示我们进入了策略模式，在该模式下我们可以通过策略来指定证明。随后是策略，每行一个，并且所有策略的缩进相同。 如果我们将光标置于 关键字上，Visual Studio Code 会报告当前的目标仅仅是原始定理的陈述： 接下来的策略 告诉 Lean 固定两个 自由变量 （free variable） 和 ，它们对应于同名的两个 绑定变量 （bound variable）。该策略模仿了数学家在纸上的工作方式：为了证明一个 量化的命题，只需证明该命题对于绑定变量的某些任意但固定的值成立即可。目标变为： 其中命题 和 在目标的局部语境（即 符号左侧）中声明。我们通常为自由变量使用与绑定变量相同的名称，正如这里所做的，但这并不是强制性的。通常，使用唯一的名称并避免遮蔽现有变量是良好的做法。 除了使用两个变量名调用一次 之外，我们也可以调用两次 ，即 后面跟着 。通常，每个带有 个参数的 调用都会提取接下来的 个量化的变量。 策略不仅限于量化变量。在我们的证明脚本中， 告诉 Lean 将（来自 的）前提 和 移至局部语境，并称这些假设为 和 。事实上，为了证明一个蕴含式，只需将其左侧作为假设，并证明其右侧即可。于是目标变为： 习惯上会在假设名称前加前缀 。 最后，策略 告诉 Lean 将名为 的假设 与目标 进行匹配。由于 在语法上等价于 ，匹配成功。这就完成了证明。 非形式化地，我们可以用类似纸笔数学的风格，将证明写成如下形式： 令 和 为命题。 假设 (ha) 和 (hb) 为真。 为了证明 ，我们需要使用假设 。 （数学家可能会使用数字标签，如 (1) 和 (2)，而非具有描述性的假设名称。） 回到 Lean 证明，我们可以通过将变量和假设声明为定理的参数，来避免调用 ，如下所示： 目标是： 定理的所有参数在语境中立即生效。就像前面的例子一样，该目标通过 即可证明。 下面是一个连续使用多个 的例子： 站在数学家的角度，我们可以将最后的证明表述如下： 假设 (ha) 为真。 为了证明 ，根据假设 ，只需证明 即可。 为了证明 ，根据假设 ，只需证明 即可。 为了证明 ，我们使用假设 。 3.2 基本策略 和 策略是策略证明的基础。其他基本策略包括 、 、 和 。如果我们有足够的耐心使用这些策略进行推理，而不依赖更强大的 证明自动化 （proof automation），它们可以发挥很大作用。它们也可以用来解决各种逻辑谜题。 下面，方括号 表示可选的语法。 intro 策略将最前面的 量化变量或最前面的前提 从目标的目的移动到局部语境中。该策略接受一个可选参数，用于指定语境中变量或前提的名称，从而覆盖默认名称。如果提供了多个名称（即 ），则会移动多个变量或前提。 给定一个可证明的目标， 总是会产生一个可证明的目标。因此，它被称为是 安全的 （safe）。 apply 策略将目标的目的与指定定理或假设的结论进行匹配，并将该定理或假设的前提作为新的目标加入。匹配是在 计算等价 （up to computation）的意义下进行的。 我们必须谨慎调用 ，因为它可能将一个可证明的目标转换为不可证明的子目标。例如，如果目标是 ，而我们 了定理 ，则结论 会与目标的目的 匹配，最后我们得到了不可证明的子目标 。我们称 是 不安全的 （unsafe）。 exact 策略将目标的目的与指定的定理或假设进行匹配，从而证明该目标。在这种情况下，我们通常也可以使用 ，但 能更好地传达我们的意图。 assumption 策略从局部语境中寻找一个与目标的目的匹配的假设，并将其应用以证明目标。 rfl 策略证明形如 的目标，其中左右两边 和 在计算等价的意义下在语法上是相等的。计算首先是指定义的 展开 （expansion），但也包括将匿名函数应用于参数的 归约 （reduction）等等。这些转换有传统的名称。下面列出了主要转换及其示例，其中全局语境包含 ： 名称 示例 α 转换 β 转换 δ 转换 ζ 转换 η 转换 ι 转换 将这些转换作为从左向右的重写规则来重复应用的过程称为归约；将转换反向应用一次称为展开。 简而言之，为了证明 ， 策略会展开 和 中的定义，并执行 β 归约及其他归约。如果在归约过程中， 和 在某一点变得语法上完全相同，则证明成功。通常， 在数学家会说「根据定义」的地方起作用。 ac rfl 与 类似，但它可以用于在 结合律 （associativity，例如 ）和 交换律 （commutativity，例如 ）的意义下进行推理。这适用于已注册为具有结合律和交换律的二元运算，例如算术类型上的 和 ，以及集合上的 和 。我们将在第 3.6 节中看到一个例子。 sorry 我们在第 2 章中遇到的 证明命令可以作为策略在策略证明中的任何位置使用。它「证明」了当前目标，但实际上并未进行证明。请谨慎使用。 3.3 关于连结词和量词的推理 在学习对自然数、列表或其他数据类型进行推理之前，我们必须首先学习如何对 Lean 的逻辑连结词和量词进行推理。让我们从一个简单的例子开始：合取（ ）的 交换律 （commutativity）。 此时，我们建议您将光标置于 Visual Studio Code 中的示例之上，以查看证明状态的序列。通过将光标放在每个命令之上或紧随其后，您可以查看该行命令的效果。对于最后一行，Lean 只会报告「No goals」。 该证明是典型的 intro–apply–exact 组合。它使用了以下定理： 其中问号（ ）表示可以被 实例化 （instantiate）的变量——例如，通过将目标的目的与定理的 结论 （conclusion）进行匹配。这些变量被称为 元变量 （metavariable）。 上述三个定理是与合取相关的 引入规则 （introduction rule）和两个 消去规则 （elimination rule）。逻辑符号（例如 ）的引入规则是结论以该符号作为最外层符号的定理。对偶地，消去规则在其前提中包含该符号。对于每个逻辑符号，引入规则告诉我们 如何证明 一个以该符号为最外层位置的命题。相比之下，消去规则告诉我们该命题 必然是如何被证明的 。 在上述证明中，我们应用 的引入规则来证明目标 ，并应用两个消去规则从假设 中提取 和 。我们在 中通过使用所谓的引入规则来「消去」 ，这听起来可能很奇怪。该术语之所以是「逆向」的，是因为我们的证明是逆向的。 问号也可能出现在目标中。它们表示可以任意实例化的变量。在上面的证明过程中，在 策略之后，我们得到了目标： 其中 是一个元变量。策略 将（目的中的） 与（ 中的） 进行匹配。这种通过实例化变量使两个项在语法上等价的过程称为 合一 （unification）。 匹配 （matching）是合一的一种特殊情况，即其中一个项不包含变量，如本例所示。 顺便提一下，每当元变量出现在目标中时，还会出现额外的子目标，每个元变量的类型也会作为一个子目标（例如 ）。这些令人困惑的子目标仅仅是一个提醒，说明我们需要用正确类型的项来实例化这些元变量。我们通常可以忽略这些子目标。一旦元变量被实例化（通常是在我们解决另一个子目标时），其相关的子目标也会随之消失。 在 Lean 中，合一是在计算等价的意义下进行的。例如，项 和 可以通过取 来合一，因为 和 在 β 转换的意义下是语法相等的。 下面是定理 的另一种证明： 该定理的陈述方式有所不同，将 和 作为 量化变量，而不是定理的参数。从逻辑上讲，这是等价的，但在证明中我们必须在 之外额外引入 和 。 另一个区别是在子证明前面使用了项目符号（ ）。当我们面临两个或多个目标需要证明时，通常良好的风格是在每个子证明前面加上一个点。策略组合子 专注于第一个子目标；其后的策略必须证明该子目标。在我们的例子中， 策略创建了两个子目标： 和 。 第三个区别是，我们现在通过 并置 （juxtaposition），直接将 和 应用于假设 ，分别获得 和 ，而不是等待定理的前件作为新的子目标出现。这是在逆向证明中迈出的微小正向步骤。同样的语法既可以用于 解除 （discharge，即证明）一个假设，也可以用于实例化一个 量词。这种方法的一个好处是，我们避免了可能令人困惑的 元变量。 在下一个例子中，我们使用并置来实例化 量词： 如果 是定理 ，那么 就是定理 。 析取 （ ）的引入规则和消去规则如下： （「左侧引入」）和 （「右侧引入」）中的 量词可以通过简单的并置，将定理名称应用于我们要实例化的值来直接实例化。因此， 对应于定理 。这就是正向风格。 或者，我们可以在形如 的目标上调用 。这会将定理中的 设为 ， 设为 。新的子目标是 。这就是逆向风格。 和 都是 不安全的 ：如果您应用了两者中错误的一个，或者在证明中过早地应用了其中任何一个，您可能会得到一个不可证明的子目标。如果您考虑可证明的目标 ，就可以很容易地看到这一点： 会产生不可证明的子目标 。 规则乍一看可能违反直觉。本质上，它指出如果我们有 ，那么为了证明任意的 ，只需证明在 成立时 成立，以及在 成立时 成立即可。您可以将 看作是一个巧妙的技巧，仅使用蕴含来表达析取的含义。 等价 （ ）的引入规则和消去规则如下： 存在量化 （ ）的引入规则和消去规则如下： 的引入规则可以用于为一个存在量词提供一个 证据 （witness）进行实例化——证据"
+      "text": "第 3 章 逆向证明 已对照 Lean zh PDF 与 人工校对（原 PDF 1714–2650 行）。 策略 （tactic）是在 目标 （goal，即要证明的 命题 proposition）上操作的过程，要么完全证明它，要么产生新的子目标，或者失败。当我们陈述一个定理时，定理的陈述就是初始目标。一旦使用合适的策略消除了所有（子）目标，证明就完成了。此处介绍的大多数策略在 [《Lean 4 定理证明》][12] 第 5 章中有更详细的说明。 策略是一种 逆向 （backward）证明机制。它们从目标出发，向前推进到已证明的定理。考虑定理 、 、 以及目标 。与类型判断类似，目标用符号 标识。一个非形式的逆向证明如下： 为了证明 ，由 可知，只需证明 即可。 为了证明 ，由 可知，只需证明 即可。 为了证明 ，我们直接使用 。 逆向证明的显著特征是使用了「只需证明」这一短语。请注意我们是如何从一个目标变换到另一个目标（ 、 、 ），直到没有目标需要证明为止的。相比之下， 正向证明 （forward proof）会从定理 开始，每次处理一个定理，最终推导出所需的定理 ： 由 与 可得 。 由 与 可得 ，正如预期。 正向证明只操作定理，不操作目标。我们将在第 4 章深入学习正向证明。 非形式化的证明有时会混合使用这两种风格。只要能通过「为了证明……，只需证明……」之类的措辞清晰地识别出逆向步骤，这种混合就是可行的。在目标前面加上 符号有助于提醒这些断言尚未被证明。 你可能熟悉的另一种表达证明的格式是 自然演绎 （natural deduction）。下面给出了对应于上述证明的自然演绎推导： 从上往下读时，该推导对应于正向证明；从下往上读时，它对应于逆向证明。 3.1 策略模式 在第 2 章中，每当需要证明时，我们只是简单地使用了 占位符。对于 策略证明 （tactical proof），我们现在将写下 来进入 策略模式 （tactic mode）。在此模式下，我们可以调用一系列策略。 策略在目标上操作，目标由我们想要证明的命题 和 局部语境 （local context） 组成。局部语境由形如 的变量声明和形如 的 假设 （hypothesis）组成。我们用 表示一个目标，其中 是变量和假设的列表，而 是目标的 目的 （target）。 为了让事情更具体，请考虑以下 Lean 示例： 请注意，蕴含箭头 是右结合的；这意味着 与 相同。直观地说，该陈述的意思是「 蕴含了 蕴含 」，或者等价地，「 和 蕴含 」。 我们将逐行审阅这个证明。 关键字 表示我们进入了策略模式，在该模式下我们可以通过策略来指定证明。随后是策略，每行一个，并且所有策略的缩进相同。 如果我们将光标置于 关键字上，Visual Studio Code 会报告当前的目标仅仅是原始定理的陈述： 接下来的策略 告诉 Lean 固定两个 自由变量 （free variable） 和 ，它们对应于同名的两个 绑定变量 （bound variable）。该策略模仿了数学家在纸上的工作方式：为了证明一个 量化的命题，只需证明该命题对于绑定变量的某些任意但固定的值成立即可。目标变为： 其中命题 和 在目标的局部语境（即 符号左侧）中声明。我们通常为自由变量使用与绑定变量相同的名称，正如这里所做的，但这并不是强制性的。通常，使用唯一的名称并避免遮蔽现有变量是良好的做法。 除了使用两个变量名调用一次 之外，我们也可以调用两次 ，即 后面跟着 。通常，每个带有 个参数的 调用都会提取接下来的 个量化的变量。 策略不仅限于量化变量。在我们的证明脚本中， 告诉 Lean 将（来自 的）前提 和 移至局部语境，并称这些假设为 和 。事实上，为了证明一个蕴含式，只需将其左侧作为假设，并证明其右侧即可。于是目标变为： 习惯上会在假设名称前加前缀 。 最后，策略 告诉 Lean 将名为 的假设 与目标 进行匹配。由于 在语法上等价于 ，匹配成功。这就完成了证明。 非形式化地，我们可以用类似纸笔数学的风格，将证明写成如下形式： 令 和 为命题。 假设 (ha) 和 (hb) 为真。 为了证明 ，我们需要使用假设 。 （数学家可能会使用数字标签，如 (1) 和 (2)，而非具有描述性的假设名称。） 回到 Lean 证明，我们可以通过将变量和假设声明为定理的参数，来避免调用 ，如下所示： 目标是： 定理的所有参数在语境中立即生效。就像前面的例子一样，该目标通过 即可证明。 下面是一个连续使用多个 的例子： 站在数学家的角度，我们可以将最后的证明表述如下： 假设 (ha) 为真。 为了证明 ，根据假设 ，只需证明 即可。 为了证明 ，根据假设 ，只需证明 即可。 为了证明 ，我们使用假设 。 3.2 基本策略 和 策略是策略证明的基础。其他基本策略包括 、 、 和 。如果我们有足够的耐心使用这些策略进行推理，而不依赖更强大的 证明自动化 （proof automation），它们可以发挥很大作用。它们也可以用来解决各种逻辑谜题。 下面，方括号 表示可选的语法。 intro 策略将最前面的 量化变量或最前面的前提 从目标的目的移动到局部语境中。该策略接受一个可选参数，用于指定语境中变量或前提的名称，从而覆盖默认名称。如果提供了多个名称（即 ），则会移动多个变量或前提。 给定一个可证明的目标， 总是会产生一个可证明的目标。因此，它被称为是 安全的 （safe）。 apply apply 定理或假设 策略将目标的目的与指定定理或假设的结论进行匹配，并将该定理或假设的前提作为新的目标加入。匹配是在 计算等价 （up to computation）的意义下进行的。 我们必须谨慎调用 ，因为它可能将一个可证明的目标转换为不可证明的子目标。例如，如果目标是 ，而我们 了定理 ，则结论 会与目标的目的 匹配，最后我们得到了不可证明的子目标 。我们称 是 不安全的 （unsafe）。 exact exact 定理或假设 策略将目标的目的与指定的定理或假设进行匹配，从而证明该目标。在这种情况下，我们通常也可以使用 ，但 能更好地传达我们的意图。 assumption 策略从局部语境中寻找一个与目标的目的匹配的假设，并将其应用以证明目标。 rfl 策略证明形如 的目标，其中左右两边 和 在计算等价的意义下在语法上是相等的。计算首先是指定义的 展开 （expansion），但也包括将匿名函数应用于参数的 归约 （reduction）等等。这些转换有传统的名称。下面列出了主要转换及其示例，其中全局语境包含 ： 名称 示例 α 转换 β 转换 δ 转换 ζ 转换 η 转换 ι 转换 将这些转换作为从左向右的重写规则来重复应用的过程称为归约；将转换反向应用一次称为展开。 简而言之，为了证明 ， 策略会展开 和 中的定义，并执行 β 归约及其他归约。如果在归约过程中， 和 在某一点变得语法上完全相同，则证明成功。通常， 在数学家会说「根据定义」的地方起作用。 ac rfl 与 类似，但它可以用于在 结合律 （associativity，例如 ）和 交换律 （commutativity，例如 ）的意义下进行推理。这适用于已注册为具有结合律和交换律的二元运算，例如算术类型上的 和 ，以及集合上的 和 。我们将在第 3.6 节中看到一个例子。 sorry 我们在第 2 章中遇到的 证明命令可以作为策略在策略证明中的任何位置使用。它「证明」了当前目标，但实际上并未进行证明。请谨慎使用。 3.3 关于连结词和量词的推理 在学习对自然数、列表或其他数据类型进行推理之前，我们必须首先学习如何对 Lean 的逻辑连结词和量词进行推理。让我们从一个简单的例子开始：合取（ ）的 交换律 （commutativity）。 此时，我们建议您将光标置于 Visual Studio Code 中的示例之上，以查看证明状态的序列。通过将光标放在每个命令之上或紧随其后，您可以查看该行命令的效果。对于最后一行，Lean 只会报告「No goals」。 该证明是典型的 intro–apply–exact 组合。它使用了以下定理： 其中问号（ ）表示可以被 实例化 （instantiate）的变量——例如，通过将目标的目的与定理的 结论 （conclusion）进行匹配。这些变量被称为 元变量 （metavariable）。 上述三个定理是与合取相关的 引入规则 （introduction rule）和两个 消去规则 （elimination rule）。逻辑符号（例如 ）的引入规则是结论以该符号作为最外层符号的定理。对偶地，消去规则在其前提中包含该符号。对于每个逻辑符号，引入规则告诉我们 如何证明 一个以该符号为最外层位置的命题。相比之下，消去规则告诉我们该命题 必然是如何被证明的 。 在上述证明中，我们应用 的引入规则来证明目标 ，并应用两个消去规则从假设 中提取 和 。我们在 中通过使用所谓的引入规则来「消去」 ，这听起来可能很奇怪。该术语之所以是「逆向」的，是因为我们的证明是逆向的。 问号也可能出现在目标中。它们表示可以任意实例化的变量。在上面的证明过程中，在 策略之后，我们得到了目标： 其中 是一个元变量。策略 将（目的中的） 与（ 中的） 进行匹配。这种通过实例化变量使两个项在语法上等价的过程称为 合一 （unification）。 匹配 （matching）是合一的一种特殊情况，即其中一个项不包含变量，如本例所示。 顺便提一下，每当元变量出现在目标中时，还会出现额外的子目标，每个元变量的类型也会作为一个子目标（例如 ）。这些令人困惑的子目标仅仅是一个提醒，说明我们需要用正确类型的项来实例化这些元变量。我们通常可以忽略这些子目标。一旦元变量被实例化（通常是在我们解决另一个子目标时），其相关的子目标也会随之消失。 在 Lean 中，合一是在计算等价的意义下进行的。例如，项 和 可以通过取 来合一，因为 和 在 β 转换的意义下是语法相等的。 下面是定理 的另一种证明： 该定理的陈述方式有所不同，将 和 作为 量化变量，而不是定理的参数。从逻辑上讲，这是等价的，但在证明中我们必须在 之外额外引入 和 。 另一个区别是在子证明前面使用了项目符号（ ）。当我们面临两个或多个目标需要证明时，通常良好的风格是在每个子证明前面加上一个点。策略组合子 专注于第一个子目标；其后的策略必须证明该子目标。在我们的例子中， 策略创建了两个子目标： 和 。 第三个区别是，我们现在通过 并置 （juxtaposition），直接将 和 应用于假设 ，分别获得 和 ，而不是等待定理的前件作为新的子目标出现。这是在逆向证明中迈出的微小正向步骤。同样的语法既可以用于 解除 （discharge，即证明）一个假设，也可以用于实例化一个 量词。这种方法的一个好处是，我们避免了可能令人困惑的 元变量。 在下一个例子中，我们使用并置来实例化 量词： 如果 是定理 ，那么 就是定理 。 析取 （ ）的引入规则和消去规则如下： （「左侧引入」）和 （「右侧引入」）中的 量词可以通过简单的并置，将定理名称应用于我们要实例化的值来直接实例化。因此， 对应于定理 。这就是正向风格。 或者，我们可以在形如 的目标上调用 。这会将定理中的 设为 ， 设为 。新的子目标是 。这就是逆向风格。 和 都是 不安全的 ：如果您应用了两者中错误的一个，或者在证明中过早地应用了其中任何一个，您可能会得到一个不可证明的子目标。如果您考虑可证明的目标 ，就可以很容易地看到这一点： 会产生不可证明的子目标 。 规则乍一看可能违反直觉。本质上，它指出如果我们有 ，那么为了证明任意的 ，只需证明在 成立时 成立，以及在 成立时 成立即可。您可以将 看作是一个巧妙的技巧，仅使用蕴含来表达析取的含义。 等价 （ ）的引入规则和消去规则如下： 存在量化 （ ）的引入规则和消去规则如下： 的引入规则可以用于为一个存在量词提供"
     },
     {
       "kind": "heading",
@@ -22748,7 +23337,7 @@
       "path": "love/ch04_ForwardProofs.md",
       "title": "第 4 章 正向证明",
       "section": "第一部分 基础",
-      "text": "第 4 章 正向证明 已对照 Lean zh PDF 与 人工校对（原 PDF 2651–3837 行）。 策略证明是逆向进行的。它们从目标开始，将其归约到已有的定理和假设。通常，以正向方式进行证明也是合理的：从已有的定理和假设出发，逐步向我们的目标推进。 结构化证明 （structured proof）就是一种支持这种推理方式的风格。策略证明往往易于编写但难于阅读。大多数用户会结合这两种风格，根据具体情况使用最合适的一种。结构化证明较高的可读性使其深受某些用户的喜爱。 结构化证明是撒在 Lean 证明项 （proof term）之上的一层语法糖。它们使用 、 、 和 等关键字来构建，模仿了纸笔形式的证明。所有 Lean 的证明，无论是策略证明还是结构化证明，在系统内部都会被归约成证明项。在第 3 章中，我们已经看到了一些示例：给定假设 和 ，项 即是命题 的证明项，因此我们可以写成 。定理和假设的名称（例如 和 ）也是证明项。沿着这一思路继续，给定 ，我们可以为命题 构造证明项 。我们可以将 视为一个函数，它能将 的证明转换为 的证明，对于 也同理。 结构化证明是 Lean 中的默认方式。它们可以在策略模式之外使用。要进入策略模式，我们必须使用 命令。 此处涵盖的概念在 [《Lean 4 定理证明》][12] 的第 2 至 4 章中有更详细的描述。Nederpelt 和 Geuvers 的教科书 [20] 是另一个有用的参考资料。 4.1 结构化证明 作为第一个例子，考虑以下结构化证明： 每个由 量词绑定的变量以及蕴涵的每个假设，都在证明中通过使用 和 命令显式地引入。可以同时引入多个变量。我们经常会省略变量的类型，特别是当它们可以从名称中猜出时；然而，我们总是会写出完整的命题，并且每行放置一个，以提高可读性——毕竟，这是结构化风格的主要潜在优势之一。结尾处的 命令为了可读性重复了要证明的命题，并在关键字 之后给出证明。此时目标是 。 非正式地，我们可以将证明写为如下形式： 固定一些命题 和 。 假设 (ha) 且 (hb) 为真。 我们必须证明 。这根据 平凡地得出。证毕。 一些作者会在「命题」之前插入诸如「任意但固定」之类的限定词，或者他们会写「令 和 是某些命题」。所有这些变体都是等价的。此外，我们也可以用「QED」来代替「证毕」以结束证明。 上述 Lean 证明是非典型的，因为目标的目的出现在假设之中。通常，我们必须执行一些中间推理步骤，其形式基本上是「由某某得到某某」。在 Lean 中，每个中间步骤都采用 命令的形式，如下例所示： 非正式地： 假设 (ha) 为真。 由 和 ，我们得到 (hb) 。 由 和 ，我们得到 (hc) 。 我们必须证明 。这根据 平凡地得出。证毕。 注意这是一个正向证明：它从假设 开始，逐个定理地向目标定理 推进。 肯定前件 （modus ponens，「从 和 推导出 」）通过简单的并置来表达（例如 ）。 一般而言， – – 骨架重复了定理的陈述。我们经常会根据目标中的绑定变量来命名固定变量，正如我们在这里所做的那样，但这并不是强制性的。此外，避免 遮蔽 （shadowing）已有变量是一个良好的实践。在最后一个 或 与 之间，我们可以根据需要的论证详细程度，放入任意数量的 命令。细节可以增加可读性，但提供过多细节可能会令读者难以忍受。 命令的语法与 相似，但它出现在结构化证明之中。我们也可以将 视为一个定义。在 中，右侧的 是 的证明项，而左侧的 被定义为该证明项的同义词。从此以后， 和 即可互换使用。由于 和 只被使用了一次，且它们的证明非常简短，专家们往往倾向于将它们 内联 （inline），把 替换为 ，然后把 替换为 ，从而得到： 一个典型的结构化证明具有如下的 – – – 格式： 4.2 结构化构造 上一节介绍了用于编写结构化证明的主要命令： 、 、 和 。现在我们更系统地回顾结构化证明的各组成部分。 定理或假设 除了 之外，最简单的结构化证明是定理或假设的名称。如果我们有： 那么在此之后，定理名称 即可被用作 的证明。例如： 我们可以将参数传递给定理，以 实例化 （instantiate） 量词并 解除 （discharge）假设。假设定理 可用，并且我们想要证明它的实例 。这可以通过使用定理名称和两个参数来巧妙地完成： 这等价于策略证明 ，但更为简洁。 策略可以被看作是 的逆操作。为何要进入策略模式又立刻离开它呢？ 与 和 一样，定理或假设的陈述会在计算等价的意义下与当前目标进行匹配。这提供了一些灵活性。 fix 命令将由 绑定的量化变量从目标的目的移动到局部语境。它是 策略的结构化版本。 请注意，Lean 中用于固定变量的标准策略是 。我们倾向于使用由 LoVelib 提供的 ，作为一个更具可读性的替代方案。我们将把 保留用于指定匿名函数。 assume 命令将最前面的假设从目标的目的移动到局部语境中。它可以被看作是 策略的结构化版本。 请注意，Lean 中用于陈述假设的标准策略是 。我们倾向于使用由 LoVelib 提供的 ，作为一个更具可读性的替代方案。我们将把 保留用于指定匿名函数。 have 命令允许我们陈述并证明一个中间定理，该定理可以引用之前由 、 和 引入的名称。证明过程可以是策略式的，也可以是结构化的。通常，我们倾向于使用结构化证明来勾勒主要论证过程，而在证明子目标或无关紧要的中间步骤时则求助于策略式证明。 当我们将参数传递给定理名称时，会出现另一种混合情况。例如，给定 和 ，策略 将证明目标 。在这里， 是一个嵌套在策略内部的证明项。 let 命令引入一个新的 局部定义 （local definition）。它可以用于为证明后续部分多次出现的复杂对象命名。它与 类似，但它是为 可计算数据 （computable data）而不是证明设计的。展开或引入一个 对应于 ζ 变换（第 3.2 节）。 构造「 」之后必须跟随换行符或分号（ ）。 show 命令允许我们重复要证明的目标，这可以起到文档的作用。它还允许我们在计算等价的意义下改写目标。如果我们不想重复目标且不需要改写它，可以直接写证明，而不必使用「 」的语法。证明可以是策略式的，也可以是结构化的。 4.3 关于连结词和量词的正向推理 以正向方式对逻辑连结词和量词进行推理，使用的是与策略模式（第 3.3 节）相同的引入和消去规则。通过几个例子可以初步体会其风格。让我们从合取开始： 即便是不了解 等含义的读者，也能理解我们是从 中提取出 和 ，然后将它们重新组合为 。数学家们理解这一证明可能比理解其对应的策略证明要容易得多： 一般来说，逆向证明更容易「不假思索地」推导出来，而且证明助手提供的大多数自动化功能也是逆向工作的。这很有道理：假设你是在调查谋杀案的马普尔小姐或赫尔克里·波洛。逆向调查会从犯罪现场开始，尝试提取线索，将少数嫌疑人与犯罪联系起来。相比之下，正向调查可能会从询问多达 80 亿人开始，以确定他们是否有不在场证明。哪种方法更有可能成功？ 单点规则 接下来的例子涉及到 单点规则 （one point rules）。在绑定变量实际上只能取一个值时，这些定理可以用来消去量词。例如，命题 可以简化为 。下面的定理证明了这种简化的合理性： 证明过程看起来可能有些令人生畏，但其实并不难。关键在于一步步来。起初，我们观察到目标是一个 等价式 （equivalence），于是我们写下 ，其中 是 的引入规则（第 3.3 节）。 两个 占位符 （placeholder）对于使证明格式良好非常重要。我们使用圆括号是因为我们强烈怀疑子证明是非平凡的。由于证明基本上就是项，也就是程序，我们在第 1.4 节给出的建议在此同样适用，只需作相应调整（mutatis mutandis）： 关键在于，proof 应始终保持语法正确。我们在 Visual Studio Code 中唯一应该看到的红色下划线应该出现在占位符下方。一般来说，开发 proof 的一个好的原则是，从可以编译的 proof 开始，进行尽可能小的更改，以获得新的可以编译的 proof，并重复此过程，直到 proof 完成。 将鼠标悬停在第一个占位符上，会显示对应的 子目标 （subgoal）。我们可以看到 Lean 期望得到 的证明，于是我们提供了一个合适的 骨架 （skeleton）。蕴涵的结构化证明由 后跟 组成。为了消除第一个占位符，我们进入策略模式，并将假设 的实例 应用于目标 。这留下了证明义务 ，我们可以使用 策略来完成它。 第二个占位符代表 。我们根据第一个蕴涵的假设编写 ，为 编写 ，为第二个蕴涵的假设编写 ，并为结论编写 。 的证明是策略式的：我们将 中的 重写为 ，得到 ，这与假设 相符。 让我们检查一下单点规则在我们的引导示例上是否真的有效： 它确实有效。除了 ，我们也可以写成 。 最后， 的单点规则演示了如何在结构化证明中使用 的引入和消去规则： 虽然证明看起来可能有些复杂，但它的开发过程基本上是不假思索的，使用了与 单点规则证明相同的步骤：先用 搭建骨架，对第一个方向用 提取 见证 （witness），用 / 拆分合取项，再用 完成重写；对第二个方向用 提供见证，并用 组合 （ 自反性 reflexivity）与 。 为了开发上述结构化证明，我们使用了与展示类型的居留元（第 1.4 节）时大致相同的步骤，将函数箭头理解为蕴涵。这两个步骤之间的相似性并非巧合，正如我们将在第 4.7 节中看到的那样。 4.4 计算式证明 在非正式数学中，我们经常将证明表示为等式、不等式或等价式的 传递链 （transitive chain，例如 、 或 ）。在 Lean 中，此类 计算式证明 （calculational proofs）由 命令提供支持，该命令提供了一种轻量级语法，并负责为等式及算术比较运算符等 预注册关系 （preregistered relations）应用 传递性定理 （transitivity theorems）。 其通用语法如下： 下划线（ ）是语法的一部分。每个 证明了陈述 。运算符ᵢ 不必完全相同，但它们必须彼此 兼容 （compatible）。例如， 、 和 是兼容的，而 和 则不兼容。 下面是一个简单的例子： 数学家们（假设他们愿意为这样一个平凡的结论提供证明）可能会将上述证明大致写成如下形式： 2 m + n = (m + m) + n （因为 2 m = m + m） = m + n + m （通过 的结合律和交换律） 证毕。 在 Lean 证明中，下划线代表项 ，如果我们不使用 来编写证明，我们就不得不重复写出该项： 请注意，使用 还需要我们显式地调用 ，并为这两个中间步骤命名。 4.5 使用策略进行正向推理 许多用户更喜欢策略模式而非结构化证明。但即使在策略模式下，以正向方式进行推理、混合正向和逆向推理步骤也是非常有用的。结构化证明命令 、 和 也可以作为策略使用，这使得上述操作成为可能。 下面的例子在一个我们已经见过好几次的定理上演示了 和 策略： have（策略） 策略允许我们在策略模式下陈述并证明一个中间定理。之后，该定理在 目标状态 （goal state）中可用作一个假设。 let（策略） 策略允许我们在策略模式下引入一个局部定义。之后，所定义的符号及其定义在目标状态中可用。 calc（策略） 策略允许我们在策略模式下进入计算式证明（第 4.4 节）。该策略与同名的结构化证明命令具有相同的语法。我们可以将作为策略的 看作是作为上述结构化证明命令的 的别名。 4.6 依值类型 依值类型 （dependent type）是 依值类型论 （dependent type theory）这一系列逻辑系统的定义性特征。虽然你可能不熟悉这个术语，但你很可能以某种形式熟悉这个概念。 考虑一个函数 ，它接受一个自然数 （即来自 的一个值），并返回一个介于 0 和 之间的自然数。直观上， 的类型应该"
+      "text": "第 4 章 正向证明 已对照 Lean zh PDF 与 人工校对（原 PDF 2651–3837 行）。 策略证明是逆向进行的。它们从目标开始，将其归约到已有的定理和假设。通常，以正向方式进行证明也是合理的：从已有的定理和假设出发，逐步向我们的目标推进。 结构化证明 （structured proof）就是一种支持这种推理方式的风格。策略证明往往易于编写但难于阅读。大多数用户会结合这两种风格，根据具体情况使用最合适的一种。结构化证明较高的可读性使其深受某些用户的喜爱。 结构化证明是撒在 Lean 证明项 （proof term）之上的一层语法糖。它们使用 、 、 和 等关键字来构建，模仿了纸笔形式的证明。所有 Lean 的证明，无论是策略证明还是结构化证明，在系统内部都会被归约成证明项。在第 3 章中，我们已经看到了一些示例：给定假设 和 ，项 即是命题 的证明项，因此我们可以写成 。定理和假设的名称（例如 和 ）也是证明项。沿着这一思路继续，给定 ，我们可以为命题 构造证明项 。我们可以将 视为一个函数，它能将 的证明转换为 的证明，对于 也同理。 结构化证明是 Lean 中的默认方式。它们可以在策略模式之外使用。要进入策略模式，我们必须使用 命令。 此处涵盖的概念在 [《Lean 4 定理证明》][12] 的第 2 至 4 章中有更详细的描述。Nederpelt 和 Geuvers 的教科书 [20] 是另一个有用的参考资料。 4.1 结构化证明 作为第一个例子，考虑以下结构化证明： 每个由 量词绑定的变量以及蕴涵的每个假设，都在证明中通过使用 和 命令显式地引入。可以同时引入多个变量。我们经常会省略变量的类型，特别是当它们可以从名称中猜出时；然而，我们总是会写出完整的命题，并且每行放置一个，以提高可读性——毕竟，这是结构化风格的主要潜在优势之一。结尾处的 命令为了可读性重复了要证明的命题，并在关键字 之后给出证明。此时目标是 。 非正式地，我们可以将证明写为如下形式： 固定一些命题 和 。 假设 (ha) 且 (hb) 为真。 我们必须证明 。这根据 平凡地得出。证毕。 一些作者会在「命题」之前插入诸如「任意但固定」之类的限定词，或者他们会写「令 和 是某些命题」。所有这些变体都是等价的。此外，我们也可以用「QED」来代替「证毕」以结束证明。 上述 Lean 证明是非典型的，因为目标的目的出现在假设之中。通常，我们必须执行一些中间推理步骤，其形式基本上是「由某某得到某某」。在 Lean 中，每个中间步骤都采用 命令的形式，如下例所示： 非正式地： 假设 (ha) 为真。 由 和 ，我们得到 (hb) 。 由 和 ，我们得到 (hc) 。 我们必须证明 。这根据 平凡地得出。证毕。 注意这是一个正向证明：它从假设 开始，逐个定理地向目标定理 推进。 肯定前件 （modus ponens，「从 和 推导出 」）通过简单的并置来表达（例如 ）。 一般而言， – – 骨架重复了定理的陈述。我们经常会根据目标中的绑定变量来命名固定变量，正如我们在这里所做的那样，但这并不是强制性的。此外，避免 遮蔽 （shadowing）已有变量是一个良好的实践。在最后一个 或 与 之间，我们可以根据需要的论证详细程度，放入任意数量的 命令。细节可以增加可读性，但提供过多细节可能会令读者难以忍受。 命令的语法与 相似，但它出现在结构化证明之中。我们也可以将 视为一个定义。在 中，右侧的 是 的证明项，而左侧的 被定义为该证明项的同义词。从此以后， 和 即可互换使用。由于 和 只被使用了一次，且它们的证明非常简短，专家们往往倾向于将它们 内联 （inline），把 替换为 ，然后把 替换为 ，从而得到： 一个典型的结构化证明具有如下的 – – – 格式： 4.2 结构化构造 上一节介绍了用于编写结构化证明的主要命令： 、 、 和 。现在我们更系统地回顾结构化证明的各组成部分。 定理或假设 除了 之外，最简单的结构化证明是定理或假设的名称。如果我们有： 那么在此之后，定理名称 即可被用作 的证明。例如： 我们可以将参数传递给定理，以 实例化 （instantiate） 量词并 解除 （discharge）假设。假设定理 可用，并且我们想要证明它的实例 。这可以通过使用定理名称和两个参数来巧妙地完成： 这等价于策略证明 ，但更为简洁。 策略可以被看作是 的逆操作。为何要进入策略模式又立刻离开它呢？ 与 和 一样，定理或假设的陈述会在计算等价的意义下与当前目标进行匹配。这提供了一些灵活性。 fix 命令将由 绑定的量化变量从目标的目的移动到局部语境。它是 策略的结构化版本。 请注意，Lean 中用于固定变量的标准策略是 。我们倾向于使用由 LoVelib 提供的 ，作为一个更具可读性的替代方案。我们将把 保留用于指定匿名函数。 assume 命令将最前面的假设从目标的目的移动到局部语境中。它可以被看作是 策略的结构化版本。 请注意，Lean 中用于陈述假设的标准策略是 。我们倾向于使用由 LoVelib 提供的 ，作为一个更具可读性的替代方案。我们将把 保留用于指定匿名函数。 have have 名称 : 命题 := 证明 命令允许我们陈述并证明一个中间定理，该定理可以引用之前由 、 和 引入的名称。证明过程可以是策略式的，也可以是结构化的。通常，我们倾向于使用结构化证明来勾勒主要论证过程，而在证明子目标或无关紧要的中间步骤时则求助于策略式证明。 当我们将参数传递给定理名称时，会出现另一种混合情况。例如，给定 和 ，策略 将证明目标 。在这里， 是一个嵌套在策略内部的证明项。 let let 名称 : 类型 := 项 命令引入一个新的 局部定义 （local definition）。它可以用于为证明后续部分多次出现的复杂对象命名。它与 类似，但它是为 可计算数据 （computable data）而不是证明设计的。展开或引入一个 对应于 ζ 变换（第 3.2 节）。 构造「 」之后必须跟随换行符或分号（ ）。 show 命令允许我们重复要证明的目标，这可以起到文档的作用。它还允许我们在计算等价的意义下改写目标。如果我们不想重复目标且不需要改写它，可以直接写证明，而不必使用「 」的语法。证明可以是策略式的，也可以是结构化的。 4.3 关于连结词和量词的正向推理 以正向方式对逻辑连结词和量词进行推理，使用的是与策略模式（第 3.3 节）相同的引入和消去规则。通过几个例子可以初步体会其风格。让我们从合取开始： 即便是不了解 等含义的读者，也能理解我们是从 中提取出 和 ，然后将它们重新组合为 。数学家们理解这一证明可能比理解其对应的策略证明要容易得多： 一般来说，逆向证明更容易「不假思索地」推导出来，而且证明助手提供的大多数自动化功能也是逆向工作的。这很有道理：假设你是在调查谋杀案的马普尔小姐或赫尔克里·波洛。逆向调查会从犯罪现场开始，尝试提取线索，将少数嫌疑人与犯罪联系起来。相比之下，正向调查可能会从询问多达 80 亿人开始，以确定他们是否有不在场证明。哪种方法更有可能成功？ 单点规则 接下来的例子涉及到 单点规则 （one point rules）。在绑定变量实际上只能取一个值时，这些定理可以用来消去量词。例如，命题 可以简化为 。下面的定理证明了这种简化的合理性： 证明过程看起来可能有些令人生畏，但其实并不难。关键在于一步步来。起初，我们观察到目标是一个 等价式 （equivalence），于是我们写下 ，其中 是 的引入规则（第 3.3 节）。 两个 占位符 （placeholder）对于使证明格式良好非常重要。我们使用圆括号是因为我们强烈怀疑子证明是非平凡的。由于证明基本上就是项，也就是程序，我们在第 1.4 节给出的建议在此同样适用，只需作相应调整（mutatis mutandis）： 关键在于，proof 应始终保持语法正确。我们在 Visual Studio Code 中唯一应该看到的红色下划线应该出现在占位符下方。一般来说，开发 proof 的一个好的原则是，从可以编译的 proof 开始，进行尽可能小的更改，以获得新的可以编译的 proof，并重复此过程，直到 proof 完成。 将鼠标悬停在第一个占位符上，会显示对应的 子目标 （subgoal）。我们可以看到 Lean 期望得到 的证明，于是我们提供了一个合适的 骨架 （skeleton）。蕴涵的结构化证明由 后跟 组成。为了消除第一个占位符，我们进入策略模式，并将假设 的实例 应用于目标 。这留下了证明义务 ，我们可以使用 策略来完成它。 第二个占位符代表 。我们根据第一个蕴涵的假设编写 ，为 编写 ，为第二个蕴涵的假设编写 ，并为结论编写 。 的证明是策略式的：我们将 中的 重写为 ，得到 ，这与假设 相符。 让我们检查一下单点规则在我们的引导示例上是否真的有效： 它确实有效。除了 ，我们也可以写成 。 最后， 的单点规则演示了如何在结构化证明中使用 的引入和消去规则： 虽然证明看起来可能有些复杂，但它的开发过程基本上是不假思索的，使用了与 单点规则证明相同的步骤：先用 搭建骨架，对第一个方向用 提取 见证 （witness），用 / 拆分合取项，再用 完成重写；对第二个方向用 提供见证，并用 组合 （ 自反性 reflexivity）与 。 为了开发上述结构化证明，我们使用了与展示类型的居留元（第 1.4 节）时大致相同的步骤，将函数箭头理解为蕴涵。这两个步骤之间的相似性并非巧合，正如我们将在第 4.7 节中看到的那样。 4.4 计算式证明 在非正式数学中，我们经常将证明表示为等式、不等式或等价式的 传递链 （transitive chain，例如 、 或 ）。在 Lean 中，此类 计算式证明 （calculational proofs）由 命令提供支持，该命令提供了一种轻量级语法，并负责为等式及算术比较运算符等 预注册关系 （preregistered relations）应用 传递性定理 （transitivity theorems）。 其通用语法如下： calc 项₀ 运算符₁ 项₁ := 证明₁ 运算符₂ 项₂ := 证明₂ … 运算符ₙ 项ₙ := 证明ₙ 下划线（ ）是语法的一部分。每个 证明了陈述 。运算符ᵢ 不必完全相同，但它们必须彼此 兼容 （compatible）。例如， 、 和 是兼容的，而 和 则不兼容。 下面是一个简单的例子： 数学家们（假设他们愿意为这样一个平凡的结论提供证明）可能会将上述证明大致写成如下形式： 2 m + n = (m + m) + n （因为 2 m = m + m） = m + n + m （通过 的结合律和交换律） 证毕。 在 Lean 证明中，下划线代表项 ，如果我们不使用 来编写证明，我们就不得不重复写出该项： 请注意，使用 还需要我们显式地调用 ，并为这两个中间步骤命名。 4.5 使用策略进行正向推理 许多用户更喜欢策略模式而非结构化证明。但即使在策略模式下，以正向方式进行推理、混合正向和逆向推理步骤也是非常有用的。结构化证明命令 、 和 也可以作为策略使用，这使得上述操作成为可能。 下面的例子在一个我们已经见过好几次的定理上演示了 和 策略： have（策略） have 名称 : 命题 := 证明 策略允许我们在策略模式下陈述并证明一个中间定理。之后，该定理在 目标状态 （goal state）中可用作一个假设。 let（策略） let 名称 : 类型 := 项 策略允许我们在策略模式下引入一个局部定义。之后，所定义的符号及其定义在目标状态中可用。 calc（策略） 策略允许我们在策略模式下进入计算式证明（第 4.4 节）。该策略与同名的结构化证明命令具有相同的语法。我们可以将作为策略的 看作是作为上述结构化证明命令的 的别名。 4.6 依值类型 依值类型 （dependent type）是 依值类型论"
     },
     {
       "kind": "heading",
