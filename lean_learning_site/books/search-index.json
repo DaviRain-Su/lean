@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-17T00:31:53.026Z",
-  "entryCount": 2602,
+  "generatedAt": "2026-06-17T00:32:45.282Z",
+  "entryCount": 2631,
   "entries": [
     {
       "kind": "chapter",
@@ -20904,7 +20904,107 @@
       "path": "love/ch07_EffectfulProgramming.md",
       "title": "第 7 章 带作用的编程",
       "section": "第二部分 函数式与逻辑编程",
-      "text": "第 7 章 带作用的编程 由 Lean zh PDF 自动提取（6295–7164 行），代码块与公式尚需人工校对。 带作用的编程 Effectful Functional Programming Idiom 纯函数式编程有时会让人感到过于受限。 带作用的函数式编程提供了一些习语来 Side Effect Effect 缓解这些限制，让我们能够以带有副作用、异常、非确定性和其他作用的方式进行 编程。 Monad 其底层的抽象被称为单子。单子推广了带有作用的程序。它们在 Haskell 中非常 流行，用于编写指令式程序。在 Lean 中，它们被用于表达指令式程序并对其进行推 理。它们甚至对于 Lean 自身的编程也非常有用，我们在第 8 章中就会看到。 Programming in Lean Real World Haskell 本笔记受到了《Lean 语言编程》[2] 第 7 章的启发。我们也参考了《实战 Haskell》[22] Effectful Functional Programming 的第 14 章，以获得关于带作用的函数式编程的一般性介绍。 7.1 引入示例 考虑以下编程任务： 实现一个函数 sum257 ns，对自然数列表 ns 的第二个、第五个和第七个 元素求和。结果使用 Option ℕ，以便在列表元素太少时返回 Option.none 。 一个直白的解决方案如下： def nth {α : Type} : List α → Nat → Option α [], = Option.none x :: , = Option.some x :: xs, n + 1 = nth xs n def sum257 (ns : List ℕ) : Option ℕ := match nth ns 1 with Option.none = Option.none Option.some n₂ = match nth ns 4 with Option.none = Option.none Option.some n₅ = match nth ns 6 with Option.none = Option.none Option.some n₇ = Option.some (n₂ + n₅ + n₇) （令人困惑的是，nth 从 0 开始计数元素。）这段代码一点也不优雅，因为它充斥着 Pattern Matching 对 Option 的模式匹配。虽然这个编程任务是人为构造的，但我们都能回想起写代 码时遇上层层嵌套的错误处理和不断增加的缩进层级的经历。 我们可以做得更好，方法是将这些丑陋之处集中在一个函数中： def connect {α : Type} {β : Type} : Option α → (α → Option β) → Option β Option.none, = Option.none Option.some a, f = f a connect 函数作用于 Option。如果其值为 Option.none，我们保持原样。这对应 Sticky 于一种错误情况，而错误是带有「粘性1 」的。否则，其值的形式为 Option.some a， Bind 我们对 a 应用操作 f ⸺ 或者说将 f 的参数绑定到 a。现在我们可以使用 connect 来编写求和函数： def sum257Connect (ns : List ℕ) : Option ℕ := connect (nth ns 1) (fun n₂ ↦ connect (nth ns 4) (fun n₅ ↦ connect (nth ns 6) (fun n₇ ↦ Option.some (n₂ + n₅ + n₇)))) 直观上，该程序执行以下步骤： 1. 使用 nth 从列表中提取第二个元素。如果没有该元素，nth 返回 Option.none ；直接返回此值即可。否则，将 n2 绑定到该元素，并继续下一步。 2. 对第五个和第七个元素执行相同的操作，同理推导。 3. 返回 n2、n5 和 n7 的和，并包装在 Option.some 中。 在数学上，我们的新函数 sum257Connect 等于原来的函数 sum257。 Bind Operation 我们不必自己定义 connect，而是使用 Lean 预定义的通用绑定操作。它接受 相同的参数和顺序。以下是新版代码： 译注： 「粘性」指的是一旦程序进入了错误状态，这个错误就会像胶水一样「粘」在处理流中并一 直传递下去，后续的正常操作都会被自动跳过。 7.1. 引入示例 def sum257Bind (ns : List ℕ) : Option ℕ := bind (nth ns 1) (fun n₂ ↦ bind (nth ns 4) (fun n₅ ↦ bind (nth ns 6) (fun n₇ ↦ pure (n₂ + n₅ + n₇)))) Pure Function 我们也使用了预定义的纯函数 pure，而非使用 Option.some 来将一个纯 α 值转换为 Option α。 Syntactic Sugar 使用预定义的 bind 的优点之一是它提供了语法糖，即 = 运算符的形式： def sum257Op (ns : List ℕ) : Option ℕ := nth ns 1 = fun n₂ ↦ nth ns 4 = fun n₅ ↦ nth ns 6 = fun n₇ ↦ pure (n₂ + n₅ + n₇) 语法 oa = f 展开为 bind oa f，其中 oa 的类型为 Option α。 求和程序的倒数第二个版本使用了更重的语法糖： def sum257Dos (ns : List ℕ) : Option ℕ := do let n₂ ← nth ns 1 do let n₅ ← nth ns 4 do let n₇ ← nth ns 6 pure (n₂ + n₅ + n₇) do Notation do 记法为带作用的程序提供了一种方便的语法。程序 do let a ← oa … 等价 于 oa = (fun a ↦ …)。如果我们对 oa 的计算结果不感兴趣，可以省略 let a ← 绑定并写作 do oa …，它会展开为 oa = (fun ↦ …)。 do 记法可以方便地在单个块中允许重复多次 let 绑定。这引出了程序的最终 版本： def sum257Do (ns : List ℕ) : Option ℕ := do let n₂ ← nth ns 1 let n₅ ← nth ns 4 let n₇ ← nth ns 6 pure (n₂ + n₅ + n₇) 带有箭头 ← 的每一行都尝试读取一个值。在失败的情况下，整个程序求值为 Option.none。 上述函数可以被读作一个指令式程序，其中每个 nth 调用都可以抛出一个异常。 但是，即使这种表示法具有指令式风格，该函数仍然是一个纯函数式程序。 7.2 两个操作与三个定律 Option Monad Option 类型构造子是单子的一个例子，被称为选项单子。通常，单子是一个一 元类型构造子 m : Type → Type，并配有两个特殊的操作： pure {α : Type} : α → m α bind {α β : Type} : m α → (α → m β) → m β 通常，大括号表示隐式参数。对于 Option 而言， pure 操作就是单纯的 Option.some ，而 bind 则等同于我们的 connect。 类型 m α 的值是一个带作用的程序。pure 操作将类型为 α 的纯的、无作用的程 序嵌入到 m α 中。bind 操作组合了两个带作用的程序，其类型分别为 m α 和 m β。 第一个程序的输出（类型为 α）被传递给第二个程序。第二个程序的输出也就是二者 组合的程序的输出。 我们可以将单子想象成一个包含某些数据的盒子。这个盒子捕捉了一些特殊的 作用（例如异常、可变状态）。pure 操作将数据放入盒子中，而 bind 允许我们访 问盒子中的数据并修改它 ⸺ 甚至可以改变它的类型，因为结果类型是 m β，而不是 m α。然而，没有通用的方法可以从盒子中提取数据 ⸺ 即从 m α 中获得一个 α。盒 子里可能没有任何 α 值，也可能有多个。 总而言之，pure a 是一个包含值 a 的盒子，没有作用，而 bind ma f（也可以 写作 ma = f 或 do a ← ma; f a）执行 ma，然后使用 ma 的拆箱结果 a 来执行 f。 Boxed Value 将类型为 m α 或 m β 的「装箱值」命名为 ma 或 mb，并将类型为 α 或 β 的数据命名 为 a 或 b 是很方便的约定。 单子是一个具有许多应用场景的抽象概念。选项类型只是众多实例中的一个。下 表概述了一些单子实例及其作用。 7.2. 两个操作与三个定律 类型 作用 id 无作用 Option 简单异常 fun α ↦ σ→ α × σ 传递类型为 σ 的状态 Set 返回 α 值的非确定性计算 fun α ↦ t → α 读取类型为 t 的元素（例如配置） fun α ↦ ℕ× α 附加运行时间（例如建模时间复杂度） fun α ↦ String × α 附加文本输出（例如用于日志记录） IO 与操作系统的交互 TacticM 与证明助手的交互 以上这些都是一元类型构造子 m : Type → Type。一些作用可以组合（例如 fun α ↦ Option (t → α)）。有些作用是不可执行的（例如 Set）；尽管如此，它 们对于抽象地建模程序非常有用。特定的类型构造子 m 可能会提供 pure 和 bind 之外的更多运算符。例如，它们可以提供提取装箱值的方法。 单子有几个好处。它们提供了高度可读的 do 记法。它们支持通用操作，例如 List.mmap {α β : Type} : (α → m β) → List α → m (List β)，这些操作对所 Programming in Lean 有单子 m 都是统一的。引用《Lean 语言编程》[2] 中的话： 这种抽象的力量不仅在于它为所有这些不同的实例提供了通用的函数和 记法，还在于它提供了一种思考它们共同点的有用的方式。 Axiomatic Reasoning 单子除了是一个有用的计算机科学概念外，还提供了一个公理化推理的好例子。 通常 bind 和 pure 操作需要遵守三条定律。bind 操作用于组合两个程序。如 果其中任何一个程序是纯程序，我们可以将其内联并消除 bind。这引出了前两条 定律： do let a' ← pure a = fa = ma f a' 以及 do let a ← ma pure a 第三条定律是 bind 的结合律。它允许我们展平一个嵌套计算： do let b ← do let a ← ma do = fa let a ← ma let b ← f a gb gb 之前我们将单子比作一个盒子。更具体地说，将盒子想象成一个瑞士银行账户 可能会有所帮助，其中 α 是钱。第一条定律意味着如果你把一些钱存入账户，你就可 以把它取出来。第二条定律意味着如果你取走一些钱然后又把它放回去，没有人会 注意到。第三条定律意味着将两项银行操作结合在一起然后再进行第三项操作，与 先单独执行第一项操作然后再执行另外两项操作是一样的。鉴于瑞士银行在保密方 面的声誉，这三条定律似乎都是合理的。 7.3 一种类型类 单子是一种数学结构，因此我们在 Lean 中使用类型类来指定它们。回想一下， 类型类是一个参数化的结构体类型，通常是以类型作为参数，但在这里是以类型构 造子 m : Type → Type 作为参数。每当我们对具体的 m 使用类型类中的字段时，类 型类推导机制就会检索相关的结构体值 ⸺ 即类"
+      "text": "第 7 章 带作用的编程 已对照 Lean zh PDF 与 人工校对（原 PDF 6295–7164 行）。 带作用的编程 （effectful programming）是函数式编程中的一种重要抽象。 单子 （monad）推广了带副作用、异常、非确定性和其他 作用 （effect）的计算，使我们能够在纯函数式语言中编写指令式风格的程序。Haskell 已证明单子非常适合编写指令式程序；对我们而言，单子本身很有趣，还因为以下两点： 它们提供了 公理化推理 （axiomatic reasoning）的绝佳示例； 它们对 Lean 自身的编程也必不可少（ 元编程 ，见第 8 章）。 纯函数式编程有时会让人感到过于受限。带作用的函数式编程提供了一些 习语 （idiom）来缓解这些限制。本笔记受到了 [Programming in Lean][2] 第 7 章的启发，也参考了 [Real World Haskell][22] 第 14 章，以获得关于带作用的函数式编程的一般性介绍。 7.1 引入示例 考虑以下编程任务： 实现函数 ，对自然数列表 的第二个、第五个和第七个元素求和。结果使用 ，以便在列表元素不足时返回 。 一个直白的解决方案如下： （令人困惑的是， 从 0 开始计数元素。）这段代码一点也不优雅，因为它充斥着对 的 模式匹配 （pattern matching）。虽然这个编程任务是人为构造的，但我们都能回想起写代码时遇上层层嵌套的错误处理和不断增加的缩进层级的经历。 我们可以做得更好，方法是将这些丑陋之处集中在一个函数中： 函数作用于 。如果其值为 ，我们保持原样。这对应一种错误情况，而错误是带有「粘性」的——译注：一旦程序进入错误状态，该错误就会像胶水一样「粘」在处理流中并一直传递下去，后续的正常操作都会被自动跳过。否则，其值的形式为 ，我们对 应用操作 ——或者说将 的参数 绑定 （bind）到 。 现在我们可以使用 来编写求和函数： 直观上，该程序执行以下步骤： 1. 使用 从列表中提取第二个元素。如果没有该元素， 返回 ；直接返回此值即可。否则，将 绑定到该元素，并继续下一步。 2. 对第五个和第七个元素执行相同的操作。 3. 返回 、 和 的和，并包装在 中。 在数学上，我们的新函数 等于原来的函数 。 我们不必自己定义 ，而是使用 Lean 预定义的通用 绑定 操作 。它接受相同的参数和顺序。以下是新版代码： 我们也使用了预定义的 纯 操作 ，而非使用 来将一个纯 值转换为 。借助 和 ， 不再直接引用构造子 和 。 使用预定义的 的优点之一是它提供了 语法糖 （syntactic sugar），即 运算符： 语法 展开为 ，其中 的类型为 。 求和程序的倒数第二个版本使用了更重的语法糖： do 记法 （do notation）为带作用的程序提供了一种方便的语法。程序 等价于 。如果我们对 的计算结果不感兴趣，可以省略 绑定并写作 ，它会展开为 。 do 记法可以方便地在单个块中允许多次 绑定。这引出了程序的最终版本： 带有箭头 的每一行都尝试读取一个值。在失败的情况下，整个程序求值为 。上述函数可以被读作一个指令式程序，其中每个 调用都可以抛出一个异常。但是，即使这种表示法具有指令式风格，该函数仍然是一个纯函数式程序。 7.2 两个操作与三个定律 类型构造子是单子的一个例子，被称为 选项单子 （option monad）。通常， 单子 是一个一元类型构造子 ，并配有两个特殊的操作： 通常，大括号表示隐式参数。对于 而言， 操作就是单纯的 ，而 则等同于我们的 。 类型 的值是一个带作用的程序。 操作将类型为 的纯的、无作用的程序嵌入到 中。 操作组合了两个带作用的程序，其类型分别为 和 。第一个程序的输出（类型为 ）被传递给第二个程序；第二个程序的输出也就是二者组合的程序的输出。 我们可以将单子想象成一个包含某些数据的盒子。这个盒子捕捉了一些特殊的作用（例如异常、可变状态）。 操作将数据放入盒子中，而 允许我们访问盒子中的数据并修改它——甚至可以改变它的类型，因为结果类型是 ，而不是 。然而，没有通用的方法可以从盒子中提取数据——即从 中获得一个 。盒子里可能没有任何 值，也可能有多个。 总而言之， 是一个包含值 、没有作用的盒子，而 （也可以写作 或 ）执行 ，然后使用 的拆箱结果 来执行 。 将类型为 或 的「 装箱值 」（boxed value）命名为 或 ，并将类型为 或 的数据命名为 或 ，是很方便的约定。 单子是一个具有许多应用场景的抽象概念。选项类型只是众多实例中的一个。下表概述了一些单子实例及其作用： 类型 作用 无作用 简单异常 传递类型为 的状态 返回 值的非确定性计算 读取类型为 的元素（例如配置） 附加运行时间（例如建模时间复杂度） 附加文本输出（例如用于日志记录） 与操作系统的交互 与证明助手的交互 以上这些都是一元类型构造子 。一些作用可以组合（例如 ）。有些作用是不可执行的（例如 ）；尽管如此，它们对于抽象地建模程序非常有用。特定的类型构造子 可能会提供 和 之外的更多运算符，例如提取装箱值的方法。 单子有几个好处。它们提供了高度可读的 do 记法。它们支持通用操作，例如 ，这些操作对所有单子 都是统一的。引用 [Programming in Lean][2] 中的话： 这种抽象的力量不仅在于它为所有这些不同的实例提供了通用的函数和记法，还在于它提供了一种思考它们共同点的有用的方式。 单子除了是一个有用的计算机科学概念外，还提供了一个公理化推理的好例子。通常 和 操作需要遵守三条定律。 操作用于组合两个程序。如果其中任何一个程序是纯程序，我们可以将其内联并消除 。这引出了前两条定律： 以及 第三条定律是 的 结合律 （associativity）。它允许我们展平一个嵌套计算： 之前我们将单子比作一个盒子。更具体地说，将盒子想象成一个瑞士银行账户可能会有所帮助，其中 是钱。第一条定律意味着如果你把一些钱存入账户，你就可以把它取出来。第二条定律意味着如果你取走一些钱然后又把它放回去，没有人会注意到。第三条定律意味着将两项银行操作结合在一起然后再进行第三项操作，与先单独执行第一项操作然后再执行另外两项操作是一样的。鉴于瑞士银行在保密方面的声誉，这三条定律似乎都是合理的。 7.3 一种类型类 单子是一种数学结构，因此我们在 Lean 中使用 类型类 （type class）来指定它们。回想一下（第 5.6 节），类型类是一个参数化的结构体类型，通常以类型作为参数，但在这里是以类型构造子 作为参数。每当我们对具体的 使用类型类中的字段时， 类型类推导 机制就会检索相关的结构体值——即类型类的 实例 （instance）。 下面是一个可能的单子 Lean 定义，连同三条定律： 让我们逐步研究这个定义： 我们正在创建一个由一元类型构造子 参数化的结构体——即一个类型为 的值。 该结构体从名为 和 的结构体中继承了字段和所有语法糖。这提供了 上的 和 操作，以及期望的类型和语法糖。 最后，在 和 已经提供的字段基础上，增加了三个字段（ 、 和 ）。每个字段都是三条定律之一的证明。 我们将我们的类型类称为 ，因为要求这三条定律成立。要实例化此定义，我们必须提供类型构造子 、合适的 和 运算符，以及定律的证明。 Lean 包含了它自己的单子概念，也称为 。它与我们的定义大致等价，但分布在多个类型类中。 7.4 无作用 在本节以及第 7.5 节到第 7.7 节中，我们将回顾由特定单子提供的各种作用。我们从 恒等单子 （identity monad）开始，它根本不提供任何特殊作用。 Lean 的常量 被定义为恒等函数 。作为单子，我们取一元类型构造子 （即 ）。我们可以将其注册为单子： 注册过程要求我们提供五个组件： 和 操作以及三条定律的证明。 恒等单子是可能的最简单的单子。它提供了一个简单的盒子，其中只有一个值，没有任何作用。它在加法算术中扮演着与 类似的角色。我们可以将其他单子看作是它的变体；例如，选项单子就是增加了代表错误状态的特殊 值的恒等单子。 7.5 基本异常 正如我们在上面看到的， 类型提供了一个基本的异常机制。下面的代码展示了如何将 注册为一个合法单子： 这三个证明都很简单直接。 除了标准操作之外，抛出和捕获异常也很有用。这可以实现如下： 操作会抛出一个异常，使程序处于错误状态（ ）。 操作可用于从之前的异常中恢复。如果程序当前处于错误状态， 会调用一些异常处理代码（其第二个参数）。这段代码可能会依次抛出一个新的异常。如果 应用于正常状态（形式为 ），则什么也不会发生。 作为 的一种便捷替代方案，Lean 支持语法 。这里有一个示意性例子，演示了使用此语法进行抛出和捕获： 相应的 Java 代码如下所示： 只应对一种错误状态。一种更通用的抽象被称为 错误单子 （error monad），它支持不同的错误，就像 Java 和其他编程语言中的异常一样。 7.6 可变状态 状态单子 （state monad）提供了一种对应于可变状态的抽象。对于某些编程语言，编译器可以检测到状态单子的使用，并将使用它们的程序翻译成更高效的指令式程序。 如果你有一些函数式编程的经验，那么你可能写过将全局状态或 语境 （context）在函数调用之间传递的代码：每个函数接受一个语境值，返回一些数据和新的语境。语境实际上是在程序中「穿针引线」（threaded through）。这使我们能够在没有副作用的编程语言中拥有可变状态。上述方法容易出错——很容易忘记一个撇号（ ）并将错误的语境传递给函数——代码也被所有的语境变量弄得杂乱无章。状态单子正是为了让我们能够像写指令式程序那样写代码，同时保持纯函数式语义。 状态单子建立在二元类型构造子 之上，它捕捉了在类型为 的状态上进行计算或操作的概念，其返回值类型为 。在 Lean 中， 被定义为等同于 ： 译注：这个类型构造子在传统上被称为 ，但这个名称非常容易引起混淆。 （由于类型也是项，我们也可以使用 来定义类型缩写。）对于给定的类型 ，我们有 是一个单子。类型 对确切的内存布局进行了抽象。例如，我们可以使用序对或列表来表示内存，并相应地实例化抽象的状态 。 一个 带状态的操作 （stateful action）是一个函数，它接收某个状态并返回一个值和一些新的状态。 的定义中的 部分给出了旧状态；笛卡尔积的左分量 给出了计算的结果；而积的右分量 给出了新的状态。因此，状态被隐式地贯穿于程序之中。与其他带作用的程序一样，do 记法只暴露数据——类型为 的值——并隐藏了作用——旧的和新的 状态。 当 时，这是一个 基数为一 （cardinality one）的类型（类似于 C 或 Java 中的 ），其唯一的值写作 ，这对应于恒等单子：类型 与 是 同构 （isomorphic）的。这种直觉可以指导我们定义 和 。 我们首先定义基本操作：两个操作 和 用于访问内存，以及标准操作 和 ： 操作简单地返回当前状态 （在第一个序对分量中），并保持状态不变（在第二个序对分量中）。 操作将当前状态替换为 并返回 。 操作返回未改变的当前状态 ，并与给定的值 组成 元组 （tuple）。 操作将初始状态传递给 参数，产生一个结果 和一个新的状态 。这些被传递给 ，它返回一个新的结果和新的状态。 类似于 语句；它不改变状态。 类似于关于某个状态的两次语句的顺序组合。 为了将 类型构造子注册为一个合法单子，我们需要像以前一样证明这三条定律： 作为一个具体的例子，下面的程序会删除列表中所有小于前一个元素的元素，留下一个递增的元素列表。最大元素存储为状态 。请注意状态是如何通过 和 访问的。 要执行该程序，我们必须提供一个初始状态。最后一个状态连同结果列表一起返回。它对应于列表中遇到的最大元素或起始状态。因此，命令 产生如下输出： 7.7 非确定性 集合单子 （set mon"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.1 引入示例",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.1 引入示例",
+      "anchor": "7-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.2 两个操作与三个定律",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.2 两个操作与三个定律",
+      "anchor": "7-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.3 一种类型类",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.3 一种类型类",
+      "anchor": "7-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.4 无作用",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.4 无作用",
+      "anchor": "7-4"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.5 基本异常",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.5 基本异常",
+      "anchor": "7-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.6 可变状态",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.6 可变状态",
+      "anchor": "7-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.7 非确定性",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.7 非确定性",
+      "anchor": "7-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.8 通用证明策略",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.8 通用证明策略",
+      "anchor": "7-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.9 一个通用算法：在列表上迭代",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.9 一个通用算法：在列表上迭代",
+      "anchor": "7-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch07_EffectfulProgramming.md",
+      "title": "第 7 章 带作用的编程 › 7.10 新引入的 Lean 结构总结",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "7.10 新引入的 Lean 结构总结",
+      "anchor": "7-10-lean"
     },
     {
       "kind": "chapter",
@@ -20913,7 +21013,197 @@
       "path": "love/ch08_Metaprogramming.md",
       "title": "第 8 章 元编程",
       "section": "第二部分 函数式与逻辑编程",
-      "text": "第 8 章 元编程 由 Lean zh PDF 自动提取（7165–8040 行），代码块与公式尚需人工校对。 元编程 和大多数证明助手一样，Lean 可以通过自定义策略和其他功能进行扩展。对 Metaprogramming Lean 自身进行编程，而不仅仅是使用它，被称为元编程。Lean 的元编程框架大多使 用与 Lean 输入语言相同的概念和语法，因此我们不需要学习不同的语言来对 Lean 进行编程。单子被用来访问 Lean 的状态。 Abstract Syntax Tree 以归纳类型呈现的抽象语法树反映了内部数据结构。证明助手的内部结构通过 Lean 函数公开，我们可以使用这些函数来访问当前目标、统一项、查询和修改全局 语境，以及设置属性（例如 @[simp]）。 下面是元编程的一些示例应用： Negation Normal Form 目标转换（例如：应用安全的引入规则，将目标置于否定范式）； Backtracking 启发式证明搜索（例如：结合回溯应用非安全的引入规则）； Decision Procedure 判定过程（例如：针对线性算术、命题逻辑）； 定义生成器（例如：归纳类型的 Haskell 风格的 deriving）； 建议工具（例如：定理查找器、反例生成器）； 导出器（例如：文档生成器）； ad hoc Boilerplate 特设证明自动化（为了避免样板代码或重复）。 正如数学家及 Lean 用户 Kevin Buzzard 所写的：1 Grinding 如果你发现自己正在「刷怪」（借用电脑游戏的用语），一遍又一遍地做 着同样的事情，因为你需要这样做才能取得进展，那么你可以试着说服 一位计算机科学家为你编写一个策略（或者如果你足够勇敢，可以编写 meta 元 Lean 代码，甚至可以自己编写策略）。 https://xenaproject.wordpress.com/2020/02/09/lean is better forproper maths than all the other theorem provers/ 策略组合子 8.1 Fail 首先，有一些术语：如果应用一个策略产生了错误，则该策略失败；否则，它 Succeed 成功。策略成功的一种方式是完全证明目标。另一种方式是产生替换当前目标的新 子目标。有些策略通过什么都不做来取得成功。 在编写我们自己的策略时，我们经常需要在多个目标上重复某些操作，或者在 Tactic Combinator 策略失败时进行恢复。在这种情况下，策略组合子会很有帮助。 最实用的策略组合子之一是 repeat' tactic。它在所有目标上重复调用 tactic， 然后在产生的子目标上调用，再在产生的子子目标上调用，依此类推，直到 tactic 在所有可用目标上都失败为止。下面是一个涉及第 6 章中介绍的 Even 谓词的 repeat' 示例： theorem repeat' example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro repeat' apply Even.add two 在第一个 repeat' 行之后，证明状态包含四个目标： ⊢ Even 4 ⊢ Even 7 ⊢ Even 3 ⊢ Even 0 请注意，所有的合取项都消失了。第二个 repeat' 重复应用定理 Even.add two : ∀k, Even k → Even (k + 2)，留下了这些目标： ⊢ Even 0 ⊢ Even 1 ⊢ Even 1 ⊢ Even 0 第一个和最后一个目标很烦人，因为它们对应于定理 Even.zero。我们可以在 应用 Even.add two 失败时尝试应用 Even.zero 来证明它们。这可以通过以下方 式实现： theorem repeat' first example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro repeat' first apply Even.add two apply Even.zero 8.1. 策略组合子 策略组合子 first tactic1 ⋯ tacticn 首先尝试执行其第一个参数 tactic1 。如果失败，则尝试 tactic2 ，依此类推。如果所有指定的策略都失败，则 整个组合子也会失败。在上面的示例中，我们还剩两个无法证明的目标： ⊢ Even 1 ⊢ Even 1 下一个组合子 all goals tactic 在每个目标上恰好调用一次策略。该组合 子仅在 tactic 在「所有」目标上都成功时才成功。在下面的示例中它会失败，因 为 Even.add two 无法应用于目标 ⊢ Even 0： theorem all goals example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro all goals apply Even.add two fails 为了忽略 tactic 的失败，我们可以将其包装在 try 组合子中： theorem all goals try example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro all goals try apply Even.add two 结果状态为 ⊢ Even 2 ⊢ Even 5 ⊢ Even 1 ⊢ Even 0 结构 try tactic 等价于 first tactic skip，其中 skip 是一个不做 任何事情就成功的策略。因此 try tactic 总是成功。一个相关的策略是 done：如 果没有剩余目标则成功，否则失败。 另一个变体是 any goals tactic 组合子。它尝试在每个目标上调用一次 tactic， 但与 all goals 不同，只要 tactic 在任何目标上成功，它就会成功。示例 theorem any goals example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro any goals apply Even.add two 结果状态为 ⊢ Even 2 ⊢ Even 5 ⊢ Even 1 ⊢ Even 0 这与前一个示例中的状态相同。通常，区别在于 any goals tactic 可能会失 败，而 all goals try tactic 总是成功。 有时我们希望除非能完全证明一个目标，否则不去管它。组合子solve tactic1 ⋯ tacticn 首先尝试执行其第一个参数 tactic1 。如果这未能证明目标，则尝 试 tactic2 ，依此类推。如果所有指定的策略都未能证明目标，则整个组合子失败。 （将此行为与 first tactic1 ⋯ tacticn 的行为进行比较，后者只要求指定 的策略之一成功，而不要求证明目标。）考虑这个示例： theorem any goals solve repeat first example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by repeat' apply And.intro any goals solve repeat' first apply Even.add two apply Even.zero 第一个和第四个目标已被证明，剩下的两个无法证明的目标与定理陈述中的完 全一致： ⊢ Even 7 ⊢ Even 3 请注意，repeat' 组合子可能会导致无限循环。考虑这个示例： theorem repeat' Not example : ¬ Even 1 := by repeat' apply Not.intro Not.intro 规则是 (?a → False) → ¬ ?a，因此它应用一次将目标转换为 ⊢ Even 1 → False。由于 ¬ ?a 被定义为 ?a → False，该规则再次应用，再次产生 相同的目标。该策略会发生死循环。 And Then 最后， 「继而」运算符 <; 可用于连接两个策略。左侧在第一个目标上执行。右 侧在产生的每个子目标上执行（但不在原始的第二个、第三个等目标上执行）。因此， 我们可以这样写 8.2. 宏 by induction n <; aesop 而非更冗长的版本 by induction n with zero = aesop succ n' ih = aesop 8.2 宏 Macro 让我们通过将自定义策略编码为宏，来进行一些实际的元编程。该策略体现了 我们在上面的 solve 示例中硬编码的行为： macro \"intro and even\" : tactic = '(tactic (repeat' apply And.intro any goals solve repeat' first apply Even.add two apply Even.zero)) Syntactic Category 第一行将 intro and even 声明为属于 tactic 语法范畴的宏。在其余行中， '(tactic tactic) 结构将指定的策略 tactic 嵌入到宏中。策略本身是使用标 准语法指定的。 一旦我们定义了自定义策略，就可以在证明中调用它： theorem intro and even example : Even 4 ∧ Even 7 ∧ Even 3 ∧ Even 0 := by intro and even 这会产生子目标 ⊢ Even 7 ⊢ Even 3 8.3 元编程单子 宏是一种可用于编写简单证明自动化的机制。然而，对于大多数元编程任务，我 们需要使用元编程单子：MetaM 和 TacticM。 MetaM 结合了几种单子的属性： Context 它是一个状态单子，提供对全局语境 （包括所有定义和归纳类型）、记法和属性 （例如 @[simp] 定理列表）等的访问。 它的行为类似于选项单子。元程序 failure 表示策略已失败。 tracing 它支持追踪，因此我们可以使用程序 logInfo 来显示消息。 它支持指令式结构，例如 for–in 循环、continue 语句和return 语句。 TacticM 通过目标管理扩展了 MetaM：它提供对目标列表的访问。它还允许我 们运行 Lean 来填充表达式中的隐式 { } 和类型类 [ ] 参数、展开宏等等。 Metavariable 在 Lean 内部，每个目标都表示为一个元变量 ?m，代表一个缺失的项（通常是 一个证明项）。每个元变量都有一个类型（通常是一个命题）和一个局部语境，指定 了可以用来证明与该元变量相关联的目标的变量和假设。 让我们通过定义一个利用 TacticM 追踪功能的策略，来实际使用一下 TacticM。 Main Goal 该策略将显示 Lean 版本号、目标列表以及第一个目标的目的（Lean 称之为主目标）： def traceGoals : TacticM Unit := do logInfo m!\"Lean version {Lean.versionString}\" logInfo \"All goals:\" let goals ← getUnsolvedGoals logInfo m!\"{goals}\" match goals with [] = return :: = logInfo \"First goal's target:\" let target ← getMainTarget logInfo m!\"{target}\" elab \"trace goals\" : tactic "
+      "text": "第 8 章 元编程 已对照 Lean zh PDF 与 人工校对（原 PDF 7165–8040 行）。 和大多数证明助手一样，Lean 可以通过自定义策略和其他工具进行扩展。对 Lean 自身进行编程，而不仅仅是使用它，被称为 元编程 （metaprogramming）。Lean 的元编程框架大多使用与 Lean 输入语言相同的概念和语法，因此我们不需要学习另一门语言来对 Lean 进行编程。第 7 章介绍的 单子 （monad）被用来访问 Lean 的状态。 以归纳类型呈现的 抽象语法树 （abstract syntax tree，AST）反映了内部数据结构。证明助手的内部结构通过 Lean 函数公开，我们可以使用这些函数来 访问当前语境与目标； 统一项； 查询和修改 环境 （environment）； 设置属性（例如 ）。 Lean 自身的大部分都是用 Lean 实现的。 下面是元编程的一些示例应用： 目标转换 （例如：应用安全的引入规则，将目标置于否定范式）； 启发式证明搜索 （例如：结合回溯应用非安全的引入规则）； 判定过程 （decision procedure）（例如：针对线性算术、命题逻辑）； 定义生成器 （例如：归纳类型的 Haskell 风格的 ）； 建议工具 （例如：定理查找器、反例生成器）； 导出器 （例如：文档生成器）； 特设证明自动化 （ad hoc proof automation）（为了避免样板代码或重复）。 Lean 元编程框架的优势在于： 用户无需学习另一门编程语言即可编写元程序；他们可以使用与在证明助手库中定义普通对象相同的构造和记法。 该库中的一切都可用于元编程。 元程序可以在同一个交互式环境中编写和调试，从而鼓励一种形式化库与支持自动化同步开发的风格。 正如数学家及 Lean 用户凯文·巴扎德（Kevin Buzzard）所写的：[^buzzard grinding] 如果你发现自己正在「刷怪」（ grinding ，借用电脑游戏的用语），一遍又一遍地做着同样的事情，因为你需要这样做才能取得进展，那么你可以试着说服一位计算机科学家为你编写一个策略（或者——如果你足够勇敢——可以编写元 Lean 代码，甚至可以自己编写策略）。 [^buzzard grinding]: https://xenaproject.wordpress.com/2020/02/09/lean is better for proper maths than all the other theorem provers/ 8.1 策略组合子 首先，有一些术语：如果应用一个策略产生了错误，则该策略 失败 （fail）；否则，它 成功 （succeed）。策略成功的一种方式是完全证明目标。另一种方式是产生替换当前目标的新子目标。有些策略通过什么都不做来取得成功。 在编写我们自己的策略时，我们经常需要在多个目标上重复某些操作，或者在策略失败时进行恢复。在这种情况下， 策略组合子 （tactic combinator）会很有帮助。 最实用的策略组合子之一是 。它在所有目标上重复调用策略，然后在产生的子目标上调用，再在产生的子子目标上调用，依此类推，直到策略在所有可用目标上都失败为止。下面是一个涉及第 6 章中介绍的 谓词的 示例： 在第一个 行之后，证明状态包含四个目标： 请注意，所有的合取项都消失了。第二个 重复应用定理 ，留下了这些目标： 第一个和最后一个目标很烦人，因为它们对应于定理 。我们可以在应用 失败时尝试应用 来证明它们。这可以通过以下方式实现： 策略组合子 首先尝试执行其第一个参数 。如果失败，则尝试 ，依此类推。如果所有指定的策略都失败，则整个组合子也会失败。在上面的示例中，我们还剩两个无法证明的目标： 下一个组合子 在每个目标上恰好调用一次策略。该组合子仅在 在 所有 目标上都成功时才成功。在下面的示例中它会失败，因为 无法应用于目标 ： 为了忽略 的失败，我们可以将其包装在 组合子中： 结果状态为 结构 等价于 ，其中 是一个不做任何事情就成功的策略。因此 总是成功。一个相关的策略是 ：如果没有剩余目标则成功，否则失败。 另一个变体是 组合子。它尝试在每个目标上调用一次 ，但与 不同，只要 在 任何 目标上成功，它就会成功： 结果状态为 这与前一个示例中的状态相同。通常，区别在于 可能会失败，而 总是成功。 有时我们希望除非能完全证明一个目标，否则不去管它。组合子 首先尝试执行其第一个参数 。如果这未能证明目标，则尝试 ，依此类推。如果所有指定的策略都未能证明目标，则整个组合子失败。（将此行为与 的行为进行比较，后者只要求指定的策略之一成功，而不要求证明目标。）考虑这个示例： 第一个和第四个目标已被证明，剩下的两个无法证明的目标与定理陈述中的完全一致： 请注意， 组合子可能会导致无限循环。考虑这个示例： 规则是 ，因此它应用一次将目标转换为 。由于 被定义为 ，该规则再次应用，再次产生相同的目标。该策略会发生死循环。 最后，「 继而 」（and then）运算符 可用于连接两个策略。左侧在第一个目标上执行。右侧在产生的每个子目标上执行（但不在原始的第二个、第三个等目标上执行）。因此，我们可以这样写 而非更冗长的版本 8.2 宏 让我们通过将自定义策略编码为 宏 （macro），来进行一些实际的元编程。该策略体现了我们在上面的 示例中硬编码的行为： 第一行将 声明为属于 语法范畴 （syntactic category）的宏。在其余行中， 结构将指定的策略 嵌入到宏中。策略本身是使用标准语法指定的。 一旦我们定义了自定义策略，就可以在证明中调用它： 这会产生子目标 8.3 元编程单子 宏是一种可用于编写简单证明自动化的机制。然而，对于大多数元编程任务，我们需要使用元编程单子： 和 。 是底层的元编程单子。 在 的基础上扩展了目标管理。 结合了几种单子的属性： 它是一个 状态单子 （state monad），提供对全局语境（包括所有定义和归纳类型）、记法和属性（例如 定理列表）等的访问。 额外提供对目标列表的访问。 它的行为类似于 选项单子 （option monad）。元程序 表示策略已失败。 它支持 追踪 （tracing），因此我们可以使用 来显示消息。 它支持指令式结构，例如 – 循环、 语句和 语句。 还允许我们运行 Lean 来填充表达式中的隐式 和类型类 参数、展开宏等等。 在 Lean 内部，每个目标都表示为一个 元变量 （metavariable） ，代表一个缺失的项（通常是一个证明项）。每个元变量都有一个类型（通常是一个命题）和一个局部语境，指定了可以用来证明与该元变量相关联的目标的变量和假设。 让我们通过定义一个利用 追踪功能的策略，来实际使用一下 。该策略将显示 Lean 版本号、目标列表以及第一个目标的目的（Lean 称之为 主目标 （main goal））： 这段代码有许多有趣的特性： 第一行声明了一个类型为 的函数 ——这是返回 （一个基数为 1 的平凡类型）的策略类型。注意，元编程函数的定义使用了与任何 Lean 函数相同的语法。 第二行进入了单子。其余行是访问 Lean 内部结构的带作用的操作。 语法指定了一个字符串，其中每个出现的 （其中 是一个 Lean 项）都会被求值并序列化为字符串。例如，如果 是 ，那么 会求值为字符串 。 最后两行使用 命令，告诉 Lean 的解析器将字符串 识别为一个策略。当 Lean 遇到这个策略时，它会运行 命令主体中的元程序——在这里是 。（当我们之前使用更高层级的 命令时， 是在底层被调用的。） 下面是一个展示如何使用新策略的示例： 将鼠标悬停在 上，可见输出如下： 虽然 Lean 使用熟悉的 语法显示目标，但它们实际上是元变量。上述程序中使用的常量具有以下类型： 其中 代表消息， 代表元变量标识符，而 代表项。 8.4 第一个示例：一个 Assumption 策略 我们的第一个较大的示例实现了一个 策略，它像预定义的 策略一样，寻找正确类型（即正确的命题）的假设，并应用它来证明目标： 在 函数中，我们首先提取第一个目标的目的和局部语境。为了确保 给出的是当前第一个目标的局部语境，我们将整个 块传递给 函数。通常，任何 计算都是在环境局部语境中执行的，该语境为表达式中出现的自由变量赋予了意义。 函数将此局部语境设置为当前第一个目标的局部语境。 在 块内部，我们使用方便的单子结构 – 遍历局部语境中的所有声明。对于每个不是所谓「实现细节」（即 Lean 插入的对用户不可见的假设）的局部变量或假设 ，我们检查其类型（通常是其命题）在计算和元变量实例化后是否等于目标。如果是，我们获取与第一个目标关联的元变量，并将 分配给它，从而证明该目标。最后，我们 。 由于目标由元变量表示，将一个项分配给元变量 是 Lean 证明目标的底层方式。该项中出现的新元变量对应于必须证明的新子目标。 下面是 的一个简单调用： 如果我们添加追踪，那么可以看到在找到匹配的假设 并成功应用之前，会依次尝试 、 和 。 该示例使用了以下新常量： 8.5 表达式 元编程框架围绕着 表达式 （expression）或 项 （term）的类型 展开。表达式的一个重要组成部分是类型为 的 名称 （name）。我们从它们开始。 8.5.1 名称 名称可以使用单反引号指定。例如 ` x ` x Even LoVe.Even ` Even ` LoVe.Even Expr Expr Expr.const name levels name Nat.add ℕ levels Expr.const ` 代表 ，而 代表 （即 ）。 8.5.4 类型（Sorts） 用于表示类型的类型。例如， 代表 ，而 代表 。 8.5.5 自由变量 代表局部语境中的自由变量（例如 、 ）。 参数是该变量的唯一标识符。 8.5.6 元变量 代表元变量，即带问号的变量 。 参数是该元变量的唯一标识符。 8.5.7 应用 代表函数 应用于参数 。例如， 代表 。 8.5.8 匿名函数与绑定变量 代表匿名函数（或 λ 表达式）。 参数是绑定变量的名称， 参数是绑定变量的类型， 参数是函数体，而 参数存储该变量是显式 、隐式 还是类型类 参数。 代表绑定变量，使用的是一种被称为 De Bruijn 索引 （De Bruijn index）的记法。 指代由最近的 绑定子 （binder）绑定的变量， 指代由第二近的绑定子绑定的变量，依此类推。 因此， x (Expr.const ` 代表 ，而 代表 。 8.5.9 依值函数类型 代表可能 依值 （dependent）的函数类型。 参数是绑定变量的名称， 参数是定义域类型， 参数是结果类型，而 与上述 相同。例如， n (Expr.const ` 代表 （也写成 ），而 dummy (Expr.const Bool []) BinderInfo.default ℕ → Bool Expr.letE let Expr.lit Expr.mdata Expr.proj destruct and by destruct and h hP h hypothesis do withMainContext inferType isDefEq do hP P hypothesis true hP Q ∧ R hQ := And.left hP Q hR := And.right hP R partial partial mkAppM [1, 2, 3] mkAppM Expr.app mkAppM Q R And.left And.right getFVarFromUserName h false destruct and prove direct isTheorem true false name mkConstWithFreshMVarLevels cst MVa"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.1 策略组合子",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.1 策略组合子",
+      "anchor": "8-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.2 宏",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.2 宏",
+      "anchor": "8-2"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.3 元编程单子",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.3 元编程单子",
+      "anchor": "8-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.4 第一个示例：一个 Assumption 策略",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.4 第一个示例：一个 Assumption 策略",
+      "anchor": "8-4-assumption"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5 表达式",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5 表达式",
+      "anchor": "8-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.1 名称",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.1 名称",
+      "anchor": "8-5-1"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.2 `Expr` 的定义",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.2 `Expr` 的定义",
+      "anchor": "8-5-2-expr"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.3 常量",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.3 常量",
+      "anchor": "8-5-3"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.4 类型（Sorts）",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.4 类型（Sorts）",
+      "anchor": "8-5-4-sorts"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.5 自由变量",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.5 自由变量",
+      "anchor": "8-5-5"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.6 元变量",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.6 元变量",
+      "anchor": "8-5-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.7 应用",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.7 应用",
+      "anchor": "8-5-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.8 匿名函数与绑定变量",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.8 匿名函数与绑定变量",
+      "anchor": "8-5-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.9 依值函数类型",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.9 依值函数类型",
+      "anchor": "8-5-9"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.5.10 其他构造子",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.5.10 其他构造子",
+      "anchor": "8-5-10"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.6 第二个示例：一个合取式分解策略",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.6 第二个示例：一个合取式分解策略",
+      "anchor": "8-6"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.7 第三个示例：一个直接证明查找器",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.7 第三个示例：一个直接证明查找器",
+      "anchor": "8-7"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.8 杂项策略",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.8 杂项策略",
+      "anchor": "8-8"
+    },
+    {
+      "kind": "heading",
+      "bookId": "love",
+      "bookTitleZh": "逻辑验证漫游指南",
+      "path": "love/ch08_Metaprogramming.md",
+      "title": "第 8 章 元编程 › 8.9 新引入的 Lean 结构总结",
+      "section": "第二部分 函数式与逻辑编程",
+      "text": "8.9 新引入的 Lean 结构总结",
+      "anchor": "8-9-lean"
     },
     {
       "kind": "chapter",
